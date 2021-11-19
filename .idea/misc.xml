@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/font/font_family.xml" value="0.1" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/activity_main.xml" value="0.67" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/aktivitas_petugas.xml" value="0.371875" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/detail_siswa.xml" value="0.371875" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/fragment_homepage.xml" value="0.371875" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/fragment_login_switcher.xml" value="0.371875" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/histori_petugas.xml" value="0.371875" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/homepage_petugas.xml" value="0.371875" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/homepage_siswa.xml" value="0.371875" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/login.xml" value="0.18085106382978725" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/login_petugas.xml" value="0.1" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/login_switcher.xml" value="0.1" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/petugas_petugas.xml" value="0.371875" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/rincianSpp_petugas.xml" value="0.371875" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/siswa_petugas.xml" value="0.371875" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/spp_petugas.xml" value="0.371875" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/spp_siswa.xml" value="0.371875" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/tambahpetugas_petugas.xml" value="0.371875" />
+        <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/transaksi_siswa.xml" value="0.371875" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

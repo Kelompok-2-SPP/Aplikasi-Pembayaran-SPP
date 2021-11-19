@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/login">
+
+    <fragment
+        android:id="@+id/login"
+        android:name="com.lleans.spp_kelompok_2.Login"
+        android:label="fragment_login_switcher"
+        tools:layout="@layout/login" >
+        <action
+            android:id="@+id/action_login_to_homepage2"
+            app:destination="@id/homepage_siswa" />
+        <action
+            android:id="@+id/action_login_to_homepage3"
+            app:destination="@id/homepage_petugas" />
+    </fragment>
+    <fragment
+        android:id="@+id/homepage_siswa"
+        android:name="com.lleans.spp_kelompok_2.siswa.Homepage"
+        android:label="homepage_siswa"
+        tools:layout="@layout/homepage_siswa" >
+        <action
+            android:id="@+id/action_homepage2_to_spp"
+            app:destination="@id/spp_siswa" />
+        <action
+            android:id="@+id/action_homepage2_to_transaksi"
+            app:destination="@id/transaksi_siswa" />
+    </fragment>
+    <fragment
+        android:id="@+id/homepage_petugas"
+        android:name="com.lleans.spp_kelompok_2.petugas.Homepage"
+        android:label="homepage_petugas"
+        tools:layout="@layout/homepage_petugas" >
+        <action
+            android:id="@+id/action_homepage_petugas_to_aktivitasPetugas"
+            app:destination="@id/aktivitas_petugas" />
+        <action
+            android:id="@+id/action_homepage_petugas_to_histori_petugas"
+            app:destination="@id/histori_petugas" />
+        <action
+            android:id="@+id/action_homepage_petugas_to_petugas_petugas"
+            app:destination="@id/petugas_petugas" />
+        <action
+            android:id="@+id/action_homepage_petugas_to_petugas_petugas2"
+            app:destination="@id/petugas_petugas" />
+        <action
+            android:id="@+id/action_homepage_petugas_to_spp_petugas"
+            app:destination="@id/spp_petugas" />
+        <action
+            android:id="@+id/action_homepage_petugas_to_siswa"
+            app:destination="@id/siswa_petugas" />
+        <action
+            android:id="@+id/action_homepage_petugas_to_kelas_petugas"
+            app:destination="@id/kelas_petugas" />
+    </fragment>
+    <fragment
+        android:id="@+id/spp_siswa"
+        android:name="com.lleans.spp_kelompok_2.siswa.Spp"
+        android:label="spp_siswa"
+        tools:layout="@layout/spp_siswa" />
+    <fragment
+        android:id="@+id/transaksi_siswa"
+        android:name="com.lleans.spp_kelompok_2.siswa.transaksi.Transaksi"
+        android:label="transaksi_siswa"
+        tools:layout="@layout/transaksi_siswa" >
+        <action
+            android:id="@+id/action_transaksi_siswa_to_rincianTransaksi_siswa"
+            app:destination="@id/rincianTransaksi_siswa" />
+    </fragment>
+    <fragment
+        android:id="@+id/aktivitas_petugas"
+        android:name="com.lleans.spp_kelompok_2.petugas.aktivitas.Aktivitas"
+        android:label="aktivitas_petugas"
+        tools:layout="@layout/aktivitas_petugas" >
+        <action
+            android:id="@+id/action_aktivitas_petugas_to_rincianTransaksi_siswa"
+            app:destination="@id/rincianTransaksi_siswa" />
+    </fragment>
+    <fragment
+        android:id="@+id/histori_petugas"
+        android:name="com.lleans.spp_kelompok_2.petugas.histori.Histori"
+        android:label="histori_petugas"
+        tools:layout="@layout/histori_petugas" >
+        <action
+            android:id="@+id/action_histori_petugas_to_rincianTransaksi_siswa"
+            app:destination="@id/rincianTransaksi_siswa" />
+    </fragment>
+    <fragment
+        android:id="@+id/petugas_petugas"
+        android:name="com.lleans.spp_kelompok_2.petugas.petugas.Petugas"
+        android:label="petugas_petugas"
+        tools:layout="@layout/petugas_petugas" >
+        <action
+            android:id="@+id/action_petugas_petugas_to_tambahPetugas"
+            app:destination="@id/detailPetugas_petuga" />
+        <action
+            android:id="@+id/action_petugas_petugas_to_tambahpetugas_petugas"
+            app:destination="@id/tambahpetugas_petugas" />
+    </fragment>
+    <fragment
+        android:id="@+id/spp_petugas"
+        android:name="com.lleans.spp_kelompok_2.petugas.spp.Spp"
+        android:label="spp_petugas"
+        tools:layout="@layout/spp_petugas" >
+        <action
+            android:id="@+id/action_spp_petugas_to_rincianSpp_petugas"
+            app:destination="@id/rincianSpp_petugas" />
+        <action
+            android:id="@+id/action_spp_petugas_to_tambahspp_petugas"
+            app:destination="@id/tambahspp_petugas" />
+    </fragment>
+    <fragment
+        android:id="@+id/siswa_petugas"
+        android:name="com.lleans.spp_kelompok_2.petugas.siswa.Siswa"
+        android:label="siswa_petugas"
+        tools:layout="@layout/siswa_petugas" >
+        <action
+            android:id="@+id/action_siswa_petugas_to_detail_siswa"
+            app:destination="@id/statussiswa_petugas" />
+        <action
+            android:id="@+id/action_siswa_petugas_to_tambahSiswa"
+            app:destination="@id/tambahSiswa_petugas" />
+    </fragment>
+    <fragment
+        android:id="@+id/rincianTransaksi_siswa"
+        android:name="com.lleans.spp_kelompok_2.siswa.transaksi.Rincian"
+        android:label="fragment_rincian_transaksi_siswa"
+        tools:layout="@layout/rinciantransaksi_siswa" />
+    <fragment
+        android:id="@+id/kelas_petugas"
+        android:name="com.lleans.spp_kelompok_2.petugas.kelas.Kelas"
+        android:label="kelas_petugas"
+        tools:layout="@layout/kelas_petugas" >
+        <action
+            android:id="@+id/action_kelas_petugas_to_siswa_petugas"
+            app:destination="@id/siswa_petugas" />
+        <action
+            android:id="@+id/action_kelas_petugas_to_tambahKelas_petugas"
+            app:destination="@id/tambahKelas_petugas" />
+    </fragment>
+    <fragment
+        android:id="@+id/statussiswa_petugas"
+        android:name="com.lleans.spp_kelompok_2.petugas.siswa.Status"
+        android:label="detail_siswa"
+        tools:layout="@layout/status_siswa" >
+        <action
+            android:id="@+id/action_status_siswa_to_rincianTransaksi_siswa2"
+            app:destination="@id/rincianTransaksi_siswa" />
+    </fragment>
+    <fragment
+        android:id="@+id/rincianSpp_petugas"
+        android:name="com.lleans.spp_kelompok_2.petugas.spp.RincianSpp"
+        android:label="rincian_spp"
+        tools:layout="@layout/rincianspp_petugas" />
+    <fragment
+        android:id="@+id/tambahKelas_petugas"
+        android:name="com.lleans.spp_kelompok_2.petugas.kelas.TambahKelas"
+        android:label="tambahkelas_petugas"
+        tools:layout="@layout/tambahkelas_petugas" />
+    <fragment
+        android:id="@+id/tambahSiswa_petugas"
+        android:name="com.lleans.spp_kelompok_2.petugas.siswa.TambahSiswa"
+        android:label="tambahsiswa_petugas"
+        tools:layout="@layout/tambahsiswa_petugas" />
+    <fragment
+        android:id="@+id/detailPetugas_petuga"
+        android:name="com.lleans.spp_kelompok_2.petugas.petugas.DetailPetugas"
+        android:label="tambahpetugas_petugas"
+        tools:layout="@layout/detailpetugas_petugas" />
+    <fragment
+        android:id="@+id/tambahpetugas_petugas"
+        android:name="com.lleans.spp_kelompok_2.petugas.petugas.TambahPetugas"
+        android:label="tambahpetugas_petugas"
+        tools:layout="@layout/tambahpetugas_petugas" />
+    <fragment
+        android:id="@+id/tambahspp_petugas"
+        android:name="com.lleans.spp_kelompok_2.petugas.spp.TambahSpp"
+        android:label="tambahspp_petugas"
+        tools:layout="@layout/tambahspp_petugas" />
+</navigation>
