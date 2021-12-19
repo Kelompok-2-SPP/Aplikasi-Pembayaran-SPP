@@ -32,7 +32,7 @@ public interface ApiInterface {
 
     //    KELAS
     @GET("kelas")
-    Call<List<KelasData>> getKelas(
+    Call<KelasData> getKelas(
             @Query("id_kelas") int id_kelas,
             @Query("nama_kelas") String nama_kelas,
             @Query("jurusan") String jurusan,
@@ -42,7 +42,7 @@ public interface ApiInterface {
     );
 
     @GET("kelas")
-    Call<List<KelasData>> keywordKelas(
+    Call<KelasData> keywordKelas(
             @Query("keyword") String keyword
     );
 
@@ -64,14 +64,14 @@ public interface ApiInterface {
     );
 
     @DELETE("kelas")
-    Call<List<KelasData>> deleteKelas(
+    Call<KelasData> deleteKelas(
             @Query("id_kelas") int id_kelas
     );
 
 
     //    PEMBAYARAN
     @GET("pembayaran")
-    Call<List<PembayaranData>> getPembayaran(
+    Call<PembayaranData> getPembayaran(
             @Query("id_pembayaran") int id_pembayaran,
             @Query("id_petugas") int id_petugas,
             @Query("nisn") String nisn,
@@ -85,13 +85,13 @@ public interface ApiInterface {
     );
 
     @GET("pembayaram")
-    Call<List<PembayaranData>> keywordPembayaran(
+    Call<PembayaranData> keywordPembayaran(
             @Query("keyword") String keyword
     );
 
     @FormUrlEncoded
     @POST("pembayaran")
-    Call<List<PembayaranData>> postPembayaran(
+    Call<PembayaranData> postPembayaran(
             @Field("id_petugas") int id_kelas,
             @Field("nisn") String nisn,
             @Field("tgl_dibayar") String tgl_dibayar,
@@ -103,7 +103,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @PUT("pembayaran")
-    Call<List<PembayaranData>> putPembayaran(
+    Call<PembayaranData> putPembayaran(
             @Field("id_pembayaran") int id_pemabayaran,
             @Field("id_petugas") int id_kelas,
             @Field("nisn") String nisn,
@@ -115,14 +115,14 @@ public interface ApiInterface {
     );
 
     @DELETE("pembayaran")
-    Call<List<PembayaranData>> deletePembayaram(
+    Call<PembayaranData> deletePembayaram(
             @Query("id_pembayaran") int id_kelas
     );
 
 
     //    PETUGAS
     @GET("petugas")
-    Call<List<PetugasData>> getPetugas(
+    Call<PetugasData> getPetugas(
             @Query("id_petugas") int id_petugas,
             @Query("username") String username,
             @Query("nama_petugas") String nama_petugas,
@@ -132,13 +132,13 @@ public interface ApiInterface {
     );
 
     @GET("petugas")
-    Call<List<PetugasData>> keywordPetugas(
+    Call<PetugasData> keywordPetugas(
             @Query("keyword") String keyword
     );
 
     @FormUrlEncoded
     @POST("petugas")
-    Call<List<PetugasData>> postPetugas(
+    Call<PetugasData> postPetugas(
             @Field("username") String username,
             @Field("password") String password,
             @Field("nama_petugas") String nama_petugas,
@@ -147,7 +147,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @PUT("petugas")
-    Call<List<PetugasData>> putPetugas(
+    Call<PetugasData> putPetugas(
             @Field("id_petugas") int id_petugas,
             @Field("username") String username,
             @Field("password") String password,
@@ -156,14 +156,14 @@ public interface ApiInterface {
     );
 
     @DELETE("petugas")
-    Call<List<PetugasData>> deletePetugas(
+    Call<PetugasData> deletePetugas(
             @Query("id_petugas") int id_petugas
     );
 
 
     //    SISWA
     @GET("siswa")
-    Call<List<SiswaData>> getSiswa(
+    Call<SiswaData> getSiswa(
             @Query("nisn") String nisn,
             @Query("nis") String nis,
             @Query("nama") String nama,
@@ -175,13 +175,13 @@ public interface ApiInterface {
     );
 
     @GET("keyword")
-    Call<List<SiswaData>> keywordSiswa(
+    Call<SiswaData> keywordSiswa(
             @Query("keyword") String keyword
     );
 
     @FormUrlEncoded
     @POST("siswa")
-    Call<List<SiswaData>> postSiswa(
+    Call<SiswaData> postSiswa(
             @Field("nisn") String nisn,
             @Field("nis") String nis,
             @Field("password") String password,
@@ -193,7 +193,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @PUT("siswa")
-    Call<List<SiswaData>> putSiswa(
+    Call<SiswaData> putSiswa(
             @Field("nisn") String nisn,
             @Field("new_nisn") String new_nisn,
             @Field("nis") String nis,
@@ -205,14 +205,14 @@ public interface ApiInterface {
     );
 
     @DELETE("siswa")
-    Call<List<SiswaData>> deleteSiswa(
+    Call<SiswaData> deleteSiswa(
             @Query("nisn") String nisn
     );
 
 
     //    SPP
     @GET("spp")
-    Call<List<SppData>> getSpp(
+    Call<SppData> getSpp(
             @Query("id_spp") int id_spp,
             @Query("angkatan") int angkatan,
             @Query("tahun") int tahun,
@@ -222,13 +222,13 @@ public interface ApiInterface {
     );
 
     @GET("spp")
-    Call<List<SppData>> keywordSpp(
+    Call<SppData> keywordSpp(
             @Query("keyword") String keyword
     );
 
     @FormUrlEncoded
     @POST("spp")
-    Call<List<SiswaData>> postSpp(
+    Call<SiswaData> postSpp(
             @Field("angkatan") int angkatan,
             @Field("tahun") int tahun,
             @Field("naominal") int nominal
@@ -236,7 +236,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @PUT("spp")
-    Call<List<SiswaData>> putSpp(
+    Call<SiswaData> putSpp(
             @Field("id_spp") int id_spp,
             @Field("angkatan") int angkatan,
             @Field("tahun") int tahun,
@@ -245,7 +245,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @DELETE("spp")
-    Call<List<SppData>> deleteSpp(
+    Call<SppData> deleteSpp(
             @Field("id_spp") int id_spp
     );
 }
