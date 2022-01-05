@@ -1,14 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="pilih tipe login disini" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="288dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="34dp"
+            android:layout_marginTop="71dp"
+            android:background="#00000000"
+            android:text="Login Petugas"
+            android:textColor="#FF0000"
+            android:textSize="40dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/masukkan_ni"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20sp"
+            android:layout_marginBottom="20dp"
+            android:text="Masukkan Username dan Password anda yang sudah terdaftar."
+            android:textColor="#3D3E49"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loginLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+
+        <TextView
+            android:id="@+id/tv_uname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NISN"
+            android:textColor="#3D3E49"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape"
+            android:ems="12"
+            android:hint="Username"
+            android:inputType="textPersonName"
+            android:padding="13sp"
+            android:textColorHint="#3D3E49"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Password"
+            android:textColor="#3D3E49"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape"
+            android:ems="12"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="13sp"
+            android:textColorHint="#3D3E49"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="25dp"
+        android:src="@drawable/login_button" />
+
+
+</LinearLayout>
