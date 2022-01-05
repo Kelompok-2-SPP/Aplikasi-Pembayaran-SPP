@@ -1,193 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/scrollview2"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="80dp"
+                android:background="@drawable/shape"
+                android:orientation="vertical"
+                android:padding="20dp">
 
                 <TextView
-
-                    android:id="@+id/header"
-                    android:layout_width="288dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="34dp"
-                    android:background="#00000000"
-                    android:text="Hai, Wahyuningsih!"
-                    android:textColor="#FF0000"
-                    android:textSize="40dp"
+                    android:text="Agung Guntur Wijaya"
+                    android:textAlignment="center"
+                    android:textSize="45sp"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="25dp" />
-                android:src="@drawable/Logout"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="VA. 5220498072883050"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
             </LinearLayout>
-        </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/loginLayout"
-            android:layout_width="336dp"
-            android:layout_height="122dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/dashboard"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingBottom="20dp">
-
-
-            <ImageButton
-                android:id="@+id/datakelas"
-                android:layout_width="79dp"
-                android:layout_height="62dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/datakelas" />
-
-            <ImageButton
-                android:id="@+id/histori"
-                android:layout_width="48dp"
-                android:layout_height="62dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/histori" />
-
-
-            <ImageButton
-                android:id="@+id/inputdata"
-                android:layout_width="79dp"
-                android:layout_height="60dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/datasiswa" />
-
-        </LinearLayout>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center|top"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/green"
+                android:gravity="center"
+                android:text="AW"
+                android:textColor="@color/neutral_white"
+                android:textSize="35sp"
+                android:textStyle="bold" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="27dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="34dp"
-                android:text="Total SPP"
-                android:textColor="#3D3E49"
-                android:textStyle="bold" />
+            android:background="@drawable/shape"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="34dp"
-                    android:text="Lihat Semua"
-                    android:textColor="#9E9FA4" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/bg"
-            android:layout_width="353dp"
-            android:layout_height="139dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bgijo"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingBottom="20dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:background="@drawable/shape"
+                android:orientation="horizontal"
                 android:padding="10dp">
 
                 <TextView
-                    android:layout_width="90dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total SPP Oktober"
-                    android:textColor="#FEFEFE"
-                    android:textStyle="bold" />
+                    android:text="NISN"
+                    android:textSize="15sp" />
 
                 <TextView
-                    android:layout_width="90dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Klik untuk detailnya"
-                    android:textColor="#FEFEFE"
-                    android:textSize="10sp" />
+                    android:gravity="end"
+                    android:text="0034523226"
+                    android:textSize="15sp" />
             </LinearLayout>
 
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider" />
 
-                <ImageView
-                    android:id="@+id/frame"
-                    android:layout_width="108dp"
-                    android:layout_height="43dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:src="@drawable/putih" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/nominal"
-                    android:layout_width="90dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="28dp"
-                    android:layout_marginTop="11dp"
-                    android:text="Rp. 500.000"
-                    android:textColor="#01C370"
-                    android:textStyle="bold" />
-            </FrameLayout>
+                    android:text="NIS"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="SMK-326324"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="Sawojajar, Malang"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No. Telp"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="083462786523"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/shape"
+            android:backgroundTint="@color/primary_color"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:weightSum="2">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/shape"
+                android:stateListAnimator="@null"
+                android:text="Status SPP"
+                android:textAllCaps="false"
+                android:textColor="@color/neutral_white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/primary_color" />
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="0dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/shape"
+                android:stateListAnimator="@null"
+                android:text="Histori"
+                android:textAllCaps="false"
+                android:textColor="@color/primary_color"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/neutral_white" />
         </LinearLayout>
 
         <LinearLayout
@@ -200,22 +213,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="34dp"
-                android:text="Aktivitas"
-                android:textColor="#3D3E49"
+                android:text="2021"
+                android:textColor="#9E9FA4"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="34dp"
-                    android:text="Lihat Semua"
-                    android:textColor="#9E9FA4" />
-            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -293,8 +296,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginLeft="-40dp"
+                android:orientation="vertical"
                 android:padding="10dp">
 
                 <TextView
@@ -357,8 +360,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginLeft="-40dp"
+                android:orientation="vertical"
                 android:padding="10dp">
 
                 <TextView
@@ -406,6 +409,5 @@
 
         </LinearLayout>
 
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
