@@ -218,8 +218,20 @@
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="353dp"
+            android:layout_height="12dp"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+            app:layout_constraintEnd_toEndOf="@+id/imageView7"
+            app:layout_constraintHorizontal_bias="0.426"
+            app:layout_constraintStart_toStartOf="@+id/imageView7"
+            app:layout_constraintTop_toTopOf="@+id/textView14"
+            app:layout_constraintVertical_bias="0.555"
+            app:srcCompat="@drawable/garis" />
 
         <LinearLayout
             android:id="@+id/cardPutih"

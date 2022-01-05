@@ -25,7 +25,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/loginLayout"
+        android:id="@+id/tambahkelasLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"

@@ -35,8 +35,12 @@
         <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/item_row_kelas.xml" value="0.1598731884057971" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/kelas_petugas.xml" value="0.4" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/login.xml" value="0.19519927536231885" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/rinciantransaksi_siswa.xml" value="0.46779661016949153" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/status_siswa.xml" value="0.19519927536231885" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahkelas_petugas.xml" value="0.264" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahpetugas_petugas.xml" value="0.19519927536231885" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahsiswa_petugas.xml" value="0.19519927536231885" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahspp_petugas.xml" value="0.176" />
       </map>
     </option>
   </component>
