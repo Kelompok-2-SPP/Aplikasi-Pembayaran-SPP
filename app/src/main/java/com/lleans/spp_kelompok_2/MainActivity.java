@@ -10,14 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button tes;
+    ImageButton tes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tes = (Button) findViewById(R.id.buttonTest);
+        tes = (ImageButton) findViewById(R.id.sisaLogin);
         tes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
