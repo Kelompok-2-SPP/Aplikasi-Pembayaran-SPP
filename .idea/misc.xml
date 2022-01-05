@@ -22,19 +22,15 @@
         <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/spp_siswa.xml" value="0.371875" />
         <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/tambahpetugas_petugas.xml" value="0.371875" />
         <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/transaksi_siswa.xml" value="0.371875" />
-        <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/search_back.xml" value="0.19583333333333333" />
         <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/aktivitas_petugas.xml" value="0.1638888888888889" />
         <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/histori_petugas.xml" value="0.17692307692307693" />
-        <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/homepage_petugas.xml" value="0.22" />
-        <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/item_row_kelas.xml" value="0.1796875" />
-        <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/kelas_petugas.xml" value="0.1796875" />
         <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/login.xml" value="0.17692307692307693" />
         <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/siswa_petugas.xml" value="0.17692307692307693" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" project-jdk-name="16" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
