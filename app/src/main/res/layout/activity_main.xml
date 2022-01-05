@@ -42,8 +42,8 @@
     <ImageView
         android:layout_width="320dp"
         android:layout_height="332dp"
-        android:layout_gravity="center"/>
-<!--        android:src="@drawable/illust" />-->
+        android:layout_gravity="center"
+        android:src="@drawable/illust"/>
 
     <ImageButton
         android:id="@+id/sisaLogin"
