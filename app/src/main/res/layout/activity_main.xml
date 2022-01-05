@@ -46,7 +46,7 @@
         android:src="@drawable/illust"/>
 
     <ImageButton
-        android:id="@+id/sisaLogin"
+        android:id="@+id/siswaLogin"
         android:layout_width="308dp"
         android:layout_height="65dp"
         android:layout_gravity="center"

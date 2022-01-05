@@ -27,5 +27,6 @@
     <color name="transparent_green">#46CD93</color>
 
     <color name="bg">#F9F9F9</color>
+    <color name="black">#FF000000</color>
 
 </resources>
