@@ -1,20 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:orientation="vertical"
+    android:background="@color/bg"
     tools:context=".MainActivity">
 
+
+    <ScrollView
+        android:id="@+id/scrollview2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="288dp"
         android:layout_height="wrap_content"
-        android:text="Disini pilih tipe login"
-        android:fontFamily="@font/regular"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/semibold"
+        android:text="Login Sebagai ?"
+        android:textColor="#FF0000"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:layout_width="320dp"
+        android:layout_height="332dp"
+        android:layout_gravity="center"
+        android:src="@drawable/illust" />
+
+    <ImageButton
+        android:layout_width="308dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@color/bg"
+        android:scaleType="centerInside"
+        android:src="@drawable/siswaa"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:layout_width="308dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@color/bg"
+        android:scaleType="centerInside"
+        android:src="@drawable/petugass"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
