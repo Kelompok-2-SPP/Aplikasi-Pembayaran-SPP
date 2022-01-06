@@ -46,7 +46,8 @@
             <ImageButton
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/Edit"
+                android:scaleType="centerCrop"
+                android:background="@drawable/edit"
                 android:layout_gravity="bottom"/>
         </LinearLayout>
 
