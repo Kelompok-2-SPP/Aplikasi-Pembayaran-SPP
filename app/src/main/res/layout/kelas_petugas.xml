@@ -7,36 +7,65 @@
     android:background="#FFFFFF"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_height="wrap_content"
+    <ScrollView
+        android:id="@+id/scrollview2"
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
-        <EditText
-            android:id="@+id/editTextTextPersonName"
-            android:layout_width="337dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/search_back"
-            android:drawablePadding="10dp"
-            android:ems="10"
-            android:hint="Cari Kelas"
-            android:inputType="textPersonName"
-            android:paddingStart="20dp"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_kelas"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/item_row_kelas" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName"
+                    android:layout_width="337dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/search_back"
+                    android:drawableStart="@drawable/ic_baseline_search_24"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:hint="Cari Kelas"
+                    android:inputType="textPersonName"
+                    android:paddingStart="20dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_kelas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_row_kelas" />
+
+                <ImageButton
+                    android:id="@+id/btnPlus"
+                    android:layout_width="51dp"
+                    android:layout_height="51dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="25dp"
+                    android:background="@drawable/button_plus" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

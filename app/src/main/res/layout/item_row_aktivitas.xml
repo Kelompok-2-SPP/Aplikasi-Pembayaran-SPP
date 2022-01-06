@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="99dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="5dp"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:id="@+id/cardPutih"
+        android:layout_width="353dp"
+        android:layout_height="90dp"
+        android:layout_gravity="center"
+        android:background="@drawable/putihaja"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingRight="0dp"
+        android:paddingBottom="20dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-40dp"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/nama_siswa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rizal Kurniawan"
+                android:textColor="#3D3E49"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/kelas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XII RPL 3 •"
+                    android:textColor="#3D3E49"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="Lunas"
+                    android:textColor="#01C370"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/nominalkurang"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:text="Rp. 500.000"
+            android:textColor="#3D3E49"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+</LinearLayout>
