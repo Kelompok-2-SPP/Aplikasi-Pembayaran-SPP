@@ -43,9 +43,10 @@
         android:layout_width="320dp"
         android:layout_height="332dp"
         android:layout_gravity="center"
-        android:src="@drawable/illust" />
+        android:src="@drawable/illust"/>
 
     <ImageButton
+        android:id="@+id/siswaLogin"
         android:layout_width="308dp"
         android:layout_height="65dp"
         android:layout_gravity="center"
