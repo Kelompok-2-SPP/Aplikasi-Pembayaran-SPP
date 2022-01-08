@@ -57,6 +57,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
+        android:id="@+id/petugas_login"
         android:layout_width="308dp"
         android:layout_height="65dp"
         android:layout_gravity="center"
