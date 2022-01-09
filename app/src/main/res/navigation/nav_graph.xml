@@ -12,10 +12,14 @@
         tools:layout="@layout/login" >
         <action
             android:id="@+id/action_login_to_homepage2"
-            app:destination="@id/homepage_siswa" />
+            app:destination="@id/homepage_siswa"
+            app:enterAnim="@anim/readernav_enter"
+            app:popExitAnim="@anim/readernav_exit" />
         <action
             android:id="@+id/action_login_to_homepage3"
-            app:destination="@id/homepage_petugas" />
+            app:destination="@id/homepage_petugas"
+            app:enterAnim="@anim/readernav_enter"
+            app:popExitAnim="@anim/readernav_exit" />
     </fragment>
     <fragment
         android:id="@+id/homepage_siswa"

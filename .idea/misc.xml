@@ -3,6 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14210526315789473" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/circle.xml" value="0.2450657894736842" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/edit.xml" value="0.2450657894736842" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14210526315789473" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/search_back.xml" value="0.2450657894736842" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/shape.xml" value="0.2450657894736842" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/shape_red.xml" value="0.2450657894736842" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/activity_launcher_fragment.xml" value="0.11538461538461539" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/aktivitas_petugas.xml" value="0.2348684210526316" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/aktivitas_transaksi.xml" value="0.2348684210526316" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/homepage_petugas.xml" value="0.25" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/homepage_siswa.xml" value="0.16" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/login.xml" value="0.33" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/rincianspp_petugas.xml" value="0.25" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/status_siswa.xml" value="0.1319078947368421" />
         <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/font/font_family.xml" value="0.1" />
         <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/activity_main.xml" value="0.67" />
         <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/aktivitas_petugas.xml" value="0.371875" />
