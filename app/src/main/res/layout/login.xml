@@ -93,7 +93,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/btnnext"
+        android:id="@+id/btnnex"
         android:layout_width="51dp"
         android:layout_height="51dp"
         android:background="@drawable/login_button"
