@@ -57,7 +57,7 @@
                     android:layout_height="70dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:src="@drawable/putih" />
+                    android:src="@drawable/shape_white" />
 
                 <TextView
                     android:layout_width="wrap_content"
