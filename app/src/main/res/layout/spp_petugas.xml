@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15sp"
             android:text="Total SPP"
+            android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/neutral_white"
     </LinearLayout>

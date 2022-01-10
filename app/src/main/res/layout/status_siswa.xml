@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,8 +14,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp">
+
             <LinearLayout
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="170dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/kotakdp"
@@ -37,11 +40,13 @@
                     android:text="VA. 5220498072883050"
                     />
             </LinearLayout>
+
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:background="@drawable/circle"
                 android:backgroundTint="@color/green"
+                android:layout_marginTop="90dp"
                 android:textSize="35sp"
                 android:gravity="center"
                 android:textColor="@color/neutral_white"
@@ -49,7 +54,37 @@
                 android:text="AW"
                 android:layout_gravity="center|top"
                 />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_red_lancip"
+                    android:padding="20dp">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/back_button"
+                        android:layout_gravity="center"
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15sp"
+                        android:text="Status Siswa"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="@color/neutral_white"
+                </LinearLayout>
+            </LinearLayout>
+
         </FrameLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
