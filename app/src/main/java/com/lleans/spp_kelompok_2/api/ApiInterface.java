@@ -24,8 +24,15 @@ public interface ApiInterface {
     //    AUTH
     @FormUrlEncoded
     @POST("auth")
-    Call<AuthData> postAuth(
+    Call<AuthData> postAuthPetugas(
             @Field("username") String username,
+            @Field("password") String password
+    );
+
+    @FormUrlEncoded
+    @POST("auth")
+    Call<AuthData> postAuthSiswa(
+            @Field("nisn") String nisn,
             @Field("password") String password
     );
 

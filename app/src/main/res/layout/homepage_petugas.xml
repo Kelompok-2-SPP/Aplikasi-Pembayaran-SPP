@@ -11,6 +11,7 @@
         android:id="@+id/scrollview2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -52,8 +53,9 @@
                     android:layout_gravity="right"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginRight="25dp" />
-                android:src="@drawable/Logout"
+                    android:layout_marginRight="25dp"
+                    android:src="@drawable/kelwar"/>
+
             </LinearLayout>
         </LinearLayout>
 
@@ -220,7 +222,7 @@
         </LinearLayout>
 
 
-            //kedua
+            // kedua
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

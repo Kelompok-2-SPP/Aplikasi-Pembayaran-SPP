@@ -9,9 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
     private static Retrofit retrofit;
-    private static final String baseUrl = Resources.getSystem().getString(R.string.API_ENDPOINT);
+    private static final String baseUrl = "https://praktek-ukk-spp.herokuapp.com/api/v1/";
 
-    public static  Retrofit getRetrofit() {
+    public static  Retrofit getClient() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
