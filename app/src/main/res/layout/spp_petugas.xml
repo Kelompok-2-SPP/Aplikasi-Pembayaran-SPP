@@ -261,6 +261,15 @@
                     </FrameLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <ImageButton
+                android:id="@+id/btnPlus"
+                android:layout_width="51dp"
+                android:layout_height="51dp"
+                android:layout_gravity="right"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/button_plus" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
