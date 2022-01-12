@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/header"
+            android:id="@+id/loginHeader"
             android:layout_width="288dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="34dp"
@@ -24,7 +24,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/masukkan_ni"
+            android:id="@+id/loginDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30sp"
@@ -47,7 +47,7 @@
 
 
         <TextView
-            android:id="@+id/tv_uname"
+            android:id="@+id/usrnameLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="NISN"
@@ -55,7 +55,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/usernameEdt"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="5dp"
@@ -77,7 +77,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/passwordEdt"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="5dp"
@@ -93,7 +93,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/btnnex"
+        android:id="@+id/logInBtn"
         android:layout_width="51dp"
         android:layout_height="51dp"
         android:background="@drawable/login_button"

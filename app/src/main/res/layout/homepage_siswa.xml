@@ -58,6 +58,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/detailSpp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -143,7 +144,7 @@
                     app:layout_constraintVertical_bias="0.065" />
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/lihatSemuaTransaksi"
                     android:layout_width="85dp"
                     android:layout_height="21dp"
                     android:layout_marginTop="32dp"
@@ -165,7 +166,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView15"
-                    app:srcCompat="@drawable/kotak1"
+                    android:background="@drawable/kotak1"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
@@ -176,6 +177,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView8"
+                    android:background="@drawable/kotak1"
                     app:srcCompat="@drawable/kotak1"
                     tools:ignore="SpeakableTextPresentCheck" />
 

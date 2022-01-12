@@ -27,11 +27,11 @@
         android:label="homepage_siswa"
         tools:layout="@layout/homepage_siswa" >
         <action
-            android:id="@+id/action_homepage2_to_spp"
-            app:destination="@id/spp_siswa" />
-        <action
             android:id="@+id/action_homepage2_to_transaksi"
             app:destination="@id/transaksi_siswa" />
+        <action
+            android:id="@+id/action_homepage_siswa_to_rincianSpp_petugas"
+            app:destination="@id/rincianSpp_petugas" />
     </fragment>
     <fragment
         android:id="@+id/homepage_petugas"
@@ -60,11 +60,6 @@
             android:id="@+id/action_homepage_petugas_to_kelas_petugas"
             app:destination="@id/kelas_petugas" />
     </fragment>
-    <fragment
-        android:id="@+id/spp_siswa"
-        android:name="com.lleans.spp_kelompok_2.siswa.Spp"
-        android:label="spp_siswa"
-        tools:layout="@layout/spp_siswa" />
     <fragment
         android:id="@+id/transaksi_siswa"
         android:name="com.lleans.spp_kelompok_2.siswa.transaksi.Transaksi"

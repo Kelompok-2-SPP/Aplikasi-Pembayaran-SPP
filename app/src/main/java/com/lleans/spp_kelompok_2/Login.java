@@ -36,7 +36,7 @@ public class Login extends Fragment {
     private static boolean isNumeric(String string) {
         int intValue;
 
-        if(string == null || string.equals("")) {
+        if (string == null || string.equals("")) {
             return false;
         }
 
@@ -51,21 +51,23 @@ public class Login extends Fragment {
     private void login(String username, String password) {
         String type;
         Call<AuthData> logind;
+        //bikin api client
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        if(isNumeric(username)){
+        if (isNumeric(username)) {
             type = "siswa";
             logind = apiInterface.postAuthSiswa(username, password);
-        }else {
+        } else {
             type = "petugas";
             logind = apiInterface.postAuthPetugas(username, password);
         }
+        // makai client
         logind.enqueue(new Callback<AuthData>() {
             @Override
             public void onResponse(Call<AuthData> call, Response<AuthData> response) {
-                if(response.body() != null && response.isSuccessful() && response.body().getDetails().isLogged()){
+                if (response.body() != null && response.isSuccessful() && response.body().getDetails().isLogged()) {
                     JWT token = new JWT(response.body().getDetails().getToken());
                     Bundle bundle = new Bundle();
-                    if(type == "petugas") {
+                    if (type == "petugas") {
                         String username = token.getClaim("username").asString();
                         Toast.makeText(getContext(), username, Toast.LENGTH_SHORT);
                         bundle.putString("username", username);
@@ -86,15 +88,16 @@ public class Login extends Fragment {
         });
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         nav = Navigation.findNavController(view);
 
-        binding.loginBtn.setOnClickListener(v -> {
-            String username = binding.usernameEdit.getText().toString();
-            String pasword = binding.passwordEdit.getText().toString();
+        binding.logInBtn.setOnClickListener(v -> {
+            String username = binding.usernameEdt.getText().toString();
+            String pasword = binding.passwordEdt.getText().toString();
             login(username, pasword);
         });
     }
@@ -106,9 +109,10 @@ public class Login extends Fragment {
         binding = LoginBinding.inflate(inflater, container, false);
 
         if (type.equals("siswa")) {
-            binding.header.setText("Login Siswa");
-            binding.logindesc.setText("Masukkan NISN dan Password anda yang sudah terdaftar.");
-            binding.usernameLabel.setText("NISN");
+            binding.loginHeader.setText("Login Siswa");
+            binding.loginDesc.setText("Masukkan NISN dan Password anda yang sudah terdaftar.");
+            binding.usrnameLabel.setText("NISN");
+            binding.usernameEdt.setHint("NISN");
         }
         return binding.getRoot();
     }
