@@ -69,8 +69,10 @@
                     android:src="@drawable/cardss"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -181,16 +183,7 @@
                     app:srcCompat="@drawable/kotak1"
                     tools:ignore="SpeakableTextPresentCheck" />
 
-                <ImageButton
-                    android:id="@+id/imageView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView9"
-                    app:srcCompat="@drawable/kotak1"
-                    tools:ignore="SpeakableTextPresentCheck" />
+
 
                 <TextView
                     android:id="@+id/textView17"
@@ -266,54 +259,15 @@
                     android:id="@+id/textView21"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
                     android:fontFamily="@font/bold"
                     android:text="Rp500.000"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView11"
                     app:layout_constraintHorizontal_bias="0.793"
                     app:layout_constraintStart_toEndOf="@+id/textView23"
-                    app:layout_constraintTop_toTopOf="@+id/imageView9" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/semibold"
-                    android:text="2021	• Juli"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/imageView11"
-                    app:layout_constraintTop_toTopOf="@+id/imageView11" />
-
-                <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/medium"
-                    android:text="Lunas"
-                    android:textColor="#01C370"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView11"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView11"
-                    app:layout_constraintHorizontal_bias="0.069"
-                    app:layout_constraintStart_toStartOf="@+id/imageView11" />
-
-                <TextView
-                    android:id="@+id/textView22"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/bold"
-                    android:text="Rp500.000"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView11"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView11"
-                    app:layout_constraintHorizontal_bias="0.844"
-                    app:layout_constraintStart_toEndOf="@+id/textView2"
-                    app:layout_constraintTop_toTopOf="@+id/imageView11"
-                    app:layout_constraintVertical_bias="0.534" />
+                    app:layout_constraintTop_toTopOf="@+id/imageView9"
+                    app:layout_constraintVertical_bias="0.526" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
