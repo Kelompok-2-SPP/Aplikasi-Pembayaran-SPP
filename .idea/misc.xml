@@ -28,6 +28,7 @@
         <entry key="..\:/Users/Asus/AndroidStudioMoklet/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/shape.xml" value="0.28615384615384615" />
         <entry key="..\:/Users/Asus/AndroidStudioMoklet/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/shape_red.xml" value="0.28615384615384615" />
         <entry key="..\:/Users/Asus/AndroidStudioMoklet/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/shape_red_lancip.xml" value="0.28615384615384615" />
+        <entry key="..\:/Users/Asus/AndroidStudioMoklet/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/activity_main.xml" value="0.1334853090172239" />
         <entry key="..\:/Users/Asus/AndroidStudioMoklet/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/aktivitas_transaksi.xml" value="0.264" />
         <entry key="..\:/Users/Asus/AndroidStudioMoklet/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/detailpetugas_petugas.xml" value="0.264" />
         <entry key="..\:/Users/Asus/AndroidStudioMoklet/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/login.xml" value="0.1334853090172239" />
@@ -40,7 +41,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
