@@ -184,4 +184,9 @@
         android:name="com.lleans.spp_kelompok_2.petugas.spp.TambahSpp"
         android:label="tambahspp_petugas"
         tools:layout="@layout/tambahspp_petugas" />
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.lleans.spp_kelompok_2.BlankFragment"
+        android:label="fragment_blank"
+        tools:layout="@layout/fragment_blank" />
 </navigation>
