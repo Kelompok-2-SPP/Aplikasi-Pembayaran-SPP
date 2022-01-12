@@ -17,6 +17,7 @@ import com.lleans.spp_kelompok_2.databinding.HomepageSiswaBinding;
 public class Homepage extends Fragment {
 
     private HomepageSiswaBinding binding;
+    private String username;
 
     public Homepage() {
         // Required empty public constructor
@@ -32,6 +33,9 @@ public class Homepage extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = HomepageSiswaBinding.inflate(inflater, container, false);
+        username = getArguments().getString("username");
+        binding.header.setText("Hai, "+username);
+
         return binding.getRoot();
     }
 }

@@ -47,4 +47,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'org.glassfish:javax.annotation:10.0-b28'
+
+    // -- JWT Decode
+    def jwtVersion = "2.0.1"
+    implementation "com.auth0.android:jwtdecode:$jwtVersion"
 }
