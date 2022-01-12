@@ -50,7 +50,7 @@
             android:id="@+id/usrnameLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="NISN"
+            android:text="Username"
             android:textColor="#3D3E49"
             android:textStyle="bold" />
 

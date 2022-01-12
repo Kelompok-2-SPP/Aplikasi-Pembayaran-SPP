@@ -92,7 +92,7 @@
 
 
             <ImageButton
-                android:id="@+id/inputdata"
+                android:id="@+id/datasiswa"
                 android:layout_width="79dp"
                 android:layout_height="60dp"
                 android:layout_alignParentLeft="true"
