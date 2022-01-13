@@ -30,7 +30,11 @@ public class Homepage extends Fragment {
         // Contoh navigation
         final NavController nav = Navigation.findNavController(view);
         // Cari id navigation di nav graph
+        binding.datakelas.setOnClickListener(v -> nav.navigate(R.id.action_homepage_petugas_to_kelas_petugas));
+        binding.histori.setOnClickListener(v -> nav.navigate(R.id.action_homepage_petugas_to_histori_petugas));
+        binding.datasiswa.setOnClickListener(v -> nav.navigate(R.id.action_homepage_petugas_to_siswa));
         binding.SppSemua.setOnClickListener(v -> nav.navigate(R.id.action_homepage_petugas_to_spp_petugas));
+        binding.aktivitasPetugas.setOnClickListener(v -> nav.navigate(R.id.action_homepage_petugas_to_aktivitasPetugas));
     }
 
     @Override
