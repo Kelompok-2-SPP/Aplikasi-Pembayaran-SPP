@@ -1,72 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/bg"
-    tools:context=".MainActivity">
+    android:fillViewport="true"
+    tools:context=".ui.MainActivity">
 
-
-    <ScrollView
-        android:id="@+id/scrollview2"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="288dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/semibold"
+            android:text="Login Sebagai ?"
+            android:textColor="#FF0000"
+            android:textSize="40sp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.061" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="320dp"
+            android:layout_height="332dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/illust"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <ImageButton
+            android:id="@+id/siswaLoginBtn"
+            android:layout_width="308dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="39dp"
+            android:layout_marginBottom="30dp"
+            android:background="@color/bg"
+            android:scaleType="centerInside"
+            android:src="@drawable/siswaa"
+            app:layout_constraintBottom_toTopOf="@+id/petugasLoginBtn"
+            app:layout_constraintEnd_toEndOf="@+id/petugasLoginBtn"
+            app:layout_constraintStart_toStartOf="@+id/petugasLoginBtn"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/petugasLoginBtn"
+            android:layout_width="308dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="60dp"
+            android:background="@color/bg"
+            android:scaleType="centerInside"
+            android:src="@drawable/petugass"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageView
+            android:id="@+id/splashScreen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-    <TextView
-        android:layout_width="288dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/semibold"
-        android:text="Login Sebagai ?"
-        android:textColor="#FF0000"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:visibility="visible"
+            android:background="@color/primary_color"
+            android:src="@drawable/ic_launcher_foreground"/>
 
-    <ImageView
-        android:layout_width="320dp"
-        android:layout_height="332dp"
-        android:layout_gravity="center"
-        android:src="@drawable/illust"/>
-
-    <ImageButton
-        android:id="@+id/siswaLogin"
-        android:layout_width="308dp"
-        android:layout_height="65dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="@color/bg"
-        android:scaleType="centerInside"
-        android:src="@drawable/siswaa"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <ImageButton
-        android:id="@+id/petugas_login"
-        android:layout_width="308dp"
-        android:layout_height="65dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@color/bg"
-        android:scaleType="centerInside"
-        android:src="@drawable/petugass"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

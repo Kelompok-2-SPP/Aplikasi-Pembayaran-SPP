@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/login"
-        android:name="com.lleans.spp_kelompok_2.Login"
+        android:name="com.lleans.spp_kelompok_2.ui.login.Login"
         android:label="fragment_login_switcher"
         tools:layout="@layout/login" >
         <action
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/homepage_siswa"
-        android:name="com.lleans.spp_kelompok_2.siswa.Homepage"
+        android:name="com.lleans.spp_kelompok_2.ui.main.siswa.Homepage"
         android:label="homepage_siswa"
         tools:layout="@layout/homepage_siswa" >
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/homepage_petugas"
-        android:name="com.lleans.spp_kelompok_2.petugas.Homepage"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.Homepage"
         android:label="homepage_petugas"
         tools:layout="@layout/homepage_petugas" >
         <action
@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/transaksi_siswa"
-        android:name="com.lleans.spp_kelompok_2.siswa.transaksi.Transaksi"
+        android:name="com.lleans.spp_kelompok_2.ui.main.siswa.transaksi.Transaksi"
         android:label="transaksi_siswa"
         tools:layout="@layout/transaksi_siswa" >
         <action
@@ -71,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/aktivitas_petugas"
-        android:name="com.lleans.spp_kelompok_2.petugas.aktivitas.Aktivitas"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.aktivitas.Aktivitas"
         android:label="aktivitas_petugas"
         tools:layout="@layout/aktivitas_petugas" >
         <action
@@ -80,7 +80,7 @@
     </fragment>
     <fragment
         android:id="@+id/histori_petugas"
-        android:name="com.lleans.spp_kelompok_2.petugas.histori.Histori"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.histori.Histori"
         android:label="histori_petugas"
         tools:layout="@layout/histori_petugas" >
         <action
@@ -89,7 +89,7 @@
     </fragment>
     <fragment
         android:id="@+id/petugas_petugas"
-        android:name="com.lleans.spp_kelompok_2.petugas.petugas.Petugas"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.petugas.Petugas"
         android:label="petugas_petugas"
         tools:layout="@layout/petugas_petugas" >
         <action
@@ -101,7 +101,7 @@
     </fragment>
     <fragment
         android:id="@+id/spp_petugas"
-        android:name="com.lleans.spp_kelompok_2.petugas.spp.Spp"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.spp.Spp"
         android:label="spp_petugas"
         tools:layout="@layout/spp_petugas" >
         <action
@@ -113,7 +113,7 @@
     </fragment>
     <fragment
         android:id="@+id/siswa_petugas"
-        android:name="com.lleans.spp_kelompok_2.petugas.siswa.Siswa"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.siswa.Siswa"
         android:label="siswa_petugas"
         tools:layout="@layout/siswa_petugas" >
         <action
@@ -125,12 +125,12 @@
     </fragment>
     <fragment
         android:id="@+id/rincianTransaksi_siswa"
-        android:name="com.lleans.spp_kelompok_2.siswa.transaksi.Rincian"
+        android:name="com.lleans.spp_kelompok_2.ui.main.siswa.transaksi.Rincian"
         android:label="fragment_rincian_transaksi_siswa"
         tools:layout="@layout/rinciantransaksi_siswa" />
     <fragment
         android:id="@+id/kelas_petugas"
-        android:name="com.lleans.spp_kelompok_2.petugas.kelas.Kelas"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.kelas.Kelas"
         android:label="kelas_petugas"
         tools:layout="@layout/kelas_petugas" >
         <action
@@ -142,7 +142,7 @@
     </fragment>
     <fragment
         android:id="@+id/statussiswa_petugas"
-        android:name="com.lleans.spp_kelompok_2.petugas.siswa.Status"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.siswa.Status"
         android:label="detail_siswa"
         tools:layout="@layout/status_siswa" >
         <action
@@ -151,37 +151,32 @@
     </fragment>
     <fragment
         android:id="@+id/rincianSpp_petugas"
-        android:name="com.lleans.spp_kelompok_2.petugas.spp.RincianSpp"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.spp.RincianSpp"
         android:label="rincian_spp"
         tools:layout="@layout/rincianspp_petugas" />
     <fragment
         android:id="@+id/tambahKelas_petugas"
-        android:name="com.lleans.spp_kelompok_2.petugas.kelas.TambahKelas"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.kelas.TambahKelas"
         android:label="tambahkelas_petugas"
         tools:layout="@layout/tambahkelas_petugas" />
     <fragment
         android:id="@+id/tambahSiswa_petugas"
-        android:name="com.lleans.spp_kelompok_2.petugas.siswa.TambahSiswa"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.siswa.TambahSiswa"
         android:label="tambahsiswa_petugas"
         tools:layout="@layout/tambahsiswa_petugas" />
     <fragment
         android:id="@+id/detailPetugas_petuga"
-        android:name="com.lleans.spp_kelompok_2.petugas.petugas.DetailPetugas"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.petugas.DetailPetugas"
         android:label="tambahpetugas_petugas"
         tools:layout="@layout/detailpetugas_petugas" />
     <fragment
         android:id="@+id/tambahpetugas_petugas"
-        android:name="com.lleans.spp_kelompok_2.petugas.petugas.TambahPetugas"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.petugas.TambahPetugas"
         android:label="tambahpetugas_petugas"
         tools:layout="@layout/tambahpetugas_petugas" />
     <fragment
         android:id="@+id/tambahspp_petugas"
-        android:name="com.lleans.spp_kelompok_2.petugas.spp.TambahSpp"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.spp.TambahSpp"
         android:label="tambahspp_petugas"
         tools:layout="@layout/tambahspp_petugas" />
-    <fragment
-        android:id="@+id/blankFragment"
-        android:name="com.lleans.spp_kelompok_2.BlankFragment"
-        android:label="fragment_blank"
-        tools:layout="@layout/fragment_blank" />
 </navigation>

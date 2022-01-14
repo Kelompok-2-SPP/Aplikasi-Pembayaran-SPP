@@ -11,10 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SPPKelompok2">
         <activity
-            android:name=".LauncherFragment"
+            android:name=".ui.launcher.LauncherFragment"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
