@@ -3,12 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/activity_launcher_fragment.xml" value="0.1319078947368421" />
-        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/homepage_petugas.xml" value="0.25" />
-        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/homepage_siswa.xml" value="0.2" />
-        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/login.xml" value="0.18" />
-        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/splash_screen.xml" value="0.13125" />
         <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/font/font_family.xml" value="0.1" />
         <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/activity_main.xml" value="0.67" />
         <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/aktivitas_petugas.xml" value="0.371875" />
@@ -49,6 +43,7 @@
         <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/rinciantransaksi_siswa.xml" value="0.1796875" />
         <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/siswa_petugas.xml" value="0.17692307692307693" />
         <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/spp_petugas.xml" value="0.22" />
+        <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/spp_siswa.xml" value="0.1796875" />
         <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/status_siswa.xml" value="0.1796875" />
         <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahkelas_petugas.xml" value="0.1796875" />
         <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahpetugas_petugas.xml" value="0.1796875" />
