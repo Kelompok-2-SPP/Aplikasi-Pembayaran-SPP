@@ -2,46 +2,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
     android:background="@drawable/kotak1"
+    android:layout_margin="16dp"
     android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-
+        android:orientation="horizontal"
+        android:layout_gravity="center">
         <TextView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/circle"
-            android:backgroundTint="#FF9900"
-            android:gravity="center"
-            android:text="SA"
+            android:backgroundTint="@color/green"
             android:textColor="@color/neutral_white"
-            android:textSize="20sp" />
-
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="AW"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
             android:layout_weight="1"
-            android:orientation="vertical">
-
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sawidji Astuti"
+                android:text="Agung Guntur Widjaja"
                 android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
+                android:textStyle="bold"/>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sawidji"
-                android:textSize="12sp" />
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0034523226"
+                    android:textSize="12sp"/>
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
