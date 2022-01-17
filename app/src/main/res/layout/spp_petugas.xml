@@ -268,6 +268,7 @@
                 android:layout_height="51dp"
                 android:layout_gravity="right"
                 android:layout_marginTop="20dp"
+                android:visibility="gone"
                 android:layout_marginRight="25dp"
                 android:background="@drawable/button_plus" />
         </LinearLayout>
