@@ -71,9 +71,11 @@
             android:id="@+id/splashScreen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
             android:background="@color/primary_color"
-            android:src="@drawable/ic_launcher_foreground"/>
+            android:src="@drawable/ic_launcher_foreground"
+            android:visibility="visible"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="-7dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
