@@ -36,7 +36,6 @@ public class Spp extends Fragment {
         // Contoh navigation
         final NavController nav = Navigation.findNavController(view);
         // Cari id navigation di nav graph
-        binding.petugasLanjut.setOnClickListener(v -> nav.navigate(R.id.action_spp_petugas_to_rincianSpp_petugas));
         binding.btnTambahSPP.setOnClickListener(v -> nav.navigate(R.id.action_spp_petugas_to_tambahspp_petugas));
     }
 }
