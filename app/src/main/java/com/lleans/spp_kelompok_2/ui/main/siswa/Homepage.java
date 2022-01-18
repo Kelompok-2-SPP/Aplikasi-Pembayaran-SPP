@@ -1,16 +1,15 @@
 package com.lleans.spp_kelompok_2.ui.main.siswa;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.HomepageSiswaBinding;
@@ -44,6 +43,7 @@ public class Homepage extends Fragment {
         // Cari id navigation di nav graph
         binding.detailSpp.setOnClickListener(v -> nav.navigate(R.id.action_homepage_siswa_to_rincianSpp_petugas));
         binding.lihatSemuaTransaksi.setOnClickListener(v -> nav.navigate(R.id.action_homepage2_to_transaksi));
+        binding.imageView8.setOnClickListener(v -> nav.navigate(R.id.action_homepage_siswa_to_rincianTransaksi_siswa2));
         binding.logout.setOnClickListener(v -> new Logout(getContext(), getActivity()));
     }
 
