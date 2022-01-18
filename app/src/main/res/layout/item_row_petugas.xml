@@ -45,18 +45,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="8dp"
-                    android:text="XII RPL 1"
+                    android:text="Sawidji Astuti"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_item_from"
+                    android:id="@+id/tv_item_nisn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="38 siswa" />
+                    android:text="sawidji"/>
 
             </LinearLayout>
         </LinearLayout>
