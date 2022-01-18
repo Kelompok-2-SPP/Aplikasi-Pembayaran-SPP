@@ -59,8 +59,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/usernameEdit"
                     tools:listitem="@layout/item_row_petugas" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageButton
+                android:id="@+id/btnTambahPetugas"
+                android:layout_width="51dp"
+                android:layout_height="51dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/button_plus" />
 
         </LinearLayout>
     </ScrollView>

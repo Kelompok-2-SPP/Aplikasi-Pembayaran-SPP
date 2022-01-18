@@ -58,7 +58,7 @@
                     tools:listitem="@layout/item_row_siswa" />
 
                 <ImageButton
-                    android:id="@+id/btnPlus"
+                    android:id="@+id/btnTambahSiswa"
                     android:layout_width="51dp"
                     android:layout_height="51dp"
                     android:layout_gravity="right"
