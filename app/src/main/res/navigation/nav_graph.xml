@@ -62,6 +62,9 @@
         <action
             android:id="@+id/action_homepage_petugas_to_kelas_petugas"
             app:destination="@id/kelas_petugas" />
+        <action
+            android:id="@+id/action_homepage_petugas_to_rincianTransaksi_siswa"
+            app:destination="@id/rincianTransaksi_siswa" />
     </fragment>
     <fragment
         android:id="@+id/transaksi_siswa"
