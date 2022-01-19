@@ -2,7 +2,9 @@ package com.lleans.spp_kelompok_2.domain.model.siswa;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DetailsItemSiswa {
+import java.io.Serializable;
+
+public class DetailsItemSiswa implements Serializable {
 
 	@SerializedName("createdAt")
 	private String createdAt;

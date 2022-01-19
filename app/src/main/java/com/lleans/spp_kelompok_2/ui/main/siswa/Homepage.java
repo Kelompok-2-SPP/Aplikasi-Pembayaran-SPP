@@ -13,18 +13,73 @@ import androidx.navigation.Navigation;
 
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.HomepageSiswaBinding;
+import com.lleans.spp_kelompok_2.domain.model.auth.AuthData;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranData;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.SppPembayaran;
+import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
+import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
+import com.lleans.spp_kelompok_2.network.ApiClient;
+import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.MainActivity;
 import com.lleans.spp_kelompok_2.ui.login.Logout;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Homepage extends Fragment {
 
     private HomepageSiswaBinding binding;
     private SessionManager sessionManager;
 
+    private int totalTunggakan;
+
     public Homepage() {
         // Required empty public constructor
     }
+
+//    private void getHomepageData() {
+//        Call<PembayaranData> Pembayaran;
+//        Call<SppData> Spp;
+//        ApiInterface apiInterface = ApiClient.getClient(getContext()).create(ApiInterface.class);
+//        Pembayaran = apiInterface.getPembayaran(
+//                null,
+//                null,
+//                sessionManager.getUserDetail().get(SessionManager.ID),
+//                null,
+//                null,
+//                null,
+//                null,
+//                null,
+//                null,
+//                null
+//        );
+//        Pembayaran.enqueue(new Callback<PembayaranData>() {
+//            @Override
+//            public void onResponse(Call<PembayaranData> call, Response<PembayaranData> response) {
+//                if (response.body() != null && response.isSuccessful()) {
+//                    // Hitung total tunggakan
+//                    for(DetailsItemPembayaran data : response.body().getDetails()){
+//                        SppPembayaran spp = data.getSpp();
+//                        if(data.getJumlahBayar() < spp.getNominal()){
+//                            totalTunggakan =+ spp.getNominal()-data.getJumlahBayar();
+//                        }
+//                    }
+//
+//                    // Recycler view pembayaran
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<PembayaranData> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -39,6 +94,11 @@ public class Homepage extends Fragment {
                 getActivity().finish();
             }
         });
+
+//        if(totalTunggakan == 0){
+//            binding.cardTunggakan.setImageResource(R.drawable.cardss_hijau);
+//            binding.totalTunggakan.setText("LUNAS");
+//        } else
 
         // Cari id navigation di nav graph
         binding.detailSpp.setOnClickListener(v -> nav.navigate(R.id.action_homepage_siswa_to_rincianSpp_petugas));

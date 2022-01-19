@@ -12,6 +12,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -38,10 +39,10 @@ public interface ApiInterface {
     //    KELAS
     @GET("kelas")
     Call<KelasData> getKelas(
-            @Query("id_kelas") int id_kelas,
+            @Query("id_kelas") Integer id_kelas,
             @Query("nama_kelas") String nama_kelas,
             @Query("jurusan") String jurusan,
-            @Query("angkatan") int angkatan,
+            @Query("angkatan") Integer angkatan,
             @Query("createdAt") String createdAt,
             @Query("updatedAt") String updatedAt
     );
@@ -62,7 +63,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @PUT("kelas/{id_kelas}")
     Call<KelasData> putKelas(
-            @Field("id_kelas") int id_kelas,
+            @Field("id_kelas") Integer id_kelas,
             @Field("nama_kelas") String nama_kelas,
             @Field("jurusan") String jurusan,
             @Field("angkatan") Integer angkatan
@@ -70,21 +71,22 @@ public interface ApiInterface {
 
     @DELETE("kelas")
     Call<KelasData> deleteKelas(
-            @Query("id_kelas") int id_kelas
+            @Query("id_kelas") Integer id_kelas
     );
 
 
     //    PEMBAYARAN
     @GET("pembayaran")
     Call<PembayaranData> getPembayaran(
-            @Query("id_pembayaran") int id_pembayaran,
-            @Query("id_petugas") int id_petugas,
+            @Header("Authorization") String token,
+            @Query("id_pembayaran") Integer id_pembayaran,
+            @Query("id_petugas") Integer id_petugas,
             @Query("nisn") String nisn,
             @Query("tgl_dibayar") String tgl_dibayar,
-            @Query("bulan_dibayar") int bulan_dibayar,
-            @Query("tahun_dibayar") int tahun_dibayar,
-            @Query("id_spp") int id_spp,
-            @Query("jumlah_bayar") int jumlah_bayar,
+            @Query("bulan_dibayar") Integer bulan_dibayar,
+            @Query("tahun_dibayar") Integer tahun_dibayar,
+            @Query("id_spp") Integer id_spp,
+            @Query("jumlah_bayar") Integer jumlah_bayar,
             @Query("createdAt") String createdAt,
             @Query("updatedAt") String updatedAt
     );
@@ -97,38 +99,38 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("pembayaran")
     Call<PembayaranData> postPembayaran(
-            @Field("id_petugas") int id_kelas,
+            @Field("id_petugas") Integer id_kelas,
             @Field("nisn") String nisn,
             @Field("tgl_dibayar") String tgl_dibayar,
-            @Field("bulan_dibayar") int bulan_dibayar,
-            @Field("tahun_dibayar") int tahun_dibayar,
-            @Field("id_spp") int id_spp,
-            @Field("jumlah_bayar") int jumlah_bayar
+            @Field("bulan_dibayar") Integer bulan_dibayar,
+            @Field("tahun_dibayar") Integer tahun_dibayar,
+            @Field("id_spp") Integer id_spp,
+            @Field("jumlah_bayar") Integer jumlah_bayar
     );
 
     @FormUrlEncoded
     @PUT("pembayaran")
     Call<PembayaranData> putPembayaran(
-            @Field("id_pembayaran") int id_pemabayaran,
-            @Field("id_petugas") int id_kelas,
+            @Field("id_pembayaran") Integer id_pemabayaran,
+            @Field("id_petugas") Integer id_kelas,
             @Field("nisn") String nisn,
             @Field("tgl_dibayar") String tgl_dibayar,
-            @Field("bulan_dibayar") int bulan_dibayar,
-            @Field("tahun_dibayar") int tahun_dibayar,
-            @Field("id_spp") int id_spp,
-            @Field("jumlah_bayar") int jumlah_bayar
+            @Field("bulan_dibayar") Integer bulan_dibayar,
+            @Field("tahun_dibayar") Integer tahun_dibayar,
+            @Field("id_spp") Integer id_spp,
+            @Field("jumlah_bayar") Integer jumlah_bayar
     );
 
     @DELETE("pembayaran")
     Call<PembayaranData> deletePembayaram(
-            @Query("id_pembayaran") int id_kelas
+            @Query("id_pembayaran") Integer id_kelas
     );
 
 
     //    PETUGAS
     @GET("petugas")
     Call<PetugasData> getPetugas(
-            @Query("id_petugas") int id_petugas,
+            @Query("id_petugas") Integer id_petugas,
             @Query("username") String username,
             @Query("nama_petugas") String nama_petugas,
             @Query("level") String level,
@@ -153,7 +155,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @PUT("petugas")
     Call<PetugasData> putPetugas(
-            @Field("id_petugas") int id_petugas,
+            @Field("id_petugas") Integer id_petugas,
             @Field("username") String username,
             @Field("password") String password,
             @Field("nama_petugas") String nama_petugas,
@@ -162,7 +164,7 @@ public interface ApiInterface {
 
     @DELETE("petugas")
     Call<PetugasData> deletePetugas(
-            @Query("id_petugas") int id_petugas
+            @Query("id_petugas") Integer id_petugas
     );
 
 
@@ -172,7 +174,7 @@ public interface ApiInterface {
             @Query("nisn") String nisn,
             @Query("nis") String nis,
             @Query("nama") String nama,
-            @Query("id_kelas") int id_kelas,
+            @Query("id_kelas") Integer id_kelas,
             @Query("alamat") String alamat,
             @Query("no_telp") String no_telp,
             @Query("createdAt") String createdAt,
@@ -191,7 +193,7 @@ public interface ApiInterface {
             @Field("nis") String nis,
             @Field("password") String password,
             @Field("nama") String nama,
-            @Field("id_kelas") int id_kelas,
+            @Field("id_kelas") Integer id_kelas,
             @Field("alamat") String alamat,
             @Field("no_telp") String no_telp
     );
@@ -204,7 +206,7 @@ public interface ApiInterface {
             @Field("nis") String nis,
             @Field("password") String password,
             @Field("nama") String nama,
-            @Field("id_kelas") int id_kelas,
+            @Field("id_kelas") Integer id_kelas,
             @Field("alamat") String alamat,
             @Field("no_telp") String no_telp
     );
@@ -218,10 +220,10 @@ public interface ApiInterface {
     //    SPP
     @GET("spp")
     Call<SppData> getSpp(
-            @Query("id_spp") int id_spp,
-            @Query("angkatan") int angkatan,
-            @Query("tahun") int tahun,
-            @Query("nominal") int nominal,
+            @Query("id_spp") Integer id_spp,
+            @Query("angkatan") Integer angkatan,
+            @Query("tahun") Integer tahun,
+            @Query("nominal") Integer nominal,
             @Query("createdAt") String createdAt,
             @Query("updatedAt") String updatedAt
     );
@@ -234,23 +236,23 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("spp")
     Call<SiswaData> postSpp(
-            @Field("angkatan") int angkatan,
-            @Field("tahun") int tahun,
-            @Field("naominal") int nominal
+            @Field("angkatan") Integer angkatan,
+            @Field("tahun") Integer tahun,
+            @Field("naominal") Integer nominal
     );
 
     @FormUrlEncoded
     @PUT("spp")
     Call<SiswaData> putSpp(
-            @Field("id_spp") int id_spp,
-            @Field("angkatan") int angkatan,
-            @Field("tahun") int tahun,
-            @Field("naominal") int nominal
+            @Field("id_spp") Integer id_spp,
+            @Field("angkatan") Integer angkatan,
+            @Field("tahun") Integer tahun,
+            @Field("naominal") Integer nominal
     );
 
     @FormUrlEncoded
     @DELETE("spp")
     Call<SppData> deleteSpp(
-            @Field("id_spp") int id_spp
+            @Field("id_spp") Integer id_spp
     );
 }

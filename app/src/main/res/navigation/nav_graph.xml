@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/login"
         android:name="com.lleans.spp_kelompok_2.ui.login.Login"
-        android:label="fragment_login_switcher"
+        android:label="login"
         tools:layout="@layout/login" >
         <action
             android:id="@+id/action_login_to_homepage2"
             app:destination="@id/homepage_siswa"
             app:enterAnim="@anim/readernav_enter"
-            app:popExitAnim="@anim/readernav_exit" />
+            app:popEnterAnim="@anim/fade_out_short" />
         <action
             android:id="@+id/action_login_to_homepage3"
             app:destination="@id/homepage_petugas"
             app:enterAnim="@anim/readernav_enter"
-            app:popExitAnim="@anim/readernav_exit" />
+            app:popEnterAnim="@anim/fade_out_short" />
     </fragment>
     <fragment
         android:id="@+id/homepage_siswa"
@@ -55,10 +55,18 @@
             app:destination="@id/petugas_petugas" />
         <action
             android:id="@+id/action_homepage_petugas_to_spp_petugas"
-            app:destination="@id/spp_petugas" />
+            app:destination="@id/spp_petugas"
+            app:enterAnim="@anim/readernav_enter"
+            app:exitAnim="@anim/readernav_exit"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_homepage_petugas_to_siswa"
-            app:destination="@id/siswa_petugas" />
+            app:destination="@id/siswa_petugas"
+            app:enterAnim="@anim/readernav_enter"
+            app:exitAnim="@anim/readernav_exit"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_homepage_petugas_to_kelas_petugas"
             app:destination="@id/kelas_petugas" />
@@ -69,8 +77,8 @@
     <fragment
         android:id="@+id/transaksi_siswa"
         android:name="com.lleans.spp_kelompok_2.ui.main.siswa.transaksi.Transaksi"
-        android:label="transaksi_siswa"
-        tools:layout="@layout/transaksi_siswa" >
+        android:label="Transkasi"
+        tools:layout="@layout/transaksi_siswa">
         <action
             android:id="@+id/action_transaksi_siswa_to_rincianTransaksi_siswa"
             app:destination="@id/rincianTransaksi_siswa" />
@@ -108,8 +116,7 @@
     <fragment
         android:id="@+id/spp_petugas"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.spp.Spp"
-        android:label="spp_petugas"
-        tools:layout="@layout/spp_petugas" >
+        tools:layout="@layout/spp_petugas">
         <action
             android:id="@+id/action_spp_petugas_to_rincianSpp_petugas"
             app:destination="@id/rincianSpp_petugas" />
@@ -132,7 +139,7 @@
     <fragment
         android:id="@+id/rincianTransaksi_siswa"
         android:name="com.lleans.spp_kelompok_2.ui.main.siswa.transaksi.Rincian"
-        android:label="fragment_rincian_transaksi_siswa"
+        android:label="Rincian Transaksi"
         tools:layout="@layout/rinciantransaksi_siswa" />
     <fragment
         android:id="@+id/kelas_petugas"
@@ -159,11 +166,7 @@
         android:id="@+id/rincianSpp_petugas"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.spp.RincianSpp"
         android:label="rincian_spp"
-        tools:layout="@layout/rincianspp_petugas">
-        <action
-            android:id="@+id/action_rincianSpp_petugas_to_homepage_siswa2"
-            app:destination="@id/homepage_siswa" />
-    </fragment>
+        tools:layout="@layout/rincianspp_petugas"/>
     <fragment
         android:id="@+id/tambahKelas_petugas"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.kelas.TambahKelas"

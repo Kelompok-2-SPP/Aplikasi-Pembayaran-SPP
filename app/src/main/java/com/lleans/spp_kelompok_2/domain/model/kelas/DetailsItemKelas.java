@@ -2,7 +2,9 @@ package com.lleans.spp_kelompok_2.domain.model.kelas;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DetailsItemKelas {
+import java.io.Serializable;
+
+public class DetailsItemKelas implements Serializable {
 
 	@SerializedName("createdAt")
 	private String createdAt;

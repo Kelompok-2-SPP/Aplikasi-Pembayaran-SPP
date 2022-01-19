@@ -4,7 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.launcher.LauncherFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/AppBar"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_height="67dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/ToolbarTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:buttonGravity="center_vertical"
+            app:navigationIcon="@drawable/back_button"
+            app:titleTextColor="@color/neutral_white"
+            app:title="App Bar" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"

@@ -2,7 +2,9 @@ package com.lleans.spp_kelompok_2.domain.model.pembayaran;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SppPembayaran {
+import java.io.Serializable;
+
+public class SppPembayaran implements Serializable {
 
 	@SerializedName("createdAt")
 	private String createdAt;

@@ -10,6 +10,7 @@
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -33,7 +34,7 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/tv_item_name"
+                    android:id="@+id/title_pembayaran"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -42,6 +43,7 @@
                     android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/status_pembayaran"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Lunas"
@@ -49,7 +51,7 @@
 
             </LinearLayout>
             <TextView
-                android:id="@+id/nominalkurang"
+                android:id="@+id/totalPembayaran"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rp. 500.000"

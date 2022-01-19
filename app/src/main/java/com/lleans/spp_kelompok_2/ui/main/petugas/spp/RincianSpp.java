@@ -26,7 +26,6 @@ public class RincianSpp extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final NavController nav = Navigation.findNavController(view);
-        binding.kembali.setOnClickListener(v -> nav.navigate(R.id.action_rincianSpp_petugas_to_homepage_siswa2));
     }
 
     @Override

@@ -2,7 +2,9 @@ package com.lleans.spp_kelompok_2.domain.model.petugas;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DetailsItemPetugas {
+import java.io.Serializable;
+
+public class DetailsItemPetugas implements Serializable {
 
 	@SerializedName("createdAt")
 	private String createdAt;

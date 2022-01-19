@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,17 +33,13 @@ public class MainActivity extends AppCompatActivity {
         intent = new Intent(MainActivity.this, LauncherFragment.class);
         setContentView(binding.getRoot());
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                binding.splashScreen.setVisibility(View.GONE);
-            }
-        }, 200);
+        new Handler().postDelayed(() -> binding.splashScreen.animate().alpha(0.0f), 1000);
 
         SessionManager sessionManager = new SessionManager(MainActivity.this);
         if(sessionManager.isLoggedIn()){
-            moveActivity("petugas");
+            moveActivity("siswa");
         }
+
         binding.petugasLoginBtn.setOnClickListener(v -> moveActivity("petugas"));
         binding.siswaLoginBtn.setOnClickListener(v -> moveActivity("siswa"));
     }

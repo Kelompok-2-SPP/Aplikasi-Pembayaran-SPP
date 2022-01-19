@@ -88,11 +88,11 @@ public class Login extends Fragment implements Abstract {
                 } else if (response.code() == 401) {
                     // Handling 401 error
                     isLoading(false);
-                    toaster("Login gagal, " + response.errorBody().toString());
+                    toaster("Login gagal, Username atau password salah");
                 } else {
                     // Handling 500 error
                     isLoading(false);
-                    toaster("Login gagal, " + response.toString());
+                    toaster("Login gagal, " + response.message());
                 }
             }
 
@@ -126,13 +126,10 @@ public class Login extends Fragment implements Abstract {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Initiate binding
         binding = LoginBinding.inflate(inflater, container, false);
-
-        // Get intent type and hasLogged
+        isLoading(false);
         type = getActivity().getIntent().getStringExtra("type");
 
-        // Change layout before it shows up if type is siswa
         if (type.equals("siswa")) {
             binding.loginHeader.setText("Login Siswa");
             binding.loginDesc.setText("Masukkan NISN dan Password anda yang sudah terdaftar.");
@@ -144,7 +141,8 @@ public class Login extends Fragment implements Abstract {
 
     @Override
     public void isLoading(Boolean isLoading) {
-        binding.loadingBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        binding.refresher.setEnabled(isLoading);
+        binding.refresher.setRefreshing(isLoading);
     }
 
     @Override

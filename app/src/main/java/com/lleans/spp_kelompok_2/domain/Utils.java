@@ -1,5 +1,7 @@
 package com.lleans.spp_kelompok_2.domain;
 
+import java.util.HashMap;
+
 public class Utils {
 
     static boolean isNumeric(String string) {
@@ -13,6 +15,14 @@ public class Utils {
             return true;
         } catch (NumberFormatException e) {
             return false;
+        }
+    }
+
+    static void statusPembayaran(int totalSpp, int nominalBayar){
+        if(nominalBayar < totalSpp){
+            int sisaBayar = totalSpp-nominalBayar;
+
+            return ;
         }
     }
 }
