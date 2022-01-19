@@ -46,6 +46,8 @@ public class Homepage extends Fragment {
         binding.datasiswa.setOnClickListener(v -> nav.navigate(R.id.action_homepage_petugas_to_siswa));
         binding.SppSemua.setOnClickListener(v -> nav.navigate(R.id.action_homepage_petugas_to_spp_petugas));
         binding.aktivitasPetugas.setOnClickListener(v -> nav.navigate(R.id.action_homepage_petugas_to_aktivitasPetugas));
+        binding.datapetugas.setOnClickListener(v -> nav.navigate(R.id.action_homepage_petugas_to_petugas_petugas2));
+
         binding.logout.setOnClickListener(v -> new Logout(getContext(), getActivity()));
     }
 

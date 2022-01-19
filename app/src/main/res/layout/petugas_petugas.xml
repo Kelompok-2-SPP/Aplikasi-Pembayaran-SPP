@@ -41,7 +41,7 @@
                     android:background="@drawable/searchbar"
                     android:drawableStart="@drawable/cari"
                     android:fontFamily="@font/regular"
-                    android:hint="  Cari Nama"
+                    android:hint="  Cari Petugas"
                     android:inputType="textPersonName"
                     android:padding="13sp"
                     android:textColorHint="#9E9FA4"
