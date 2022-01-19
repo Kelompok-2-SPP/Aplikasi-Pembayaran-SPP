@@ -25,13 +25,16 @@
         android:id="@+id/homepage_siswa"
         android:name="com.lleans.spp_kelompok_2.ui.main.siswa.Homepage"
         android:label="homepage_siswa"
-        tools:layout="@layout/homepage_siswa" >
+        tools:layout="@layout/homepage_siswa">
         <action
             android:id="@+id/action_homepage2_to_transaksi"
             app:destination="@id/transaksi_siswa" />
         <action
             android:id="@+id/action_homepage_siswa_to_rincianSpp_petugas"
             app:destination="@id/rincianSpp_petugas" />
+        <action
+            android:id="@+id/action_homepage_siswa_to_rincianTransaksi_siswa"
+            app:destination="@id/rincianTransaksi_siswa" />
     </fragment>
     <fragment
         android:id="@+id/homepage_petugas"
