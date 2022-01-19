@@ -33,7 +33,7 @@
             android:id="@+id/action_homepage_siswa_to_rincianSpp_petugas"
             app:destination="@id/rincianSpp_petugas" />
         <action
-            android:id="@+id/action_homepage_siswa_to_rincianTransaksi_siswa"
+            android:id="@+id/action_homepage_siswa_to_rincianTransaksi_siswa2"
             app:destination="@id/rincianTransaksi_siswa" />
     </fragment>
     <fragment
@@ -156,7 +156,11 @@
         android:id="@+id/rincianSpp_petugas"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.spp.RincianSpp"
         android:label="rincian_spp"
-        tools:layout="@layout/rincianspp_petugas" />
+        tools:layout="@layout/rincianspp_petugas">
+        <action
+            android:id="@+id/action_rincianSpp_petugas_to_homepage_siswa2"
+            app:destination="@id/homepage_siswa" />
+    </fragment>
     <fragment
         android:id="@+id/tambahKelas_petugas"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.kelas.TambahKelas"

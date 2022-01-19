@@ -43,7 +43,7 @@ public class Homepage extends Fragment {
         // Cari id navigation di nav graph
         binding.detailSpp.setOnClickListener(v -> nav.navigate(R.id.action_homepage_siswa_to_rincianSpp_petugas));
         binding.lihatSemuaTransaksi.setOnClickListener(v -> nav.navigate(R.id.action_homepage2_to_transaksi));
-        binding.imageView8.setOnClickListener(v -> nav.navigate(R.id.action_homepage_siswa_to_rincianTransaksi_siswa));
+        binding.imageView8.setOnClickListener(v -> nav.navigate(R.id.action_homepage_siswa_to_rincianTransaksi_siswa2));
         binding.logout.setOnClickListener(v -> new Logout(getContext(), getActivity()));
     }
 
