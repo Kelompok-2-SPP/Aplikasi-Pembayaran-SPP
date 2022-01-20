@@ -10,6 +10,7 @@
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/card_kelas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -26,7 +27,7 @@
             android:padding="13dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_item_photo"
+                android:id="@+id/kelas_photo"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 tools:src="@android:color/darker_gray" />
@@ -40,7 +41,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_item_name"
+                    android:id="@+id/kelas_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -50,7 +51,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_item_from"
+                    android:id="@+id/kelas_from"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
