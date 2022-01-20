@@ -56,7 +56,7 @@
             android:background="@drawable/shape"
             android:ems="12"
             android:hint="ID Kelas"
-            android:inputType="number"
+            android:inputType="text"
             android:padding="13sp"
             android:textColor="#6E6E77"
             android:textColorHint="#3D3E49"
@@ -102,13 +102,14 @@
             android:background="@drawable/shape"
             android:ems="12"
             android:hint="Angkatan"
-            android:inputType="text"
+            android:inputType="number"
             android:padding="13sp"
             android:textColor="#6E6E77"
             android:textColorHint="#3D3E49"
             android:textSize="14sp" />
 
         <Button
+            android:id="@+id/simpanKelas"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="30dp"

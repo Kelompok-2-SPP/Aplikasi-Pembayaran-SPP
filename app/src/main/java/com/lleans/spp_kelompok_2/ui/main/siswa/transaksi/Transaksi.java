@@ -71,7 +71,7 @@ public class Transaksi extends Fragment implements Abstract {
             @Override
             public void onFailure(Call<PembayaranData> call, Throwable t) {
                 isLoading(false);
-                Toast.makeText(getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                toaster(t.getLocalizedMessage());
             }
         });
     }

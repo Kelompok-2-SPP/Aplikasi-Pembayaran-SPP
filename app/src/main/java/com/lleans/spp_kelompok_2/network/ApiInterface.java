@@ -39,6 +39,7 @@ public interface ApiInterface {
     //    KELAS
     @GET("kelas")
     Call<KelasData> getKelas(
+            @Header("Authorization") String token,
             @Query("id_kelas") Integer id_kelas,
             @Query("nama_kelas") String nama_kelas,
             @Query("jurusan") String jurusan,
@@ -49,12 +50,14 @@ public interface ApiInterface {
 
     @GET("kelas")
     Call<KelasData> keywordKelas(
+            @Header("Authorization") String token,
             @Query("keyword") String keyword
     );
 
     @FormUrlEncoded
     @POST("kelas")
     Call<KelasData> postKelas(
+            @Header("Authorization") String token,
             @Field("nama_kelas") String nama_kelas,
             @Field("jurusan") String jurusan,
             @Field("angkatan") Integer angkatan
@@ -63,6 +66,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @PUT("kelas/{id_kelas}")
     Call<KelasData> putKelas(
+            @Header("Authorization") String token,
             @Field("id_kelas") Integer id_kelas,
             @Field("nama_kelas") String nama_kelas,
             @Field("jurusan") String jurusan,
@@ -71,6 +75,7 @@ public interface ApiInterface {
 
     @DELETE("kelas")
     Call<KelasData> deleteKelas(
+            @Header("Authorization") String token,
             @Query("id_kelas") Integer id_kelas
     );
 
@@ -93,12 +98,14 @@ public interface ApiInterface {
 
     @GET("pembayaram")
     Call<PembayaranData> keywordPembayaran(
+            @Header("Authorization") String token,
             @Query("keyword") String keyword
     );
 
     @FormUrlEncoded
     @POST("pembayaran")
     Call<PembayaranData> postPembayaran(
+            @Header("Authorization") String token,
             @Field("id_petugas") Integer id_kelas,
             @Field("nisn") String nisn,
             @Field("tgl_dibayar") String tgl_dibayar,
@@ -111,6 +118,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @PUT("pembayaran")
     Call<PembayaranData> putPembayaran(
+            @Header("Authorization") String token,
             @Field("id_pembayaran") Integer id_pemabayaran,
             @Field("id_petugas") Integer id_kelas,
             @Field("nisn") String nisn,
@@ -123,6 +131,7 @@ public interface ApiInterface {
 
     @DELETE("pembayaran")
     Call<PembayaranData> deletePembayaram(
+            @Header("Authorization") String token,
             @Query("id_pembayaran") Integer id_kelas
     );
 
@@ -130,6 +139,7 @@ public interface ApiInterface {
     //    PETUGAS
     @GET("petugas")
     Call<PetugasData> getPetugas(
+            @Header("Authorization") String token,
             @Query("id_petugas") Integer id_petugas,
             @Query("username") String username,
             @Query("nama_petugas") String nama_petugas,
@@ -140,12 +150,14 @@ public interface ApiInterface {
 
     @GET("petugas")
     Call<PetugasData> keywordPetugas(
+            @Header("Authorization") String token,
             @Query("keyword") String keyword
     );
 
     @FormUrlEncoded
     @POST("petugas")
     Call<PetugasData> postPetugas(
+            @Header("Authorization") String token,
             @Field("username") String username,
             @Field("password") String password,
             @Field("nama_petugas") String nama_petugas,
@@ -155,6 +167,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @PUT("petugas")
     Call<PetugasData> putPetugas(
+            @Header("Authorization") String token,
             @Field("id_petugas") Integer id_petugas,
             @Field("username") String username,
             @Field("password") String password,
@@ -164,6 +177,7 @@ public interface ApiInterface {
 
     @DELETE("petugas")
     Call<PetugasData> deletePetugas(
+            @Header("Authorization") String token,
             @Query("id_petugas") Integer id_petugas
     );
 
@@ -171,6 +185,7 @@ public interface ApiInterface {
     //    SISWA
     @GET("siswa")
     Call<SiswaData> getSiswa(
+            @Header("Authorization") String token,
             @Query("nisn") String nisn,
             @Query("nis") String nis,
             @Query("nama") String nama,
@@ -183,12 +198,14 @@ public interface ApiInterface {
 
     @GET("keyword")
     Call<SiswaData> keywordSiswa(
+            @Header("Authorization") String token,
             @Query("keyword") String keyword
     );
 
     @FormUrlEncoded
     @POST("siswa")
     Call<SiswaData> postSiswa(
+            @Header("Authorization") String token,
             @Field("nisn") String nisn,
             @Field("nis") String nis,
             @Field("password") String password,
@@ -201,6 +218,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @PUT("siswa")
     Call<SiswaData> putSiswa(
+            @Header("Authorization") String token,
             @Field("nisn") String nisn,
             @Field("new_nisn") String new_nisn,
             @Field("nis") String nis,
@@ -213,6 +231,7 @@ public interface ApiInterface {
 
     @DELETE("siswa")
     Call<SiswaData> deleteSiswa(
+            @Header("Authorization") String token,
             @Query("nisn") String nisn
     );
 
@@ -220,6 +239,7 @@ public interface ApiInterface {
     //    SPP
     @GET("spp")
     Call<SppData> getSpp(
+            @Header("Authorization") String token,
             @Query("id_spp") Integer id_spp,
             @Query("angkatan") Integer angkatan,
             @Query("tahun") Integer tahun,
@@ -230,12 +250,14 @@ public interface ApiInterface {
 
     @GET("spp")
     Call<SppData> keywordSpp(
+            @Header("Authorization") String token,
             @Query("keyword") String keyword
     );
 
     @FormUrlEncoded
     @POST("spp")
     Call<SiswaData> postSpp(
+            @Header("Authorization") String token,
             @Field("angkatan") Integer angkatan,
             @Field("tahun") Integer tahun,
             @Field("naominal") Integer nominal
@@ -244,6 +266,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @PUT("spp")
     Call<SiswaData> putSpp(
+            @Header("Authorization") String token,
             @Field("id_spp") Integer id_spp,
             @Field("angkatan") Integer angkatan,
             @Field("tahun") Integer tahun,
@@ -253,6 +276,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @DELETE("spp")
     Call<SppData> deleteSpp(
+            @Header("Authorization") String token,
             @Field("id_spp") Integer id_spp
     );
 }
