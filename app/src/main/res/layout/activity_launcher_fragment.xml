@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.launcher.LauncherFragment">
@@ -21,6 +22,23 @@
             app:navigationIcon="@drawable/back_button"
             app:titleTextColor="@color/neutral_white"
             app:title="App Bar" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/actionBar"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="67dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:title="Rincian SPP"
+            app:buttonGravity="center_vertical"
+            android:isScrollContainer="true"
+            app:titleTextColor="@color/neutral_white"
+            app:navigationIcon="@drawable/back_button"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
