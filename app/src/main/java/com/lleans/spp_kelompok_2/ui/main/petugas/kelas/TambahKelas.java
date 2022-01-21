@@ -48,6 +48,7 @@ public class TambahKelas extends Fragment implements Abstract {
             public void onResponse(Call<KelasData> call, Response<KelasData> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     isLoading(false);
+                    toaster("here");
                     toaster(response.body().getMessage());
                     nav.navigateUp();
                 } else {
@@ -61,6 +62,7 @@ public class TambahKelas extends Fragment implements Abstract {
             public void onFailure(Call<KelasData> call, Throwable t) {
                 isLoading(false);
                 toaster(t.getLocalizedMessage());
+                toaster("di sini!");
             }
         });
     }
@@ -74,7 +76,8 @@ public class TambahKelas extends Fragment implements Abstract {
             Integer angkatan;
             namakelas = binding.idKelas.getText().toString();
             jurusan = binding.jurusan.getText().toString();
-            angkatan = Integer.valueOf(binding.angkatan.getText().toString());
+            angkatan = Integer.parseInt(binding.angkatan.getText().toString());
+            toaster(angkatan.toString());
             if(namakelas.equals("") || jurusan.equals("") || angkatan == null) {
                 toaster("Data harus diisi!");
             } else {

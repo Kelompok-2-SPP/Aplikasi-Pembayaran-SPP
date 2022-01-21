@@ -36,8 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/img_item_photo"
-                android:layout_toRightOf="@id/img_item_photo"
+                android:layout_toEndOf="@id/siswa_photo"
+                android:layout_toRightOf="@id/siswa_photo"
                 android:orientation="vertical">
 
                 <TextView

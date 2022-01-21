@@ -60,7 +60,7 @@ public class KelasCardAdapter extends RecyclerView.Adapter<KelasCardAdapter.Kela
             super(itemView);
             nama_kelas = itemView.findViewById(R.id.kelas_name);
             jumlah_kelas = itemView.findViewById(R.id.kelas_jumlah);
-            cardView = itemView.findViewById(R.id.cardView);
+            cardView = itemView.findViewById(R.id.card_kelas);
         }
     }
 }

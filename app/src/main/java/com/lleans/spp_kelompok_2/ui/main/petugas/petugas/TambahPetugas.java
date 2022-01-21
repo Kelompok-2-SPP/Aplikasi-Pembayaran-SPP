@@ -35,10 +35,14 @@ public class TambahPetugas extends Fragment implements Abstract {
         // Required empty public constructor
     }
 
-    private void tambahPetugas(String username, String namaPetugas, String password) {
+    private void tambahPetugas(String username, String password, String namaPetugas) {
         Call<PetugasData> tambahPetugasCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        tambahPetugasCall = apiInterface.postPetugas("Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),username,password,namaPetugas,null);
+        tambahPetugasCall = apiInterface.postPetugas("Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
+                username,
+                password,
+                namaPetugas,
+                null);
         tambahPetugasCall.enqueue(new Callback<PetugasData>() {
             @Override
             public void onResponse(Call<PetugasData> call, Response<PetugasData> response) {

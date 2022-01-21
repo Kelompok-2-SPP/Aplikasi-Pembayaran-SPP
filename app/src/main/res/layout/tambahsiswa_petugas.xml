@@ -127,6 +127,29 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tv_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Password"
+                    android:textColor="#3D3E49"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape"
+                    android:ems="12"
+                    android:hint="Password"
+                    android:inputType="text"
+                    android:padding="13sp"
+                    android:textColor="#6E6E77"
+                    android:textColorHint="#3D3E49"
+                    android:textSize="14sp" />
+
+                <TextView
                     android:id="@+id/tv_kelas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -143,7 +166,7 @@
                     android:background="@drawable/shape"
                     android:ems="12"
                     android:hint="Kelas"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:padding="13sp"
                     android:textColor="#6E6E77"
                     android:textColorHint="#3D3E49"
@@ -196,6 +219,7 @@
                     android:textSize="14sp" />
 
                 <Button
+                    android:id="@+id/simpanSiswa"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="30dp"

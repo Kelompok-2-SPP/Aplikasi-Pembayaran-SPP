@@ -80,7 +80,7 @@
             android:background="@drawable/shape"
             android:ems="12"
             android:hint="Password"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:padding="13sp"
             android:textColor="#6E6E77"
             android:textColorHint="#3D3E49"

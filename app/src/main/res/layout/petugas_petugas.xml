@@ -4,82 +4,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
+    android:background="#FFFFFF"
     tools:context=".ui.main.petugas.petugas.Petugas">
 
-    <ScrollView
-        android:id="@+id/scrollview2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="337dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/search_back"
+        android:drawableStart="@drawable/ic_baseline_search_24"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Cari Petugas"
+        android:inputType="textPersonName"
+        android:paddingStart="20dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="SpeakableTextPresentCheck">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg"
+        android:paddingTop="16dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_petugas"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="20dp"
-            tools:context=".MainActivity">
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_row_petugas">
 
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:id="@+id/usernameEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="31dp"
-                    android:background="@drawable/searchbar"
-                    android:drawableStart="@drawable/cari"
-                    android:fontFamily="@font/regular"
-                    android:hint="  Cari Petugas"
-                    android:inputType="textPersonName"
-                    android:padding="13sp"
-                    android:textColorHint="#9E9FA4"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/usernameEdit">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_petugas"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/usernameEdit"
-                        tools:listitem="@layout/item_row_petugas" />
-
-                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ImageButton
-                android:id="@+id/btnTambahPetugas"
-                android:layout_width="51dp"
-                android:layout_height="51dp"
-                android:layout_gravity="right"
-                android:layout_marginRight="25dp"
-                android:background="@drawable/button_plus" />
-
-        </LinearLayout>
-    </ScrollView>
+    <ImageButton
+        android:id="@+id/btnTambahPetugas"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_gravity="right"
+        android:layout_margin="30dp"
+        android:background="@drawable/button_plus"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

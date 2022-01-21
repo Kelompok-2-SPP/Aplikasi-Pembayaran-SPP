@@ -55,7 +55,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/shape"
             android:ems="12"
-            android:hint="ID Kelas"
+            android:hint="Nama Kelas"
             android:inputType="text"
             android:padding="13sp"
             android:textColor="#6E6E77"

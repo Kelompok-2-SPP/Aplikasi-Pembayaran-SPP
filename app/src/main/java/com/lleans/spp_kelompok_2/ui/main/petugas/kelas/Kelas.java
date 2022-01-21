@@ -54,10 +54,10 @@ public class Kelas extends Fragment implements Abstract {
             public void onResponse(Call<KelasData> call, Response<KelasData> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     isLoading(false);
-                    toaster(response.body().getDetails().toString());
-//                    KelasCardAdapter cardAdapter = new KelasCardAdapter(response.body().getDetails(), navController);
-//                    binding.rv.setLayoutManager(new LinearLayoutManager(getContext()));
-//                    binding.rv.setAdapter(cardAdapter);
+//                    toaster(response.body().getDetails().toString());
+                    KelasCardAdapter cardAdapter = new KelasCardAdapter(response.body().getDetails(), nav);
+                    binding.rvKelas.setLayoutManager(new LinearLayoutManager(getContext()));
+                    binding.rvKelas.setAdapter(cardAdapter);
                 } else {
                     // Handling 401 error
                     isLoading(false);
@@ -77,6 +77,9 @@ public class Kelas extends Fragment implements Abstract {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
         binding.btnTambahKelas.setOnClickListener(v -> nav.navigate(R.id.action_kelas_petugas_to_tambahKelas_petugas));
+        binding.refresher.setOnRefreshListener(() -> {
+            getKelas();
+        });
     }
 
     @Override
