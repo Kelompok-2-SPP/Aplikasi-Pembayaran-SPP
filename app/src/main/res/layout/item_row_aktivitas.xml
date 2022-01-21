@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="99dp"
     android:layout_marginLeft="16dp"
@@ -10,6 +9,7 @@
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/card_aktivitas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -33,7 +33,7 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/tv_item_name"
+                    android:id="@+id/aktivitas_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -47,13 +47,14 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_item_nisn"
+                        android:id="@+id/aktivitas_kelas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="XII RPL 3 • "
                         android:textStyle="bold"/>
 
                     <TextView
+                        android:id="@+id/aktivitas_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Lunas"
