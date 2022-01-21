@@ -30,14 +30,15 @@ public class KelasCardAdapter extends RecyclerView.Adapter<KelasCardAdapter.Kela
     @NonNull
     @Override
     public KelasCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_aktivitas_siswa, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_kelas, parent, false);
         return new KelasCardViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final KelasCardViewHolder holder, int position) {
         DetailsItemKelas data = listdata.get(position);
-
+        holder.nama_kelas.setText(data.getNamaKelas());
+        //holder.jumlah_kelas.setText(data.get);
         holder.cardView.setOnClickListener(v -> {
             DetailsItemKelas d = listdata.get(position);
             Bundle bundle = new Bundle();
@@ -52,13 +53,13 @@ public class KelasCardAdapter extends RecyclerView.Adapter<KelasCardAdapter.Kela
     }
 
     public static class KelasCardViewHolder extends RecyclerView.ViewHolder {
-        TextView nama_kelas, from_kelas;
+        TextView nama_kelas, jumlah_kelas;
         CardView cardView;
 
         public KelasCardViewHolder(@NonNull View itemView) {
             super(itemView);
             nama_kelas = itemView.findViewById(R.id.kelas_name);
-            from_kelas = itemView.findViewById(R.id.kelas_from);
+            jumlah_kelas = itemView.findViewById(R.id.kelas_jumlah);
             cardView = itemView.findViewById(R.id.cardView);
         }
     }
