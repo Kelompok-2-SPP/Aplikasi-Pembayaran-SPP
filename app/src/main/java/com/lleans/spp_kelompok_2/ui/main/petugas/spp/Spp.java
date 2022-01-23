@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.lleans.spp_kelompok_2.Abstract;
+import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.SppPetugasBinding;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
@@ -83,7 +84,7 @@ public class Spp extends Fragment implements Abstract {
         getSpp();
         nav = Navigation.findNavController(view);
         // Cari id navigation di nav graph
-//        binding.btnTambahSPP.setOnClickListener(v -> nav.navigate(R.id.action_spp_petugas_to_tambahspp_petugas));
+        binding.btnTambahSpp.setOnClickListener(v -> nav.navigate(R.id.action_spp_petugas_to_tambahspp_petugas));
     }
 
     @Override
