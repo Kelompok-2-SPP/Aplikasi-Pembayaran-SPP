@@ -33,6 +33,6 @@ public class EditKelas extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = KelasPetugasBinding.inflate(inflater, container, false);
-        return binding;
+        return binding.getRoot();
     }
 }
