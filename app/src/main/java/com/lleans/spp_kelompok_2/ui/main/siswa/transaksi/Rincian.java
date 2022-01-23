@@ -27,7 +27,7 @@ public class Rincian extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Toast.makeText(getContext(), data.getNisn(), Toast.LENGTH_SHORT).show();
+//        binding.totalPembayaran.setText(data.getJumlahBayar());
     }
 
     @Override

@@ -5,6 +5,8 @@
         <item name="colorPrimary">@color/primary_color</item>
         <item name="colorPrimaryVariant">@color/transparent_primaryColor</item>
         <item name="colorOnPrimary">@color/neutral_white</item>
+        <item name="colorSurface">@color/neutral_lightGrey</item>
+        <item name="background">@color/neutral_lightGrey</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/primary_color</item>
         <item name="colorSecondaryVariant">@color/transparent_primaryColor</item>

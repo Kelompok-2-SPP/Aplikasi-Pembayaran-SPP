@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.main.petugas.siswa.TambahSiswa">
 
@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"/>
+        android:orientation="horizontal" />
 
     <ScrollView
         android:id="@+id/scrollview2"
@@ -75,6 +75,7 @@
                     android:ems="12"
                     android:hint="NISN"
                     android:inputType="text"
+                    android:maxLength="10"
                     android:padding="13sp"
                     android:textColor="#6E6E77"
                     android:textColorHint="#3D3E49"
@@ -98,6 +99,7 @@
                     android:ems="12"
                     android:hint="NIS"
                     android:inputType="text"
+                    android:maxLength="8"
                     android:padding="13sp"
                     android:textColor="#6E6E77"
                     android:textColorHint="#3D3E49"
@@ -144,29 +146,7 @@
                     android:ems="12"
                     android:hint="Password"
                     android:inputType="text"
-                    android:padding="13sp"
-                    android:textColor="#6E6E77"
-                    android:textColorHint="#3D3E49"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/tv_kelas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="Kelas"
-                    android:textColor="#3D3E49"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/kelas"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/shape"
-                    android:ems="12"
-                    android:hint="Kelas"
-                    android:inputType="number"
+                    android:maxLength="35"
                     android:padding="13sp"
                     android:textColor="#6E6E77"
                     android:textColorHint="#3D3E49"
@@ -213,6 +193,7 @@
                     android:ems="12"
                     android:hint="No. Telp"
                     android:inputType="number"
+                    android:maxLength="13"
                     android:padding="13sp"
                     android:textColor="#6E6E77"
                     android:textColorHint="#3D3E49"

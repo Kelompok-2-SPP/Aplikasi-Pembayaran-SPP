@@ -39,9 +39,8 @@ public class SiswaCardAdapter extends RecyclerView.Adapter<SiswaCardAdapter.Sisw
         holder.name.setText(data.getNama());
         holder.nisn.setText(data.getNisn());
         holder.cardView.setOnClickListener(v -> {
-            DetailsItemSiswa d = listdata.get(position);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("data", d);
+            bundle.putSerializable("data", data);
             navController.navigate(R.id.action_siswa_petugas_to_detail_siswa, bundle);
         });
 

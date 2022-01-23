@@ -15,11 +15,14 @@ import android.widget.Toast;
 
 import com.lleans.spp_kelompok_2.Abstract;
 import com.lleans.spp_kelompok_2.databinding.TambahsiswaPetugasBinding;
+import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,16 +38,17 @@ public class TambahSiswa extends Fragment implements Abstract {
         // Required empty public constructor
     }
 
-    private void tambahSiswa(String nisn, String nis, String password,String namaSiswa, Integer idKelas, String alamat, String noTelp){
+    private void tambahSiswa(String nisn, String nis, String password,String namaSiswa, String alamat, String noTelp){
         Call<SiswaData> tambahSiswaCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Bundle bundle = getArguments();
         tambahSiswaCall = apiInterface.postSiswa(
                 "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                 nisn,
                 nis,
                 password,
                 namaSiswa,
-                idKelas,
+                bundle.getInt("idKelas"),
                 alamat,
                 noTelp);
         tambahSiswaCall.enqueue(new Callback<SiswaData>() {
@@ -52,13 +56,16 @@ public class TambahSiswa extends Fragment implements Abstract {
             public void onResponse(Call<SiswaData> call, Response<SiswaData> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     isLoading(false);
-                    toaster("here");
                     toaster(response.body().getMessage());
                     nav.navigateUp();
                 } else {
                     // Handling 401 error
                     isLoading(false);
-                    toaster(response.message());
+                    try {
+                        toaster(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -81,13 +88,12 @@ public class TambahSiswa extends Fragment implements Abstract {
             nis = binding.NIS.getText().toString();
             namaSiswa = binding.namaSiswa.getText().toString();
             password = binding.password.getText().toString();
-            idKelas = Integer.valueOf(binding.kelas.getText().toString());
             alamat = binding.alamat.getText().toString();
             noTelp = binding.telp.getText().toString();
             if(nisn.equals("") || nis.equals("") || namaSiswa.equals("") || alamat.equals("") || noTelp.equals("")) {
                 toaster("Data harus diisi!");
             } else {
-                tambahSiswa(nisn, nis, password, namaSiswa, idKelas, alamat, noTelp);
+                tambahSiswa(nisn, nis, password, namaSiswa, alamat, noTelp);
             }
         });
     }

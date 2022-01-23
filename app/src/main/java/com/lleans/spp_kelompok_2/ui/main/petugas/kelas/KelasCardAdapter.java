@@ -40,9 +40,8 @@ public class KelasCardAdapter extends RecyclerView.Adapter<KelasCardAdapter.Kela
         holder.nama_kelas.setText(data.getNamaKelas());
         //holder.jumlah_kelas.setText(data.get);
         holder.cardView.setOnClickListener(v -> {
-            DetailsItemKelas d = listdata.get(position);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("data", d);
+            bundle.putSerializable("data", data);
             navController.navigate(R.id.action_kelas_petugas_to_siswa_petugas, bundle);
         });
     }
