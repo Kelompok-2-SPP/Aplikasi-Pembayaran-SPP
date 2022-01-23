@@ -12,18 +12,13 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.lleans.spp_kelompok_2.Abstract;
-import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.TransaksiSiswaBinding;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranData;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,7 +36,7 @@ public class Transaksi extends Fragment implements Abstract {
 
     private void getTransaksi(String tglDibayar, Integer bulanDibayar, Integer tahun_dibayar) {
         isLoading(true);
-        Call<PembayaranData> pembayaranDataCall;
+        Call<PembayaranDataList> pembayaranDataCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         pembayaranDataCall = apiInterface.getPembayaran(
                 "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
@@ -53,9 +48,9 @@ public class Transaksi extends Fragment implements Abstract {
                 null,
                 null,
                 null);
-        pembayaranDataCall.enqueue(new Callback<PembayaranData>() {
+        pembayaranDataCall.enqueue(new Callback<PembayaranDataList>() {
             @Override
-            public void onResponse(Call<PembayaranData> call, Response<PembayaranData> response) {
+            public void onResponse(Call<PembayaranDataList> call, Response<PembayaranDataList> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     isLoading(false);
                     TransaksiCardAdapter cardAdapter = new TransaksiCardAdapter(response.body().getDetails(), navController);
@@ -69,7 +64,7 @@ public class Transaksi extends Fragment implements Abstract {
             }
 
             @Override
-            public void onFailure(Call<PembayaranData> call, Throwable t) {
+            public void onFailure(Call<PembayaranDataList> call, Throwable t) {
                 isLoading(false);
                 toaster(t.getLocalizedMessage());
             }

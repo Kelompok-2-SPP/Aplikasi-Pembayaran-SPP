@@ -12,6 +12,7 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lleans.spp_kelompok_2.R;
+import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
 
 import java.util.List;
@@ -26,11 +27,6 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
         this.navController = navController;
     }
 
-    public String getMonth(int month) {
-        String[] months = {"none", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "Nopember", "Desember"};
-        return months[month];
-    }
-
     @NonNull
     @Override
     public TransaksiCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,12 +37,11 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
     @Override
     public void onBindViewHolder(@NonNull final TransaksiCardViewHolder holder, int position) {
         DetailsItemPembayaran data = listdata.get(position);
-        holder.title.setText(data.getTahunDibayar() + " • " + getMonth(data.getBulanDibayar()));
+        holder.title.setText(data.getTahunDibayar() + " • " + Utils.getMonth(data.getBulanDibayar()));
         holder.nominal.setText("Rp. " + data.getJumlahBayar());
         holder.cardView.setOnClickListener(v -> {
-            DetailsItemPembayaran d = listdata.get(position);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("data", d);
+            bundle.putSerializable("data", data);
             navController.navigate(R.id.action_transaksi_siswa_to_rincianTransaksi_siswa, bundle);
         });
     }

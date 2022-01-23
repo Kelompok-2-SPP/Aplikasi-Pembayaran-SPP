@@ -41,11 +41,10 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
     @Override
     public void onBindViewHolder(@NonNull final SppCardViewHolder holder, int position) {
         DetailsItemSpp data = listdata.get(position);
-        holder.nominal.setText(data.getNominal());
+        holder.nominal.setText("Rp. " + data.getNominal());
         holder.cardView.setOnClickListener(v -> {
-            DetailsItemSpp d = listdata.get(position);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("data", d);
+            bundle.putSerializable("data", data);
             navController.navigate(R.id.action_spp_petugas_to_rincianSpp_petugas, bundle);
         });
     }
@@ -62,7 +61,7 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
         public SppCardViewHolder(@NonNull View itemView) {
             super(itemView);
             bulan = itemView.findViewById(R.id.bulan_spp);
-            nominal = itemView.findViewById(R.id.nominal_spp);
+            nominal = itemView.findViewById(R.id.nominalSpp);
             cardView = itemView.findViewById(R.id.card_spp);
         }
     }

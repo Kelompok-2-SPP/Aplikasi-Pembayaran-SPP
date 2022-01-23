@@ -41,9 +41,8 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
         // holder.status.setText(data.getStatus());
         holder.nominalkurang.setText(data.getJumlahBayar());
         holder.cardView.setOnClickListener(v -> {
-            DetailsItemPembayaran d = listdata.get(position);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("data", d);
+            bundle.putSerializable("data", data);
             navController.navigate(R.id.action_aktivitas_petugas_to_rincianTransaksi_siswa, bundle);
         });
     }

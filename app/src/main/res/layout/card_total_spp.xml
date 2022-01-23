@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_spp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="20dp"
     android:layout_marginTop="12dp"
     android:layout_marginRight="20dp"
     app:cardBackgroundColor="#01C370"
-    android:id="@+id/card_spp"
     app:cardCornerRadius="25dp"
     app:cardElevation="8dp">
 
@@ -62,7 +62,7 @@
                 android:src="@drawable/putih" />
 
             <TextView
-                android:id="@+id/nominal_spp"
+                android:id="@+id/nominalSpp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

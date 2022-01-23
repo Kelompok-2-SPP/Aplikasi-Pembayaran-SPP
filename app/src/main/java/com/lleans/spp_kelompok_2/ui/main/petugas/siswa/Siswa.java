@@ -16,11 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.lleans.spp_kelompok_2.Abstract;
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.SiswaPetugasBinding;
-import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
-import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
+import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
+import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
-import com.lleans.spp_kelompok_2.ui.main.petugas.kelas.KelasCardAdapter;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
 import retrofit2.Call;
@@ -33,30 +32,32 @@ public class Siswa extends Fragment implements Abstract {
     private SessionManager sessionManager;
     private NavController nav;
 
+    private DetailsItemKelas kelas;
+
     public Siswa() {
         // Required empty public constructor
     }
 
-    private void getSiswa(){
+    private void getSiswa(Integer idKelas){
         isLoading(true);
-        Call<SiswaData> siswaDataCall;
+        Call<SiswaDataList> siswaDataCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         siswaDataCall = apiInterface.getSiswa(
                 "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                 null,
                 null,
                 null,
-                null,
+                idKelas,
                 null,
                 null,
                 null,
                 null);
-        siswaDataCall.enqueue(new Callback<SiswaData>() {
+        siswaDataCall.enqueue(new Callback<SiswaDataList>() {
             @Override
-            public void onResponse(Call<SiswaData> call, Response<SiswaData> response) {
+            public void onResponse(Call<SiswaDataList> call, Response<SiswaDataList> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     isLoading(false);
-//                    toaster(response.body().getDetails().toString());
+                    binding.jumlahSiswa.setText(response.body().getDetails().size() + " Siswa");
                     SiswaCardAdapter cardAdapter = new SiswaCardAdapter(response.body().getDetails(), nav);
                     binding.rvSiswa.setLayoutManager(new LinearLayoutManager(getContext()));
                     binding.rvSiswa.setAdapter(cardAdapter);
@@ -68,7 +69,7 @@ public class Siswa extends Fragment implements Abstract {
             }
 
             @Override
-            public void onFailure(Call<SiswaData> call, Throwable t) {
+            public void onFailure(Call<SiswaDataList> call, Throwable t) {
                 isLoading(false);
                 toaster(t.getLocalizedMessage());
             }
@@ -79,7 +80,9 @@ public class Siswa extends Fragment implements Abstract {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
-        binding.btnTambahSiswa.setOnClickListener(v -> nav.navigate(R.id.action_siswa_petugas_to_tambahSiswa));
+        Bundle bundle = new Bundle();
+        bundle.putInt("idKelas", kelas.getIdKelas());
+        binding.btnTambahSiswa.setOnClickListener(v -> nav.navigate(R.id.action_siswa_petugas_to_tambahSiswa, bundle));
     }
 
     @Override
@@ -88,7 +91,10 @@ public class Siswa extends Fragment implements Abstract {
         // Inflate the layout for this fragment
         binding = SiswaPetugasBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
-        getSiswa();
+        Bundle bundle = getArguments();
+        kelas = (DetailsItemKelas) bundle.get("data");
+        binding.namaKelas.setText(kelas.getNamaKelas());
+        getSiswa(kelas.getIdKelas());
         return binding.getRoot();
     }
 

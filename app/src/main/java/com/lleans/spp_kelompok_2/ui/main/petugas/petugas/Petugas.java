@@ -16,11 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.lleans.spp_kelompok_2.Abstract;
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.PetugasPetugasBinding;
-import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasData;
-import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
+import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
-import com.lleans.spp_kelompok_2.ui.main.petugas.siswa.SiswaCardAdapter;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
 import retrofit2.Call;
@@ -39,7 +37,7 @@ public class Petugas extends Fragment implements Abstract {
 
     private void getPetugas() {
         isLoading(true);
-        Call<PetugasData> petugasDataCall;
+        Call<PetugasDataList> petugasDataCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         petugasDataCall = apiInterface.getPetugas(
                 "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
@@ -49,9 +47,9 @@ public class Petugas extends Fragment implements Abstract {
                 null,
                 null,
                 null);
-        petugasDataCall.enqueue(new Callback<PetugasData>() {
+        petugasDataCall.enqueue(new Callback<PetugasDataList>() {
             @Override
-            public void onResponse(Call<PetugasData> call, Response<PetugasData> response) {
+            public void onResponse(Call<PetugasDataList> call, Response<PetugasDataList> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     isLoading(false);
 //                    toaster(response.body().getDetails().toString());
@@ -66,7 +64,7 @@ public class Petugas extends Fragment implements Abstract {
             }
 
             @Override
-            public void onFailure(Call<PetugasData> call, Throwable t) {
+            public void onFailure(Call<PetugasDataList> call, Throwable t) {
                 isLoading(false);
                 toaster(t.getLocalizedMessage());
             }

@@ -2,10 +2,15 @@ package com.lleans.spp_kelompok_2.network;
 
 import com.lleans.spp_kelompok_2.domain.model.auth.AuthData;
 import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
+import com.lleans.spp_kelompok_2.domain.model.kelas.KelasDataList;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranData;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
 import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasData;
+import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasDataList;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
+import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaDataList;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
+import com.lleans.spp_kelompok_2.domain.model.spp.SppDataList;;
 
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -38,7 +43,7 @@ public interface ApiInterface {
 
     //    KELAS
     @GET("kelas")
-    Call<KelasData> getKelas(
+    Call<KelasDataList> getKelas(
             @Header("Authorization") String token,
             @Query("id_kelas") Integer id_kelas,
             @Query("nama_kelas") String nama_kelas,
@@ -49,7 +54,7 @@ public interface ApiInterface {
     );
 
     @GET("kelas")
-    Call<KelasData> keywordKelas(
+    Call<KelasDataList> keywordKelas(
             @Header("Authorization") String token,
             @Query("keyword") String keyword
     );
@@ -82,7 +87,7 @@ public interface ApiInterface {
 
     //    PEMBAYARAN
     @GET("pembayaran")
-    Call<PembayaranData> getPembayaran(
+    Call<PembayaranDataList> getPembayaran(
             @Header("Authorization") String token,
             @Query("id_pembayaran") Integer id_pembayaran,
             @Query("id_petugas") Integer id_petugas,
@@ -97,7 +102,7 @@ public interface ApiInterface {
     );
 
     @GET("pembayaram")
-    Call<PembayaranData> keywordPembayaran(
+    Call<PembayaranDataList> keywordPembayaran(
             @Header("Authorization") String token,
             @Query("keyword") String keyword
     );
@@ -138,7 +143,7 @@ public interface ApiInterface {
 
     //    PETUGAS
     @GET("petugas")
-    Call<PetugasData> getPetugas(
+    Call<PetugasDataList> getPetugas(
             @Header("Authorization") String token,
             @Query("id_petugas") Integer id_petugas,
             @Query("username") String username,
@@ -149,7 +154,7 @@ public interface ApiInterface {
     );
 
     @GET("petugas")
-    Call<PetugasData> keywordPetugas(
+    Call<PetugasDataList> keywordPetugas(
             @Header("Authorization") String token,
             @Query("keyword") String keyword
     );
@@ -184,7 +189,7 @@ public interface ApiInterface {
 
     //    SISWA
     @GET("siswa")
-    Call<SiswaData> getSiswa(
+    Call<SiswaDataList> getSiswa(
             @Header("Authorization") String token,
             @Query("nisn") String nisn,
             @Query("nis") String nis,
@@ -197,7 +202,7 @@ public interface ApiInterface {
     );
 
     @GET("keyword")
-    Call<SiswaData> keywordSiswa(
+    Call<SiswaDataList> keywordSiswa(
             @Header("Authorization") String token,
             @Query("keyword") String keyword
     );
@@ -238,7 +243,7 @@ public interface ApiInterface {
 
     //    SPP
     @GET("spp")
-    Call<SppData> getSpp(
+    Call<SppDataList> getSpp(
             @Header("Authorization") String token,
             @Query("id_spp") Integer id_spp,
             @Query("angkatan") Integer angkatan,
@@ -249,14 +254,14 @@ public interface ApiInterface {
     );
 
     @GET("spp")
-    Call<SppData> keywordSpp(
+    Call<SppDataList> keywordSpp(
             @Header("Authorization") String token,
             @Query("keyword") String keyword
     );
 
     @FormUrlEncoded
     @POST("spp")
-    Call<SiswaData> postSpp(
+    Call<SppData> postSpp(
             @Header("Authorization") String token,
             @Field("angkatan") Integer angkatan,
             @Field("tahun") Integer tahun,
@@ -265,7 +270,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @PUT("spp")
-    Call<SiswaData> putSpp(
+    Call<SppData> putSpp(
             @Header("Authorization") String token,
             @Field("id_spp") Integer id_spp,
             @Field("angkatan") Integer angkatan,

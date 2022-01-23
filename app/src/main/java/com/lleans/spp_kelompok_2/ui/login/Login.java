@@ -22,6 +22,8 @@ import com.lleans.spp_kelompok_2.databinding.LoginBinding;
 import com.lleans.spp_kelompok_2.domain.model.auth.AuthData;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -92,7 +94,11 @@ public class Login extends Fragment implements Abstract {
                 } else {
                     // Handling 500 error
                     isLoading(false);
-                    toaster("Login gagal, " + response.message());
+                    try {
+                        toaster("Login gagal, " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

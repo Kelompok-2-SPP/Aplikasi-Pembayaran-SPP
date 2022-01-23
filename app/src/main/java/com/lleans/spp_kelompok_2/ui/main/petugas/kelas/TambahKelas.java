@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -46,9 +47,8 @@ public class TambahKelas extends Fragment implements Abstract {
         tambahKelasCall.enqueue(new Callback<KelasData>() {
             @Override
             public void onResponse(Call<KelasData> call, Response<KelasData> response) {
-                if (response.body() != null && response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     isLoading(false);
-                    toaster("here");
                     toaster(response.body().getMessage());
                     nav.navigateUp();
                 } else {
@@ -62,7 +62,6 @@ public class TambahKelas extends Fragment implements Abstract {
             public void onFailure(Call<KelasData> call, Throwable t) {
                 isLoading(false);
                 toaster(t.getLocalizedMessage());
-                toaster("di sini!");
             }
         });
     }
@@ -77,7 +76,6 @@ public class TambahKelas extends Fragment implements Abstract {
             namakelas = binding.idKelas.getText().toString();
             jurusan = binding.jurusan.getText().toString();
             angkatan = Integer.parseInt(binding.angkatan.getText().toString());
-            toaster(angkatan.toString());
             if(namakelas.equals("") || jurusan.equals("") || angkatan == null) {
                 toaster("Data harus diisi!");
             } else {

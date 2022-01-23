@@ -15,10 +15,10 @@
             android:id="@+id/textView"
             android:layout_width="288dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="45dp"
+            android:layout_marginStart="45dp"
             android:layout_marginTop="60dp"
             android:fontFamily="@font/semibold"
-            android:text="Login Sebagai ?"
+            android:text="@string/login_sebagai"
             android:textColor="#FF0000"
             android:textSize="40sp"
             app:layout_constraintHorizontal_bias="0.0"
@@ -39,8 +39,8 @@
 
         <ImageButton
             android:id="@+id/siswaLoginBtn"
-            android:layout_width="308dp"
-            android:layout_height="65dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="39dp"
             android:layout_marginBottom="30dp"
@@ -55,9 +55,8 @@
 
         <ImageButton
             android:id="@+id/petugasLoginBtn"
-            android:layout_width="308dp"
-            android:layout_height="65dp"
-            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="60dp"
             android:background="@color/bg"
             android:scaleType="centerInside"
@@ -73,8 +72,8 @@
             android:layout_height="match_parent"
             android:background="@color/primary_color"
             android:src="@drawable/ic_launcher_foreground"
-            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

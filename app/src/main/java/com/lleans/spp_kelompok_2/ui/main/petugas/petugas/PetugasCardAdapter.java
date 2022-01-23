@@ -40,9 +40,8 @@ public class PetugasCardAdapter extends RecyclerView.Adapter<PetugasCardAdapter.
         holder.name.setText(data.getNamaPetugas());
         holder.uname.setText(data.getUsername());
         holder.cardView.setOnClickListener(v -> {
-            DetailsItemPetugas d = listdata.get(position);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("data", d);
+            bundle.putSerializable("data", data);
             navController.navigate(R.id.action_petugas_petugas_to_tambahPetugas, bundle);
         });
     }

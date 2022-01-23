@@ -40,9 +40,8 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
         holder.kelas_histori.setText(data.getSiswa().getIdKelas());
         holder.nominal_histori.setText("Rp. " + data.getJumlahBayar());
         holder.cardView.setOnClickListener(v -> {
-            DetailsItemPembayaran d = listdata.get(position);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("data", d);
+            bundle.putSerializable("data", data);
             navController.navigate(R.id.action_kelas_petugas_to_siswa_petugas, bundle);
         });
     }
