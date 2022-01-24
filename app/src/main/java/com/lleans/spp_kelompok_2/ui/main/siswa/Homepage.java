@@ -13,23 +13,9 @@ import androidx.navigation.Navigation;
 
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.HomepageSiswaBinding;
-import com.lleans.spp_kelompok_2.domain.model.auth.AuthData;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranData;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.SppPembayaran;
-import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
-import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
-import com.lleans.spp_kelompok_2.network.ApiClient;
-import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.MainActivity;
 import com.lleans.spp_kelompok_2.ui.login.Logout;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Homepage extends Fragment {
 

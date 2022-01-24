@@ -16,12 +16,9 @@ import android.widget.Toast;
 
 import com.lleans.spp_kelompok_2.Abstract;
 import com.lleans.spp_kelompok_2.databinding.HistoriPetugasBinding;
-import com.lleans.spp_kelompok_2.domain.model.kelas.KelasDataList;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
-import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
-import com.lleans.spp_kelompok_2.ui.main.petugas.petugas.PetugasCardAdapter;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
 import retrofit2.Call;

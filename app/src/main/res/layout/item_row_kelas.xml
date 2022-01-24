@@ -57,7 +57,7 @@
                     android:layout_marginLeft="10dp"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="38 siswa" />
+                    android:text="38 siswaPembayaran" />
 
             </LinearLayout>
         </LinearLayout>

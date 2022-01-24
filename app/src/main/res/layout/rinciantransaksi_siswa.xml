@@ -7,7 +7,7 @@
     android:background="@color/bg"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".ui.main.petugas.siswa.RincianTransaksi">
+    tools:context=".ui.main.petugasPembayaran.siswaPembayaran.RincianTransaksi">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/scrollview2"

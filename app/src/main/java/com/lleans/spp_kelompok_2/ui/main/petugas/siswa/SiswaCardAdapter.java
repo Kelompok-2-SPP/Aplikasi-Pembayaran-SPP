@@ -12,7 +12,6 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lleans.spp_kelompok_2.R;
-import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
 
 import java.util.List;
 

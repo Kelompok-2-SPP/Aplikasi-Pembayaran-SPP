@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context="ui.main.petugas.Homepage">
+    tools:context="ui.main.petugasPembayaran.Homepage">
 
     <ScrollView
         android:id="@+id/scrollview2"

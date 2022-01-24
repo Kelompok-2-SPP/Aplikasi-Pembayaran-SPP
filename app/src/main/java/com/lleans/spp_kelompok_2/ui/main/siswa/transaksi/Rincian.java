@@ -9,10 +9,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.lleans.spp_kelompok_2.databinding.RinciantransaksiSiswaBinding;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
 
 public class Rincian extends Fragment {
 

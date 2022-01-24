@@ -15,6 +15,9 @@ public class SiswaPembayaran implements Serializable {
 	@SerializedName("nisn")
 	private String nisn;
 
+	@SerializedName("kelas")
+	private KelasPembayaran kelasPembayaran;
+
 	@SerializedName("nis")
 	private String nis;
 
@@ -52,6 +55,14 @@ public class SiswaPembayaran implements Serializable {
 
 	public String getNisn(){
 		return nisn;
+	}
+
+	public void setKelas(KelasPembayaran kelasPembayaran){
+		this.kelasPembayaran = kelasPembayaran;
+	}
+
+	public KelasPembayaran getKelas(){
+		return kelasPembayaran;
 	}
 
 	public void setNis(String nis){

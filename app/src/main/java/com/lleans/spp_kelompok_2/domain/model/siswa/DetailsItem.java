@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class DetailsItemSiswa implements Serializable {
+public class DetailsItem implements Serializable {
 
 	@SerializedName("createdAt")
 	private String createdAt;
@@ -14,6 +14,9 @@ public class DetailsItemSiswa implements Serializable {
 
 	@SerializedName("nisn")
 	private String nisn;
+
+	@SerializedName("kelas")
+	private KelasSiswa kelasSiswa;
 
 	@SerializedName("nis")
 	private String nis;
@@ -52,6 +55,14 @@ public class DetailsItemSiswa implements Serializable {
 
 	public String getNisn(){
 		return nisn;
+	}
+
+	public void setKelas(KelasSiswa kelasSiswa){
+		this.kelasSiswa = kelasSiswa;
+	}
+
+	public KelasSiswa getKelas(){
+		return kelasSiswa;
 	}
 
 	public void setNis(String nis){

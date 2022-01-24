@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.main.siswa.transaksi.Transaksi">
+    tools:context=".ui.main.siswaPembayaran.transaksi.Transaksi">
 
     <TextView
         android:id="@+id/textView7"
