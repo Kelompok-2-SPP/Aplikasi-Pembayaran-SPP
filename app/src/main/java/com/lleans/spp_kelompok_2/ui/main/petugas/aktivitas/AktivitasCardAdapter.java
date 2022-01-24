@@ -37,9 +37,9 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
     public void onBindViewHolder(@NonNull final AktivitasCardViewHolder holder, int position) {
         DetailsItemPembayaran data = listdata.get(position);
         holder.name.setText(data.getSiswa().getNama());
-        holder.kelas.setText(data.getSiswa().getIdKelas());
+        holder.kelas.setText(String.valueOf(data.getSiswa().getIdKelas()));
         // holder.status.setText(data.getStatus());
-        holder.nominalkurang.setText(data.getJumlahBayar());
+        holder.nominalkurang.setText(String.valueOf(data.getJumlahBayar()));
         holder.cardView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("data", data);

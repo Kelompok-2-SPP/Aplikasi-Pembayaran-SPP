@@ -1,6 +1,10 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.spp;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,16 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.lleans.spp_kelompok_2.Abstract;
 import com.lleans.spp_kelompok_2.databinding.TambahsppPetugasBinding;
-import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
-import com.lleans.spp_kelompok_2.domain.model.spp.SppDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
@@ -55,6 +52,7 @@ public class TambahSpp extends Fragment implements Abstract {
                     nav.navigateUp();
                 } else {
                     // Handling 401 error
+                    // error karna server /eksternal
                     isLoading(false);
                     try {
                         toaster(response.errorBody().string());
@@ -66,6 +64,7 @@ public class TambahSpp extends Fragment implements Abstract {
 
             @Override
             public void onFailure(Call<SppData> call, Throwable t) {
+                // error karna masalah hp /internal
                 isLoading(false);
                 toaster(t.getLocalizedMessage());
             }

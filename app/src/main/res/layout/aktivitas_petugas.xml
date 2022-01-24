@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -49,17 +49,27 @@
                 app:layout_constraintVertical_bias="0.555"
                 app:srcCompat="@drawable/garis" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_kelas"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/refresher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item_row_aktivitas" />
+                android:background="@color/bg"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:paddingTop="16dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_kelas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_row_aktivitas" />
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         </LinearLayout>
     </LinearLayout>
 
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
