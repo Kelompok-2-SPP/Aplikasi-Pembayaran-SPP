@@ -74,10 +74,19 @@
         <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/spp_petugas.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahkelas_petugas.xml" value="0.1671195652173913" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahspp_petugas.xml" value="0.264" />
-        <entry key="..\:/android tugas/produktif/Projek UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_petugas.xml" value="0.1" />
+        <entry key="..\:/android tugas/produktif/Projek UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/datapetugas.xml" value="0.19166666666666668" />
+        <entry key="..\:/android tugas/produktif/Projek UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/detailpetugas_petugas.xml" value="0.1" />
+        <entry key="..\:/android tugas/produktif/Projek UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/histori_petugas.xml" value="0.22" />
+        <entry key="..\:/android tugas/produktif/Projek UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/homepage_siswa.xml" value="0.17552083333333332" />
+        <entry key="..\:/android tugas/produktif/Projek UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/item_row_aktivitas_siswa.xml" value="0.17552083333333332" />
+        <entry key="..\:/android tugas/produktif/Projek UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/item_row_histori.xml" value="0.17552083333333332" />
+        <entry key="..\:/android tugas/produktif/Projek UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_petugas.xml" value="0.22" />
         <entry key="..\:/android tugas/produktif/Projek UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/rincianspp_petugas.xml" value="0.1" />
+        <entry key="..\:/android tugas/produktif/Projek UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/rinciantransaksi_siswa.xml" value="0.17552083333333332" />
         <entry key="..\:/android tugas/produktif/Projek UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/spp_petugas.xml" value="0.1" />
+        <entry key="..\:/android tugas/produktif/Projek UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/status_siswa.xml" value="0.17552083333333332" />
         <entry key="..\:/android tugas/produktif/Projek UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahspp_petugas.xml" value="0.17552083333333332" />
+        <entry key="..\:/android tugas/produktif/Projek UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/transaksi_siswa.xml" value="0.17552083333333332" />
       </map>
     </option>
   </component>

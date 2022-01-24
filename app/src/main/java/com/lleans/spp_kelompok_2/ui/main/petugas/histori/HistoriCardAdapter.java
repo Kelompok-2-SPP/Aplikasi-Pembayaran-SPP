@@ -37,12 +37,12 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
     public void onBindViewHolder(@NonNull final HistoriCardViewHolder holder, int position) {
         DetailsItemPembayaran data = listdata.get(position);
         holder.nama_histori.setText(data.getSiswa().getNama());
-        holder.kelas_histori.setText(data.getSiswa().getIdKelas());
+        holder.kelas_histori.setText(String.valueOf(data.getSiswa().getIdKelas()));
         holder.nominal_histori.setText("Rp. " + data.getJumlahBayar());
-        holder.cardView.setOnClickListener(v -> {
+        holder.card_histori.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("data", data);
-            navController.navigate(R.id.action_kelas_petugas_to_siswa_petugas, bundle);
+            navController.navigate(R.id.action_histori_petugas_to_rincianTransaksi_siswa, bundle);
         });
     }
 
@@ -53,14 +53,14 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
 
     public static class HistoriCardViewHolder extends RecyclerView.ViewHolder {
         TextView nama_histori, kelas_histori, nominal_histori;
-        CardView cardView;
+        CardView card_histori;
 
         public HistoriCardViewHolder(@NonNull View itemView) {
             super(itemView);
             nama_histori = itemView.findViewById(R.id.histori_nama);
-            kelas_histori = itemView.findViewById(R.id.histori_kelas);
+            kelas_histori = itemView.findViewById(R.id.kelas_histori);
             nominal_histori = itemView.findViewById(R.id.histori_nominal);
-            cardView = itemView.findViewById(R.id.cardView);
+            card_histori = itemView.findViewById(R.id.card_histori);
         }
     }
 }

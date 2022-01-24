@@ -47,7 +47,7 @@
                     android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/histori_kelas"
+                    android:id="@+id/kelas_histori"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="XI RPL 1 • "

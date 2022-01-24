@@ -69,7 +69,7 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
-    @PUT("kelas/{id_kelas}")
+    @PUT("kelas")
     Call<KelasData> putKelas(
             @Header("Authorization") String token,
             @Field("id_kelas") Integer id_kelas,
