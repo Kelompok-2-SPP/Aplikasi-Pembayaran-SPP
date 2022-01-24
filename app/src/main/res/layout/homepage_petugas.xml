@@ -52,7 +52,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.565"
-                    app:layout_constraintStart_toEndOf="@+id/textView7"
                     app:srcCompat="@drawable/kelwar" />
 
 

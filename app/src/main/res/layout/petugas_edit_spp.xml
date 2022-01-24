@@ -1,14 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.main.petugas.spp.EditSpp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"/>
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:background="#00000000"
+            android:text="Tambah SPP"
+            android:textColor="#FF0000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tambahsppLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tv_angkatan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Angkatan"
+            android:textColor="#3D3E49"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/angkatan"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape"
+            android:ems="12"
+            android:hint="Angkatan"
+            android:inputType="text"
+            android:padding="13sp"
+            android:textColor="#6E6E77"
+            android:textColorHint="#3D3E49"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_tahun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Tahun"
+            android:textColor="#3D3E49"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/tahun"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape"
+            android:ems="12"
+            android:hint="Tahun"
+            android:inputType="text"
+            android:padding="13sp"
+            android:textColor="#6E6E77"
+            android:textColorHint="#3D3E49"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_nominal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Nominal"
+            android:textColor="#3D3E49"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/nominal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape"
+            android:ems="12"
+            android:hint="Nominal"
+            android:inputType="text"
+            android:padding="13sp"
+            android:textColor="#6E6E77"
+            android:textColorHint="#3D3E49"
+            android:textSize="14sp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/shape_red"
+            android:text="SIMPAN" />
+        <ImageButton
+            android:id="@+id/simpanKelas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/buttonsecondary"
+            android:text="HAPUS" />
+
+    </LinearLayout>
+
+</LinearLayout>

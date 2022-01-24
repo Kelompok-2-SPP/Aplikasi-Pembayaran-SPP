@@ -265,7 +265,7 @@ public interface ApiInterface {
             @Header("Authorization") String token,
             @Field("angkatan") Integer angkatan,
             @Field("tahun") Integer tahun,
-            @Field("naominal") Integer nominal
+            @Field("nominal") Integer nominal
     );
 
     @FormUrlEncoded
@@ -275,13 +275,13 @@ public interface ApiInterface {
             @Field("id_spp") Integer id_spp,
             @Field("angkatan") Integer angkatan,
             @Field("tahun") Integer tahun,
-            @Field("naominal") Integer nominal
+            @Field("nominal") Integer nominal
     );
 
     @FormUrlEncoded
     @DELETE("spp")
     Call<SppData> deleteSpp(
             @Header("Authorization") String token,
-            @Field("id_spp") Integer id_spp
+            @Query("id_spp") Integer id_spp
     );
 }

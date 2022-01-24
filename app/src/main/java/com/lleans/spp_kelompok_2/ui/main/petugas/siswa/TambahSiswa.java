@@ -61,11 +61,7 @@ public class TambahSiswa extends Fragment implements Abstract {
                 } else {
                     // Handling 401 error
                     isLoading(false);
-                    try {
-                        toaster(response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    toaster(response.message());
                 }
             }
 

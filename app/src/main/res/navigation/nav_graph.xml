@@ -136,6 +136,9 @@
         <action
             android:id="@+id/action_siswa_petugas_to_tambahSiswa"
             app:destination="@id/tambahSiswa_petugas" />
+        <action
+            android:id="@+id/action_siswa_petugas_to_editKelas"
+            app:destination="@id/editKelas" />
     </fragment>
     <fragment
         android:id="@+id/rincianTransaksi_siswa"
@@ -162,12 +165,19 @@
         <action
             android:id="@+id/action_status_siswa_to_rincianTransaksi_siswa2"
             app:destination="@id/rincianTransaksi_siswa" />
+        <action
+            android:id="@+id/action_statussiswa_petugas_to_editSiswa"
+            app:destination="@id/editSiswa" />
     </fragment>
     <fragment
         android:id="@+id/rincianSpp_petugas"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.spp.RincianSpp"
         android:label="Detail SPP"
-        tools:layout="@layout/rincianspp_petugas" />
+        tools:layout="@layout/rincianspp_petugas" >
+        <action
+            android:id="@+id/action_rincianSpp_petugas_to_editSpp"
+            app:destination="@id/editSpp" />
+    </fragment>
     <fragment
         android:id="@+id/tambahKelas_petugas"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.kelas.TambahKelas"
@@ -182,7 +192,11 @@
         android:id="@+id/detailPetugas_petuga"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.petugas.DetailPetugas"
         android:label="Detail Petugas"
-        tools:layout="@layout/detailpetugas_petugas" />
+        tools:layout="@layout/detailpetugas_petugas" >
+        <action
+            android:id="@+id/action_detailPetugas_petuga_to_editPetugas"
+            app:destination="@id/editPetugas" />
+    </fragment>
     <fragment
         android:id="@+id/tambahpetugas_petugas"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.petugas.TambahPetugas"
@@ -193,4 +207,24 @@
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.spp.TambahSpp"
         android:label="Tambah SPP"
         tools:layout="@layout/tambahspp_petugas" />
+    <fragment
+        android:id="@+id/editKelas"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.kelas.EditKelas"
+        android:label="Edit Kelas"
+        tools:layout="@layout/petugas_edit_kelas" />
+    <fragment
+        android:id="@+id/editSiswa"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.siswa.EditSiswa"
+        android:label="Edit Siswa"
+        tools:layout="@layout/petugas_edit_siswa" />
+    <fragment
+        android:id="@+id/editPetugas"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.petugas.EditPetugas"
+        android:label="Edit Petugas"
+        tools:layout="@layout/petugas_edit_petugas" />
+    <fragment
+        android:id="@+id/editSpp"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.spp.EditSpp"
+        android:label="Edit Spp"
+        tools:layout="@layout/petugas_edit_spp" />
 </navigation>

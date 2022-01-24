@@ -39,29 +39,6 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-
-        <TextView
-            android:id="@+id/tv_idSPP"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ID SPP"
-            android:textColor="#3D3E49"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/idSPP"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/shape"
-            android:ems="12"
-            android:hint="ID SPP"
-            android:inputType="number"
-            android:padding="13sp"
-            android:textColor="#6E6E77"
-            android:textColorHint="#3D3E49"
-            android:textSize="14sp" />
-
         <TextView
             android:id="@+id/tv_angkatan"
             android:layout_width="match_parent"

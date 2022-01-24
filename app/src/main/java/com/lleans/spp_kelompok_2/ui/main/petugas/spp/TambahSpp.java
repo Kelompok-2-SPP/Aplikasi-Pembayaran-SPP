@@ -22,6 +22,8 @@ import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,7 +56,11 @@ public class TambahSpp extends Fragment implements Abstract {
                 } else {
                     // Handling 401 error
                     isLoading(false);
-                    toaster(response.message());
+                    try {
+                        toaster(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
