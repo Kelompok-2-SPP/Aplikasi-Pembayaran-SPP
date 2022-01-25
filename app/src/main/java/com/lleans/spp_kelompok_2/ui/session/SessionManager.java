@@ -18,12 +18,14 @@ public class SessionManager {
     public static final String TYPE = "type";
     public static final String TOKEN = "token";
 
+    // Public constructor
     public SessionManager(Context context) {
         this.context = context;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         editor = sharedPreferences.edit();
     }
 
+    // Public function to create session
     public void createLogininSessFor(String username, String id, String type, String token) {
         editor.putBoolean(IS_LOGGED_IN, true);
         editor.putString(ID, id);
@@ -33,6 +35,7 @@ public class SessionManager {
         editor.commit();
     }
 
+    // Function to create HashMap(Dict) for session
     public HashMap<String, String> getUserDetail() {
         HashMap<String, String> user = new HashMap<>();
         user.put(ID, sharedPreferences.getString(ID, null));
@@ -42,11 +45,13 @@ public class SessionManager {
         return user;
     }
 
+    // Public function to clear session
     public void logOutSession() {
         editor.clear();
         editor.commit();
     }
 
+    // Public to check if there is a session
     public boolean isLoggedIn() {
         return sharedPreferences.getBoolean(IS_LOGGED_IN, false);
     }

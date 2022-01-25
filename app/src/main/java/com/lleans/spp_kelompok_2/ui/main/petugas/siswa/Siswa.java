@@ -13,7 +13,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.lleans.spp_kelompok_2.Abstract;
+import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.SiswaPetugasBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
@@ -26,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Siswa extends Fragment implements Abstract {
+public class Siswa extends Fragment implements UIListener {
 
     private SiswaPetugasBinding binding;
     private SessionManager sessionManager;
@@ -58,7 +58,7 @@ public class Siswa extends Fragment implements Abstract {
                 if (response.body() != null && response.isSuccessful()) {
                     isLoading(false);
                     binding.jumlahSiswa.setText(response.body().getDetails().size() + " Siswa");
-                    SiswaCardAdapter cardAdapter = new SiswaCardAdapter(response.body().getDetails(), nav);
+                    SiswaCardAdapter cardAdapter = new SiswaCardAdapter(response.body().getDetails(), nav, kelas);
                     binding.rvSiswa.setLayoutManager(new LinearLayoutManager(getContext()));
                     binding.rvSiswa.setAdapter(cardAdapter);
                 } else {
@@ -82,6 +82,7 @@ public class Siswa extends Fragment implements Abstract {
         nav = Navigation.findNavController(view);
         Bundle bundle2 = new Bundle();
         bundle2.putSerializable("kelas", kelas);
+
         binding.btnTambahSiswa.setOnClickListener(v -> nav.navigate(R.id.action_siswa_petugas_to_tambahSiswa, bundle2));
         binding.btnEdit.setOnClickListener(v -> nav.navigate(R.id.action_siswa_petugas_to_editKelas, bundle2));
     }
@@ -93,7 +94,7 @@ public class Siswa extends Fragment implements Abstract {
         binding = SiswaPetugasBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
         Bundle bundle = getArguments();
-        kelas = (DetailsItemKelas) bundle.get("data");
+        kelas = (DetailsItemKelas) bundle.get("kelas");
         binding.namaKelas.setText(kelas.getNamaKelas());
         getSiswa(kelas.getIdKelas());
         return binding.getRoot();
@@ -107,5 +108,10 @@ public class Siswa extends Fragment implements Abstract {
     @Override
     public void toaster(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void dialog(String title, String message) {
+
     }
 }

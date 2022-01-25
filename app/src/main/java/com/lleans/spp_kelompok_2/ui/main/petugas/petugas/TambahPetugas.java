@@ -13,9 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.lleans.spp_kelompok_2.Abstract;
+import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.TambahpetugasPetugasBinding;
-import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
 import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
@@ -25,7 +24,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TambahPetugas extends Fragment implements Abstract {
+public class TambahPetugas extends Fragment implements UIListener {
 
     private TambahpetugasPetugasBinding binding;
     private SessionManager sessionManager;
@@ -99,5 +98,10 @@ public class TambahPetugas extends Fragment implements Abstract {
     @Override
     public void toaster(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void dialog(String title, String message) {
+
     }
 }

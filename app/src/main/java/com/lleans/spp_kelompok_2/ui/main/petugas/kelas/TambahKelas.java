@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -14,10 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.lleans.spp_kelompok_2.Abstract;
+import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.TambahkelasPetugasBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
-import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
@@ -26,7 +24,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TambahKelas extends Fragment implements Abstract {
+public class TambahKelas extends Fragment implements UIListener {
 
     private TambahkelasPetugasBinding binding;
     private SessionManager sessionManager;

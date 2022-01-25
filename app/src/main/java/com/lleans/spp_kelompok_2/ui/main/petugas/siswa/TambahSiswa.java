@@ -13,8 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.lleans.spp_kelompok_2.Abstract;
+import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.TambahsiswaPetugasBinding;
+import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
@@ -24,11 +25,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TambahSiswa extends Fragment implements Abstract {
+public class TambahSiswa extends Fragment implements UIListener {
 
     private TambahsiswaPetugasBinding binding;
     private SessionManager sessionManager;
     private NavController nav;
+
+    private DetailsItemKelas kelas;
 
     public TambahSiswa() {
         // Required empty public constructor
@@ -37,14 +40,14 @@ public class TambahSiswa extends Fragment implements Abstract {
     private void tambahSiswa(String nisn, String nis, String password,String namaSiswa, String alamat, String noTelp){
         Call<SiswaData> tambahSiswaCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Bundle bundle = getArguments();
+
         tambahSiswaCall = apiInterface.postSiswa(
                 "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                 nisn,
                 nis,
                 password,
                 namaSiswa,
-                bundle.getInt("idKelas"),
+                kelas.getIdKelas(),
                 alamat,
                 noTelp);
         tambahSiswaCall.enqueue(new Callback<SiswaData>() {
@@ -75,7 +78,6 @@ public class TambahSiswa extends Fragment implements Abstract {
         nav = Navigation.findNavController(view);
         binding.simpanSiswa.setOnClickListener(view1 -> {
             String nisn, nis, password, namaSiswa, alamat, noTelp;
-            Integer idKelas;
             nisn = binding.NISN.getText().toString();
             nis = binding.NIS.getText().toString();
             namaSiswa = binding.namaSiswa.getText().toString();
@@ -95,6 +97,8 @@ public class TambahSiswa extends Fragment implements Abstract {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = TambahsiswaPetugasBinding.inflate(inflater, container, false);
+        Bundle bundle = getArguments();
+        kelas = (DetailsItemKelas) bundle.getSerializable("kelas");
         sessionManager = new SessionManager(getContext());
         return binding.getRoot();
     }
@@ -107,5 +111,10 @@ public class TambahSiswa extends Fragment implements Abstract {
     @Override
     public void toaster(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void dialog(String title, String message) {
+
     }
 }

@@ -7,18 +7,18 @@
 
     <fragment
         android:id="@+id/login"
-        android:name="com.lleans.spp_kelompok_2.ui.login.Login"
+        android:name="com.lleans.spp_kelompok_2.ui.auth.Login"
         android:label="login"
         tools:layout="@layout/login" >
         <action
             android:id="@+id/action_login_to_homepage2"
             app:destination="@id/homepage_siswa"
-            app:enterAnim="@anim/readernav_enter"
+            app:enterAnim="@anim/homepagenav_enter"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim" />
         <action
             android:id="@+id/action_login_to_homepage3"
             app:destination="@id/homepage_petugas"
-            app:enterAnim="@anim/readernav_enter"
+            app:enterAnim="@anim/homepagenav_enter"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim" />
     </fragment>
     <fragment

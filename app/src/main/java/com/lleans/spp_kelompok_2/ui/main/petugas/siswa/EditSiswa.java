@@ -13,10 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.lleans.spp_kelompok_2.Abstract;
+import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.PetugasEditSiswaBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
-import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
@@ -27,10 +26,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditSiswa extends Fragment implements Abstract {
+public class EditSiswa extends Fragment implements UIListener {
 
     private PetugasEditSiswaBinding binding;
     private DetailsItemSiswa detailsItemSiswa;
+    private DetailsItemKelas kelas;
     private SessionManager sessionManager;
     private NavController nav;
 
@@ -79,7 +79,7 @@ public class EditSiswa extends Fragment implements Abstract {
         nav = Navigation.findNavController(view);
 
         binding.simpanSiswa.setOnClickListener(view1 -> {
-            String nisn, newNisn, nis, password, nama, alamat, noTelp;
+            String newNisn, nis, password, nama, alamat, noTelp;
             Integer idKelas;
             newNisn = binding.NISN.getText().toString();
             nis = binding.NIS.getText().toString();
@@ -107,7 +107,8 @@ public class EditSiswa extends Fragment implements Abstract {
         binding = PetugasEditSiswaBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
         Bundle bundle = getArguments();
-        detailsItemSiswa = (DetailsItemSiswa) bundle.get("data");
+        detailsItemSiswa = (DetailsItemSiswa) bundle.get("siswa");
+        kelas = (DetailsItemKelas) bundle.get("kelas");
         binding.NISN.setText(detailsItemSiswa.getNisn());
         binding.NIS.setText(detailsItemSiswa.getNis());
         binding.namaSiswa.setText(detailsItemSiswa.getNama());
@@ -124,5 +125,10 @@ public class EditSiswa extends Fragment implements Abstract {
     @Override
     public void toaster(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void dialog(String title, String message) {
+
     }
 }

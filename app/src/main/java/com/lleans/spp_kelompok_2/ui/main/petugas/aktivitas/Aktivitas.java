@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,23 +13,29 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.lleans.spp_kelompok_2.Abstract;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
+import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.AktivitasPetugasBinding;
+import com.lleans.spp_kelompok_2.domain.model.auth.AuthData;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranData;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Aktivitas extends Fragment implements Abstract {
+public class Aktivitas extends Fragment implements UIListener {
 
     private AktivitasPetugasBinding binding;
+
     private SessionManager sessionManager;
     private NavController nav;
 
@@ -63,15 +70,24 @@ public class Aktivitas extends Fragment implements Abstract {
                 if (response.body() != null && response.isSuccessful()) {
                     isLoading(false);
                     setAdapter(response.body().getDetails());
+                } else if (response.errorBody() != null){
+                    isLoading(false);
+                    PembayaranDataList message = new Gson().fromJson(response.errorBody().charStream(), PembayaranDataList.class);
+                    toaster(message.getMessage());
                 } else {
                     isLoading(false);
-                    toaster(response.message());
+                    try {
+                        dialog("Login gagal!", response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<PembayaranDataList> call, Throwable t) {
-
+                isLoading(false);
+                dialog("Something went wrong!", t.getLocalizedMessage());
             }
         });
 
@@ -103,11 +119,17 @@ public class Aktivitas extends Fragment implements Abstract {
 
     @Override
     public void isLoading(Boolean isLoading) {
-
+        binding.refresher.setRefreshing(isLoading);
     }
 
     @Override
     public void toaster(String text) {
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void dialog(String title, String message) {
+        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(getContext());
+        as.setTitle(title).setMessage(message).setPositiveButton("Ok", null).show();
     }
 }

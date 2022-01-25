@@ -1,4 +1,4 @@
-package com.lleans.spp_kelompok_2.ui.login;
+package com.lleans.spp_kelompok_2.ui.auth;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,8 +10,11 @@ public class Logout {
     private SessionManager sessionManager;
 
     public Logout(Context context, Activity activity){
+        // Clear session
         sessionManager = new SessionManager(context);
         sessionManager.logOutSession();
+
+        // Kill current activity
         activity.finish();
     }
 }

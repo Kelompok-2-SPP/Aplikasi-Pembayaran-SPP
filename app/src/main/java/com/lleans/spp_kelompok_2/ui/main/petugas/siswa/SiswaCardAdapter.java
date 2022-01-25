@@ -12,6 +12,7 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lleans.spp_kelompok_2.R;
+import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
 
 import java.util.List;
@@ -19,11 +20,13 @@ import java.util.List;
 public class SiswaCardAdapter extends RecyclerView.Adapter<SiswaCardAdapter.SiswaCardViewHolder> {
 
     private final List<DetailsItemSiswa> listdata;
+    private DetailsItemKelas kelas;
     private final NavController navController;
 
-    public SiswaCardAdapter(List<DetailsItemSiswa> list, NavController navController) {
+    public SiswaCardAdapter(List<DetailsItemSiswa> list, NavController navController, DetailsItemKelas kelas) {
         this.listdata = list;
         this.navController = navController;
+        this.kelas = kelas;
     }
 
     @NonNull
@@ -40,7 +43,8 @@ public class SiswaCardAdapter extends RecyclerView.Adapter<SiswaCardAdapter.Sisw
         holder.nisn.setText(data.getNisn());
         holder.cardView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putSerializable("data", data);
+            bundle.putSerializable("siswa", data);
+            bundle.putSerializable("kelas", kelas);
             navController.navigate(R.id.action_siswa_petugas_to_detail_siswa, bundle);
         });
 

@@ -13,21 +13,19 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.lleans.spp_kelompok_2.Abstract;
+import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.PetugasPetugasBinding;
 import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasDataList;
-import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
-import com.lleans.spp_kelompok_2.ui.main.petugas.siswa.SiswaCardAdapter;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Petugas extends Fragment implements Abstract{
+public class Petugas extends Fragment implements UIListener {
 
     private PetugasPetugasBinding binding;
     private SessionManager sessionManager;
@@ -97,5 +95,10 @@ public class Petugas extends Fragment implements Abstract{
     @Override
     public void toaster(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void dialog(String title, String message) {
+
     }
 }
