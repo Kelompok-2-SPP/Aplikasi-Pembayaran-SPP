@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class SiswaDataList {
 
 	@SerializedName("details")
-	private List<DetailsItem> details;
+	private List<DetailsItemSiswa> details;
 
 	@SerializedName("message")
 	private String message;
@@ -14,11 +14,11 @@ public class SiswaDataList {
 	@SerializedName("status")
 	private int status;
 
-	public void setDetails(List<DetailsItem> details){
+	public void setDetails(List<DetailsItemSiswa> details){
 		this.details = details;
 	}
 
-	public List<DetailsItem> getDetails(){
+	public List<DetailsItemSiswa> getDetails(){
 		return details;
 	}
 

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.domain.Utils;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
 
 import java.util.List;
 

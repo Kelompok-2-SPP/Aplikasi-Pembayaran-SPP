@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class DetailsItem implements Serializable {
+public class DetailsItemSiswa implements Serializable {
 
 	@SerializedName("createdAt")
 	private String createdAt;

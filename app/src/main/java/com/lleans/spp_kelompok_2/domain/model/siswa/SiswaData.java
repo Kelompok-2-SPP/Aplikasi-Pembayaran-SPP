@@ -2,12 +2,10 @@ package com.lleans.spp_kelompok_2.domain.model.siswa;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class SiswaData {
 
 	@SerializedName("details")
-	private DetailsItem details;
+	private DetailsItemSiswa details;
 
 	@SerializedName("message")
 	private String message;
@@ -15,11 +13,11 @@ public class SiswaData {
 	@SerializedName("status")
 	private int status;
 
-	public void setDetails(DetailsItem details){
+	public void setDetails(DetailsItemSiswa details){
 		this.details = details;
 	}
 
-	public DetailsItem getDetails(){
+	public DetailsItemSiswa getDetails(){
 		return details;
 	}
 

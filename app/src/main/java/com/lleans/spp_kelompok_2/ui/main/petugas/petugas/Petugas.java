@@ -17,15 +17,17 @@ import com.lleans.spp_kelompok_2.Abstract;
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.PetugasPetugasBinding;
 import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasDataList;
+import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
+import com.lleans.spp_kelompok_2.ui.main.petugas.siswa.SiswaCardAdapter;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Petugas extends Fragment implements Abstract {
+public class Petugas extends Fragment implements Abstract{
 
     private PetugasPetugasBinding binding;
     private SessionManager sessionManager;
@@ -35,7 +37,7 @@ public class Petugas extends Fragment implements Abstract {
         // Required empty public constructor
     }
 
-    private void getPetugas() {
+    private void getPetugas(){
         isLoading(true);
         Call<PetugasDataList> petugasDataCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -52,7 +54,6 @@ public class Petugas extends Fragment implements Abstract {
             public void onResponse(Call<PetugasDataList> call, Response<PetugasDataList> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     isLoading(false);
-//                    toaster(response.body().getDetails().toString());
                     PetugasCardAdapter cardAdapter = new PetugasCardAdapter(response.body().getDetails(), nav);
                     binding.rvPetugas.setLayoutManager(new LinearLayoutManager(getContext()));
                     binding.rvPetugas.setAdapter(cardAdapter);
@@ -74,7 +75,6 @@ public class Petugas extends Fragment implements Abstract {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        nav = Navigation.findNavController(view);
         binding.btnTambahPetugas.setOnClickListener(v -> nav.navigate(R.id.action_petugas_petugas_to_tambahpetugas_petugas));
     }
 
@@ -83,8 +83,6 @@ public class Petugas extends Fragment implements Abstract {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = PetugasPetugasBinding.inflate(inflater, container, false);
-        sessionManager = new SessionManager(getContext());
-        getPetugas();
         return binding.getRoot();
     }
 
