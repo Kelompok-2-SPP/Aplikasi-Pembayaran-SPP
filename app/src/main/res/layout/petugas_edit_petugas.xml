@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.petugasPembayaran.petugasPembayaran.EditPetugas">
+    tools:context=".ui.main.petugas.petugas.EditPetugas">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

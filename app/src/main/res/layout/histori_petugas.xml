@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.petugasPembayaran.histori.Histori">
+    tools:context=".ui.main.petugas.histori.Histori">
 
     <ScrollView
         android:id="@+id/scrollview2"
