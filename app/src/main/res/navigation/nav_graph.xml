@@ -14,12 +14,12 @@
             android:id="@+id/action_login_to_homepage2"
             app:destination="@id/homepage_siswa"
             app:enterAnim="@anim/readernav_enter"
-            app:popEnterAnim="@anim/fade_out_short" />
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim" />
         <action
             android:id="@+id/action_login_to_homepage3"
             app:destination="@id/homepage_petugas"
             app:enterAnim="@anim/readernav_enter"
-            app:popEnterAnim="@anim/fade_out_short" />
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim" />
     </fragment>
     <fragment
         android:id="@+id/homepage_siswa"
@@ -28,12 +28,18 @@
         tools:layout="@layout/homepage_siswa">
         <action
             android:id="@+id/action_homepage2_to_transaksi"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/fade_out_short"
             app:destination="@id/transaksi_siswa" />
         <action
             android:id="@+id/action_homepage_siswa_to_rincianSpp_petugas"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/fade_out_short"
             app:destination="@id/rincianSpp_petugas" />
         <action
             android:id="@+id/action_homepage_siswa_to_rincianTransaksi_siswa2"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/fade_out_short"
             app:destination="@id/rincianTransaksi_siswa" />
     </fragment>
     <fragment
@@ -43,35 +49,43 @@
         tools:layout="@layout/homepage_petugas" >
         <action
             android:id="@+id/action_homepage_petugas_to_aktivitasPetugas"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:destination="@id/aktivitas_petugas" />
         <action
             android:id="@+id/action_homepage_petugas_to_histori_petugas"
-            app:destination="@id/histori_petugas" />
+            app:destination="@id/histori_petugas"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim" />
         <action
             android:id="@+id/action_homepage_petugas_to_petugas_petugas"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:destination="@id/petugas_petugas" />
         <action
             android:id="@+id/action_homepage_petugas_to_petugas_petugas2"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:destination="@id/petugas_petugas" />
         <action
             android:id="@+id/action_homepage_petugas_to_spp_petugas"
             app:destination="@id/spp_petugas"
-            app:enterAnim="@anim/readernav_enter"
-            app:exitAnim="@anim/readernav_exit"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim" />
         <action
             android:id="@+id/action_homepage_petugas_to_siswa"
             app:destination="@id/siswa_petugas"
-            app:enterAnim="@anim/readernav_enter"
-            app:exitAnim="@anim/readernav_exit"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim" />
         <action
             android:id="@+id/action_homepage_petugas_to_kelas_petugas"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:destination="@id/kelas_petugas" />
         <action
             android:id="@+id/action_homepage_petugas_to_rincianTransaksi_siswa"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:destination="@id/rincianTransaksi_siswa" />
     </fragment>
     <fragment
@@ -81,6 +95,8 @@
         tools:layout="@layout/transaksi_siswa">
         <action
             android:id="@+id/action_transaksi_siswa_to_rincianTransaksi_siswa"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:destination="@id/rincianTransaksi_siswa" />
     </fragment>
     <fragment
@@ -90,6 +106,8 @@
         tools:layout="@layout/aktivitas_petugas">
         <action
             android:id="@+id/action_aktivitas_petugas_to_rincianTransaksi_siswa"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:destination="@id/rincianTransaksi_siswa" />
     </fragment>
     <fragment
@@ -99,6 +117,8 @@
         tools:layout="@layout/histori_petugas">
         <action
             android:id="@+id/action_histori_petugas_to_rincianTransaksi_siswa"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:destination="@id/rincianTransaksi_siswa" />
     </fragment>
     <fragment
@@ -108,10 +128,14 @@
         tools:layout="@layout/petugas_petugas">
         <action
             android:id="@+id/action_petugas_petugas_to_tambahPetugas"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:destination="@id/detailPetugas_petuga" />
         <action
             android:id="@+id/action_petugas_petugas_to_tambahpetugas_petugas"
-            app:destination="@id/tambahpetugas_petugas" />
+            app:destination="@id/tambahpetugas_petugas"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/spp_petugas"
@@ -120,10 +144,14 @@
         tools:layout="@layout/spp_petugas">
         <action
             android:id="@+id/action_spp_petugas_to_rincianSpp_petugas"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:destination="@id/rincianSpp_petugas" />
         <action
             android:id="@+id/action_spp_petugas_to_tambahspp_petugas"
-            app:destination="@id/tambahspp_petugas" />
+            app:destination="@id/tambahspp_petugas"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/siswa_petugas"
@@ -132,13 +160,19 @@
         tools:layout="@layout/siswa_petugas">
         <action
             android:id="@+id/action_siswa_petugas_to_detail_siswa"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:destination="@id/statussiswa_petugas" />
         <action
             android:id="@+id/action_siswa_petugas_to_tambahSiswa"
-            app:destination="@id/tambahSiswa_petugas" />
+            app:destination="@id/tambahSiswa_petugas"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_siswa_petugas_to_editKelas"
-            app:destination="@id/editKelas" />
+            app:destination="@id/editKelas"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/rincianTransaksi_siswa"
@@ -152,10 +186,14 @@
         tools:layout="@layout/kelas_petugas">
         <action
             android:id="@+id/action_kelas_petugas_to_siswa_petugas"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:destination="@id/siswa_petugas" />
         <action
             android:id="@+id/action_kelas_petugas_to_tambahKelas_petugas"
-            app:destination="@id/tambahKelas_petugas" />
+            app:destination="@id/tambahKelas_petugas"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/statussiswa_petugas"
@@ -164,10 +202,14 @@
         tools:layout="@layout/status_siswa">
         <action
             android:id="@+id/action_status_siswa_to_rincianTransaksi_siswa2"
+            app:enterAnim="@anim/fade_in_grow_from_top"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:destination="@id/rincianTransaksi_siswa" />
         <action
             android:id="@+id/action_statussiswa_petugas_to_editSiswa"
-            app:destination="@id/editSiswa" />
+            app:destination="@id/editSiswa"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/rincianSpp_petugas"
@@ -176,7 +218,9 @@
         tools:layout="@layout/rincianspp_petugas" >
         <action
             android:id="@+id/action_rincianSpp_petugas_to_editSpp"
-            app:destination="@id/editSpp" />
+            app:destination="@id/editSpp"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/tambahKelas_petugas"
@@ -195,7 +239,9 @@
         tools:layout="@layout/detailpetugas_petugas" >
         <action
             android:id="@+id/action_detailPetugas_petuga_to_editPetugas"
-            app:destination="@id/editPetugas" />
+            app:destination="@id/editPetugas"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/tambahpetugas_petugas"
