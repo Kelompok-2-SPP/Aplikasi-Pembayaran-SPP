@@ -75,6 +75,7 @@ public class Petugas extends Fragment implements Abstract{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        nav = Navigation.findNavController(view);
         binding.btnTambahPetugas.setOnClickListener(v -> nav.navigate(R.id.action_petugas_petugas_to_tambahpetugas_petugas));
     }
 
@@ -83,6 +84,8 @@ public class Petugas extends Fragment implements Abstract{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = PetugasPetugasBinding.inflate(inflater, container, false);
+        sessionManager = new SessionManager(getContext());
+        getPetugas();
         return binding.getRoot();
     }
 

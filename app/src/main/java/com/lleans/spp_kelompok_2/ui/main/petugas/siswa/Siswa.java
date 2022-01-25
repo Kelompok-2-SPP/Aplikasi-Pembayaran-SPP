@@ -80,11 +80,9 @@ public class Siswa extends Fragment implements Abstract {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
-        Bundle bundle = new Bundle();
         Bundle bundle2 = new Bundle();
-        bundle.putInt("idKelas", kelas.getIdKelas());
-        bundle2.putSerializable("data", kelas);
-        binding.btnTambahSiswa.setOnClickListener(v -> nav.navigate(R.id.action_siswa_petugas_to_tambahSiswa, bundle));
+        bundle2.putSerializable("kelas", kelas);
+        binding.btnTambahSiswa.setOnClickListener(v -> nav.navigate(R.id.action_siswa_petugas_to_tambahSiswa, bundle2));
         binding.btnEdit.setOnClickListener(v -> nav.navigate(R.id.action_siswa_petugas_to_editKelas, bundle2));
     }
 
