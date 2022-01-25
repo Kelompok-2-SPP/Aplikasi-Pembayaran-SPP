@@ -37,6 +37,7 @@ public class EditKelas extends Fragment implements Abstract {
         // Required empty public constructor
 
     }
+
     private void editKelas(String namaKelas, String jurusan, Integer angkatan) {
         Call<KelasData> editKelasCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -79,7 +80,7 @@ public class EditKelas extends Fragment implements Abstract {
             namakelas = binding.idKelas.getText().toString();
             jurusan = binding.jurusan.getText().toString();
             angkatan = Integer.parseInt(binding.angkatan.getText().toString());
-            if(namakelas.equals("") || jurusan.equals("") || angkatan == null) {
+            if (namakelas.equals("") || jurusan.equals("") || angkatan == null) {
                 toaster("Data harus diisi!");
             } else {
                 editKelas(namakelas, jurusan, angkatan);
@@ -92,9 +93,10 @@ public class EditKelas extends Fragment implements Abstract {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = PetugasEditKelasBinding.inflate(inflater, container, false);
+        sessionManager = new SessionManager(getContext());
         Bundle bundle = getArguments();
         detailsItemKelas = (DetailsItemKelas) bundle.get("data");
-        binding.angkatan.setText(detailsItemKelas.getAngkatan());
+        binding.angkatan.setText(String.valueOf(detailsItemKelas.getAngkatan()));
         binding.jurusan.setText(detailsItemKelas.getJurusan());
         binding.idKelas.setText(detailsItemKelas.getNamaKelas());
         return binding.getRoot();
