@@ -1,6 +1,10 @@
 package com.lleans.spp_kelompok_2.ui.login;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,18 +12,13 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.auth0.android.jwt.JWT;
 import com.lleans.spp_kelompok_2.Abstract;
 import com.lleans.spp_kelompok_2.R;
-import com.lleans.spp_kelompok_2.network.ApiClient;
-import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.databinding.LoginBinding;
 import com.lleans.spp_kelompok_2.domain.model.auth.AuthData;
+import com.lleans.spp_kelompok_2.network.ApiClient;
+import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
 import java.io.IOException;

@@ -309,28 +309,16 @@
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/shape"
-                            app:backgroundTint="@color/primary_color"
-                            android:textAllCaps="false"
-                            android:text="Belum Lunas"
                             android:layout_weight="1"
+                            android:background="@drawable/shape"
+                            android:stateListAnimator="@null"
+                            android:text="Belum Lunas"
+                            android:textAllCaps="false"
                             android:textColor="@color/neutral_white"
                             android:textSize="12sp"
                             android:textStyle="bold"
-                            android:stateListAnimator="@null" />
+                            app:backgroundTint="@color/primary_color" />
 
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/shape"
-                            app:backgroundTint="@color/neutral_white"
-                            android:layout_weight="1"
-                            android:textAllCaps="false"
-                            android:text="Kurang"
-                            android:textColor="@color/primary_color"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:stateListAnimator="@null" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
