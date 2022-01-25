@@ -46,6 +46,16 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:text="VA. 5220498072883050" />
+
+                    <ImageButton
+                        android:id="@+id/btnEdit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/edit"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
                 </LinearLayout>
 
                 <TextView
