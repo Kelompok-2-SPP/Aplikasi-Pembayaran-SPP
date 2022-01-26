@@ -100,4 +100,9 @@ public class TambahKelas extends Fragment implements UIListener {
     public void toaster(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void dialog(String title, String message) {
+
+    }
 }
