@@ -30,6 +30,13 @@ public class Homepage extends Fragment implements UIListener {
         // Required empty public constructor
     }
 
+    private void UILimiter(){
+        binding.datapetugas.setVisibility(View.GONE);
+        binding.textView39.setVisibility(View.GONE);
+        binding.imageView.setImageResource(R.drawable.dashboardpetugas);
+        binding.imageView.getLayoutParams().height = 100;
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -56,6 +63,9 @@ public class Homepage extends Fragment implements UIListener {
 
         // Change layout before it show
         binding.header.setText("Hai, " + sessionManager.getUserDetail().get(SessionManager.USERNAME));
+        if(sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")){
+            UILimiter();
+        }
 
         return binding.getRoot();
     }
