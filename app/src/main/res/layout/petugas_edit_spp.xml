@@ -23,7 +23,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:background="#00000000"
-            android:text="Tambah SPP"
+            android:text="Edit SPP"
             android:textColor="#FF0000"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -109,13 +109,14 @@
             android:textSize="14sp" />
 
         <Button
+            android:id="@+id/btnSimpanSpp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="30dp"
             android:background="@drawable/shape_red"
             android:text="SIMPAN" />
         <ImageButton
-            android:id="@+id/simpanKelas"
+            android:id="@+id/btnHapusSpp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"

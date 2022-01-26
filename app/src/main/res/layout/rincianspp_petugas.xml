@@ -51,28 +51,35 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <FrameLayout
-                android:layout_width="235dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:src="@drawable/putih" />
-
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Rp. 500.000"
-                    android:textColor="#01C370"
-                    android:textSize="26dp"
-                    android:textStyle="bold" />
-            </FrameLayout>
+                    android:paddingTop="16dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="70dp"
+                        android:gravity="center"
+                        android:text="Rp. 500.000"
+                        android:textColor="#01C370"
+                        android:layout_weight="1"
+                        android:textSize="30dp"
+                        android:textStyle="bold"
+                        android:background="@drawable/putih"/>
+
+                    <ImageButton
+                        android:id="@+id/btnEdit"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="20dp"
+                        android:background="@drawable/putih"
+                        android:src="@drawable/edit"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"/>
+                </LinearLayout>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
