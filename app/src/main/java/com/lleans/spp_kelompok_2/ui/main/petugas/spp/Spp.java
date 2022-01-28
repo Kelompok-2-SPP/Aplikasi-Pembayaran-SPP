@@ -35,6 +35,10 @@ public class Spp extends Fragment implements UIListener {
         // Required empty public constructor
     }
 
+    private void UILimiter(){
+        binding.btnTambahSpp.setVisibility(View.GONE);
+    }
+
     private void getSpp() {
         Call<SppDataList> sppData;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -80,6 +84,9 @@ public class Spp extends Fragment implements UIListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         sessionManager = new SessionManager(getContext());
+        if(sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")){
+            UILimiter();
+        }
         // Contoh navigation
         getSpp();
         nav = Navigation.findNavController(view);

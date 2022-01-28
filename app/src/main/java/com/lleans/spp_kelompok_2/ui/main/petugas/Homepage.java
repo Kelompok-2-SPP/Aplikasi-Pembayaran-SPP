@@ -34,7 +34,7 @@ public class Homepage extends Fragment implements UIListener {
         binding.datapetugas.setVisibility(View.GONE);
         binding.textView39.setVisibility(View.GONE);
         binding.imageView.setImageResource(R.drawable.dashboardpetugas);
-        binding.imageView.getLayoutParams().height = 100;
+        binding.imageView.getLayoutParams().height = (int) (100 * getContext().getResources().getDisplayMetrics().density);
     }
 
     @Override

@@ -41,6 +41,10 @@ public class Kelas extends Fragment implements UIListener {
         // Required empty public constructor
     }
 
+    private void UILimiter(){
+        binding.btnTambahKelas.setVisibility(View.GONE);
+    }
+
     private void setAdapter(List<DetailsItemKelas> data){
         KelasCardAdapter cardAdapter = new KelasCardAdapter(data, nav);
         binding.rvKelas.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -135,6 +139,9 @@ public class Kelas extends Fragment implements UIListener {
         // Inflate the layout for this fragment
         binding = KelasPetugasBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
+        if(sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")){
+            UILimiter();
+        }
         getKelas(null);
         return binding.getRoot();
     }

@@ -15,16 +15,22 @@ import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.StatusSiswaBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
+import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
 public class Status extends Fragment {
 
     private StatusSiswaBinding binding;
+    private SessionManager sessionManager;
 
     private DetailsItemKelas kelas;
     private DetailsItemSiswa siswa;
 
     public Status() {
         // Required empty public constructor
+    }
+
+    private void UILimiter() {
+        binding.btnEdit.setVisibility(View.GONE);
     }
 
     @Override
@@ -42,9 +48,14 @@ public class Status extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = StatusSiswaBinding.inflate(inflater, container, false);
+        sessionManager = new SessionManager(getContext());
+        if(sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")){
+            UILimiter();
+        }
         Bundle bundle = getArguments();
         kelas = (DetailsItemKelas) bundle.getSerializable("kelas");
         siswa = (DetailsItemSiswa) bundle.getSerializable("siswa");
+
         return binding.getRoot();
     }
 }

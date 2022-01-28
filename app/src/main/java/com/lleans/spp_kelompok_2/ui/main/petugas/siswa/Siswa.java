@@ -38,6 +38,12 @@ public class Siswa extends Fragment implements UIListener {
         // Required empty public constructor
     }
 
+    private void UILimiter(){
+        binding.btnEdit.setVisibility(View.GONE);
+        binding.btnTambahSiswa.setVisibility(View.GONE);
+
+    }
+
     private void getSiswa(Integer idKelas){
         isLoading(true);
         Call<SiswaDataList> siswaDataCall;
@@ -93,6 +99,9 @@ public class Siswa extends Fragment implements UIListener {
         // Inflate the layout for this fragment
         binding = SiswaPetugasBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
+        if(sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")){
+            UILimiter();
+        }
         Bundle bundle = getArguments();
         kelas = (DetailsItemKelas) bundle.get("kelas");
         binding.namaKelas.setText(kelas.getNamaKelas());

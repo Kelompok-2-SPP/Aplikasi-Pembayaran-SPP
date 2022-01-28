@@ -14,15 +14,21 @@ import androidx.navigation.Navigation;
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.RinciansppPetugasBinding;
 import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
+import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
 public class RincianSpp extends Fragment {
 
     private RinciansppPetugasBinding binding;
+    private SessionManager sessionManager;
 
     private DetailsItemSpp data;
 
     public RincianSpp() {
         // Required empty public constructor
+    }
+
+    private void UILimiter() {
+        binding.btnEdit.setVisibility(View.GONE);
     }
 
     @Override
@@ -39,6 +45,10 @@ public class RincianSpp extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Bundle bundle = getArguments();
+        sessionManager = new SessionManager(getContext());
+        if(sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")){
+            UILimiter();
+        }
         data = (DetailsItemSpp) bundle.getSerializable("spp");
         binding = RinciansppPetugasBinding.inflate(inflater, container, false);
         return binding.getRoot();
