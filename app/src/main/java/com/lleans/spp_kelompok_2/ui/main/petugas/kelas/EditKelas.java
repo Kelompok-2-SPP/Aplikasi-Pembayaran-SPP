@@ -133,6 +133,12 @@ public class EditKelas extends Fragment implements UIListener {
                 editKelas(namakelas, jurusan, angkatan);
             }
         });
+
+        binding.hapusKelas.setOnClickListener(view2 -> {
+            Integer idKelas;
+            idKelas = detailsItemKelas.getIdKelas();
+            deleteKelas(idKelas);
+        });
     }
 
     @Override

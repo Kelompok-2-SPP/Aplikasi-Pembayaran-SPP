@@ -13,11 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.PetugasEditPetugasBinding;
 import com.lleans.spp_kelompok_2.domain.model.petugas.DetailsItemPetugas;
 import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
+import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
@@ -39,6 +41,42 @@ public class EditPetugas extends Fragment implements UIListener {
 
     public EditPetugas() {
         // Required empty public constructor
+    }
+
+    // Delete petugas function
+    private void deletePetugas(Integer idPetugas) {
+        Call<PetugasData> petugasDataCall;
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        petugasDataCall = apiInterface.deletePetugas(
+                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
+                idPetugas
+        );
+        petugasDataCall.enqueue(new Callback<PetugasData>() {
+            @Override
+            public void onResponse(Call<PetugasData> call, Response<PetugasData> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    isLoading(false);
+                    toaster(response.body().getMessage());
+                    nav.navigateUp();
+                } else if (response.errorBody() != null) {
+                    isLoading(false);
+                    PetugasData message = new Gson().fromJson(response.errorBody().charStream(), PetugasData.class);
+                    toaster(message.getMessage());
+                } else {
+                    try {
+                        toaster(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PetugasData> call, Throwable t) {
+                isLoading(false);
+                toaster(t.getLocalizedMessage());
+            }
+        });
     }
 
     private void editPetugas(Integer idPetugas, String username, String password, String namaPetugas) {
@@ -100,6 +138,11 @@ public class EditPetugas extends Fragment implements UIListener {
                 }
 
             }
+        });
+        binding.hapusPetugas.setOnClickListener(view2 -> {
+            Integer idPetugas;
+            idPetugas = detailsItemPetugas.getIdPetugas();
+            deletePetugas(idPetugas);
         });
     }
 

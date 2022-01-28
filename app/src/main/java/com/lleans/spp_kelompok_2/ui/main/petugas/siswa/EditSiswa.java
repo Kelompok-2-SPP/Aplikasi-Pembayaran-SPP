@@ -13,14 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.PetugasEditSiswaBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
+import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +41,43 @@ public class EditSiswa extends Fragment implements UIListener {
     public EditSiswa() {
         // Required empty public constructor
     }
+
+    // Delete siswa function
+    private void deleteSiswa(String nisn) {
+        Call<SiswaData> siswaDataCall;
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        siswaDataCall = apiInterface.deleteSiswa(
+                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
+                nisn
+        );
+        siswaDataCall.enqueue(new Callback<SiswaData>() {
+            @Override
+            public void onResponse(Call<SiswaData> call, Response<SiswaData> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    isLoading(false);
+                    toaster(response.body().getMessage());
+                    nav.navigateUp();
+                } else if (response.errorBody() != null) {
+                    isLoading(false);
+                    SiswaData message = new Gson().fromJson(response.errorBody().charStream(), SiswaData.class);
+                    toaster(message.getMessage());
+                } else {
+                    try {
+                        toaster(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SiswaData> call, Throwable t) {
+                isLoading(false);
+                toaster(t.getLocalizedMessage());
+            }
+        });
+    }
+
 
     private void editSiswa(String nisn, String newNisn, String nis, String password, String nama, Integer idKelas, String alamat, String noTelp) {
         Call<SiswaData> editSiswaCall;
@@ -97,6 +138,11 @@ public class EditSiswa extends Fragment implements UIListener {
                     editSiswa(detailsItemSiswa.getNisn(), newNisn, nis, password, nama, detailsItemSiswa.getIdKelas(), alamat, noTelp);
                 }
             }
+        });
+        binding.hapusSiswa.setOnClickListener(view2 -> {
+            String nisn;
+            nisn = detailsItemSiswa.getNisn();
+            deleteSiswa(nisn);
         });
     }
 
