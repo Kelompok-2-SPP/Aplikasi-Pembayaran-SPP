@@ -29,6 +29,7 @@ public class RincianSpp extends Fragment {
 
     private void UILimiter() {
         binding.btnEdit.setVisibility(View.GONE);
+        binding.nominal.getLayoutParams().width = (int) (200 * getContext().getResources().getDisplayMetrics().density);
     }
 
     @Override
@@ -45,12 +46,12 @@ public class RincianSpp extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Bundle bundle = getArguments();
+        binding = RinciansppPetugasBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
         if(sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")){
             UILimiter();
         }
         data = (DetailsItemSpp) bundle.getSerializable("spp");
-        binding = RinciansppPetugasBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 }

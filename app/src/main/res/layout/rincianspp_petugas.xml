@@ -59,9 +59,11 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/nominal"
                         android:layout_width="wrap_content"
                         android:layout_height="70dp"
                         android:gravity="center"
+                        android:layout_gravity="center"
                         android:text="Rp. 500.000"
                         android:textColor="#01C370"
                         android:layout_weight="1"
