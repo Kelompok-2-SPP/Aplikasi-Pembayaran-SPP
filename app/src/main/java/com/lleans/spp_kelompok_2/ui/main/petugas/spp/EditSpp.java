@@ -13,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.PetugasEditSppBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
+import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
@@ -39,6 +41,42 @@ public class EditSpp extends Fragment implements UIListener {
 
     public EditSpp() {
         // Required empty public constructor
+    }
+
+    // Delete SPP function
+    private void deleteSpp(Integer idSpp) {
+        Call<SppData> sppDataCall;
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        sppDataCall = apiInterface.deleteSpp(
+                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
+                idSpp
+        );
+        sppDataCall.enqueue(new Callback<SppData>() {
+            @Override
+            public void onResponse(Call<SppData> call, Response<SppData> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    isLoading(false);
+                    toaster(response.body().getMessage());
+                    nav.navigateUp();
+                } else if (response.errorBody() != null) {
+                    isLoading(false);
+                    SppData message = new Gson().fromJson(response.errorBody().charStream(), SppData.class);
+                    toaster(message.getMessage());
+                } else {
+                    try {
+                        toaster(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SppData> call, Throwable t) {
+                isLoading(false);
+                toaster(t.getLocalizedMessage());
+            }
+        });
     }
 
     private void editSpp(Integer idSpp, Integer angkatan, Integer tahun, Integer nominal) {
@@ -93,6 +131,11 @@ public class EditSpp extends Fragment implements UIListener {
             } else {
                 editSpp(idSpp, angkatan, tahun, nominal);
             }
+        });
+        binding.btnHapusSpp.setOnClickListener(view2 -> {
+            Integer idSpp;
+            idSpp = detailsItemSpp.getIdSpp();
+            deleteSpp(idSpp);
         });
     }
 

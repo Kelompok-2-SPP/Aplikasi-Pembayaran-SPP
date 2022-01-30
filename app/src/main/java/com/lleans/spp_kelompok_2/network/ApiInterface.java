@@ -278,7 +278,6 @@ public interface ApiInterface {
             @Field("nominal") Integer nominal
     );
 
-    @FormUrlEncoded
     @DELETE("spp")
     Call<SppData> deleteSpp(
             @Header("Authorization") String token,
