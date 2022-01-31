@@ -12,6 +12,7 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lleans.spp_kelompok_2.R;
+import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
 
 import java.util.List;
@@ -37,9 +38,14 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
     public void onBindViewHolder(@NonNull final AktivitasCardViewHolder holder, int position) {
         DetailsItemPembayaran data = listdata.get(position);
         holder.name.setText(data.getSiswa().getNama());
-        holder.kelas.setText(String.valueOf(data.getSiswa().getIdKelas()));
-        // holder.status.setText(data.getStatus());
-        holder.nominalkurang.setText(String.valueOf(data.getJumlahBayar()));
+        holder.kelas.setText(data.getSiswa().getKelas().getNamaKelas());
+        if (Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar())) {
+            holder.status.setText("Belum Lunas");
+            holder.status.setTextColor(16750848);
+            holder.nominalkurang.setText("- Rp" + Utils.kurangBayara(data.getSpp().getNominal(), data.getJumlahBayar()));
+        }else{
+            holder.nominalkurang.setText("Rp" + data.getJumlahBayar());
+        }
         holder.cardView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("data", data);

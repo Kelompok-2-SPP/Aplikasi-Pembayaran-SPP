@@ -23,16 +23,19 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private Intent intent;
+
     public static Activity act;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Inflate binding, make MainActivity public
         act = this;
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         intent = new Intent(MainActivity.this, LauncherFragment.class);
         setContentView(binding.getRoot());
 
+        // Splash screen
         new Handler().postDelayed(() -> binding.splashScreen.animate().alpha(0.0f), 1000);
 
         SessionManager sessionManager = new SessionManager(MainActivity.this);
@@ -40,10 +43,12 @@ public class MainActivity extends AppCompatActivity {
             moveActivity("siswa");
         }
 
+        // Button listener
         binding.petugasLoginBtn.setOnClickListener(v -> moveActivity("petugas"));
         binding.siswaLoginBtn.setOnClickListener(v -> moveActivity("siswa"));
     }
 
+    // Function to move activity LauncherFragment
     private void moveActivity(String type){
         intent.putExtra("type", type);
         MainActivity.this.startActivity(intent);

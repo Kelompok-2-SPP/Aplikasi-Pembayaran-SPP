@@ -13,7 +13,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.lleans.spp_kelompok_2.Abstract;
+import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.SppPetugasBinding;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppDataList;
@@ -25,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Spp extends Fragment implements Abstract {
+public class Spp extends Fragment implements UIListener {
 
     private SppPetugasBinding binding;
     private NavController nav;
@@ -33,6 +33,10 @@ public class Spp extends Fragment implements Abstract {
 
     public Spp() {
         // Required empty public constructor
+    }
+
+    private void UILimiter(){
+        binding.btnTambahSpp.setVisibility(View.GONE);
     }
 
     private void getSpp() {
@@ -80,6 +84,9 @@ public class Spp extends Fragment implements Abstract {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         sessionManager = new SessionManager(getContext());
+        if(sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")){
+            UILimiter();
+        }
         // Contoh navigation
         getSpp();
         nav = Navigation.findNavController(view);
@@ -95,5 +102,10 @@ public class Spp extends Fragment implements Abstract {
     @Override
     public void toaster(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void dialog(String title, String message) {
+
     }
 }

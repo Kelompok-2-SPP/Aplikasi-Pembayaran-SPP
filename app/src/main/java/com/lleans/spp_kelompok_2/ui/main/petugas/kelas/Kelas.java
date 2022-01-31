@@ -15,20 +15,15 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.lleans.spp_kelompok_2.Abstract;
+import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.KelasPetugasBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
-import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
 import com.lleans.spp_kelompok_2.domain.model.kelas.KelasDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Kelas extends Fragment implements Abstract {
+public class Kelas extends Fragment implements UIListener {
 
     private KelasPetugasBinding binding;
     private SessionManager sessionManager;
@@ -44,6 +39,10 @@ public class Kelas extends Fragment implements Abstract {
 
     public Kelas() {
         // Required empty public constructor
+    }
+
+    private void UILimiter(){
+        binding.btnTambahKelas.setVisibility(View.GONE);
     }
 
     private void setAdapter(List<DetailsItemKelas> data){
@@ -140,6 +139,9 @@ public class Kelas extends Fragment implements Abstract {
         // Inflate the layout for this fragment
         binding = KelasPetugasBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
+        if(sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")){
+            UILimiter();
+        }
         getKelas(null);
         return binding.getRoot();
     }
@@ -152,5 +154,10 @@ public class Kelas extends Fragment implements Abstract {
     @Override
     public void toaster(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void dialog(String title, String message) {
+
     }
 }

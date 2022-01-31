@@ -44,7 +44,7 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
         holder.nominal.setText("Rp. " + data.getNominal());
         holder.cardView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putSerializable("data", data);
+            bundle.putSerializable("spp", data);
             navController.navigate(R.id.action_spp_petugas_to_rincianSpp_petugas, bundle);
         });
     }

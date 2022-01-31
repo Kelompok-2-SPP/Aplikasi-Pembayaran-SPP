@@ -13,7 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.lleans.spp_kelompok_2.Abstract;
+import com.google.gson.Gson;
+import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.PetugasEditKelasBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
@@ -21,16 +22,19 @@ import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditKelas extends Fragment implements Abstract {
+public class EditKelas extends Fragment implements UIListener {
 
     private PetugasEditKelasBinding binding;
     private DetailsItemKelas detailsItemKelas;
     private SessionManager sessionManager;
     private NavController nav;
+    private Bundle bundle;
 
 
     public EditKelas() {
@@ -38,6 +42,43 @@ public class EditKelas extends Fragment implements Abstract {
 
     }
 
+    // Delete kelas function
+    private void deleteKelas(Integer idKelas) {
+        Call<KelasData> kelasDataCall;
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        kelasDataCall = apiInterface.deleteKelas(
+                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
+                idKelas
+        );
+        kelasDataCall.enqueue(new Callback<KelasData>() {
+            @Override
+            public void onResponse(Call<KelasData> call, Response<KelasData> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    isLoading(false);
+                    toaster(response.body().getMessage());
+                    nav.navigateUp();
+                } else if (response.errorBody() != null) {
+                    isLoading(false);
+                    KelasData message = new Gson().fromJson(response.errorBody().charStream(), KelasData.class);
+                    toaster(message.getMessage());
+                } else {
+                    try {
+                        toaster(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<KelasData> call, Throwable t) {
+                isLoading(false);
+                toaster(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    // Edit kelas function
     private void editKelas(String namaKelas, String jurusan, Integer angkatan) {
         Call<KelasData> editKelasCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -50,14 +91,20 @@ public class EditKelas extends Fragment implements Abstract {
         editKelasCall.enqueue(new Callback<KelasData>() {
             @Override
             public void onResponse(Call<KelasData> call, Response<KelasData> response) {
-                if (response.isSuccessful()) {
+                if (response.body() != null && response.isSuccessful()) {
                     isLoading(false);
                     toaster(response.body().getMessage());
                     nav.navigateUp();
-                } else {
-                    // Handling 401 error
+                } else if (response.errorBody() != null) {
                     isLoading(false);
-                    toaster(response.message());
+                    KelasData message = new Gson().fromJson(response.errorBody().charStream(), KelasData.class);
+                    toaster(message.getMessage());
+                } else {
+                    try {
+                        toaster(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -86,6 +133,12 @@ public class EditKelas extends Fragment implements Abstract {
                 editKelas(namakelas, jurusan, angkatan);
             }
         });
+
+        binding.hapusKelas.setOnClickListener(view2 -> {
+            Integer idKelas;
+            idKelas = detailsItemKelas.getIdKelas();
+            deleteKelas(idKelas);
+        });
     }
 
     @Override
@@ -94,21 +147,29 @@ public class EditKelas extends Fragment implements Abstract {
         // Inflate the layout for this fragment
         binding = PetugasEditKelasBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
-        Bundle bundle = getArguments();
-        detailsItemKelas = (DetailsItemKelas) bundle.get("data");
+
+        bundle = getArguments();
+        detailsItemKelas = (DetailsItemKelas) bundle.get("kelas");
+
         binding.angkatan.setText(String.valueOf(detailsItemKelas.getAngkatan()));
         binding.jurusan.setText(detailsItemKelas.getJurusan());
         binding.idKelas.setText(detailsItemKelas.getNamaKelas());
+
         return binding.getRoot();
     }
 
     @Override
     public void isLoading(Boolean isLoading) {
-
+        binding.refresher.setRefreshing(isLoading);
     }
 
     @Override
     public void toaster(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void dialog(String title, String message) {
+
     }
 }

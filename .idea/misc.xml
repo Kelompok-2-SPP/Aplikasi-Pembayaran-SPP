@@ -7,10 +7,61 @@
         <entry key="..\:/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/kelas_petugas.xml" value="0.1" />
         <entry key="..\:/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/rinciantransaksi_siswa.xml" value="0.22" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/back_button.xml" value="0.2013888888888889" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/button.xml" value="0.2013888888888889" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/button_plus.xml" value="0.2013888888888889" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/buttonsecondary.xml" value="0.2013888888888889" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/cari.xml" value="0.2013888888888889" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/circle.xml" value="0.2013888888888889" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/datakelas.xml" value="0.2013888888888889" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/datapetugas.xml" value="0.2013888888888889" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/datasiswa.xml" value="0.20092592592592592" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/edit.xml" value="0.2013888888888889" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/garis.xml" value="0.2013888888888889" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/guaris.xml" value="0.20092592592592592" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2" />
-        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/homepage_petugas.xml" value="0.15081521739130435" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/illust.xml" value="0.20092592592592592" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/kelwar.xml" value="0.20092592592592592" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/petugass.xml" value="0.20092592592592592" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/search_back.xml" value="0.20092592592592592" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/shape.xml" value="0.20092592592592592" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/shape_red.xml" value="0.20092592592592592" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/shape_white.xml" value="0.20092592592592592" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/siswaa.xml" value="0.20092592592592592" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/activity_launcher_fragment.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/activity_main.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/aktivitas_petugas.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/card_total_spp.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/detailpetugas_petugas.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/histori_petugas.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/histori_status.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/homepage_petugas.xml" value="0.25" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/homepage_siswa.xml" value="0.25" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/item_row_aktivitas.xml" value="0.5" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/item_row_aktivitas_siswa.xml" value="0.67" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/item_row_histori.xml" value="0.18564814814814815" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/item_row_kelas.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/item_row_petugas.xml" value="0.18564814814814815" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/item_row_siswa.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/kelas_petugas.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/login.xml" value="0.14130434782608695" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_edit_kelas.xml" value="0.15081521739130435" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_edit_petugas.xml" value="0.18564814814814815" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_edit_siswa.xml" value="0.33" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_edit_spp.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_petugas.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/rincianspp_petugas.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/rinciantransaksi_siswa.xml" value="0.33" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/siswa_petugas.xml" value="0.1" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/spp_petugas.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/spp_siswa.xml" value="0.18564814814814815" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/status_siswa.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahkelas_petugas.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahpetugas_petugas.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahsiswa_petugas.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahspp_petugas.xml" value="0.14130434782608695" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/transaksi_siswa.xml" value="0.14130434782608695" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2" />
         <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/font/font_family.xml" value="0.1" />
         <entry key="..\:/Project/AndroidStudio/SPPKelompok2/app/src/main/res/layout/activity_main.xml" value="0.67" />
@@ -66,13 +117,20 @@
         <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahpetugas_petugas.xml" value="0.1796875" />
         <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahsiswa_petugas.xml" value="0.1796875" />
         <entry key="..\:/UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/transaksi_siswa.xml" value="0.1796875" />
+        <entry key="..\:/Users/Asus/AndroidStudioMoklet/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/activity_main.xml" value="0.1334853090172239" />
+        <entry key="..\:/Users/Asus/AndroidStudioMoklet/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/histori_petugas.xml" value="0.1334853090172239" />
+        <entry key="..\:/Users/Asus/AndroidStudioMoklet/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_edit_kelas.xml" value="0.2" />
+        <entry key="..\:/Users/Asus/AndroidStudioMoklet/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_edit_petugas.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/Asus/AndroidStudioMoklet/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_edit_siswa.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/Asus/AndroidStudioMoklet/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_edit_spp.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/Asus/AndroidStudioMoklet/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/rincianspp_petugas.xml" value="0.264" />
+        <entry key="..\:/Users/Asus/AndroidStudioMoklet/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/status_siswa.xml" value="0.1334853090172239" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/activity_launcher_fragment.xml" value="0.16847826086956522" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/fragment_blank.xml" value="0.1671195652173913" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/homepage_petugas.xml" value="0.4408310749774164" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/homepage_siswa.xml" value="0.264" />
-        <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/siswa_petugas.xml" value="0.4" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/siswa_petugas.xml" value="0.1671195652173913" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/spp_petugas.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/status_siswa.xml" value="0.24909420289855072" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahkelas_petugas.xml" value="0.1671195652173913" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/tambahspp_petugas.xml" value="0.264" />
         <entry key="..\:/android tugas/produktif/Projek UKK/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/datapetugas.xml" value="0.19166666666666668" />
@@ -91,7 +149,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

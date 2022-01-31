@@ -2,6 +2,7 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refresher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ui.main.siswa.Homepage">
@@ -67,8 +68,8 @@
                         android:id="@+id/cardTunggakan"
                         android:layout_width="match_parent"
                         android:layout_height="350dp"
-                        android:src="@drawable/cardss"
                         android:scaleType="centerCrop"
+                        android:src="@drawable/cardss"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -162,114 +163,15 @@
                         app:layout_constraintStart_toEndOf="@+id/textView15"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageButton
-                        android:id="@+id/imageView8"
-                        android:layout_width="wrap_content"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/kotak1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView15"
-                        tools:ignore="SpeakableTextPresentCheck" />
+                        android:layout_marginHorizontal="20dp"
+                        app:layout_constraintTop_toBottomOf="@+id/textView15">
 
-                    <ImageButton
-                        android:id="@+id/imageView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/kotak1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView8"
-                        app:srcCompat="@drawable/kotak1"
-                        tools:ignore="SpeakableTextPresentCheck" />
-
-
-                    <TextView
-                        android:id="@+id/textView17"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:fontFamily="@font/semibold"
-                        android:text="2021	• September"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView9"
-                        app:layout_constraintHorizontal_bias="0.103"
-                        app:layout_constraintStart_toStartOf="@+id/imageView8"
-                        app:layout_constraintTop_toTopOf="@+id/imageView8" />
-
-                    <TextView
-                        android:id="@+id/textView18"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:fontFamily="@font/medium"
-                        android:text="Lunas"
-                        android:textColor="#01C370"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView8"
-                        app:layout_constraintHorizontal_bias="0.069"
-                        app:layout_constraintStart_toStartOf="@+id/imageView8" />
-
-                    <TextView
-                        android:id="@+id/textView19"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/bold"
-                        android:text="Rp500.000"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView8"
-                        app:layout_constraintHorizontal_bias="0.736"
-                        app:layout_constraintStart_toEndOf="@+id/textView17"
-                        app:layout_constraintTop_toTopOf="@+id/imageView8" />
-
-                    <TextView
-                        android:id="@+id/textView23"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:fontFamily="@font/semibold"
-                        android:text="2021	• Agustus"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView9"
-                        app:layout_constraintHorizontal_bias="0.092"
-                        app:layout_constraintStart_toStartOf="@+id/imageView9"
-                        app:layout_constraintTop_toTopOf="@+id/imageView9" />
-
-                    <TextView
-                        android:id="@+id/textView24"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="16dp"
-                        android:fontFamily="@font/medium"
-                        android:text="Lunas"
-                        android:textColor="#01C370"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView9"
-                        app:layout_constraintHorizontal_bias="0.069"
-                        app:layout_constraintStart_toStartOf="@+id/imageView9"
-                        app:layout_constraintTop_toBottomOf="@+id/textView23" />
-
-
-                    <TextView
-                        android:id="@+id/textView21"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="80dp"
-                        android:fontFamily="@font/bold"
-                        android:text="Rp500.000"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-                        app:layout_constraintHorizontal_bias="0.793"
-                        app:layout_constraintStart_toEndOf="@+id/textView23"
-                        app:layout_constraintTop_toTopOf="@+id/imageView9"
-                        app:layout_constraintVertical_bias="0.526" />
-
+                    </androidx.recyclerview.widget.RecyclerView>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
