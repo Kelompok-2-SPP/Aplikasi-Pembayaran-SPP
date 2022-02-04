@@ -12,11 +12,24 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingTop="16dp"
+            tools:layout_editor_absoluteX="0dp">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_spp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/card_total_spp"/>
+            tools:listitem="@layout/card_total_spp">
+        </androidx.recyclerview.widget.RecyclerView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 
