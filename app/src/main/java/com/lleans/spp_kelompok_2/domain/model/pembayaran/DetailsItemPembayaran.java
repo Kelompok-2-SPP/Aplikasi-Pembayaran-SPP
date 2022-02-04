@@ -9,8 +9,8 @@ public class DetailsItemPembayaran implements Serializable {
 	@SerializedName("siswa")
 	private SiswaPembayaran siswaPembayaran;
 
-	@SerializedName("bulan_dibayar")
-	private int bulanDibayar;
+	@SerializedName("bulan_spp")
+	private int bulanSpp;
 
 	@SerializedName("id_pembayaran")
 	private int idPembayaran;
@@ -21,8 +21,8 @@ public class DetailsItemPembayaran implements Serializable {
 	@SerializedName("id_petugas")
 	private int idPetugas;
 
-	@SerializedName("tgl_dibayar")
-	private String tglDibayar;
+	@SerializedName("tgl_spp")
+	private String tglSpp;
 
 	@SerializedName("petugas")
 	private PetugasPembayaran petugasPembayaran;
@@ -33,8 +33,8 @@ public class DetailsItemPembayaran implements Serializable {
 	@SerializedName("spp")
 	private SppPembayaran sppPembayaran;
 
-	@SerializedName("tahun_dibayar")
-	private int tahunDibayar;
+	@SerializedName("tahun_spp")
+	private int tahunSpp;
 
 	@SerializedName("id_spp")
 	private int idSpp;
@@ -53,12 +53,12 @@ public class DetailsItemPembayaran implements Serializable {
 		return siswaPembayaran;
 	}
 
-	public void setBulanDibayar(int bulanDibayar){
-		this.bulanDibayar = bulanDibayar;
+	public void setBulanSpp(int bulanSpp){
+		this.bulanSpp = bulanSpp;
 	}
 
-	public int getBulanDibayar(){
-		return bulanDibayar;
+	public int getBulanSpp(){
+		return bulanSpp;
 	}
 
 	public void setIdPembayaran(int idPembayaran){
@@ -85,12 +85,12 @@ public class DetailsItemPembayaran implements Serializable {
 		return idPetugas;
 	}
 
-	public void setTglDibayar(String tglDibayar){
-		this.tglDibayar = tglDibayar;
+	public void setTglSpp(String tglSpp){
+		this.tglSpp = tglSpp;
 	}
 
-	public String getTglDibayar(){
-		return tglDibayar;
+	public String getTglSpp(){
+		return tglSpp;
 	}
 
 	public void setPetugas(PetugasPembayaran petugasPembayaran){
@@ -117,12 +117,12 @@ public class DetailsItemPembayaran implements Serializable {
 		return sppPembayaran;
 	}
 
-	public void setTahunDibayar(int tahunDibayar){
-		this.tahunDibayar = tahunDibayar;
+	public void setTahunSpp(int tahunSpp){
+		this.tahunSpp = tahunSpp;
 	}
 
-	public int getTahunDibayar(){
-		return tahunDibayar;
+	public int getTahunSpp(){
+		return tahunSpp;
 	}
 
 	public void setIdSpp(int idSpp){

@@ -10,7 +10,8 @@ import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasDataList;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaDataList;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
-import com.lleans.spp_kelompok_2.domain.model.spp.SppDataList;;
+import com.lleans.spp_kelompok_2.domain.model.spp.SppDataList;
+import com.lleans.spp_kelompok_2.domain.model.tunggakan.TunggakanData;;
 
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -105,6 +106,12 @@ public interface ApiInterface {
     Call<PembayaranDataList> keywordPembayaran(
             @Header("Authorization") String token,
             @Query("keyword") String keyword
+    );
+
+    @GET("pembayaran/tunggakan")
+    Call<TunggakanData> getTunggakan(
+            @Header("Authorization") String token,
+            @Query("nisn") String nisn
     );
 
     @FormUrlEncoded
@@ -257,6 +264,13 @@ public interface ApiInterface {
     Call<SppDataList> keywordSpp(
             @Header("Authorization") String token,
             @Query("keyword") String keyword
+    );
+
+    @GET("spp/latest")
+    Call<SppData> getLatestSpp(
+            @Header("Authorization") String token,
+            @Query("nisn") String nisn,
+            @Query("year") String year
     );
 
     @FormUrlEncoded
