@@ -20,6 +20,7 @@
 
 
         <LinearLayout
+            android:id="@+id/detailsiswa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -102,20 +103,34 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_siswa"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/refresher"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/item_row_siswa" />
+                android:background="@color/bg"
+                android:paddingTop="16dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:layout_constraintTop_toBottomOf="@+id/detailsiswa">
 
-            <ImageButton
-                android:id="@+id/btnTambahSiswa"
-                android:layout_width="51dp"
-                android:layout_height="51dp"
-                android:layout_gravity="right"
-                android:layout_marginRight="25dp"
-                android:background="@drawable/button_plus"
-                tools:ignore="SpeakableTextPresentCheck" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_siswa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_row_siswa">
+            </androidx.recyclerview.widget.RecyclerView>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                <ImageButton
+                    android:id="@+id/btnTambahSiswa"
+                    android:layout_width="51dp"
+                    android:layout_height="51dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="25dp"
+                    android:background="@drawable/button_plus"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
 
         </LinearLayout>
     </ScrollView>
