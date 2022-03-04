@@ -19,6 +19,8 @@ import java.util.List;
 
 public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdapter.TransaksiCardViewHolder> {
 
+    private int color;
+
     private final List<DetailsItemPembayaran> listdata;
     private final NavController navController;
 
@@ -31,17 +33,18 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
     @Override
     public TransaksiCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_aktivitas_siswa, parent, false);
+        color = view.getResources().getColor(R.color.orange);
         return new TransaksiCardViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final TransaksiCardViewHolder holder, int position) {
         DetailsItemPembayaran data = listdata.get(position);
-        holder.title.setText(data.getTahunDibayar() + " • " + Utils.getMonth(data.getBulanDibayar()));
+        holder.title.setText(data.getTahunSpp() + " • " + Utils.getMonth(data.getBulanSpp()));
         holder.nominal.setText("Rp" + data.getJumlahBayar());
         if (Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar())) {
             holder.status.setText("Belum Lunas");
-            holder.status.setTextColor(16750848);
+            holder.status.setTextColor(color);
         }
         holder.cardView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();

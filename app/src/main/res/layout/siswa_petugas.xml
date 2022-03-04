@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     tools:context=".ui.main.petugas.siswa.Siswa">
+
 
     <ScrollView
         android:id="@+id/scrollview2"
@@ -18,11 +19,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="vertical">
 
             <FrameLayout
@@ -103,20 +102,22 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_siswa"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/item_row_siswa" />
+                    android:id="@+id/rv_siswa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_row_siswa">
+            </androidx.recyclerview.widget.RecyclerView>
 
-            <ImageButton
-                android:id="@+id/btnTambahSiswa"
-                android:layout_width="51dp"
-                android:layout_height="51dp"
-                android:layout_gravity="right"
-                android:layout_marginRight="25dp"
-                android:background="@drawable/button_plus"
-                tools:ignore="SpeakableTextPresentCheck" />
+
+                <ImageButton
+                    android:id="@+id/btnTambahSiswa"
+                    android:layout_width="51dp"
+                    android:layout_height="51dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="25dp"
+                    android:background="@drawable/button_plus"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
         </LinearLayout>
     </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
