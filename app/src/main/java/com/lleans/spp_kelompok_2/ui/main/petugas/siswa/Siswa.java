@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.R;
-import com.lleans.spp_kelompok_2.databinding.SiswaPetugasBinding;
+import com.lleans.spp_kelompok_2.databinding.Petugas2SiswaBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
@@ -28,7 +28,7 @@ import retrofit2.Response;
 
 public class Siswa extends Fragment implements UIListener {
 
-    private SiswaPetugasBinding binding;
+    private Petugas2SiswaBinding binding;
     private SessionManager sessionManager;
     private NavController nav;
 
@@ -39,8 +39,8 @@ public class Siswa extends Fragment implements UIListener {
     }
 
     private void UILimiter(){
-        binding.btnEdit.setVisibility(View.GONE);
-        binding.btnTambahSiswa.setVisibility(View.GONE);
+        binding.edit.setVisibility(View.GONE);
+        binding.add.setVisibility(View.GONE);
 
     }
 
@@ -65,8 +65,8 @@ public class Siswa extends Fragment implements UIListener {
                     isLoading(false);
                     binding.jumlahSiswa.setText(response.body().getDetails().size() + " Siswa");
                     SiswaCardAdapter cardAdapter = new SiswaCardAdapter(response.body().getDetails(), nav, kelas);
-                    binding.rvSiswa.setLayoutManager(new LinearLayoutManager(getContext()));
-                    binding.rvSiswa.setAdapter(cardAdapter);
+                    binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    binding.recyclerView.setAdapter(cardAdapter);
                 } else {
                     // Handling 401 error
                     isLoading(false);
@@ -89,15 +89,15 @@ public class Siswa extends Fragment implements UIListener {
         Bundle bundle2 = new Bundle();
         bundle2.putSerializable("kelas", kelas);
 
-        binding.btnTambahSiswa.setOnClickListener(v -> nav.navigate(R.id.action_siswa_petugas_to_tambahSiswa, bundle2));
-        binding.btnEdit.setOnClickListener(v -> nav.navigate(R.id.action_siswa_petugas_to_editKelas, bundle2));
+        binding.add.setOnClickListener(v -> nav.navigate(R.id.action_siswa_petugas_to_tambahSiswa, bundle2));
+        binding.edit.setOnClickListener(v -> nav.navigate(R.id.action_siswa_petugas_to_editKelas, bundle2));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = SiswaPetugasBinding.inflate(inflater, container, false);
+        binding = Petugas2SiswaBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
         if(sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")){
             UILimiter();
@@ -111,7 +111,8 @@ public class Siswa extends Fragment implements UIListener {
 
     @Override
     public void isLoading(Boolean isLoading) {
-
+        binding.refresher.setEnabled(isLoading);
+        binding.refresher.setRefreshing(isLoading);
     }
 
     @Override

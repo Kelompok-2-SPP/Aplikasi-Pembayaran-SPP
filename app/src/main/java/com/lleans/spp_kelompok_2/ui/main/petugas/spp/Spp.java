@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.R;
-import com.lleans.spp_kelompok_2.databinding.SppPetugasBinding;
+import com.lleans.spp_kelompok_2.databinding.Petugas2SppBinding;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
@@ -27,7 +27,7 @@ import retrofit2.Response;
 
 public class Spp extends Fragment implements UIListener {
 
-    private SppPetugasBinding binding;
+    private Petugas2SppBinding binding;
     private NavController nav;
     private SessionManager sessionManager;
 
@@ -36,7 +36,7 @@ public class Spp extends Fragment implements UIListener {
     }
 
     private void UILimiter(){
-        binding.btnTambahSpp.setVisibility(View.GONE);
+        binding.add.setVisibility(View.GONE);
     }
 
     private void getSpp() {
@@ -56,9 +56,9 @@ public class Spp extends Fragment implements UIListener {
             public void onResponse(Call<SppDataList> call, Response<SppDataList> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     isLoading(true);
-                    SppCardAdapter cardAdapter = new SppCardAdapter(response.body().getDetails(), nav);
-                    binding.rvSpp.setLayoutManager(new LinearLayoutManager(getContext()));
-                    binding.rvSpp.setAdapter(cardAdapter);
+                    SppCardAdapter cardAdapter = new SppCardAdapter(response.body().getDetails(), nav, false);
+                    binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    binding.recyclerView.setAdapter(cardAdapter);
                 } else {
                     isLoading(false);
                     toaster(response.message());
@@ -76,7 +76,7 @@ public class Spp extends Fragment implements UIListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = SppPetugasBinding.inflate(inflater, container, false);
+        binding = Petugas2SppBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -91,7 +91,7 @@ public class Spp extends Fragment implements UIListener {
         getSpp();
         nav = Navigation.findNavController(view);
         // Cari id navigation di nav graph
-        binding.btnTambahSpp.setOnClickListener(v -> nav.navigate(R.id.action_spp_petugas_to_tambahspp_petugas));
+        binding.add.setOnClickListener(v -> nav.navigate(R.id.action_spp_petugas_to_tambahspp_petugas));
     }
 
     @Override

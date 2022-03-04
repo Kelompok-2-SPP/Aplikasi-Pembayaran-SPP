@@ -131,10 +131,10 @@ public class Login extends Fragment implements UIListener {
         }
 
         // Button listener
-        binding.loginBtn.setOnClickListener(v -> {
+        binding.login.setOnClickListener(v -> {
             String username, password;
-            username = binding.usernameEdit.getText().toString();
-            password = binding.passwordEdit.getText().toString();
+            username = binding.username.getText().toString();
+            password = binding.password.getText().toString();
             if (username.equals("") || password.equals("")) {
                 toaster("Data tidak boleh kosong");
             } else {
@@ -154,10 +154,10 @@ public class Login extends Fragment implements UIListener {
 
         // Check login type
         if (type.equals("siswa")) {
-            binding.loginHeader.setText("Login Siswa");
-            binding.loginDesc.setText("Masukkan NISN dan Password anda yang sudah terdaftar.");
+            binding.header.setText("Login Siswa");
+            binding.description.setText("Masukkan NISN dan Password anda yang sudah terdaftar.");
             binding.usernameLabel.setText("NISN");
-            binding.usernameEdit.setHint("NISN");
+            binding.username.setHint("NISN");
         }
         return binding.getRoot();
     }

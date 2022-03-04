@@ -54,7 +54,6 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/shape"
             android:ems="12"
             android:hint="Username"
             android:inputType="text"
@@ -77,7 +76,6 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/shape"
             android:ems="12"
             android:hint="Password"
             android:inputType="textPassword"
@@ -100,7 +98,6 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/shape"
             android:ems="12"
             android:hint="Nama Petugas"
             android:inputType="text"
@@ -114,7 +111,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="30dp"
-            android:background="@drawable/shape_red"
             android:text="SIMPAN" />
 
     </LinearLayout>

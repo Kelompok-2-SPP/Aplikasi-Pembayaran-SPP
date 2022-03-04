@@ -20,7 +20,7 @@ import java.util.List;
 public class SiswaCardAdapter extends RecyclerView.Adapter<SiswaCardAdapter.SiswaCardViewHolder> {
 
     private final List<DetailsItemSiswa> listdata;
-    private DetailsItemKelas kelas;
+    private final DetailsItemKelas kelas;
     private final NavController navController;
 
     public SiswaCardAdapter(List<DetailsItemSiswa> list, NavController navController, DetailsItemKelas kelas) {
@@ -32,7 +32,7 @@ public class SiswaCardAdapter extends RecyclerView.Adapter<SiswaCardAdapter.Sisw
     @NonNull
     @Override
     public SiswaCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_siswa, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_main, parent, false);
         return new SiswaCardViewHolder(view);
     }
 
@@ -61,9 +61,10 @@ public class SiswaCardAdapter extends RecyclerView.Adapter<SiswaCardAdapter.Sisw
 
         public SiswaCardViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.siswa_name);
-            nisn = itemView.findViewById(R.id.siswa_nisn);
-            cardView = itemView.findViewById(R.id.card_siswa);
+            name = itemView.findViewById(R.id.title);
+            nisn = itemView.findViewById(R.id.secondaryText);
+
+            cardView = itemView.findViewById(R.id.card);
         }
     }
 }

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.R;
-import com.lleans.spp_kelompok_2.databinding.PetugasPetugasBinding;
+import com.lleans.spp_kelompok_2.databinding.Petugas2PetugasBinding;
 import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
@@ -27,7 +27,7 @@ import retrofit2.Response;
 
 public class Petugas extends Fragment implements UIListener {
 
-    private PetugasPetugasBinding binding;
+    private Petugas2PetugasBinding binding;
     private SessionManager sessionManager;
     private NavController nav;
 
@@ -53,8 +53,8 @@ public class Petugas extends Fragment implements UIListener {
                 if (response.body() != null && response.isSuccessful()) {
                     isLoading(false);
                     PetugasCardAdapter cardAdapter = new PetugasCardAdapter(response.body().getDetails(), nav);
-                    binding.rvPetugas.setLayoutManager(new LinearLayoutManager(getContext()));
-                    binding.rvPetugas.setAdapter(cardAdapter);
+                    binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    binding.recyclerView.setAdapter(cardAdapter);
                 } else {
                     // Handling 401 error
                     isLoading(false);
@@ -74,14 +74,14 @@ public class Petugas extends Fragment implements UIListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
-        binding.btnTambahPetugas.setOnClickListener(v -> nav.navigate(R.id.action_petugas_petugas_to_tambahpetugas_petugas));
+        binding.btnTambah.setOnClickListener(v -> nav.navigate(R.id.action_petugas_petugas_to_tambahpetugas_petugas));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = PetugasPetugasBinding.inflate(inflater, container, false);
+        binding = Petugas2PetugasBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
         getPetugas();
         return binding.getRoot();

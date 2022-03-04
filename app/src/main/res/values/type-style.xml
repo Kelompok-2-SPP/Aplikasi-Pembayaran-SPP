@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--====================-->
+    <!--        BOLD        -->
+    <!--====================-->
+    <style name="SPPKelompok2.Text.Bold.Header4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="fontFamily">@font/poopins_bold</item>
+        <item name="android:fontFamily">@font/poopins_bold</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Bold.Header3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="fontFamily">@font/poopins_bold</item>
+        <item name="android:fontFamily">@font/poopins_bold</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Bold.Header2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/poopins_bold</item>
+        <item name="android:fontFamily">@font/poopins_bold</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Bold.Header1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/poopins_bold</item>
+        <item name="android:fontFamily">@font/poopins_bold</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <!--====================-->
+    <!--      SEMI BOLD     -->
+    <!--====================-->
+    <style name="SPPKelompok2.Text.Semibold.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/poopins_semibold</item>
+        <item name="android:fontFamily">@font/poopins_semibold</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Semibold.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/poopins_semibold</item>
+        <item name="android:fontFamily">@font/poopins_semibold</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Semibold.Header3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="fontFamily">@font/poopins_semibold</item>
+        <item name="android:fontFamily">@font/poopins_semibold</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Semibold.Header2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/poopins_semibold</item>
+        <item name="android:fontFamily">@font/poopins_semibold</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Semibold.Header1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/poopins_semibold</item>
+        <item name="android:fontFamily">@font/poopins_semibold</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <!--====================-->
+    <!--       MEDIUM       -->
+    <!--====================-->
+    <style name="SPPKelompok2.Text.Medium.Body3" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/poopins_medium</item>
+        <item name="android:fontFamily">@font/poopins_medium</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Medium.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/poopins_medium</item>
+        <item name="android:fontFamily">@font/poopins_medium</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Medium.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/poopins_medium</item>
+        <item name="android:fontFamily">@font/poopins_medium</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Medium.Header3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="fontFamily">@font/poopins_medium</item>
+        <item name="android:fontFamily">@font/poopins_medium</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Medium.Header2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/poopins_medium</item>
+        <item name="android:fontFamily">@font/poopins_medium</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Medium.Header1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/poopins_medium</item>
+        <item name="android:fontFamily">@font/poopins_medium</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <!--====================-->
+    <!--       REGULAR      -->
+    <!--====================-->
+    <style name="SPPKelompok2.Text.Regular.Body4" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/poopins_regular</item>
+        <item name="android:fontFamily">@font/poopins_regular</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Regular.Body3" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/poopins_regular</item>
+        <item name="android:fontFamily">@font/poopins_regular</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Regular.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/poopins_regular</item>
+        <item name="android:fontFamily">@font/poopins_regular</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Regular.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/poopins_regular</item>
+        <item name="android:fontFamily">@font/poopins_regular</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Regular.Header3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="fontFamily">@font/poopins_regular</item>
+        <item name="android:fontFamily">@font/poopins_regular</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Regular.Header2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/poopins_regular</item>
+        <item name="android:fontFamily">@font/poopins_regular</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="SPPKelompok2.Text.Regular.Header1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/poopins_regular</item>
+        <item name="android:fontFamily">@font/poopins_regular</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+
+</resources>

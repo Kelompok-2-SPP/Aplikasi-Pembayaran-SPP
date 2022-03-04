@@ -4,11 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.lleans.spp_kelompok_2.R;
@@ -19,8 +17,9 @@ public class LauncherFragment extends AppCompatActivity {
     private ActivityLauncherFragmentBinding binding;
     private NavHostFragment navHostFragment;
 
-    private AppBarLayout  appBarLayout;
+    private AppBarLayout appBar;
     private Toolbar toolbar;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +28,18 @@ public class LauncherFragment extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         // Get AppBar and Toolbar
-        appBarLayout = binding.AppBar;
-        toolbar = binding.ToolbarTitle;
+        appBar = binding.appbar;
+        toolbar = binding.toolbar;
+        title = binding.title;
 
         // Hide and unhide AppBar
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
         navHostFragment.getNavController().addOnDestinationChangedListener((controller, destination, arguments) -> {
-            toolbar.setTitle(destination.getLabel());
+            title.setText(destination.getLabel());
             if ("homepage_petugas".equals(destination.getLabel()) || "homepage_siswa".equals(destination.getLabel()) || "login".equals(destination.getLabel())) {
-                appBarLayout.setVisibility(View.GONE);
+                appBar.setVisibility(View.GONE);
             } else {
-                appBarLayout.setVisibility(View.VISIBLE);
+                appBar.setVisibility(View.VISIBLE);
                 toolbar.setNavigationOnClickListener(v -> {
                     controller.navigateUp();
                 });

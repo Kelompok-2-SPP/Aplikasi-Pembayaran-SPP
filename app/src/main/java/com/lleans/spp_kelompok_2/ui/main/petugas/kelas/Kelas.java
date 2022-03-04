@@ -1,8 +1,6 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.kelas;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.R;
-import com.lleans.spp_kelompok_2.databinding.KelasPetugasBinding;
+import com.lleans.spp_kelompok_2.databinding.Petugas2KelasBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 import com.lleans.spp_kelompok_2.domain.model.kelas.KelasDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
@@ -33,7 +31,7 @@ import retrofit2.Response;
 
 public class Kelas extends Fragment implements UIListener {
 
-    private KelasPetugasBinding binding;
+    private Petugas2KelasBinding binding;
     private SessionManager sessionManager;
     private NavController nav;
 
@@ -47,8 +45,8 @@ public class Kelas extends Fragment implements UIListener {
 
     private void setAdapter(List<DetailsItemKelas> data){
         KelasCardAdapter cardAdapter = new KelasCardAdapter(data, nav);
-        binding.rvKelas.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.rvKelas.setAdapter(cardAdapter);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setAdapter(cardAdapter);
     }
 
     private void getKelas(String keyword) {
@@ -112,20 +110,9 @@ public class Kelas extends Fragment implements UIListener {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
         binding.btnTambahKelas.setOnClickListener(v -> nav.navigate(R.id.action_kelas_petugas_to_tambahKelas_petugas));
-        binding.editTextTextPersonName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                getKelas(s.toString());
+        binding.searchBar.setOnFocusChangeListener((v, hasFocus) -> {
+            if(!hasFocus) {
+                getKelas(v.toString());
             }
         });
         binding.refresher.setOnRefreshListener(() -> {
@@ -137,7 +124,7 @@ public class Kelas extends Fragment implements UIListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = KelasPetugasBinding.inflate(inflater, container, false);
+        binding = Petugas2KelasBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
         if(sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")){
             UILimiter();

@@ -7,11 +7,11 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.lleans.spp_kelompok_2.databinding.RinciantransaksiSiswaBinding;
+import com.lleans.spp_kelompok_2.databinding.Siswa3RincianTransaksiBinding;
 
 public class RincianTransaksi extends Fragment {
 
-    private RinciantransaksiSiswaBinding binding;
+    private Siswa3RincianTransaksiBinding binding;
     public RincianTransaksi() {
         // Required empty public constructor
     }
@@ -21,7 +21,7 @@ public class RincianTransaksi extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = RinciantransaksiSiswaBinding.inflate(inflater, container, false);
+        binding = Siswa3RincianTransaksiBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 }

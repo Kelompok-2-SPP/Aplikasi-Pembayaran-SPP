@@ -15,11 +15,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
-import com.lleans.spp_kelompok_2.databinding.PetugasEditSppBinding;
-import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
-import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasData;
-import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
-import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
+import com.lleans.spp_kelompok_2.databinding.Petugas4EditSppBinding;
 import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
@@ -34,7 +30,7 @@ import retrofit2.Response;
 
 public class EditSpp extends Fragment implements UIListener {
 
-    private PetugasEditSppBinding binding;
+    private Petugas4EditSppBinding binding;
     private DetailsItemSpp detailsItemSpp;
     private SessionManager sessionManager;
     private NavController nav;
@@ -120,7 +116,7 @@ public class EditSpp extends Fragment implements UIListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
-        binding.btnSimpanSpp.setOnClickListener(view1 -> {
+        binding.simpan.setOnClickListener(view1 -> {
             Integer idSpp, angkatan, tahun, nominal;
             idSpp = detailsItemSpp.getIdSpp();
             angkatan = Integer.parseInt(binding.angkatan.getText().toString());
@@ -132,7 +128,7 @@ public class EditSpp extends Fragment implements UIListener {
                 editSpp(idSpp, angkatan, tahun, nominal);
             }
         });
-        binding.btnHapusSpp.setOnClickListener(view2 -> {
+        binding.hapus.setOnClickListener(view2 -> {
             Integer idSpp;
             idSpp = detailsItemSpp.getIdSpp();
             deleteSpp(idSpp);
@@ -143,7 +139,7 @@ public class EditSpp extends Fragment implements UIListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = PetugasEditSppBinding.inflate(inflater, container, false);
+        binding = Petugas4EditSppBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
         Bundle bundle = getArguments();
         detailsItemSpp = (DetailsItemSpp) bundle.get("spp");

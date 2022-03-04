@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
-import com.lleans.spp_kelompok_2.databinding.PetugasEditKelasBinding;
+import com.lleans.spp_kelompok_2.databinding.Petugas4EditKelasBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
@@ -30,12 +30,13 @@ import retrofit2.Response;
 
 public class EditKelas extends Fragment implements UIListener {
 
-    private PetugasEditKelasBinding binding;
-    private DetailsItemKelas detailsItemKelas;
+    private Petugas4EditKelasBinding binding;
+
     private SessionManager sessionManager;
     private NavController nav;
     private Bundle bundle;
 
+    private DetailsItemKelas data;
 
     public EditKelas() {
         // Required empty public constructor
@@ -84,7 +85,7 @@ public class EditKelas extends Fragment implements UIListener {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         editKelasCall = apiInterface.putKelas(
                 "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
-                detailsItemKelas.getIdKelas(),
+                data.getIdKelas(),
                 namaKelas,
                 jurusan,
                 angkatan);
@@ -121,22 +122,24 @@ public class EditKelas extends Fragment implements UIListener {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
 
-        binding.simpanKelas.setOnClickListener(view1 -> {
-            String namakelas, jurusan;
+        binding.simpan.setOnClickListener(view1 -> {
+            String namaKelas, jurusan;
             Integer angkatan;
-            namakelas = binding.idKelas.getText().toString();
+
+            namaKelas = binding.namaKelas.getText().toString();
             jurusan = binding.jurusan.getText().toString();
             angkatan = Integer.parseInt(binding.angkatan.getText().toString());
-            if (namakelas.equals("") || jurusan.equals("") || angkatan == null) {
+
+            if (namaKelas.equals("") || jurusan.equals("") || angkatan == 0) {
                 toaster("Data harus diisi!");
             } else {
-                editKelas(namakelas, jurusan, angkatan);
+                editKelas(namaKelas, jurusan, angkatan);
             }
         });
 
-        binding.hapusKelas.setOnClickListener(view2 -> {
+        binding.hapus.setOnClickListener(view2 -> {
             Integer idKelas;
-            idKelas = detailsItemKelas.getIdKelas();
+            idKelas = data.getIdKelas();
             deleteKelas(idKelas);
         });
     }
@@ -145,15 +148,15 @@ public class EditKelas extends Fragment implements UIListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = PetugasEditKelasBinding.inflate(inflater, container, false);
+        binding = Petugas4EditKelasBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
 
         bundle = getArguments();
-        detailsItemKelas = (DetailsItemKelas) bundle.get("kelas");
+        data = (DetailsItemKelas) bundle.get("kelas");
 
-        binding.angkatan.setText(String.valueOf(detailsItemKelas.getAngkatan()));
-        binding.jurusan.setText(detailsItemKelas.getJurusan());
-        binding.idKelas.setText(detailsItemKelas.getNamaKelas());
+        binding.namaKelas.setText(data.getNamaKelas());
+        binding.jurusan.setText(data.getJurusan());
+        binding.angkatan.setText(String.valueOf(data.getAngkatan()));
 
         return binding.getRoot();
     }

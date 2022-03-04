@@ -1,19 +1,37 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SPPKelompok2" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="SPPKelompok2" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:statusBarColor" tools:targetApi="l">?colorPrimary</item>
+
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary_color</item>
-        <item name="colorPrimaryVariant">@color/transparent_primaryColor</item>
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryVariant">@color/neutral_white</item>
         <item name="colorOnPrimary">@color/neutral_white</item>
-        <item name="colorSurface">@color/neutral_lightGrey</item>
+        <item name="colorSurface">@color/neutral_white</item>
         <item name="background">@color/neutral_lightGrey</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/primary_color</item>
-        <item name="colorSecondaryVariant">@color/transparent_primaryColor</item>
+        <item name="colorSecondary">@color/red</item>
+        <item name="colorSecondaryVariant">@color/neutral_white</item>
         <item name="colorOnSecondary">@color/neutral_black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-        <item name="android:textColor">@color/text_black</item>
+
+        <item name="android:fontFamily">@font/poopins</item>
+        <item name="android:textColor">@color/text_black80</item>
+        <item name="android:textColorPrimary">@color/red</item>
+        <item name="android:textColorPrimaryInverse">@color/neutral_white</item>
+        <item name="android:colorBackground">?background</item>
+        <item name="android:textColorSecondary">@color/neutral_white</item>
+        <item name="android:textColorHint">@color/text_black40</item>
+        <item name="rippleColor">?colorPrimary</item>
+        <item name="itemRippleColor">?colorPrimary</item>
+        <item name="tabRippleColor">?colorPrimary</item>
     </style>
+
+    <style name="SPPKelompok2.SplashScreen" parent="SPPKelompok2">
+        <item name="android:windowBackground">@drawable/app_splash_screen</item>
+        <item name="android:statusBarColor">?colorPrimary</item>
+        <item name="android:navigationBarColor">?colorPrimary</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
+    </style>
+
 </resources>

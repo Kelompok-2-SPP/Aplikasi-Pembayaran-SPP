@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refresher"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.petugas.kelas.EditKelas">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="30dp"
+            android:paddingTop="30dp"
+            android:paddingBottom="50dp">
+
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/SPPKelompok2.Text.Semibold.Header3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit Kelas"
+                android:textColor="?colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+                <TextView
+                    style="@style/SPPKelompok2.Text.Semibold.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Kelas" />
+
+                <EditText
+                    android:id="@+id/namaKelas"
+                    style="@style/SPPKelompok2.Text.Medium.Body2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_edit_focused"
+                    android:focusable="true"
+                    android:hint="Nama Kelas"
+                    android:inputType="text"
+                    android:maxLength="35"
+                    android:textColor="?colorPrimary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+                <TextView
+                    style="@style/SPPKelompok2.Text.Semibold.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jurusan" />
+
+                <EditText
+                    android:id="@+id/jurusan"
+                    style="@style/SPPKelompok2.Text.Medium.Body2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:background="@drawable/background_edit_focused"
+                    android:hint="Jurusan"
+                    android:inputType="text"
+                    android:maxLength="35"
+                    android:textColor="?colorPrimary"
+                    android:focusable="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+                <TextView
+                    style="@style/SPPKelompok2.Text.Semibold.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Angkatan" />
+
+                <EditText
+                    android:id="@+id/angkatan"
+                    style="@style/SPPKelompok2.Text.Medium.Body2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:background="@drawable/background_edit_focused"
+                    android:hint="Angkatan"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:textColor="?colorPrimary"
+                    android:focusable="true" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/simpan"
+                style="@style/SPPKelompok2.Button.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="220dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="SIMPAN"
+                app:layout_constraintBottom_toTopOf="@+id/hapus"
+                app:layout_constraintEnd_toEndOf="@+id/hapus"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/hapus"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+                app:layout_constraintVertical_bias="0.768" />
+
+            <Button
+                android:id="@+id/hapus"
+                style="@style/SPPKelompok2.Button.Medium.Outline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="HAPUS"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

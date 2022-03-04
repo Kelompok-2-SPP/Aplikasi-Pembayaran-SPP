@@ -53,7 +53,6 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/shape"
             android:ems="12"
             android:hint="Nama Kelas"
             android:inputType="text"
@@ -76,7 +75,6 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/shape"
             android:ems="12"
             android:hint="Jurusan"
             android:inputType="text"
@@ -99,7 +97,6 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/shape"
             android:ems="12"
             android:hint="Angkatan"
             android:inputType="number"
@@ -113,7 +110,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="30dp"
-            android:background="@drawable/shape_red"
             android:text="SIMPAN" />
 
     </LinearLayout>

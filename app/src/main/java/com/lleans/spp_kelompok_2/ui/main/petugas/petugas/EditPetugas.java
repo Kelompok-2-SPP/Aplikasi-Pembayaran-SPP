@@ -15,13 +15,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
-import com.lleans.spp_kelompok_2.databinding.PetugasEditPetugasBinding;
+import com.lleans.spp_kelompok_2.databinding.Petugas4EditPetugasBinding;
 import com.lleans.spp_kelompok_2.domain.model.petugas.DetailsItemPetugas;
 import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasData;
-import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
-import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
-import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
-import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
@@ -34,8 +30,9 @@ import retrofit2.Response;
 
 public class EditPetugas extends Fragment implements UIListener {
 
-    private PetugasEditPetugasBinding binding;
-    private DetailsItemPetugas detailsItemPetugas;
+    private Petugas4EditPetugasBinding binding;
+
+    private DetailsItemPetugas data;
     private SessionManager sessionManager;
     private NavController nav;
 
@@ -121,12 +118,12 @@ public class EditPetugas extends Fragment implements UIListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
-        binding.simpanPetugas.setOnClickListener(view1 -> {
+        binding.simpan.setOnClickListener(view1 -> {
             String username, password, namaPetugas;
             Integer idPetugas;
-            idPetugas = detailsItemPetugas.getIdPetugas();
-            username = binding.unamePetugas.getText().toString();
-            password = binding.passPetugas.getText().toString();
+            idPetugas = data.getIdPetugas();
+            username = binding.username.getText().toString();
+            password = binding.password.getText().toString();
             namaPetugas = binding.namaPetugas.getText().toString();
             if (username.equals("") || namaPetugas.equals("")) {
                 toaster("Data harus diisi!");
@@ -139,9 +136,9 @@ public class EditPetugas extends Fragment implements UIListener {
 
             }
         });
-        binding.hapusPetugas.setOnClickListener(view2 -> {
+        binding.hapus.setOnClickListener(view2 -> {
             Integer idPetugas;
-            idPetugas = detailsItemPetugas.getIdPetugas();
+            idPetugas = data.getIdPetugas();
             deletePetugas(idPetugas);
         });
     }
@@ -150,12 +147,12 @@ public class EditPetugas extends Fragment implements UIListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = PetugasEditPetugasBinding.inflate(inflater, container, false);
+        binding = Petugas4EditPetugasBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
         Bundle bundle = getArguments();
-        detailsItemPetugas = (DetailsItemPetugas) bundle.get("petugas");
-        binding.unamePetugas.setText(detailsItemPetugas.getUsername());
-        binding.namaPetugas.setText(detailsItemPetugas.getNamaPetugas());
+        data = (DetailsItemPetugas) bundle.get("petugas");
+        binding.username.setText(data.getUsername());
+        binding.namaPetugas.setText(data.getNamaPetugas());
         return binding.getRoot();
     }
 

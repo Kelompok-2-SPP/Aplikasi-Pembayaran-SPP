@@ -10,12 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lleans.spp_kelompok_2.databinding.RinciantransaksiSiswaBinding;
+import com.lleans.spp_kelompok_2.databinding.Siswa3RincianTransaksiBinding;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
 
 public class Rincian extends Fragment {
 
-    private RinciantransaksiSiswaBinding binding;
+    private Siswa3RincianTransaksiBinding binding;
 
     private DetailsItemPembayaran data;
 
@@ -33,7 +33,7 @@ public class Rincian extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = RinciantransaksiSiswaBinding.inflate(inflater, container, false);
+        binding = Siswa3RincianTransaksiBinding.inflate(inflater, container, false);
         Bundle bundle = getArguments();
         data = (DetailsItemPembayaran) bundle.get("data");
         return binding.getRoot();

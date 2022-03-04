@@ -16,10 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
-import com.lleans.spp_kelompok_2.databinding.AktivitasPetugasBinding;
-import com.lleans.spp_kelompok_2.domain.model.auth.AuthData;
+import com.lleans.spp_kelompok_2.databinding.Petugas2AktivitasBinding;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranData;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
@@ -34,7 +32,7 @@ import retrofit2.Response;
 
 public class Aktivitas extends Fragment implements UIListener {
 
-    private AktivitasPetugasBinding binding;
+    private Petugas2AktivitasBinding binding;
 
     private SessionManager sessionManager;
     private NavController nav;
@@ -44,9 +42,9 @@ public class Aktivitas extends Fragment implements UIListener {
     }
 
     private void setAdapter(List<DetailsItemPembayaran> data) {
-        AktivitasCardAdapter cardAdapter = new AktivitasCardAdapter(data, nav);
-        binding.rvKelas.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.rvKelas.setAdapter(cardAdapter);
+        AktivitasCardAdapter cardAdapter = new AktivitasCardAdapter(data, nav, false);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setAdapter(cardAdapter);
     }
 
     private void getAktivitas() {
@@ -111,7 +109,7 @@ public class Aktivitas extends Fragment implements UIListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = AktivitasPetugasBinding.inflate(inflater, container, false);
+        binding = Petugas2AktivitasBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
         getAktivitas();
         return binding.getRoot();

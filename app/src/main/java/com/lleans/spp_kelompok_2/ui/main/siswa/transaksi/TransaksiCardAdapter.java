@@ -19,20 +19,22 @@ import java.util.List;
 
 public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdapter.TransaksiCardViewHolder> {
 
-    private int color;
+    private int color, count;
+    private boolean fromHomepage;
 
     private final List<DetailsItemPembayaran> listdata;
     private final NavController navController;
 
-    public TransaksiCardAdapter(List<DetailsItemPembayaran> list, NavController navController) {
+    public TransaksiCardAdapter(List<DetailsItemPembayaran> list, NavController navController, boolean fromHomepage) {
         this.listdata = list;
         this.navController = navController;
+        this.fromHomepage = fromHomepage;
     }
 
     @NonNull
     @Override
     public TransaksiCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_aktivitas_siswa, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_transaksi, parent, false);
         color = view.getResources().getColor(R.color.orange);
         return new TransaksiCardViewHolder(view);
     }
@@ -41,7 +43,7 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
     public void onBindViewHolder(@NonNull final TransaksiCardViewHolder holder, int position) {
         DetailsItemPembayaran data = listdata.get(position);
         holder.title.setText(data.getTahunSpp() + " • " + Utils.getMonth(data.getBulanSpp()));
-        holder.nominal.setText("Rp" + data.getJumlahBayar());
+        holder.nominal.setText(Utils.kurangBayar(data.getSpp().getNominal(), data.getJumlahBayar()));
         if (Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar())) {
             holder.status.setText("Belum Lunas");
             holder.status.setTextColor(color);
@@ -49,13 +51,21 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
         holder.cardView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("data", data);
-            navController.navigate(R.id.action_transaksi_siswa_to_rincianTransaksi_siswa, bundle);
+            if (fromHomepage) {
+                navController.navigate(R.id.action_homepage_siswa_to_rincianTransaksi_siswa2, bundle);
+            } else {
+                navController.navigate(R.id.action_transaksi_siswa_to_rincianTransaksi_siswa, bundle);
+            }
         });
     }
 
     @Override
     public int getItemCount() {
-        return listdata.size();
+        return count != 0 ? count:listdata.size();
+    }
+
+    public int setItemCount(int count) {
+        return this.count = count;
     }
 
     public static class TransaksiCardViewHolder extends RecyclerView.ViewHolder {
@@ -64,10 +74,11 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
 
         public TransaksiCardViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.title_pembayaran);
-            status = itemView.findViewById(R.id.status_pembayaran);
-            nominal = itemView.findViewById(R.id.totalPembayaran);
-            cardView = itemView.findViewById(R.id.cardView);
+            title = itemView.findViewById(R.id.title);
+            status = itemView.findViewById(R.id.statusTransaksi);
+            nominal = itemView.findViewById(R.id.totalTransaksi);
+
+            cardView = itemView.findViewById(R.id.card);
         }
     }
 }

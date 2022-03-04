@@ -13,13 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lleans.spp_kelompok_2.R;
-import com.lleans.spp_kelompok_2.databinding.DetailpetugasPetugasBinding;
+import com.lleans.spp_kelompok_2.databinding.Petugas3DetailPetugasBinding;
 import com.lleans.spp_kelompok_2.domain.model.petugas.DetailsItemPetugas;
-import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
 
 public class DetailPetugas extends Fragment {
 
-    private DetailpetugasPetugasBinding binding;
+    private Petugas3DetailPetugasBinding binding;
     private DetailsItemPetugas data;
 
     public DetailPetugas() {
@@ -32,7 +31,7 @@ public class DetailPetugas extends Fragment {
         final NavController nav = Navigation.findNavController(view);
         Bundle bundle = new Bundle();
         bundle.putSerializable("petugas", data);
-        binding.btnEdit.setOnClickListener(v -> nav.navigate(R.id.action_detailPetugas_petuga_to_editPetugas, bundle));
+        binding.edit.setOnClickListener(v -> nav.navigate(R.id.action_detailPetugas_petuga_to_editPetugas, bundle));
     }
 
     @Override
@@ -41,7 +40,7 @@ public class DetailPetugas extends Fragment {
         // Inflate the layout for this fragment
         Bundle bundle = getArguments();
         data = (DetailsItemPetugas) bundle.getSerializable("petugas");
-        binding = DetailpetugasPetugasBinding.inflate(inflater, container, false);
+        binding = Petugas3DetailPetugasBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 }

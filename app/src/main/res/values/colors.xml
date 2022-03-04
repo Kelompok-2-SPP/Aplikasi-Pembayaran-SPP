@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Main colors-->
-    <color name="primary_color">#FF0000</color>
+    <color name="red">#FF0000</color>
     <color name="orange">#FF9900</color>
     <color name="purple">#8000FF</color>
-    <color name="green">#01B051</color>
+    <color name="green">#01C370</color>
 
     <!--Neutral color-->
     <color name="neutral_white">#FEFEFE</color>
     <color name="neutral_lightGrey">#F9F9F9</color>
-    <color name="neutral_grey">#E5E5E5</color>
+    <color name="neutral_grey">#E7E7E9</color>
+    <color name="dark_grey">#6E6E77</color>
     <color name="neutral_black">#0D0E1C</color>
 
     <!--Text color-->
     <color name="text_black10">#E7E7E9</color>
-    <color name="text_black20">#E7E7E9</color>
+    <color name="text_black20">#CFCFD2</color>
     <color name="text_black40">#9E9FA4</color>
     <color name="text_black60">#6E6E77</color>
-    <color name="text_black80">#6E6E77</color>
+    <color name="text_black80">#3D3E49</color>
     <color name="text_black">#0D0E1C</color>
 
     <!--Transparent color-->
-    <color name="transparent_primaryColor">#F74545</color>
+    <color name="transparent_red">#F74545</color>
     <color name="transparent_orange">#F7B045</color>
     <color name="transparent_purple">#9E45F7</color>
     <color name="transparent_green">#46CD93</color>
-
-    <color name="bg">#F9F9F9</color>
-    <color name="black">#FF000000</color>
 
 </resources>

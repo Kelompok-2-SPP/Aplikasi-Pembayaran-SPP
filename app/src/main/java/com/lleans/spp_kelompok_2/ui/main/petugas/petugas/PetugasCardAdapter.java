@@ -30,7 +30,7 @@ public class PetugasCardAdapter extends RecyclerView.Adapter<PetugasCardAdapter.
     @NonNull
     @Override
     public PetugasCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_petugas, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_main, parent, false);
         return new PetugasCardViewHolder(view);
     }
 
@@ -57,9 +57,10 @@ public class PetugasCardAdapter extends RecyclerView.Adapter<PetugasCardAdapter.
 
         public PetugasCardViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.petugas_name);
-            uname = itemView.findViewById(R.id.petugas_uname);
-            cardView = itemView.findViewById(R.id.card_petugas);
+            name = itemView.findViewById(R.id.title);
+            uname = itemView.findViewById(R.id.secondaryText);
+
+            cardView = itemView.findViewById(R.id.card);
         }
     }
 }

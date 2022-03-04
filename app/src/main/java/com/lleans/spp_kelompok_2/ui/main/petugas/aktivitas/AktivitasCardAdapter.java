@@ -22,15 +22,22 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
     private final List<DetailsItemPembayaran> listdata;
     private final NavController navController;
 
-    public AktivitasCardAdapter(List<DetailsItemPembayaran> list, NavController navController) {
+    private boolean fromHomepage;
+    private int orange;
+
+    private int count;
+
+    public AktivitasCardAdapter(List<DetailsItemPembayaran> list, NavController navController, boolean fromHomepage) {
         this.listdata = list;
         this.navController = navController;
+        this.fromHomepage = fromHomepage;
     }
 
     @NonNull
     @Override
     public AktivitasCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_aktivitas, parent, false);
+        orange = view.getResources().getColor(R.color.orange);
         return new AktivitasCardViewHolder(view);
     }
 
@@ -38,24 +45,34 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
     public void onBindViewHolder(@NonNull final AktivitasCardViewHolder holder, int position) {
         DetailsItemPembayaran data = listdata.get(position);
         holder.name.setText(data.getSiswa().getNama());
-        holder.kelas.setText(data.getSiswa().getKelas().getNamaKelas());
         if (Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar())) {
+            holder.kelas.setText(data.getSiswa().getKelas().getNamaKelas());
             holder.status.setText("Belum Lunas");
-            holder.status.setTextColor(16750848);
-            holder.nominalkurang.setText("- Rp" + Utils.kurangBayara(data.getSpp().getNominal(), data.getJumlahBayar()));
+            holder.status.setTextColor(orange);
+            holder.nominalkurang.setText(Utils.kurangBayar(data.getSpp().getNominal(), data.getJumlahBayar()));
         }else{
-            holder.nominalkurang.setText("Rp" + data.getJumlahBayar());
+            holder.kelas.setText(data.getSiswa().getKelas().getNamaKelas());
+            holder.status.setText("Lunas");
+            holder.nominalkurang.setText(Utils.formatRupiah(data.getJumlahBayar()));
         }
         holder.cardView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("data", data);
-            navController.navigate(R.id.action_aktivitas_petugas_to_rincianTransaksi_siswa, bundle);
+            if (fromHomepage) {
+                navController.navigate(R.id.action_homepage_petugas_to_rincianTransaksi_siswa, bundle);
+            } else {
+                navController.navigate(R.id.action_aktivitas_petugas_to_rincianTransaksi_siswa, bundle);
+            }
         });
     }
 
     @Override
     public int getItemCount() {
-        return listdata.size();
+        return count != 0 ? count:listdata.size();
+    }
+
+    public int setItemCount(int count) {
+        return this.count = count;
     }
 
     public static class AktivitasCardViewHolder extends RecyclerView.ViewHolder {
@@ -64,11 +81,12 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
 
         public AktivitasCardViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.aktivitas_name);
-            kelas = itemView.findViewById(R.id.aktivitas_kelas);
-            status = itemView.findViewById(R.id.aktivitas_status);
-            nominalkurang = itemView.findViewById(R.id.nominalkurang);
-            cardView = itemView.findViewById(R.id.card_aktivitas);
+            name = itemView.findViewById(R.id.title);
+            kelas = itemView.findViewById(R.id.kelas);
+            status = itemView.findViewById(R.id.status);
+            nominalkurang = itemView.findViewById(R.id.nominal);
+
+            cardView = itemView.findViewById(R.id.card);
         }
     }
 }

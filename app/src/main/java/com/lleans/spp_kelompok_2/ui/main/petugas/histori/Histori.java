@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.lleans.spp_kelompok_2.UIListener;
-import com.lleans.spp_kelompok_2.databinding.HistoriPetugasBinding;
+import com.lleans.spp_kelompok_2.databinding.Petugas2HistoriBinding;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
@@ -27,7 +27,7 @@ import retrofit2.Response;
 
 public class Histori extends Fragment implements UIListener {
 
-    private HistoriPetugasBinding binding;
+    private Petugas2HistoriBinding binding;
 
     private SessionManager sessionManager;
     private NavController nav;
@@ -59,8 +59,8 @@ public class Histori extends Fragment implements UIListener {
                     isLoading(false);
 //                    toaster(response.body().getDetails().toString());
                     HistoriCardAdapter cardAdapter = new HistoriCardAdapter(response.body().getDetails(), nav);
-                    binding.rvKelas.setLayoutManager(new LinearLayoutManager(getContext()));
-                    binding.rvKelas.setAdapter(cardAdapter);
+                    binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    binding.recyclerView.setAdapter(cardAdapter);
                 } else {
                     // Handling 401 error
                     isLoading(false);
@@ -86,7 +86,7 @@ public class Histori extends Fragment implements UIListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = HistoriPetugasBinding.inflate(inflater, container, false);
+        binding = Petugas2HistoriBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
         getHistori();
         return binding.getRoot();

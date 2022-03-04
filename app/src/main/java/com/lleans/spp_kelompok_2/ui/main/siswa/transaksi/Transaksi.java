@@ -14,7 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.lleans.spp_kelompok_2.UIListener;
-import com.lleans.spp_kelompok_2.databinding.TransaksiSiswaBinding;
+import com.lleans.spp_kelompok_2.databinding.Siswa2TransaksiBinding;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
@@ -26,7 +26,7 @@ import retrofit2.Response;
 
 public class Transaksi extends Fragment implements UIListener {
 
-    private TransaksiSiswaBinding binding;
+    private Siswa2TransaksiBinding binding;
     private SessionManager sessionManager;
     private NavController navController;
 
@@ -53,7 +53,7 @@ public class Transaksi extends Fragment implements UIListener {
             public void onResponse(Call<PembayaranDataList> call, Response<PembayaranDataList> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     isLoading(false);
-                    TransaksiCardAdapter cardAdapter = new TransaksiCardAdapter(response.body().getDetails(), navController);
+                    TransaksiCardAdapter cardAdapter = new TransaksiCardAdapter(response.body().getDetails(), navController, false);
                     binding.rv.setLayoutManager(new LinearLayoutManager(getContext()));
                     binding.rv.setAdapter(cardAdapter);
                 } else {
@@ -87,7 +87,7 @@ public class Transaksi extends Fragment implements UIListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = TransaksiSiswaBinding.inflate(inflater, container, false);
+        binding = Siswa2TransaksiBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
         getTransaksi(null, null, null);
         return binding.getRoot();
