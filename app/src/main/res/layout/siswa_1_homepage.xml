@@ -14,16 +14,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp"
-            android:paddingVertical="15dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/header"
                 style="@style/SPPKelompok2.Text.Semibold.Header3"
                 android:layout_width="210dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginStart="30dp"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="@string/hai_admin"
@@ -39,6 +38,7 @@
                 android:clickable="true"
                 android:contentDescription="@string/logout"
                 android:focusable="true"
+                android:layout_marginEnd="30dp"
                 android:src="@drawable/icon_logout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/header" />
@@ -46,15 +46,15 @@
             <FrameLayout
                 android:id="@+id/cardTunggakan"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="400dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/backgrpound_cards"
                 android:contentDescription="Cards"
                 android:foreground="?selectableItemBackgroundBorderless"
-                android:paddingStart="50dp"
-                android:paddingTop="90dp"
-                android:paddingEnd="65dp"
-                android:paddingBottom="110dp"
+                android:paddingStart="60dp"
+                android:paddingTop="110dp"
+                android:paddingEnd="70dp"
+                android:paddingBottom="120dp"
                 app:layout_constraintEnd_toEndOf="@+id/logout"
                 app:layout_constraintStart_toStartOf="@+id/header"
                 app:layout_constraintTop_toBottomOf="@+id/header">
@@ -101,11 +101,10 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:contentDescription="Logo"
                         android:src="@drawable/icon_cards_logo"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/totalTunggakan" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -127,6 +126,7 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
+                    android:layout_marginStart="30dp"
                     android:text="Transaksi"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -139,6 +139,7 @@
                     android:background="?selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"
+                    android:layout_marginEnd="30dp"
                     android:text="@string/lihat_semua"
                     android:textColor="@color/text_black40"
                     app:layout_constraintBottom_toBottomOf="@+id/textView14"
@@ -150,6 +151,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:paddingHorizontal="16dp"
                     android:nestedScrollingEnabled="false"
                     app:layout_constraintEnd_toEndOf="@+id/transaksi"
                     app:layout_constraintStart_toStartOf="@+id/textView14"

@@ -9,13 +9,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp">
+        android:layout_height="wrap_content">
 
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="match_parent"
             android:layout_height="235dp"
+            android:layout_marginHorizontal="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -82,14 +82,14 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                style="@style/SPPKelompok2.Card.Large"
+            <FrameLayout
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:layout_marginBottom="40dp"
-                app:cardBackgroundColor="@color/orange"
-                app:cardCornerRadius="40dp">
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/background_oval_base"
+                android:backgroundTint="@color/orange"
+                android:elevation="3dp">
 
                 <TextView
                     style="@style/SPPKelompok2.Text.Semibold.Header3"
@@ -100,7 +100,7 @@
                     android:textAllCaps="true"
                     android:textColor="?colorSurface" />
 
-            </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
 
         </FrameLayout>
 
@@ -109,7 +109,7 @@
             style="@style/SPPKelompok2.Card.Large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="16dp"
             app:layout_constraintEnd_toEndOf="@+id/frameLayout"
             app:layout_constraintStart_toStartOf="@+id/frameLayout"
             app:layout_constraintTop_toBottomOf="@+id/frameLayout">
@@ -203,7 +203,8 @@
             style="@style/SPPKelompok2.Text.Medium.Body2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="25dp"
             android:background="@drawable/background_edit_unfocused"
             android:clickable="true"
             android:drawableStart="@drawable/icon_search"
@@ -219,7 +220,6 @@
             android:id="@+id/refresher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
             app:layout_constraintEnd_toEndOf="@+id/searchBar"
             app:layout_constraintStart_toStartOf="@+id/searchBar"
             app:layout_constraintTop_toBottomOf="@+id/searchBar">
@@ -228,6 +228,8 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingHorizontal="16dp"
                 tools:listitem="@layout/item_row_main" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -236,7 +238,7 @@
             android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginBottom="50dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"

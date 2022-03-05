@@ -42,7 +42,7 @@ public class SpinnerAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_row_spinner, parent, false);
-        int primary = convertView.getResources().getColor(R.color.red);
+        int primary = context.getResources().getColor(R.color.red);
 
         TextView text = view.findViewById(R.id.text);
 

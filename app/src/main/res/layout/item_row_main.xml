@@ -5,8 +5,7 @@
     style="@style/SPPKelompok2.Card.Large"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:layout_marginVertical="8dp">
+    android:foreground="?android:attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,14 +13,13 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="16dp">
 
-        <com.google.android.material.card.MaterialCardView
+        <FrameLayout
             android:id="@+id/CardView3"
-            style="@style/SPPKelompok2.Card.Large"
+            android:background="@drawable/background_oval_base"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="start"
-            app:cardBackgroundColor="@color/orange"
-            app:cardCornerRadius="25dp"
+            android:backgroundTint="@color/orange"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -35,7 +33,7 @@
                 android:textAllCaps="true"
                 android:textColor="?colorSurface" />
 
-        </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"

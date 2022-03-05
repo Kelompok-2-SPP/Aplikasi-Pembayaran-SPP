@@ -14,16 +14,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp"
-            android:paddingVertical="30dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/header"
                 style="@style/SPPKelompok2.Text.Semibold.Header3"
                 android:layout_width="210dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginStart="30dp"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="@string/hai_admin"
@@ -35,6 +34,7 @@
                 android:id="@+id/logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:contentDescription="@string/logout"
@@ -48,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="30dp"
                 android:background="@drawable/background_dashboard_admin"
                 android:backgroundTint="?colorPrimary"
                 app:layout_constraintEnd_toEndOf="@+id/logout"
@@ -193,6 +194,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:text="Total Spp"
+                    android:layout_marginStart="30dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -205,6 +207,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:text="@string/lihat_semua"
+                    android:layout_marginEnd="30dp"
                     android:textColor="@color/text_black40"
                     app:layout_constraintBottom_toBottomOf="@+id/textView13"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -214,6 +217,7 @@
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp"
                     android:nestedScrollingEnabled="false"
                     app:layout_constraintEnd_toEndOf="@+id/sppSemua"
                     app:layout_constraintStart_toStartOf="@+id/textView13"
@@ -236,6 +240,7 @@
                     style="@style/SPPKelompok2.Text.Bold.Header4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:text="@string/aktivitas"
@@ -250,6 +255,7 @@
                     android:background="?selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"
+                    android:layout_marginEnd="30dp"
                     android:text="@string/lihat_semua"
                     android:textColor="@color/text_black40"
                     app:layout_constraintBottom_toBottomOf="@+id/textView14"
@@ -260,6 +266,7 @@
                     android:id="@+id/recyclerView1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp"
                     android:layout_marginTop="12dp"
                     android:nestedScrollingEnabled="false"
                     app:layout_constraintEnd_toEndOf="@+id/aktivitas"

@@ -9,15 +9,15 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="30dp">
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/searchBar"
             style="@style/SPPKelompok2.Text.Medium.Body2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/background_edit_unfocused"
             android:clickable="true"
             android:drawableStart="@drawable/icon_search"
@@ -33,14 +33,16 @@
             android:id="@+id/refresher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            app:layout_constraintEnd_toEndOf="@+id/searchBar"
-            app:layout_constraintStart_toStartOf="@+id/searchBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchBar">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="10dp"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/item_row_main" />
 
@@ -50,12 +52,12 @@
             android:id="@+id/btnTambahKelas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
             android:layout_marginBottom="50dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/icon_button_add"
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
+            android:src="@drawable/icon_button_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

@@ -1,5 +1,6 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.siswa;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.Editable;
@@ -7,8 +8,10 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -24,6 +27,7 @@ import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
+import com.lleans.spp_kelompok_2.ui.utils.MoneyTextWatcher;
 
 import java.util.List;
 
@@ -35,9 +39,12 @@ public class StatusCardAdapter extends RecyclerView.Adapter<StatusCardAdapter.St
 
     private final List<DetailsItemPembayaran> listData;
     private final NavController navController;
+    private InputMethodManager imm;
     private SessionManager sessionManager;
 
-    private int orange, green, neutral;
+    private Context context;
+
+    private int orange, green, neutral, sudahBayar;
 
     public StatusCardAdapter(List<DetailsItemPembayaran> list, NavController navController) {
         this.listData = list;
@@ -83,6 +90,8 @@ public class StatusCardAdapter extends RecyclerView.Adapter<StatusCardAdapter.St
         orange = view.getResources().getColor(R.color.orange);
         green = view.getResources().getColor(R.color.green);
         neutral = view.getResources().getColor(R.color.neutral_white);
+        context = parent.getContext();
+        imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         return new StatusCardViewHolder(view);
     }
 
@@ -113,7 +122,7 @@ public class StatusCardAdapter extends RecyclerView.Adapter<StatusCardAdapter.St
         holder.bulan.setText(Utils.getMonth(data.getBulanSpp()));
         holder.tahun.setText("Status SPP tahun " + data.getTahunSpp());
         holder.totSpp.setText(Utils.formatRupiah(data.getSpp().getNominal()));
-        holder.sudBayar.setText(String.valueOf(data.getJumlahBayar()));
+        holder.sudBayar.setText(Utils.formatRupiah(data.getJumlahBayar()));
 
         setStatus(!Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar()), holder);
 
@@ -121,10 +130,14 @@ public class StatusCardAdapter extends RecyclerView.Adapter<StatusCardAdapter.St
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 1) {
-                    holder.sudBayar.setText(String.valueOf(data.getJumlahBayar()));
                     setStatus(false, holder);
+                    listData.get(holder.getAdapterPosition()).setJumlahBayar(data.getSpp().getNominal());
+                    holder.sudBayar.requestFocus();
+                    imm.showSoftInput(holder.sudBayar, InputMethodManager.SHOW_IMPLICIT);
                 } else {
                     setStatus(true, holder);
+                    imm.hideSoftInputFromWindow(holder.sudBayar.getWindowToken(), 0);
+                    updateStatus(data.getIdPembayaran(), data.getSpp().getNominal(), holder.getAdapterPosition());
                 }
             }
 
@@ -145,19 +158,12 @@ public class StatusCardAdapter extends RecyclerView.Adapter<StatusCardAdapter.St
             navController.navigate(R.id.action_status_siswa_to_rincianTransaksi_siswa2, bundle);
         });
 
-        holder.status.setOnFocusChangeListener((v, hasFocus) -> {
-            if(!hasFocus){
-                if (holder.status.getSelectedTabPosition() == 1) {
-                    updateStatus(data.getIdPembayaran(), Integer.valueOf(holder.sudBayar.getText().toString()), holder.getAdapterPosition());
-                } else {
-                    updateStatus(data.getIdPembayaran(), data.getSpp().getNominal(), holder.getAdapterPosition());
-                }
-            }
-        });
+        holder.sudBayar.addTextChangedListener(new MoneyTextWatcher(holder.sudBayar));
 
         holder.sudBayar.setOnFocusChangeListener((v, hasFocus) -> {
-            if(!hasFocus && !holder.sudBayar.getText().toString().equals("")) {
-                updateStatus(data.getIdPembayaran(), Integer.valueOf(holder.sudBayar.getText().toString()), holder.getAdapterPosition());
+            int unformatted = Utils.unformatRupiah(holder.sudBayar.getText().toString());
+            if (!hasFocus && unformatted != data.getJumlahBayar() && holder.status.getSelectedTabPosition() == 1) {
+                updateStatus(data.getIdPembayaran(), Utils.unformatRupiah(holder.sudBayar.getText().toString()), holder.getAdapterPosition());
             }
         });
 

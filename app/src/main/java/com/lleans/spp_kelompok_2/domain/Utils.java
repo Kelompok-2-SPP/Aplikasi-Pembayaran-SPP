@@ -7,7 +7,9 @@ import androidx.navigation.NavController;
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.ui.MainActivity;
 
+import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,6 +29,18 @@ public class Utils {
     public static String formatRupiah(int money) {
         NumberFormat rupiahFormat = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
         return rupiahFormat.format(Double.valueOf(money));
+    }
+
+    public static int unformatRupiah(String money){
+        int parsed = 0;
+
+        NumberFormat rupiahFormat = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+        try {
+            parsed = Integer.parseInt(String.valueOf(new BigDecimal(String.valueOf(rupiahFormat.parse(money)))));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return parsed;
     }
 
     public static Boolean statusPembayaran(int totalSpp, int nominalBayar) {

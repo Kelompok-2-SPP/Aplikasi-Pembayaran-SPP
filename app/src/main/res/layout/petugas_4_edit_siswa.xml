@@ -254,7 +254,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/hapus"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout8"
-                app:layout_constraintVertical_bias="0.768" />
+                app:layout_constraintVertical_bias="0.9" />
 
             <Button
                 android:id="@+id/hapus"

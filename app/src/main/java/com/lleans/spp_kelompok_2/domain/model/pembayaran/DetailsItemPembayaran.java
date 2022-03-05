@@ -21,8 +21,8 @@ public class DetailsItemPembayaran implements Serializable {
 	@SerializedName("id_petugas")
 	private int idPetugas;
 
-	@SerializedName("tgl_spp")
-	private String tglSpp;
+	@SerializedName("tgl_bayar")
+	private String tglBayar;
 
 	@SerializedName("petugas")
 	private PetugasPembayaran petugasPembayaran;
@@ -85,12 +85,12 @@ public class DetailsItemPembayaran implements Serializable {
 		return idPetugas;
 	}
 
-	public void setTglSpp(String tglSpp){
-		this.tglSpp = tglSpp;
+	public void setTglBayar(String tglBayar){
+		this.tglBayar = tglBayar;
 	}
 
-	public String getTglSpp(){
-		return tglSpp;
+	public String getTglBayar(){
+		return tglBayar;
 	}
 
 	public void setPetugas(PetugasPembayaran petugasPembayaran){

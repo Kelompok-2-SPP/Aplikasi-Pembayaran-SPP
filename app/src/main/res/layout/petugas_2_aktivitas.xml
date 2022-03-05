@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/refresher"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refresher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -11,6 +11,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="20dp"
         android:paddingHorizontal="20dp"
         tools:listitem="@layout/item_row_aktivitas" />
 

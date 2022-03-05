@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.lleans.spp_kelompok_2.UIListener;
-import com.lleans.spp_kelompok_2.databinding.TambahsiswaPetugasBinding;
+import com.lleans.spp_kelompok_2.databinding.Petugas6TambahSiswaBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
@@ -27,7 +27,7 @@ import retrofit2.Response;
 
 public class TambahSiswa extends Fragment implements UIListener {
 
-    private TambahsiswaPetugasBinding binding;
+    private Petugas6TambahSiswaBinding binding;
     private SessionManager sessionManager;
     private NavController nav;
 
@@ -76,14 +76,14 @@ public class TambahSiswa extends Fragment implements UIListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
-        binding.simpanSiswa.setOnClickListener(view1 -> {
+        binding.simpan.setOnClickListener(view1 -> {
             String nisn, nis, password, namaSiswa, alamat, noTelp;
-            nisn = binding.NISN.getText().toString();
-            nis = binding.NIS.getText().toString();
-            namaSiswa = binding.namaSiswa.getText().toString();
+            nisn = binding.nisn.getText().toString();
+            nis = binding.nis.getText().toString();
+            namaSiswa = binding.nama.getText().toString();
             password = binding.password.getText().toString();
             alamat = binding.alamat.getText().toString();
-            noTelp = binding.telp.getText().toString();
+            noTelp = binding.noTelp.getText().toString();
             if(nisn.equals("") || nis.equals("") || namaSiswa.equals("") || alamat.equals("") || noTelp.equals("")) {
                 toaster("Data harus diisi!");
             } else {
@@ -96,7 +96,7 @@ public class TambahSiswa extends Fragment implements UIListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = TambahsiswaPetugasBinding.inflate(inflater, container, false);
+        binding = Petugas6TambahSiswaBinding.inflate(inflater, container, false);
         Bundle bundle = getArguments();
         kelas = (DetailsItemKelas) bundle.getSerializable("kelas");
         sessionManager = new SessionManager(getContext());

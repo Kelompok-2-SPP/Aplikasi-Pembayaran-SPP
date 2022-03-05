@@ -54,8 +54,8 @@ public class Transaksi extends Fragment implements UIListener {
                 if (response.body() != null && response.isSuccessful()) {
                     isLoading(false);
                     TransaksiCardAdapter cardAdapter = new TransaksiCardAdapter(response.body().getDetails(), navController, false);
-                    binding.rv.setLayoutManager(new LinearLayoutManager(getContext()));
-                    binding.rv.setAdapter(cardAdapter);
+                    binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    binding.recyclerView.setAdapter(cardAdapter);
                 } else {
                     // Handling 401 error
                     isLoading(false);

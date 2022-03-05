@@ -43,10 +43,13 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
     public void onBindViewHolder(@NonNull final TransaksiCardViewHolder holder, int position) {
         DetailsItemPembayaran data = listdata.get(position);
         holder.title.setText(data.getTahunSpp() + " • " + Utils.getMonth(data.getBulanSpp()));
-        holder.nominal.setText(Utils.kurangBayar(data.getSpp().getNominal(), data.getJumlahBayar()));
         if (Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar())) {
+            holder.nominal.setText(Utils.kurangBayar(data.getSpp().getNominal(), data.getJumlahBayar()));
             holder.status.setText("Belum Lunas");
             holder.status.setTextColor(color);
+        } else {
+            holder.nominal.setText(Utils.formatRupiah(data.getJumlahBayar()));
+            holder.status.setText("Lunas");
         }
         holder.cardView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();

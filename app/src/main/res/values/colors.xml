@@ -27,4 +27,5 @@
     <color name="transparent_purple">#9E45F7</color>
     <color name="transparent_green">#46CD93</color>
 
+    <color name="shadow_ambient">#C5C5C7</color>
 </resources>

@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.lleans.spp_kelompok_2.UIListener;
-import com.lleans.spp_kelompok_2.databinding.TambahkelasPetugasBinding;
+import com.lleans.spp_kelompok_2.databinding.Petugas5TambahKelasBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
@@ -26,7 +26,7 @@ import retrofit2.Response;
 
 public class TambahKelas extends Fragment implements UIListener {
 
-    private TambahkelasPetugasBinding binding;
+    private Petugas5TambahKelasBinding binding;
     private SessionManager sessionManager;
     private NavController nav;
 
@@ -68,10 +68,10 @@ public class TambahKelas extends Fragment implements UIListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
-        binding.simpanKelas.setOnClickListener(view1 -> {
+        binding.simpan.setOnClickListener(view1 -> {
             String namakelas, jurusan;
             Integer angkatan;
-            namakelas = binding.idKelas.getText().toString();
+            namakelas = binding.namaKelas.getText().toString();
             jurusan = binding.jurusan.getText().toString();
             angkatan = Integer.parseInt(binding.angkatan.getText().toString());
             if(namakelas.equals("") || jurusan.equals("") || angkatan == null) {
@@ -86,7 +86,7 @@ public class TambahKelas extends Fragment implements UIListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = TambahkelasPetugasBinding.inflate(inflater, container, false);
+        binding = Petugas5TambahKelasBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
         return binding.getRoot();
     }

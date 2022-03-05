@@ -13,13 +13,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp">
+            android:layout_height="wrap_content">
 
             <FrameLayout
                 android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="235dp"
+                android:layout_marginHorizontal="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -37,7 +37,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="30dp"
-                        android:layout_marginVertical="20dp">
+                        android:layout_marginVertical="16dp">
 
                         <TextView
                             android:id="@+id/namaKelas"
@@ -98,14 +98,14 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/SPPKelompok2.Card.Large"
+                <FrameLayout
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="50dp"
-                    app:cardBackgroundColor="@color/green"
-                    app:cardCornerRadius="40dp">
+                    android:layout_marginBottom="55dp"
+                    android:background="@drawable/background_oval_base"
+                    android:backgroundTint="@color/green"
+                    android:elevation="3dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -113,7 +113,7 @@
                         android:layout_gravity="center"
                         android:src="@drawable/icon_checked" />
 
-                </com.google.android.material.card.MaterialCardView>
+                </FrameLayout>
 
             </FrameLayout>
 
@@ -121,8 +121,8 @@
                 android:id="@+id/cardView2"
                 style="@style/SPPKelompok2.Card.Large"
                 android:layout_width="match_parent"
+                android:layout_marginHorizontal="16dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 app:layout_constraintEnd_toEndOf="@+id/frameLayout"
                 app:layout_constraintStart_toStartOf="@+id/frameLayout"
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout">
@@ -243,7 +243,7 @@
                 style="@style/SPPKelompok2.Card.Large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/cardView2"
                 app:layout_constraintStart_toStartOf="@+id/cardView2"
                 app:layout_constraintTop_toBottomOf="@+id/cardView2">
@@ -282,16 +282,17 @@
     </ScrollView>
 
     <com.google.android.material.card.MaterialCardView
-        style="@style/SPPKelompok2.Card.Large"
+        style="@style/SPPKelompok2.Card.Large.Filled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:layout_marginBottom="70dp"
+        android:clickable="true"
+        android:focusable="true"
         android:foreground="?selectableItemBackgroundBorderless"
+        app:cardElevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:focusable="true">
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

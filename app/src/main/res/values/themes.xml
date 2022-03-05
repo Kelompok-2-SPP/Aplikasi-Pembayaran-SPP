@@ -22,9 +22,7 @@
         <item name="android:colorBackground">?background</item>
         <item name="android:textColorSecondary">@color/neutral_white</item>
         <item name="android:textColorHint">@color/text_black40</item>
-        <item name="rippleColor">?colorPrimary</item>
-        <item name="itemRippleColor">?colorPrimary</item>
-        <item name="tabRippleColor">?colorPrimary</item>
+        <item name="android:outlineAmbientShadowColor">@color/shadow_ambient</item>
     </style>
 
     <style name="SPPKelompok2.SplashScreen" parent="SPPKelompok2">

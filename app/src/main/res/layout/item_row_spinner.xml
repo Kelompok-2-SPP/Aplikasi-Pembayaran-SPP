@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
+    android:layout_marginHorizontal="10dp"
     android:layout_marginVertical="5dp">
 
     <TextView
@@ -16,4 +17,4 @@
         android:text="Option A"
         android:textColor="@color/text_black60" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

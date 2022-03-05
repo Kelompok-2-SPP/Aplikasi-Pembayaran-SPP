@@ -13,7 +13,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.lleans.spp_kelompok_2.UIListener;
-import com.lleans.spp_kelompok_2.databinding.TambahsppPetugasBinding;
+import com.lleans.spp_kelompok_2.databinding.Petugas6TambahSppBinding;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
@@ -27,7 +27,7 @@ import retrofit2.Response;
 
 public class TambahSpp extends Fragment implements UIListener {
 
-    private TambahsppPetugasBinding binding;
+    private Petugas6TambahSppBinding binding;
     private SessionManager sessionManager;
     private NavController nav;
 
@@ -75,7 +75,7 @@ public class TambahSpp extends Fragment implements UIListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
-        binding.simpanSpp.setOnClickListener(view1 -> {
+        binding.simpan.setOnClickListener(view1 -> {
             Integer angkatan, tahun, nominal;
             angkatan = Integer.parseInt(binding.angkatan.getText().toString());
             tahun = Integer.parseInt(binding.tahun.getText().toString());
@@ -92,7 +92,7 @@ public class TambahSpp extends Fragment implements UIListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = TambahsppPetugasBinding.inflate(inflater, container, false);
+        binding = Petugas6TambahSppBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
         return binding.getRoot();
     }

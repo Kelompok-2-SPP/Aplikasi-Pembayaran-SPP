@@ -55,7 +55,7 @@
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/materialCardView2"
-                        style="@style/SPPKelompok2.Card.Large"
+                        style="@style/SPPKelompok2.Card.Large.Filled"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
@@ -77,7 +77,7 @@
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/edit"
-                        style="@style/SPPKelompok2.Card.Medium"
+                        style="@style/SPPKelompok2.Card.Medium.Filled"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:clickable="true"
@@ -105,7 +105,6 @@
                 style="@style/SPPKelompok2.Card.Large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 app:layout_constraintEnd_toEndOf="@+id/cardView"
                 app:layout_constraintStart_toStartOf="@+id/cardView"
                 app:layout_constraintTop_toBottomOf="@+id/cardView">
@@ -226,11 +225,12 @@
     </ScrollView>
 
     <com.google.android.material.card.MaterialCardView
-        style="@style/SPPKelompok2.Card.Large"
+        style="@style/SPPKelompok2.Card.Large.Filled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="70dp"
         android:clickable="true"
+        app:cardElevation="3dp"
         android:focusable="true"
         android:foreground="?selectableItemBackgroundBorderless"
         app:layout_constraintBottom_toBottomOf="parent"

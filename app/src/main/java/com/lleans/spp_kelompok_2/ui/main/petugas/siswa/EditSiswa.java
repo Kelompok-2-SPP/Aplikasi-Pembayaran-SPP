@@ -155,7 +155,7 @@ public class EditSiswa extends Fragment implements UIListener {
         detailsItemSiswa = (DetailsItemSiswa) bundle.get("siswa");
         kelas = (DetailsItemKelas) bundle.get("kelas");
         binding.nisn.setText(detailsItemSiswa.getNisn());
-        binding.nisn.setText(detailsItemSiswa.getNis());
+        binding.nis.setText(detailsItemSiswa.getNis());
         binding.nama.setText(detailsItemSiswa.getNama());
         binding.alamat.setText(detailsItemSiswa.getAlamat());
         binding.noTelp.setText(detailsItemSiswa.getNoTelp());

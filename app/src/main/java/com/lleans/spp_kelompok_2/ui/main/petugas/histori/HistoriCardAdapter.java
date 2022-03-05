@@ -20,7 +20,7 @@ import java.util.List;
 
 public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.HistoriCardViewHolder> {
 
-    private String green, orange;
+    private int orange;
     private final List<DetailsItemPembayaran> listdata;
     private final NavController navController;
 
@@ -32,9 +32,8 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
     @NonNull
     @Override
     public HistoriCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_transaksi, parent, false);
-        green = String.format("%X", view.getResources().getColor(R.color.green)).substring(2);
-        orange = String.format("%X", view.getResources().getColor(R.color.orange)).substring(2);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_aktivitas, parent, false);
+        orange = view.getResources().getColor(R.color.orange);
         return new HistoriCardViewHolder(view);
     }
 
@@ -43,10 +42,13 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
         DetailsItemPembayaran data = listdata.get(position);
         holder.name.setText(data.getSiswa().getNama());
         if (Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar())) {
-            holder.secondary.setText(data.getSiswa().getKelas().getNamaKelas() + " • " + Html.fromHtml(String.format("<font color=\"#%s\">Belum Lunas</font>", orange)));
+            holder.kelas.setText(data.getSiswa().getKelas().getNamaKelas());
+            holder.status.setText("Belum Lunas");
+            holder.status.setTextColor(orange);
             holder.nominalkurang.setText(Utils.kurangBayar(data.getSpp().getNominal(), data.getJumlahBayar()));
         }else{
-            holder.secondary.setText(data.getSiswa().getKelas().getNamaKelas() + " • " + Html.fromHtml(String.format("<font color=\"#%s\">Lunas</font>", green)));
+            holder.kelas.setText(data.getSiswa().getKelas().getNamaKelas());
+            holder.status.setText("Lunas");
             holder.nominalkurang.setText(Utils.formatRupiah(data.getJumlahBayar()));
         }
         holder.cardView.setOnClickListener(v -> {
@@ -62,13 +64,14 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
     }
 
     public static class HistoriCardViewHolder extends RecyclerView.ViewHolder {
-        TextView name, secondary, nominalkurang;
+        TextView name, kelas, status, nominalkurang;
         CardView cardView;
 
         public HistoriCardViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.title);
-            secondary = itemView.findViewById(R.id.secondaryText);
+            kelas = itemView.findViewById(R.id.kelas);
+            status = itemView.findViewById(R.id.status);
             nominalkurang = itemView.findViewById(R.id.nominal);
 
             cardView = itemView.findViewById(R.id.card);

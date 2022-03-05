@@ -226,12 +226,12 @@
         android:id="@+id/tambahKelas_petugas"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.kelas.TambahKelas"
         android:label="Tambah Kelas"
-        tools:layout="@layout/tambahkelas_petugas" />
+        tools:layout="@layout/petugas_5_tambah_kelas" />
     <fragment
         android:id="@+id/tambahSiswa_petugas"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.siswa.TambahSiswa"
         android:label="Tambah Siswa"
-        tools:layout="@layout/tambahsiswa_petugas" />
+        tools:layout="@layout/petugas_6_tambah_siswa" />
     <fragment
         android:id="@+id/detailPetugas_petuga"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.petugas.DetailPetugas"
@@ -247,12 +247,12 @@
         android:id="@+id/tambahpetugas_petugas"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.petugas.TambahPetugas"
         android:label="Tambah Petugas"
-        tools:layout="@layout/tambahpetugas_petugas" />
+        tools:layout="@layout/petugas_6_tambah_petugas" />
     <fragment
         android:id="@+id/tambahspp_petugas"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.spp.TambahSpp"
         android:label="Tambah SPP"
-        tools:layout="@layout/tambahspp_petugas" />
+        tools:layout="@layout/petugas_6_tambah_spp" />
     <fragment
         android:id="@+id/editKelas"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.kelas.EditKelas"
