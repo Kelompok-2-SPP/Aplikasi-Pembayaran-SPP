@@ -16,8 +16,10 @@
         <TextView
             android:id="@+id/bulan"
             style="@style/SPPKelompok2.Text.Bold.Header2"
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="Bulan"
             android:textColor="?colorSurface"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,6 +37,7 @@
             app:layout_constraintTop_toBottomOf="@+id/bulan" />
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView3"
             style="@style/SPPKelompok2.Card.Medium.Filled"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,6 +62,7 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/background_tab_layout_base"
             android:padding="10dp"
+            app:tabMode="fixed"
             app:tabIndicatorColor="@color/orange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

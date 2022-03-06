@@ -1,6 +1,7 @@
 package com.lleans.spp_kelompok_2.domain.model.siswa;
 
 import com.google.gson.annotations.SerializedName;
+import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 
 import java.io.Serializable;
 
@@ -16,7 +17,7 @@ public class DetailsItemSiswa implements Serializable {
 	private String nisn;
 
 	@SerializedName("kelas")
-	private KelasSiswa kelasSiswa;
+	private DetailsItemKelas kelas;
 
 	@SerializedName("nis")
 	private String nis;
@@ -57,12 +58,12 @@ public class DetailsItemSiswa implements Serializable {
 		return nisn;
 	}
 
-	public void setKelas(KelasSiswa kelasSiswa){
-		this.kelasSiswa = kelasSiswa;
+	public void setKelas(DetailsItemKelas kelasSiswa){
+		this.kelas = kelasSiswa;
 	}
 
-	public KelasSiswa getKelas(){
-		return kelasSiswa;
+	public DetailsItemKelas getKelas(){
+		return kelas;
 	}
 
 	public void setNis(String nis){

@@ -2,6 +2,7 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refresher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.petugas.petugas.DetailPetugas">
@@ -16,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <FrameLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="235dp"
@@ -26,13 +27,14 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/materialCardView4"
                     style="@style/SPPKelompok2.Card.Large"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -41,7 +43,7 @@
                         android:layout_marginVertical="20dp">
 
                         <TextView
-                            android:id="@+id/namaKelas"
+                            android:id="@+id/nama"
                             style="@style/SPPKelompok2.Text.Bold.Header2"
                             android:layout_width="250dp"
                             android:layout_height="wrap_content"
@@ -54,7 +56,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/jumlahSiswa"
+                            android:id="@+id/username"
                             style="@style/SPPKelompok2.Text.Semibold.Body1"
                             android:layout_width="180dp"
                             android:layout_height="wrap_content"
@@ -63,9 +65,9 @@
                             android:gravity="center"
                             android:maxLines="1"
                             android:text="@string/sawidji"
-                            app:layout_constraintEnd_toEndOf="@+id/namaKelas"
-                            app:layout_constraintStart_toStartOf="@+id/namaKelas"
-                            app:layout_constraintTop_toBottomOf="@+id/namaKelas" />
+                            app:layout_constraintEnd_toEndOf="@+id/nama"
+                            app:layout_constraintStart_toStartOf="@+id/nama"
+                            app:layout_constraintTop_toBottomOf="@+id/nama" />
 
                         <ImageButton
                             android:id="@+id/edit"
@@ -76,10 +78,10 @@
                             android:contentDescription="@string/edit"
                             android:focusable="true"
                             android:src="@drawable/icon_edit"
-                            app:layout_constraintBottom_toBottomOf="@+id/jumlahSiswa"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="1.0"
-                            app:layout_constraintStart_toEndOf="@+id/jumlahSiswa"
+                            app:layout_constraintStart_toEndOf="@+id/username"
                             tools:ignore="TouchTargetSizeCheck" />
 
 
@@ -88,33 +90,39 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <FrameLayout
+                    android:id="@+id/nickFrame"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="50dp"
+                    android:layout_marginBottom="-30dp"
                     android:background="@drawable/background_oval_base"
                     android:backgroundTint="@color/orange"
-                    android:elevation="3dp">
+                    android:elevation="3dp"
+                    app:layout_constraintBottom_toTopOf="@+id/materialCardView4"
+                    app:layout_constraintEnd_toEndOf="@+id/materialCardView4"
+                    app:layout_constraintStart_toStartOf="@+id/materialCardView4">
 
                     <TextView
+                        android:id="@+id/nick"
                         style="@style/SPPKelompok2.Text.Semibold.Header3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
+                        android:maxLength="2"
                         android:text="SA"
                         android:textAllCaps="true"
                         android:textColor="?colorSurface" />
 
                 </FrameLayout>
 
-            </FrameLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView"
                 style="@style/SPPKelompok2.Card.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
+                android:layout_marginHorizontal="12dp"
                 app:layout_constraintEnd_toEndOf="@+id/frameLayout"
                 app:layout_constraintStart_toStartOf="@+id/frameLayout"
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout">
@@ -135,10 +143,14 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/level"
                         style="@style/SPPKelompok2.Text.Regular.Body2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="140dp"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="end"
+                        android:maxLines="1"
+                        android:inputType="textCapSentences"
                         android:text="@string/petugas"
                         app:layout_constraintBottom_toBottomOf="@+id/textView27"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -149,52 +161,53 @@
             </com.google.android.material.card.MaterialCardView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="@+id/materialCardView"
                 app:layout_constraintStart_toStartOf="@+id/materialCardView"
                 app:layout_constraintTop_toBottomOf="@+id/materialCardView">
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/textView14"
                     style="@style/SPPKelompok2.Text.Bold.Header4"
                     android:layout_width="wrap_content"
-                    android:layout_marginStart="30dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:text="@string/aktivitas"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView12"
-                    android:layout_marginEnd="30dp"
+                    android:id="@+id/aktivitas"
                     style="@style/SPPKelompok2.Text.Medium.Body3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
                     android:background="?selectableItemBackgroundBorderless"
                     android:clickable="true"
+                    android:focusable="true"
                     android:text="@string/lihat_semua"
                     android:textColor="@color/text_black40"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView11"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView14"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/textView14" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="12dp"
-                    android:paddingHorizontal="16dp"
+                    android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
+                    android:paddingHorizontal="16dp"
+                    android:paddingBottom="40dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/textView12"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView11"
+                    app:layout_constraintEnd_toEndOf="@+id/aktivitas"
+                    app:layout_constraintStart_toStartOf="@+id/textView14"
+                    app:layout_constraintTop_toBottomOf="@+id/textView14"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_row_aktivitas" />
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

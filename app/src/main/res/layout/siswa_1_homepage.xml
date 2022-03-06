@@ -21,7 +21,7 @@
                 style="@style/SPPKelompok2.Text.Semibold.Header3"
                 android:layout_width="210dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginStart="30dp"
                 android:ellipsize="end"
                 android:maxLines="2"
@@ -44,6 +44,7 @@
                 app:layout_constraintTop_toTopOf="@+id/header" />
 
             <FrameLayout
+                android:visibility="gone"
                 android:id="@+id/cardTunggakan"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
@@ -152,6 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:paddingHorizontal="16dp"
+                    android:paddingBottom="40dp"
                     android:nestedScrollingEnabled="false"
                     app:layout_constraintEnd_toEndOf="@+id/transaksi"
                     app:layout_constraintStart_toStartOf="@+id/textView14"

@@ -15,7 +15,6 @@ public class SpinnerAdapter extends BaseAdapter {
     private Context context;
     private List<SpinnerInterface> list;
 
-    private int count;
     private boolean focused;
 
     public SpinnerAdapter(Context context, List<SpinnerInterface> list, boolean focused) {
@@ -26,7 +25,7 @@ public class SpinnerAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return count != 0 ? count:list.size();
+        return list.size();
     }
 
     @Override

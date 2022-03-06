@@ -2,6 +2,7 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refresher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.petugas.siswa.EditSiswa">
@@ -167,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:text="Kelas" />
 
-                <Spinner
+                <com.lleans.spp_kelompok_2.ui.utils.spinner.CustomSpinner
                     android:id="@+id/kelas"
                     style="@style/SPPKelompok2.Text.Semibold.Body2"
                     android:layout_width="match_parent"

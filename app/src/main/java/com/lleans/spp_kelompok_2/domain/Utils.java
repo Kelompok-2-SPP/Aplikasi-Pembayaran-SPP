@@ -1,7 +1,13 @@
 package com.lleans.spp_kelompok_2.domain;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.navigation.NavController;
 
 import com.lleans.spp_kelompok_2.R;
@@ -14,16 +20,30 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 public class Utils {
 
     public static void activityKiller(NavController nav, Activity activity) {
+        MainActivity.act.finish();
         nav.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (destination.getId() == R.id.login) {
-                MainActivity.act.finish();
                 activity.finish();
             }
         });
+    }
+
+    public static void nicknameBuilder(Context context, String name, TextView text, FrameLayout frame){
+        int[] androidColors = context.getResources().getIntArray(R.array.androidcolors);
+
+        StringBuilder initials = new StringBuilder();
+
+        for (String s : name.split(" ")) {
+            initials.append(s.charAt(0));
+        }
+
+        text.setText(initials.toString());
+        frame.setBackgroundTintList(ColorStateList.valueOf(androidColors[new Random(name.hashCode()).nextInt(androidColors.length)]));
     }
 
     public static String formatRupiah(int money) {
@@ -54,7 +74,7 @@ public class Utils {
     }
 
     public static String kurangBayar(int totalSpp, int nominalBayar) {
-        return "- " + formatRupiah(totalSpp - nominalBayar);
+        return "-" + formatRupiah(totalSpp - nominalBayar);
     }
 
     public static Long convertServerString(String sd){

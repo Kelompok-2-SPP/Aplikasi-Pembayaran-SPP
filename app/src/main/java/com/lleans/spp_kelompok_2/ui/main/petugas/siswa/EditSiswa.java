@@ -8,15 +8,19 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas4EditSiswaBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
+import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
@@ -43,6 +47,7 @@ public class EditSiswa extends Fragment implements UIListener {
 
     // Delete siswa function
     private void deleteSiswa(String nisn) {
+        isLoading(true);
         Call<SiswaData> siswaDataCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         siswaDataCall = apiInterface.deleteSiswa(
@@ -52,27 +57,27 @@ public class EditSiswa extends Fragment implements UIListener {
         siswaDataCall.enqueue(new Callback<SiswaData>() {
             @Override
             public void onResponse(Call<SiswaData> call, Response<SiswaData> response) {
+                isLoading(false);
                 if (response.body() != null && response.isSuccessful()) {
-                    isLoading(false);
                     toaster(response.body().getMessage());
                     nav.navigateUp();
-                } else if (response.errorBody() != null) {
-                    isLoading(false);
+                } else if (response.code() <= 500) {
                     SiswaData message = new Gson().fromJson(response.errorBody().charStream(), SiswaData.class);
                     toaster(message.getMessage());
                 } else {
                     try {
-                        toaster(response.errorBody().string());
+                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
 
+            // On failure response
             @Override
-            public void onFailure(Call<SiswaData> call, Throwable t) {
+            public void onFailure(@NonNull Call<SiswaData> call, @NonNull Throwable t) {
                 isLoading(false);
-                toaster(t.getLocalizedMessage());
+                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
             }
         });
     }
@@ -94,21 +99,27 @@ public class EditSiswa extends Fragment implements UIListener {
         editSiswaCall.enqueue(new Callback<SiswaData>() {
             @Override
             public void onResponse(Call<SiswaData> call, Response<SiswaData> response) {
-                if (response.isSuccessful()) {
-                    isLoading(false);
+                isLoading(false);
+                if (response.body() != null && response.isSuccessful()) {
                     toaster(response.body().getMessage());
                     nav.navigateUp();
+                } else if (response.code() <= 500) {
+                    SiswaData message = new Gson().fromJson(response.errorBody().charStream(), SiswaData.class);
+                    toaster(message.getMessage());
                 } else {
-                    // Handling 401 error
-                    isLoading(false);
-                    toaster(response.message());
+                    try {
+                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
+            // On failure response
             @Override
-            public void onFailure(Call<SiswaData> call, Throwable t) {
+            public void onFailure(@NonNull Call<SiswaData> call, @NonNull Throwable t) {
                 isLoading(false);
-                toaster(t.getLocalizedMessage());
+                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
             }
         });
     }
@@ -150,6 +161,7 @@ public class EditSiswa extends Fragment implements UIListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = Petugas4EditSiswaBinding.inflate(inflater, container, false);
+        isLoading(false);
         sessionManager = new SessionManager(getContext());
         Bundle bundle = getArguments();
         detailsItemSiswa = (DetailsItemSiswa) bundle.get("siswa");
@@ -162,18 +174,23 @@ public class EditSiswa extends Fragment implements UIListener {
         return binding.getRoot();
     }
 
+    // Abstract class for loadingBar
     @Override
     public void isLoading(Boolean isLoading) {
-
+        binding.refresher.setEnabled(isLoading);
+        binding.refresher.setRefreshing(isLoading);
     }
 
+    // Abstract class for Toast
     @Override
     public void toaster(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
+    // Abstract class for Dialog
     @Override
-    public void dialog(String title, String message) {
-
+    public void dialog(String title, Spanned message) {
+        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(getContext());
+        as.setTitle(title).setMessage(message).setPositiveButton("Ok", null).show();
     }
 }

@@ -21,11 +21,14 @@
     <color name="text_black80">#3D3E49</color>
     <color name="text_black">#0D0E1C</color>
 
-    <!--Transparent color-->
-    <color name="transparent_red">#F74545</color>
-    <color name="transparent_orange">#F7B045</color>
-    <color name="transparent_purple">#9E45F7</color>
-    <color name="transparent_green">#46CD93</color>
-
     <color name="shadow_ambient">#C5C5C7</color>
+
+    <!--Array color-->
+    <integer-array name="androidcolors">
+        <item>@color/purple</item>
+        <item>@color/green</item>
+        <item>@color/orange</item>
+        <item>@color/red</item>
+    </integer-array>
+
 </resources>

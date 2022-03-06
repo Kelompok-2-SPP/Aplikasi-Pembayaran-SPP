@@ -85,7 +85,8 @@
                     android:focusable="true"
                     android:hint="Password"
                     android:inputType="textPassword"
-                    android:maxLength="255" />
+                    android:maxLength="255"
+                    android:textColor="?colorPrimary"/>
 
             </LinearLayout>
 
@@ -115,7 +116,8 @@
                     android:focusable="true"
                     android:hint="Nama Petugas"
                     android:inputType="text"
-                    android:maxLength="35" />
+                    android:maxLength="35"
+                    android:textColor="?colorPrimary"/>
 
             </LinearLayout>
 
@@ -135,8 +137,8 @@
                     android:layout_height="wrap_content"
                     android:text="Level" />
 
-                <Spinner
-                    android:id="@+id/level"
+                <com.lleans.spp_kelompok_2.ui.utils.spinner.CustomSpinner
+                    android:id="@+id/angkatan"
                     style="@style/SPPKelompok2.Text.Semibold.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

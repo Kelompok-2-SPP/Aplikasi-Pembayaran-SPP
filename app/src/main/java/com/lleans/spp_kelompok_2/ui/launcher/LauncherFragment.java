@@ -6,6 +6,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -19,7 +20,6 @@ public class LauncherFragment extends AppCompatActivity {
 
     private AppBarLayout appBar;
     private Toolbar toolbar;
-    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +30,16 @@ public class LauncherFragment extends AppCompatActivity {
         // Get AppBar and Toolbar
         appBar = binding.appbar;
         toolbar = binding.toolbar;
-        title = binding.title;
 
         // Hide and unhide AppBar
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
         navHostFragment.getNavController().addOnDestinationChangedListener((controller, destination, arguments) -> {
-            title.setText(destination.getLabel());
-            if ("homepage_petugas".equals(destination.getLabel()) || "homepage_siswa".equals(destination.getLabel()) || "login".equals(destination.getLabel())) {
+            toolbar.setTitle(destination.getLabel());
+            if (destination.getId() == R.id.homepage_petugas || destination.getId() == R.id.homepage_siswa || destination.getId() == R.id.login) {
                 appBar.setVisibility(View.GONE);
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
             } else {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
                 appBar.setVisibility(View.VISIBLE);
                 toolbar.setNavigationOnClickListener(v -> {
                     controller.navigateUp();

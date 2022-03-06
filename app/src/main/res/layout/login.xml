@@ -9,9 +9,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:paddingHorizontal="35dp"
-        android:paddingTop="95dp"
-        android:layout_height="match_parent">
+        android:paddingTop="95dp">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -62,12 +62,13 @@
                         android:id="@+id/username"
                         style="@style/SPPKelompok2.Text.Medium.Body2"
                         android:layout_width="match_parent"
-                        android:clickable="true"
                         android:layout_height="wrap_content"
                         android:background="@drawable/selector_edit_text"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:hint="Username"
                         android:inputType="text"
-                        android:focusable="true" />
+                        android:maxLength="25" />
 
                 </LinearLayout>
 
@@ -95,7 +96,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:hint="Password"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:maxLength="255" />
 
                 </LinearLayout>
 

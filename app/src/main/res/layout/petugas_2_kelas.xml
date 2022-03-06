@@ -16,7 +16,7 @@
             style="@style/SPPKelompok2.Text.Medium.Body2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="24dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/background_edit_unfocused"
             android:clickable="true"
@@ -38,13 +38,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchBar">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:paddingHorizontal="16dp"
-                android:paddingTop="10dp"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item_row_main" />
+                android:fillViewport="true">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false"
+                    android:padding="16dp"
+                    tools:listitem="@layout/item_row_main" />
+
+            </ScrollView>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

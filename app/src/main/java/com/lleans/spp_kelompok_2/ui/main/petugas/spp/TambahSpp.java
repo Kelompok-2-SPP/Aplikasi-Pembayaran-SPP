@@ -1,6 +1,8 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.spp;
 
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +14,11 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
-import com.lleans.spp_kelompok_2.databinding.Petugas6TambahSppBinding;
+import com.lleans.spp_kelompok_2.databinding.Petugas5TambahSppBinding;
+import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
@@ -27,7 +32,7 @@ import retrofit2.Response;
 
 public class TambahSpp extends Fragment implements UIListener {
 
-    private Petugas6TambahSppBinding binding;
+    private Petugas5TambahSppBinding binding;
     private SessionManager sessionManager;
     private NavController nav;
 
@@ -36,6 +41,7 @@ public class TambahSpp extends Fragment implements UIListener {
     }
 
     private void tambahSpp(Integer angkatan, Integer tahun, Integer nominal){
+        isLoading(true);
         Call<SppData> tambahSppCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         tambahSppCall = apiInterface.postSpp(
@@ -46,27 +52,27 @@ public class TambahSpp extends Fragment implements UIListener {
         tambahSppCall.enqueue(new Callback<SppData>() {
             @Override
             public void onResponse(Call<SppData> call, Response<SppData> response) {
+                isLoading(false);
                 if (response.isSuccessful()) {
-                    isLoading(false);
                     toaster(response.body().getMessage());
                     nav.navigateUp();
+                } else if (response.code() <= 500){
+                    SppData message = new Gson().fromJson(response.errorBody().charStream(), SppData.class);
+                    toaster(message.getMessage());
                 } else {
-                    // Handling 401 error
-                    // error karna server /eksternal
-                    isLoading(false);
                     try {
-                        toaster(response.errorBody().string());
+                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
 
+            // On failure response
             @Override
-            public void onFailure(Call<SppData> call, Throwable t) {
-                // error karna masalah hp /internal
+            public void onFailure(@NonNull Call<SppData> call, @NonNull Throwable t) {
                 isLoading(false);
-                toaster(t.getLocalizedMessage());
+                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
             }
         });
     }
@@ -92,23 +98,29 @@ public class TambahSpp extends Fragment implements UIListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = Petugas6TambahSppBinding.inflate(inflater, container, false);
+        binding = Petugas5TambahSppBinding.inflate(inflater, container, false);
+        isLoading(false);
         sessionManager = new SessionManager(getContext());
         return binding.getRoot();
     }
 
+    // Abstract class for loadingBar
     @Override
     public void isLoading(Boolean isLoading) {
-
+        binding.refresher.setEnabled(isLoading);
+        binding.refresher.setRefreshing(isLoading);
     }
 
+    // Abstract class for Toast
     @Override
     public void toaster(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
+    // Abstract class for Dialog
     @Override
-    public void dialog(String title, String message) {
-
+    public void dialog(String title, Spanned message) {
+        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(getContext());
+        as.setTitle(title).setMessage(message).setPositiveButton("Ok", null).show();
     }
 }

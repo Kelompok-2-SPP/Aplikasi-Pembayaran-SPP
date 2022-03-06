@@ -1,9 +1,11 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.petugas;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lleans.spp_kelompok_2.R;
+import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.petugas.DetailsItemPetugas;
 
 import java.util.List;
@@ -20,6 +23,8 @@ public class PetugasCardAdapter extends RecyclerView.Adapter<PetugasCardAdapter.
 
     private final List<DetailsItemPetugas> listdata;
     private final NavController navController;
+
+    private Context context;
 
     public PetugasCardAdapter(List<DetailsItemPetugas> list, NavController navController) {
         this.listdata = list;
@@ -31,6 +36,7 @@ public class PetugasCardAdapter extends RecyclerView.Adapter<PetugasCardAdapter.
     @Override
     public PetugasCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_main, parent, false);
+        context = view.getContext();
         return new PetugasCardViewHolder(view);
     }
 
@@ -39,6 +45,7 @@ public class PetugasCardAdapter extends RecyclerView.Adapter<PetugasCardAdapter.
         DetailsItemPetugas data = listdata.get(position);
         holder.name.setText(data.getNamaPetugas());
         holder.uname.setText(data.getUsername());
+        Utils.nicknameBuilder(context, data.getNamaPetugas(), holder.nick, holder.nickFrame);
         holder.cardView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("petugas", data);
@@ -52,15 +59,18 @@ public class PetugasCardAdapter extends RecyclerView.Adapter<PetugasCardAdapter.
     }
 
     public static class PetugasCardViewHolder extends RecyclerView.ViewHolder {
-        TextView name, uname;
+        TextView name, uname, nick;
         CardView cardView;
+        FrameLayout nickFrame;
 
         public PetugasCardViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.title);
             uname = itemView.findViewById(R.id.secondaryText);
+            nick = itemView.findViewById(R.id.nick);
 
             cardView = itemView.findViewById(R.id.card);
+            nickFrame = itemView.findViewById(R.id.nickFrame);
         }
     }
 }

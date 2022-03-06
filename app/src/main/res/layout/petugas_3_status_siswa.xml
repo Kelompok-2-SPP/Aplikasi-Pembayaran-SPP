@@ -2,9 +2,11 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refresher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.petugas.siswa.Status">
+    android:layout_alignWithParentIfMissing="true"
+    tools:context=".ui.main.petugas.siswa.StatusSiswa">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,23 +22,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <FrameLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/frameLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="280dp"
+                    android:layout_height="270dp"
                     android:layout_marginHorizontal="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/materialCardView4"
                         style="@style/SPPKelompok2.Card.Large"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintStart_toStartOf="parent">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -45,7 +48,7 @@
                             android:layout_marginVertical="20dp">
 
                             <TextView
-                                android:id="@+id/namaKelas"
+                                android:id="@+id/nama"
                                 style="@style/SPPKelompok2.Text.Bold.Header2"
                                 android:layout_width="250dp"
                                 android:layout_height="wrap_content"
@@ -58,7 +61,7 @@
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
-                                android:id="@+id/jumlahSiswa"
+                                android:id="@+id/nisn"
                                 style="@style/SPPKelompok2.Text.Semibold.Body1"
                                 android:layout_width="180dp"
                                 android:layout_height="wrap_content"
@@ -67,23 +70,24 @@
                                 android:gravity="center"
                                 android:maxLines="1"
                                 android:text="0034523226"
-                                app:layout_constraintEnd_toEndOf="@+id/namaKelas"
-                                app:layout_constraintStart_toStartOf="@+id/namaKelas"
-                                app:layout_constraintTop_toBottomOf="@+id/namaKelas" />
+                                app:layout_constraintEnd_toEndOf="@+id/nama"
+                                app:layout_constraintStart_toStartOf="@+id/nama"
+                                app:layout_constraintTop_toBottomOf="@+id/nama" />
 
                             <ImageButton
                                 android:id="@+id/edit"
                                 android:layout_width="24dp"
                                 android:layout_height="27dp"
+                                android:layout_marginStart="36dp"
                                 android:background="?selectableItemBackgroundBorderless"
                                 android:clickable="true"
                                 android:contentDescription="@string/edit"
                                 android:focusable="true"
                                 android:src="@drawable/icon_edit"
-                                app:layout_constraintBottom_toBottomOf="@+id/jumlahSiswa"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="1.0"
-                                app:layout_constraintStart_toEndOf="@+id/jumlahSiswa"
+                                app:layout_constraintStart_toEndOf="@+id/nisn"
                                 tools:ignore="TouchTargetSizeCheck" />
 
 
@@ -92,33 +96,39 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <FrameLayout
+                        android:id="@+id/nickFrame"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="65dp"
+                        android:layout_marginBottom="-30dp"
                         android:background="@drawable/background_oval_base"
                         android:backgroundTint="@color/green"
-                        android:elevation="3dp">
+                        android:elevation="3dp"
+                        app:layout_constraintBottom_toTopOf="@+id/materialCardView4"
+                        app:layout_constraintEnd_toEndOf="@+id/materialCardView4"
+                        app:layout_constraintStart_toStartOf="@+id/materialCardView4">
 
                         <TextView
+                            android:id="@+id/nick"
                             style="@style/SPPKelompok2.Text.Semibold.Header3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="AW"
+                            android:maxLength="2"
+                            android:text="R1"
                             android:textAllCaps="true"
                             android:textColor="?colorSurface" />
 
                     </FrameLayout>
 
-                </FrameLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/materialCardView"
                     style="@style/SPPKelompok2.Card.Large"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginHorizontal="12dp"
                     app:layout_constraintEnd_toEndOf="@+id/frameLayout"
                     app:layout_constraintStart_toStartOf="@+id/frameLayout"
                     app:layout_constraintTop_toBottomOf="@+id/frameLayout">
@@ -145,13 +155,16 @@
                                 android:text="NIS" />
 
                             <TextView
-                                android:id="@+id/textView10"
+                                android:id="@+id/nis"
                                 style="@style/SPPKelompok2.Text.Regular.Body2"
-                                android:layout_width="wrap_content"
+                                android:layout_width="140dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignTop="@+id/textView26"
                                 android:layout_alignBottom="@+id/textView26"
                                 android:layout_alignParentEnd="true"
+                                android:ellipsize="end"
+                                android:gravity="end"
+                                android:maxLines="1"
                                 android:text="SMK-326324"
                                 app:layout_constraintBottom_toBottomOf="@+id/textView26"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -190,15 +203,17 @@
                                 android:text="Alamat" />
 
                             <TextView
-                                android:id="@+id/textView9"
+                                android:id="@+id/alamat"
                                 style="@style/SPPKelompok2.Text.Regular.Body2"
-                                android:layout_width="wrap_content"
+                                android:layout_width="140dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignTop="@+id/textView27"
                                 android:layout_alignBottom="@+id/textView27"
                                 android:layout_alignParentEnd="true"
                                 android:ellipsize="end"
+                                android:gravity="end"
                                 android:maxLength="25"
+                                android:maxLines="1"
                                 android:text="Sawojajar, Malang"
                                 app:layout_constraintBottom_toBottomOf="@+id/textView27"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -237,13 +252,16 @@
                                 android:text="No. Telp" />
 
                             <TextView
-                                android:id="@+id/textView11"
+                                android:id="@+id/noTelp"
                                 style="@style/SPPKelompok2.Text.Regular.Body2"
-                                android:layout_width="wrap_content"
+                                android:layout_width="140dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignTop="@+id/textView29"
                                 android:layout_alignBottom="@+id/textView29"
                                 android:layout_alignParentEnd="true"
+                                android:ellipsize="end"
+                                android:gravity="end"
+                                android:maxLines="1"
                                 android:text="083462786523"
                                 app:layout_constraintBottom_toBottomOf="@+id/textView29"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -260,10 +278,10 @@
                     style="@style/SPPKelompok2.Text.Semibold.Header3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="15dp"
                     android:text="Status SPP"
                     android:textColor="?colorPrimary"
-                    android:layout_marginStart="30dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
@@ -275,17 +293,17 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/constraint"
                 android:nestedScrollingEnabled="false"
-                android:paddingHorizontal="16dp"
+                android:paddingHorizontal="12dp"
                 tools:listitem="@layout/item_row_status" />
 
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:elevation="2dp"
-                android:src="@drawable/background_add_pembayaran"
+                android:layout_below="@id/recyclerView"
+                android:layout_marginVertical="12dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:layout_below="@id/recyclerView"/>
+                android:elevation="2dp"
+                android:src="@drawable/background_add_pembayaran" />
 
         </RelativeLayout>
 

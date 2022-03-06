@@ -8,9 +8,14 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.text.Html;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.auth0.android.jwt.JWT;
@@ -18,7 +23,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.R;
-import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.databinding.LoginBinding;
@@ -34,10 +38,10 @@ import retrofit2.Response;
 public class Login extends Fragment implements UIListener {
 
     private LoginBinding binding;
-    private NavController nav;
+    private NavController navController;
     private SessionManager sessionManager;
 
-    private String type;
+    private String loginType;
 
     public Login() {
         // Required empty public constructor
@@ -46,9 +50,9 @@ public class Login extends Fragment implements UIListener {
     // For navigating on Login fragment
     private void navigate(String type) {
         if (type.equals("siswa")) {
-            nav.navigate(R.id.action_login_to_homepage2);
+            navController.navigate(R.id.action_login_to_homepage2);
         } else {
-            nav.navigate(R.id.action_login_to_homepage3);
+            navController.navigate(R.id.action_login_to_homepage3);
         }
     }
 
@@ -59,7 +63,7 @@ public class Login extends Fragment implements UIListener {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         // Check login type
-        if (type.equals("siswa")) {
+        if (loginType.equals("siswa")) {
             logind = apiInterface.postAuthSiswa(username, password);
         } else {
             logind = apiInterface.postAuthPetugas(username, password);
@@ -69,17 +73,18 @@ public class Login extends Fragment implements UIListener {
         logind.enqueue(new Callback<AuthData>() {
             @Override
             public void onResponse(@NonNull Call<AuthData> call, @NonNull Response<AuthData> response) {
+                isLoading(false);
                 // On success response
                 if (response.body() != null && response.isSuccessful() && response.body().getDetails().isLogged()) {
                     // Decode token
                     JWT token = new JWT(response.body().getDetails().getToken());
 
                     // Check login type
-                    if (type.equals("siswa")) {
+                    if (loginType.equals("siswa")) {
                         sessionManager.createLogininSessFor(
                                 token.getClaim("nama").asString(),
                                 token.getClaim("nisn").asString(),
-                                type,
+                                loginType,
                                 response.body().getDetails().getToken()
                         );
                     } else {
@@ -89,20 +94,16 @@ public class Login extends Fragment implements UIListener {
                                 token.getClaim("level").asString(),
                                 response.body().getDetails().getToken());
                     }
-                    isLoading(false);
-
                     toaster("Selamat datang " + sessionManager.getUserDetail().get(SessionManager.USERNAME));
-                    navigate(type);
-                // On failure code
-                } else if (response.errorBody() != null) {
-                    isLoading(false);
+                    navigate(loginType);
+                    // On failure code
+                } else if (response.code() <= 500) {
                     AuthData message = new Gson().fromJson(response.errorBody().charStream(), AuthData.class);
-                    toaster("Login gagal!, "+ message.getMessage());
-                // On failure any code
+                    toaster("Login gagal!, " + message.getMessage());
+                    // On failure any code
                 } else {
-                    isLoading(false);
                     try {
-                        dialog("Login gagal!", response.errorBody().string());
+                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -113,7 +114,7 @@ public class Login extends Fragment implements UIListener {
             @Override
             public void onFailure(@NonNull Call<AuthData> call, @NonNull Throwable t) {
                 isLoading(false);
-                dialog("Something went wrong!", t.getLocalizedMessage());
+                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
             }
         });
     }
@@ -121,8 +122,8 @@ public class Login extends Fragment implements UIListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Define navController and Session
-        nav = Navigation.findNavController(view);
+        // Define navController, Session, and Color
+        navController = Navigation.findNavController(view);
         sessionManager = new SessionManager(getContext());
 
         // Check if session is logged in
@@ -136,7 +137,7 @@ public class Login extends Fragment implements UIListener {
             username = binding.username.getText().toString();
             password = binding.password.getText().toString();
             if (username.equals("") || password.equals("")) {
-                toaster("Data tidak boleh kosong");
+                toaster("Data tidak boleh kosong.");
             } else {
                 isLoading(true);
                 authLogin(username, password);
@@ -150,14 +151,16 @@ public class Login extends Fragment implements UIListener {
         // Inflate layout, define binding, get Intent from MainActivity
         binding = LoginBinding.inflate(inflater, container, false);
         isLoading(false);
-        type = getActivity().getIntent().getStringExtra("type");
+        loginType = getActivity().getIntent().getStringExtra("type");
 
         // Check login type
-        if (type.equals("siswa")) {
+        if (loginType.equals("siswa")) {
             binding.header.setText("Login Siswa");
             binding.description.setText("Masukkan NISN dan Password anda yang sudah terdaftar.");
             binding.usernameLabel.setText("NISN");
             binding.username.setHint("NISN");
+            binding.username.setInputType(InputType.TYPE_CLASS_NUMBER);
+            binding.username.setFilters(new InputFilter[] { new InputFilter.LengthFilter(10) });
         }
         return binding.getRoot();
     }
@@ -175,8 +178,9 @@ public class Login extends Fragment implements UIListener {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
+    // Abstract class for Dialog
     @Override
-    public void dialog(String title, String message) {
+    public void dialog(String title, Spanned message) {
         MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(getContext());
         as.setTitle(title).setMessage(message).setPositiveButton("Ok", null).show();
     }

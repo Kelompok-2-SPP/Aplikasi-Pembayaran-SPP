@@ -22,15 +22,16 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
     private final List<DetailsItemPembayaran> listdata;
     private final NavController navController;
 
-    private boolean fromHomepage;
+    private boolean fromHomepage, fromRincian;
     private int orange;
 
     private int count;
 
-    public AktivitasCardAdapter(List<DetailsItemPembayaran> list, NavController navController, boolean fromHomepage) {
+    public AktivitasCardAdapter(List<DetailsItemPembayaran> list, NavController navController, boolean fromHomepage, boolean fromRincian) {
         this.listdata = list;
         this.navController = navController;
         this.fromHomepage = fromHomepage;
+        this.fromRincian = fromRincian;
     }
 
     @NonNull
@@ -60,7 +61,10 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
             bundle.putSerializable("data", data);
             if (fromHomepage) {
                 navController.navigate(R.id.action_homepage_petugas_to_rincianTransaksi_siswa, bundle);
-            } else {
+            } else if(fromRincian){
+                navController.navigate(R.id.action_detailPetugas_petuga_to_rincianTransaksi_siswa, bundle);
+            }
+            else {
                 navController.navigate(R.id.action_aktivitas_petugas_to_rincianTransaksi_siswa, bundle);
             }
         });

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -16,10 +16,10 @@
             style="@style/SPPKelompok2.Text.Medium.Body2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/background_edit_unfocused"
             android:clickable="true"
-            android:layout_marginTop="30dp"
-            android:layout_marginHorizontal="20dp"
             android:drawableStart="@drawable/icon_search"
             android:drawablePadding="9dp"
             android:focusable="true"
@@ -37,13 +37,20 @@
             app:layout_constraintStart_toStartOf="@+id/searchBar"
             app:layout_constraintTop_toBottomOf="@+id/searchBar">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:paddingHorizontal="16dp"
-                android:paddingTop="10dp"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item_row_spp" />
+                android:fillViewport="true">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false"
+                    android:padding="16dp"
+                    tools:listitem="@layout/item_row_spp" />
+
+            </ScrollView>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -53,10 +60,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="50dp"
-            android:src="@drawable/icon_button_add"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
+            android:src="@drawable/icon_button_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

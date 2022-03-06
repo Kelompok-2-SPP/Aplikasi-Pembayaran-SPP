@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".ui.launcher.LauncherFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -17,17 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:buttonGravity="center_vertical"
-            app:navigationIcon="@drawable/icon_arrow_left">
-
-            <TextView
-                android:id="@+id/title"
-                style="@style/SPPKelompok2.Text.Bold.Header4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textColor="?colorSurface" />
-
-        </androidx.appcompat.widget.Toolbar>
+            app:navigationIcon="@drawable/icon_arrow_left"
+            app:title="@string/app_name"
+            app:titleTextAppearance="@style/SPPKelompok2.Text.Bold.Header4" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
