@@ -38,6 +38,10 @@ public class Aktivitas extends Fragment implements UIListener {
 
     private SessionManager sessionManager;
     private NavController nav;
+    private PetugasSharedModel sharedModel;
+
+    private boolean fromHomepage;
+    private int idPetugas;
 
     public Aktivitas() {
         // Required empty public constructor
@@ -47,18 +51,33 @@ public class Aktivitas extends Fragment implements UIListener {
         isLoading(true);
         Call<PembayaranDataList> pembayaranDataListCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        pembayaranDataListCall = apiInterface.getPembayaran(
-                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
+        if (fromHomepage) {
+            pembayaranDataListCall = apiInterface.getPembayaran(
+                    "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null);
+        } else {
+            pembayaranDataListCall = apiInterface.getPembayaran(
+                    "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
+                    null,
+                    idPetugas,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null);
+        }
         pembayaranDataListCall.enqueue(new Callback<PembayaranDataList>() {
             @Override
             public void onResponse(Call<PembayaranDataList> call, Response<PembayaranDataList> response) {
@@ -99,9 +118,7 @@ public class Aktivitas extends Fragment implements UIListener {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
 
-        binding.refresher.setOnRefreshListener(() -> {
-            getAktivitas();
-        });
+        binding.refresher.setOnRefreshListener(this::getAktivitas);
     }
 
     @Override
@@ -110,7 +127,17 @@ public class Aktivitas extends Fragment implements UIListener {
         // Inflate the layout for this fragment
         binding = Petugas2AktivitasBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
-        getAktivitas();
+        sharedModel = new ViewModelProvider(requireActivity()).get(PetugasSharedModel.class);
+        Bundle bundle = getArguments();
+
+        if (bundle != null) {
+            fromHomepage = bundle.getBoolean("fromHomepage");
+        }
+
+        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemPetugas -> {
+            this.idPetugas = detailsItemPetugas.getIdPetugas();
+            getAktivitas();
+        });
         return binding.getRoot();
     }
 

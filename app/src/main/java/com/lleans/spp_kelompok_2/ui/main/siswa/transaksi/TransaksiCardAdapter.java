@@ -9,12 +9,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranSharedModel;
+import com.lleans.spp_kelompok_2.ui.launcher.LauncherFragment;
 
 import java.util.List;
 
@@ -55,6 +58,8 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
             holder.status.setText("Lunas");
         }
         holder.cardView.setOnClickListener(v -> {
+            PembayaranSharedModel sharedModel = new ViewModelProvider((LauncherFragment) context).get(PembayaranSharedModel.class);
+            sharedModel.updateData(data);
             if (fromHomepage) {
                 navController.navigate(R.id.action_homepage_siswa_to_rincianTransaksi_siswa2);
             } else {

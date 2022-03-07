@@ -18,13 +18,16 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas5TambahSppBinding;
+import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
+import com.lleans.spp_kelompok_2.ui.utils.MoneyTextWatcher;
 
 import java.io.IOException;
+import java.math.BigInteger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,7 +43,7 @@ public class TambahSpp extends Fragment implements UIListener {
         // Required empty public constructor
     }
 
-    private void tambahSpp(Integer angkatan, Integer tahun, Integer nominal){
+    private void tambahSpp(Integer angkatan, Integer tahun, Long nominal){
         isLoading(true);
         Call<SppData> tambahSppCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -82,16 +85,19 @@ public class TambahSpp extends Fragment implements UIListener {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
         binding.simpan.setOnClickListener(view1 -> {
-            Integer angkatan, tahun, nominal;
+            Integer angkatan, tahun;
+            Long nominal;
+
             angkatan = Integer.parseInt(binding.angkatan.getText().toString());
             tahun = Integer.parseInt(binding.tahun.getText().toString());
-            nominal = Integer.parseInt(binding.nominal.getText().toString());
+            nominal = Utils.unformatRupiah(binding.nominal.getText().toString());
             if(angkatan == null || tahun == null || nominal == null) {
                 toaster("Data harus diisi!");
             } else {
                 tambahSpp(angkatan, tahun, nominal);
             }
         });
+        binding.nominal.addTextChangedListener(new MoneyTextWatcher(binding.nominal, Long.valueOf("99999999999")));
     }
 
     @Override

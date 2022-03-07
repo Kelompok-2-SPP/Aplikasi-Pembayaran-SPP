@@ -15,9 +15,11 @@ import java.util.Objects;
 public class MoneyTextWatcher implements TextWatcher {
     public static final NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
     private final WeakReference<EditText> editTextWeakReference;
+    private final Long maxValue;
 
-    public MoneyTextWatcher(EditText editText) {
+    public MoneyTextWatcher(EditText editText, Long maxValue) {
         editTextWeakReference = new WeakReference<>(editText);
+        this.maxValue = maxValue;
         numberFormat.setMaximumFractionDigits(0);
         numberFormat.setRoundingMode(RoundingMode.FLOOR);
     }
@@ -39,10 +41,17 @@ public class MoneyTextWatcher implements TextWatcher {
         editText.removeTextChangedListener(this);
 
         BigDecimal parsed = parseCurrencyValue(editText.getText().toString());
-        String formatted = numberFormat.format(parsed);
+        BigDecimal max = parseCurrencyValue(String.valueOf(maxValue));
+        if (parsed.compareTo(max) > 0) {
+            String formatted = numberFormat.format(max);
+            editText.setText(formatted);
+            editText.setSelection(formatted.length());
+        } else {
+            String formatted = numberFormat.format(parsed);
+            editText.setText(formatted);
+            editText.setSelection(formatted.length());
+        }
 
-        editText.setText(formatted);
-        editText.setSelection(formatted.length());
         editText.addTextChangedListener(this);
     }
 

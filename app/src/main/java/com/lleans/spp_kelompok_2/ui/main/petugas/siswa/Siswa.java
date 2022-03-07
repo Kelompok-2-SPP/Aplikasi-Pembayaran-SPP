@@ -43,7 +43,7 @@ public class Siswa extends Fragment implements UIListener {
     private SessionManager sessionManager;
     private NavController nav;
 
-    private DetailsItemKelas kelas;
+    private int idKelas;
 
     public Siswa() {
         // Required empty public constructor
@@ -55,27 +55,20 @@ public class Siswa extends Fragment implements UIListener {
 
     }
 
-    private void getSiswa(Integer idKelas, String keyword) {
+    private void getSiswa(String keyword) {
         isLoading(true);
         Call<SiswaDataList> siswaDataCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         if (keyword != null && !Objects.equals(keyword, "")) {
-            siswaDataCall = apiInterface.getSiswa(
+            siswaDataCall = apiInterface.keywordSiswa(
                     "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
-                    null,
-                    null,
-                    null,
-                    idKelas,
-                    null,
-                    null,
-                    null,
-                    null);
+                    keyword);
             siswaDataCall.enqueue(new Callback<SiswaDataList>() {
                 @Override
                 public void onResponse(Call<SiswaDataList> call, Response<SiswaDataList> response) {
                     isLoading(false);
                     if (response.body() != null && response.isSuccessful()) {
-                        SiswaCardAdapter cardAdapter = new SiswaCardAdapter(response.body().getDetails(), nav, kelas);
+                        SiswaCardAdapter cardAdapter = new SiswaCardAdapter(response.body().getDetails(), nav);
                         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         binding.recyclerView.setAdapter(cardAdapter);
                     } else if (response.errorBody() != null) {
@@ -111,11 +104,11 @@ public class Siswa extends Fragment implements UIListener {
             siswaDataCall.enqueue(new Callback<SiswaDataList>() {
                 @Override
                 public void onResponse(Call<SiswaDataList> call, Response<SiswaDataList> response) {
+                    isLoading(false);
                     if (response.body() != null && response.isSuccessful()) {
-                        isLoading(false);
                         binding.jumlahSiswa.setText(response.body().getDetails().size() + " Siswa");
                         binding.jumlahSiswa.setVisibility(View.VISIBLE);
-                        SiswaCardAdapter cardAdapter = new SiswaCardAdapter(response.body().getDetails(), nav, kelas);
+                        SiswaCardAdapter cardAdapter = new SiswaCardAdapter(response.body().getDetails(), nav);
                         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         binding.recyclerView.setAdapter(cardAdapter);
                     } else if (response.code() <= 500) {
@@ -146,12 +139,12 @@ public class Siswa extends Fragment implements UIListener {
         nav = Navigation.findNavController(view);
 
         binding.refresher.setOnRefreshListener(() -> {
-            getSiswa(kelas.getIdKelas(), null);
+            getSiswa(null);
         });
 
         binding.searchBar.setOnFocusChangeListener((v, hasFocus) -> {
           if (!hasFocus){
-              getSiswa(kelas.getIdKelas(), binding.searchBar.getText().toString());
+              getSiswa(binding.searchBar.getText().toString());
           }
         });
 
@@ -172,11 +165,12 @@ public class Siswa extends Fragment implements UIListener {
         }
 
         shared.getData().observe(getViewLifecycleOwner(), detailsItemKelas -> {
+            this.idKelas = detailsItemKelas.getIdKelas();
             binding.namaKelas.setText(detailsItemKelas.getNamaKelas());
             binding.jurusan.setText(detailsItemKelas.getJurusan());
             Utils.nicknameBuilder(getContext(), detailsItemKelas.getNamaKelas(), binding.nick, binding.nickFrame);
             binding.angkatan.setText(String.valueOf(detailsItemKelas.getAngkatan()));
-            getSiswa(detailsItemKelas.getIdKelas(), null);
+            getSiswa(null);
         });
         return binding.getRoot();
     }

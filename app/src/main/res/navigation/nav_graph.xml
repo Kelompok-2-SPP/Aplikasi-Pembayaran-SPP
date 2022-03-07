@@ -124,7 +124,7 @@
         android:label="Data Petugas"
         tools:layout="@layout/petugas_2_petugas">
         <action
-            android:id="@+id/action_petugas_petugas_to_tambahPetugas"
+            android:id="@+id/action_petugas_petugas_to_detailPetugas"
             app:destination="@id/detailPetugas_petuga"
             app:enterAnim="@anim/fade_in_grow_from_top"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim" />

@@ -35,8 +35,11 @@
         <TextView
             android:id="@+id/totalTransaksi"
             style="@style/SPPKelompok2.Text.Bold.Header4"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:gravity="end"
             android:text="@string/rp500_000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

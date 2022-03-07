@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
+import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas4EditSiswaBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
@@ -63,7 +64,7 @@ public class EditSiswa extends Fragment implements UIListener {
                 if (response.body() != null && response.isSuccessful()) {
                     toaster(response.body().getMessage());
                     sharedModel.updateData(response.body().getDetails());
-                    nav.navigateUp();
+                    nav.popBackStack(R.id.siswa_petugas, false);
                 } else if (response.code() <= 500) {
                     SiswaData message = new Gson().fromJson(response.errorBody().charStream(), SiswaData.class);
                     toaster(message.getMessage());

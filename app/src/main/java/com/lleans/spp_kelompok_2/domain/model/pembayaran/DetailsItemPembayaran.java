@@ -43,7 +43,7 @@ public class DetailsItemPembayaran implements Serializable {
 	private int idSpp;
 
 	@SerializedName("jumlah_bayar")
-	private int jumlahBayar;
+	private long jumlahBayar;
 
 	@SerializedName("updatedAt")
 	private String updatedAt;
@@ -136,11 +136,11 @@ public class DetailsItemPembayaran implements Serializable {
 		return idSpp;
 	}
 
-	public void setJumlahBayar(int jumlahBayar){
+	public void setJumlahBayar(long jumlahBayar){
 		this.jumlahBayar = jumlahBayar;
 	}
 
-	public int getJumlahBayar(){
+	public long getJumlahBayar(){
 		return jumlahBayar;
 	}
 

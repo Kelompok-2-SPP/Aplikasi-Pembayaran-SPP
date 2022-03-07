@@ -26,15 +26,13 @@ import java.util.List;
 public class SiswaCardAdapter extends RecyclerView.Adapter<SiswaCardAdapter.SiswaCardViewHolder> {
 
     private final List<DetailsItemSiswa> listdata;
-    private final DetailsItemKelas kelas;
     private final NavController navController;
 
     private Context context;
 
-    public SiswaCardAdapter(List<DetailsItemSiswa> list, NavController navController, DetailsItemKelas kelas) {
+    public SiswaCardAdapter(List<DetailsItemSiswa> list, NavController navController) {
         this.listdata = list;
         this.navController = navController;
-        this.kelas = kelas;
     }
 
     @NonNull

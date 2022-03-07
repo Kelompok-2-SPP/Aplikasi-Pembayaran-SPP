@@ -13,7 +13,7 @@ public class DetailsItemSpp implements Serializable {
 	private int tahun;
 
 	@SerializedName("nominal")
-	private int nominal;
+	private long nominal;
 
 	@SerializedName("id_spp")
 	private int idSpp;
@@ -40,11 +40,11 @@ public class DetailsItemSpp implements Serializable {
 		return tahun;
 	}
 
-	public void setNominal(int nominal){
+	public void setNominal(long nominal){
 		this.nominal = nominal;
 	}
 
-	public int getNominal(){
+	public long getNominal(){
 		return nominal;
 	}
 

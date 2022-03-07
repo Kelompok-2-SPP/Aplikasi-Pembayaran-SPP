@@ -116,7 +116,7 @@
                     android:focusable="true"
                     android:hint="Nominal"
                     android:inputType="number"
-                    android:maxLength="11"
+                    android:maxLength="18"
                     android:textColor="?colorPrimary" />
 
             </LinearLayout>

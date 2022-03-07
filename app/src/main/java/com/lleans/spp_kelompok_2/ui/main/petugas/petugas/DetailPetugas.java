@@ -100,12 +100,14 @@ public class DetailPetugas extends Fragment implements UIListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("fromHomepage", false);
 
         binding.refresher.setOnRefreshListener(() -> {
             getAktivitas();
         });
 
-        binding.aktivitas.setOnClickListener(v -> navController.navigate(R.id.action_detailPetugas_petuga_to_aktivitas_petugas));
+        binding.aktivitas.setOnClickListener(v -> navController.navigate(R.id.action_detailPetugas_petuga_to_aktivitas_petugas, bundle));
         binding.edit.setOnClickListener(v -> navController.navigate(R.id.action_detailPetugas_petuga_to_editPetugas));
     }
 

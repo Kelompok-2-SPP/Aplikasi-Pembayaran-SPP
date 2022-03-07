@@ -149,6 +149,8 @@ public class Homepage extends Fragment implements UIListener {
         // Define navigation, Login killer fallback
         nav = Navigation.findNavController(view);
         Utils.activityKiller(nav, getActivity());
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("fromHomepage", true);
 
         // Button listener
         binding.dataKelas.setOnClickListener(v -> nav.navigate(R.id.action_homepage_petugas_to_kelas_petugas));
@@ -157,7 +159,7 @@ public class Homepage extends Fragment implements UIListener {
         binding.dataPetugas.setOnClickListener(v -> nav.navigate(R.id.action_homepage_petugas_to_petugas_petugas2));
 
         binding.sppSemua.setOnClickListener(v -> nav.navigate(R.id.action_homepage_petugas_to_spp_petugas));
-        binding.aktivitas.setOnClickListener(v -> nav.navigate(R.id.action_homepage_petugas_to_aktivitasPetugas));
+        binding.aktivitas.setOnClickListener(v -> nav.navigate(R.id.action_homepage_petugas_to_aktivitasPetugas, bundle));
         binding.logout.setOnClickListener(v -> new Logout(getContext(), getActivity()));
 
         binding.refresher.setOnRefreshListener(() -> {

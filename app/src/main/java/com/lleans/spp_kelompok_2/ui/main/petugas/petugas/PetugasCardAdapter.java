@@ -51,7 +51,7 @@ public class PetugasCardAdapter extends RecyclerView.Adapter<PetugasCardAdapter.
         holder.cardView.setOnClickListener(v -> {
             PetugasSharedModel sharedModel = new ViewModelProvider((LauncherFragment) context).get(PetugasSharedModel.class);
             sharedModel.updateData(data);
-            navController.navigate(R.id.action_petugas_petugas_to_tambahPetugas);
+            navController.navigate(R.id.action_petugas_petugas_to_detailPetugas);
         });
     }
 

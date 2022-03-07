@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
@@ -41,12 +42,8 @@ public class StatusSiswa extends Fragment implements UIListener {
     private Petugas3StatusSiswaBinding binding;
     private SessionManager sessionManager;
     private NavController nav;
-    private SiswaSharedModel sharedModel;
 
     private String nisn;
-
-    private DetailsItemKelas kelas;
-    private DetailsItemSiswa siswa;
 
     public StatusSiswa() {
         // Required empty public constructor
@@ -106,6 +103,7 @@ public class StatusSiswa extends Fragment implements UIListener {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
 
+        binding.refresher.setOnRefreshListener(this::getTransaksi);
         binding.edit.setOnClickListener(v -> nav.navigate(R.id.action_statussiswa_petugas_to_editSiswa));
     }
 
@@ -115,7 +113,7 @@ public class StatusSiswa extends Fragment implements UIListener {
         // Inflate the layout for this fragment
         binding = Petugas3StatusSiswaBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
-        sharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
+        SiswaSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
 
         if (sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")) {
             UILimiter();

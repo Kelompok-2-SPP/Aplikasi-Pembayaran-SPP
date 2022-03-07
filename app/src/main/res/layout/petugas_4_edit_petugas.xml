@@ -121,34 +121,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayout5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
-                app:layout_constraintStart_toStartOf="@+id/linearLayout4"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
-
-                <TextView
-                    style="@style/SPPKelompok2.Text.Semibold.Body2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Level" />
-
-                <com.lleans.spp_kelompok_2.ui.utils.spinner.CustomSpinner
-                    android:id="@+id/angkatan"
-                    style="@style/SPPKelompok2.Text.Semibold.Body2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/selector_spinner_focused"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:popupBackground="@drawable/background_edit_focused" />
-
-            </LinearLayout>
-
             <Button
                 android:id="@+id/simpan"
                 style="@style/SPPKelompok2.Button.Medium"
@@ -162,7 +134,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/hapus"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/hapus"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
                 app:layout_constraintVertical_bias="0.9" />
 
             <Button

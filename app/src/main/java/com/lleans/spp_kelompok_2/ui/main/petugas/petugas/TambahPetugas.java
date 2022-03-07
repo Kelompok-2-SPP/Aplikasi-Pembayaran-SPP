@@ -45,23 +45,7 @@ public class TambahPetugas extends Fragment implements UIListener {
         // Required empty public constructor
     }
 
-    private List<SpinnerInterface> spinnerList() {
-        List<SpinnerInterface> list = new ArrayList<>();
-
-        SpinnerInterface petugas = new SpinnerInterface();
-        petugas.setName("Petugas");
-        petugas.setValue(0);
-        list.add(petugas);
-
-        SpinnerInterface admin = new SpinnerInterface();
-        petugas.setName("Admin");
-        petugas.setValue(1);
-        list.add(admin);
-
-        return list;
-    }
-
-    private void tambahPetugas(String username, String password, String namaPetugas, String level) {
+    private void tambahPetugas(String username, String password, String namaPetugas) {
         isLoading(true);
         Call<PetugasData> tambahPetugasCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -69,7 +53,7 @@ public class TambahPetugas extends Fragment implements UIListener {
                 username,
                 password,
                 namaPetugas,
-                level);
+                null);
         tambahPetugasCall.enqueue(new Callback<PetugasData>() {
             @Override
             public void onResponse(Call<PetugasData> call, Response<PetugasData> response) {
@@ -108,14 +92,10 @@ public class TambahPetugas extends Fragment implements UIListener {
             username = binding.username.getText().toString();
             password = binding.password.getText().toString();
             namaPetugas = binding.namaPetugas.getText().toString();
-            binding.level.setOnItemClickListener((parent, view2, position, id) -> {
-                parent.getItemAtPosition(position);
-//                parent.get == 1 ? "admin":"petugas";
-            });
             if(username.equals("") || password.equals("") || namaPetugas.equals("")) {
                 toaster("Data harus diisi!");
             } else {
-                tambahPetugas(username, password, namaPetugas, "petugas");
+                tambahPetugas(username, password, namaPetugas);
             }
         });
     }
@@ -127,8 +107,6 @@ public class TambahPetugas extends Fragment implements UIListener {
         binding = Petugas5TambahPetugasBinding.inflate(inflater, container, false);
         isLoading(false);
         sessionManager = new SessionManager(getContext());
-        binding.level.setAdapter(new SpinnerAdapter(binding.getRoot().getContext(), spinnerList(), false));
-
         return binding.getRoot();
     }
 

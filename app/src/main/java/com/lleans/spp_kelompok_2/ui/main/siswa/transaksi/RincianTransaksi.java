@@ -56,6 +56,7 @@ public class RincianTransaksi extends Fragment {
             binding.idSpp.setText(String.valueOf(detailsItemPembayaran.getSpp().getIdSpp()));
             binding.angkatan.setText(String.valueOf(detailsItemPembayaran.getSpp().getAngkatan()));
             binding.tahun.setText(String.valueOf(detailsItemPembayaran.getTahunSpp()));
+            binding.nominal.setText(Utils.formatRupiah(detailsItemPembayaran.getSpp().getNominal()));
             if (detailsItemPembayaran.getPetugas() == null)
                 binding.cardPetugas.setVisibility(View.GONE);
             else

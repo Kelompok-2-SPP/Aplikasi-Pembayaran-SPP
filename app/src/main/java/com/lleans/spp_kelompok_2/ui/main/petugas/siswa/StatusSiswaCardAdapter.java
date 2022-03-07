@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -18,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.R;
@@ -53,7 +55,7 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
         this.navController = navController;
     }
 
-    private void updateStatus(int idPembayaran, Integer jumlahPembayaran, int position) {
+    private void updateStatus(int idPembayaran, long jumlahPembayaran, int position) {
         Call<PembayaranData> updateStatus;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         updateStatus = apiInterface.putPembayaran(
@@ -168,10 +170,10 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
             navController.navigate(R.id.action_status_siswa_to_rincianTransaksi_siswa2);
         });
 
-        holder.sudBayar.addTextChangedListener(new MoneyTextWatcher(holder.sudBayar));
+        holder.sudBayar.addTextChangedListener(new MoneyTextWatcher(holder.sudBayar, data.getSpp().getNominal()));
 
         holder.sudBayar.setOnFocusChangeListener((v, hasFocus) -> {
-            int unformatted = Utils.unformatRupiah(holder.sudBayar.getText().toString());
+            long unformatted = Utils.unformatRupiah(holder.sudBayar.getText().toString());
             if (!hasFocus && unformatted != data.getJumlahBayar() && holder.status.getSelectedTabPosition() == 1) {
                 updateStatus(data.getIdPembayaran(), Utils.unformatRupiah(holder.sudBayar.getText().toString()), holder.getAdapterPosition());
             }
@@ -206,12 +208,11 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
     }
 
     private void toaster(String message) {
-        StatusSiswa as = new StatusSiswa();
-        as.toaster(message);
+        Toast.makeText((LauncherFragment) context, message, Toast.LENGTH_SHORT).show();
     }
 
     private void dialog(String title, Spanned text) {
-        StatusSiswa as = new StatusSiswa();
-        as.dialog(title, text);
+        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder((LauncherFragment) context);
+        as.setTitle(title).setMessage(text).setPositiveButton("Ok", null).show();
     }
 }

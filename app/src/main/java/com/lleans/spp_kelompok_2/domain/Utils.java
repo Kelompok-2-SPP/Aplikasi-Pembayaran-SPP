@@ -31,7 +31,7 @@ public class Utils {
         });
     }
 
-    public static void nicknameBuilder(Context context, String name, TextView text, FrameLayout frame){
+    public static void nicknameBuilder(Context context, String name, TextView text, FrameLayout frame) {
         int[] androidColors = context.getResources().getIntArray(R.array.androidcolors);
 
         StringBuilder initials = new StringBuilder();
@@ -44,24 +44,24 @@ public class Utils {
         frame.setBackgroundTintList(ColorStateList.valueOf(androidColors[new Random(name.hashCode()).nextInt(androidColors.length)]));
     }
 
-    public static String formatRupiah(int money) {
+    public static String formatRupiah(long money) {
         NumberFormat rupiahFormat = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
         return rupiahFormat.format(Double.valueOf(money));
     }
 
-    public static int unformatRupiah(String money){
-        int parsed = 0;
+    public static long unformatRupiah(String money) {
+        long parsed = 0;
 
         NumberFormat rupiahFormat = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
         try {
-            parsed = Integer.parseInt(String.valueOf(new BigDecimal(String.valueOf(rupiahFormat.parse(money)))));
+            parsed = Long.parseLong(String.valueOf(new BigDecimal(String.valueOf(rupiahFormat.parse(money)))));
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return parsed;
     }
 
-    public static Boolean statusPembayaran(int totalSpp, int nominalBayar) {
+    public static Boolean statusPembayaran(long totalSpp, long nominalBayar) {
         return nominalBayar < totalSpp;
     }
 
@@ -71,16 +71,16 @@ public class Utils {
         return df.format(c);
     }
 
-    public static String kurangBayar(int totalSpp, int nominalBayar) {
+    public static String kurangBayar(long totalSpp, long nominalBayar) {
         return "-" + formatRupiah(totalSpp - nominalBayar);
     }
 
     public static String formatDateStringToLocal(String date) {
         String arr[] = date.split("-");
-        return arr[2] + getMonth(Integer.parseInt(arr[1])) + arr[0];
+        return arr[2] + " " + getMonth(Integer.parseInt(arr[1])) + " " + arr[0];
     }
 
-    public static Long convertServerString(String sd){
+    public static Long convertServerString(String sd) {
         Long parsed = null;
 
         String stringDate = sd.replace("T", " ");

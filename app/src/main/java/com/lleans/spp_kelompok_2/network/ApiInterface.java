@@ -124,7 +124,7 @@ public interface ApiInterface {
             @Query("bulan_spp") Integer bulan_spp,
             @Query("tahun_spp") Integer tahun_spp,
             @Field("id_spp") Integer id_spp,
-            @Field("jumlah_bayar") Integer jumlah_bayar
+            @Field("jumlah_bayar") Long jumlah_bayar
     );
 
     @FormUrlEncoded
@@ -138,7 +138,7 @@ public interface ApiInterface {
             @Query("bulan_spp") Integer bulan_spp,
             @Query("tahun_spp") Integer tahun_spp,
             @Field("id_spp") Integer id_spp,
-            @Field("jumlah_bayar") Integer jumlah_bayar
+            @Field("jumlah_bayar") Long jumlah_bayar
     );
 
     @DELETE("pembayaran")
@@ -255,7 +255,7 @@ public interface ApiInterface {
             @Query("id_spp") Integer id_spp,
             @Query("angkatan") Integer angkatan,
             @Query("tahun") Integer tahun,
-            @Query("nominal") Integer nominal,
+            @Query("nominal") Long nominal,
             @Query("createdAt") String createdAt,
             @Query("updatedAt") String updatedAt
     );
@@ -279,7 +279,7 @@ public interface ApiInterface {
             @Header("Authorization") String token,
             @Field("angkatan") Integer angkatan,
             @Field("tahun") Integer tahun,
-            @Field("nominal") Integer nominal
+            @Field("nominal") Long nominal
     );
 
     @FormUrlEncoded
@@ -289,7 +289,7 @@ public interface ApiInterface {
             @Field("id_spp") Integer id_spp,
             @Field("angkatan") Integer angkatan,
             @Field("tahun") Integer tahun,
-            @Field("nominal") Integer nominal
+            @Field("nominal") Long nominal
     );
 
     @DELETE("spp")

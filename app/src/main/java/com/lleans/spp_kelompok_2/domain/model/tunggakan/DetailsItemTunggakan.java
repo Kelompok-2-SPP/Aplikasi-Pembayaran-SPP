@@ -15,7 +15,7 @@ public class DetailsItemTunggakan {
 	private int jumlahTunggakan;
 
 	@SerializedName("total_tunggakan")
-	private int totalTunggakan;
+	private long totalTunggakan;
 
 	public void setTunggakan(List<PembayaranTunggakan> tunggakan){
 		this.tunggakan = tunggakan;
@@ -41,11 +41,11 @@ public class DetailsItemTunggakan {
 		return jumlahTunggakan;
 	}
 
-	public void setTotalTunggakan(int totalTunggakan){
+	public void setTotalTunggakan(long totalTunggakan){
 		this.totalTunggakan = totalTunggakan;
 	}
 
-	public int getTotalTunggakan(){
+	public long getTotalTunggakan(){
 		return totalTunggakan;
 	}
 }

@@ -115,7 +115,7 @@
                     android:hint="Nominal"
                     android:clickable="true"
                     android:inputType="number"
-                    android:maxLength="11"
+                    android:maxLength="18"
                     android:textColor="?colorPrimary"
                     android:focusable="true" />
 
