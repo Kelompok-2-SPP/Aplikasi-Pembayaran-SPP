@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SPPKelompok2.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">?colorSurface</item>
+        <item name="paddingStart">20dp</item>
+        <item name="paddingEnd">20dp</item>
+        <item name="paddingTopNoTitle">20dp</item>
+        <item name="paddingBottomNoButtons">20dp</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
+    <style name="SPPKelompok2.Card.Filled" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">?colorSurface</item>
+        <item name="paddingStart">20dp</item>
+        <item name="paddingEnd">20dp</item>
+        <item name="paddingTopNoTitle">20dp</item>
+        <item name="paddingBottomNoButtons">20dp</item>
+    </style>
+
+    <style name="SPPKelompok2.Card.Small" parent="SPPKelompok2.Card">
+        <item name="cardCornerRadius">8dp</item>
+    </style>
+
+    <style name="SPPKelompok2.Card.Small.Filled" parent="SPPKelompok2.Card.Filled">
+        <item name="cardCornerRadius">8dp</item>
+    </style>
+
+    <style name="SPPKelompok2.Card.Medium" parent="SPPKelompok2.Card">
+        <item name="cardCornerRadius">16dp</item>
+    </style>
+
+    <style name="SPPKelompok2.Card.Medium.Filled" parent="SPPKelompok2.Card.Filled">
+        <item name="cardCornerRadius">16dp</item>
+    </style>
+
+    <style name="SPPKelompok2.Card.Large" parent="SPPKelompok2.Card">
+        <item name="cardCornerRadius">24dp</item>
+    </style>
+
+    <style name="SPPKelompok2.Card.Large.Filled" parent="SPPKelompok2.Card.Filled">
+        <item name="cardCornerRadius">24dp</item>
+    </style>
+
+</resources>

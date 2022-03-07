@@ -12,13 +12,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.lleans.spp_kelompok_2.R;
-import com.lleans.spp_kelompok_2.databinding.RinciansppPetugasBinding;
+import com.lleans.spp_kelompok_2.databinding.Petugas3RincianSppBinding;
 import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
 public class RincianSpp extends Fragment {
 
-    private RinciansppPetugasBinding binding;
+    private Petugas3RincianSppBinding binding;
     private SessionManager sessionManager;
 
     private DetailsItemSpp data;
@@ -28,8 +28,7 @@ public class RincianSpp extends Fragment {
     }
 
     private void UILimiter() {
-        binding.btnEdit.setVisibility(View.GONE);
-        binding.nominal.getLayoutParams().width = (int) (200 * getContext().getResources().getDisplayMetrics().density);
+        binding.edit.setVisibility(View.GONE);
     }
 
     @Override
@@ -38,7 +37,7 @@ public class RincianSpp extends Fragment {
         final NavController nav = Navigation.findNavController(view);
         Bundle bundle = new Bundle();
         bundle.putSerializable("spp", data);
-        binding.btnEdit.setOnClickListener(v -> nav.navigate(R.id.action_rincianSpp_petugas_to_editSpp, bundle));
+        binding.edit.setOnClickListener(v -> nav.navigate(R.id.action_rincianSpp_petugas_to_editSpp, bundle));
     }
 
     @Override
@@ -46,7 +45,7 @@ public class RincianSpp extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Bundle bundle = getArguments();
-        binding = RinciansppPetugasBinding.inflate(inflater, container, false);
+        binding = Petugas3RincianSppBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
         if(sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")){
             UILimiter();

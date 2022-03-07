@@ -1,8 +1,30 @@
 <resources>
     <string name="app_name">Pembayaran SPP-Kelompok-2</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="login_sebagai">Login Sebagai ?</string>
-    <string name="_06_00">06.00</string>
+
+    <!--Main Activity-->
+    <string name="login_sebagai">Login\nSebagai ?</string>
+    <string name="siswa_btn">Siswa</string>
+    <string name="petugas_btn">Petugas</string>
+    <string name="title_spp">Total SPP\nOktober 2021</string>
+    <string name="angkatan_spp">Angkatan 28</string>
+    <string name="rp500_000">Rp500.000</string>
+    <string name="illustration">Illustration</string>
+    <string name="splashscreen">SplashScreen</string>
+    <string name="sawidji_astuti">Sawidji Astuti</string>
+    <string name="sawidji">sawidji</string>
+    <string name="edit">EDIT</string>
+    <string name="aw">AW</string>
+    <string name="level">Level</string>
+    <string name="petugas">Petugas</string>
+    <string name="aktivitas">Aktivitas</string>
+    <string name="lihat_semua">Lihat Semua</string>
+    <string name="hai_admin">Hai, Admin !</string>
+    <string name="logout">Logout</string>
+    <string name="data_kelas">Data Kelas</string>
+    <string name="histori">Histori</string>
+    <string name="data_siswa">Data Siswa</string>
+    <string name="data_petugas">Data Petugas</string>
+
 
 </resources>

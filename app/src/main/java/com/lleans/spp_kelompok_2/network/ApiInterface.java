@@ -93,9 +93,9 @@ public interface ApiInterface {
             @Query("id_pembayaran") Integer id_pembayaran,
             @Query("id_petugas") Integer id_petugas,
             @Query("nisn") String nisn,
-            @Query("tgl_dibayar") String tgl_dibayar,
-            @Query("bulan_dibayar") Integer bulan_dibayar,
-            @Query("tahun_dibayar") Integer tahun_dibayar,
+            @Query("tgl_bayar") String tgl_bayar,
+            @Query("bulan_spp") Integer bulan_spp,
+            @Query("tahun_spp") Integer tahun_spp,
             @Query("id_spp") Integer id_spp,
             @Query("jumlah_bayar") Integer jumlah_bayar,
             @Query("createdAt") String createdAt,
@@ -118,11 +118,11 @@ public interface ApiInterface {
     @POST("pembayaran")
     Call<PembayaranData> postPembayaran(
             @Header("Authorization") String token,
-            @Field("id_petugas") Integer id_kelas,
+            @Field("id_petugas") Integer id_petugas,
             @Field("nisn") String nisn,
-            @Field("tgl_dibayar") String tgl_dibayar,
-            @Field("bulan_dibayar") Integer bulan_dibayar,
-            @Field("tahun_dibayar") Integer tahun_dibayar,
+            @Field("tgl_bayar") String tgl_bayar,
+            @Query("bulan_spp") Integer bulan_spp,
+            @Query("tahun_spp") Integer tahun_spp,
             @Field("id_spp") Integer id_spp,
             @Field("jumlah_bayar") Integer jumlah_bayar
     );
@@ -131,12 +131,12 @@ public interface ApiInterface {
     @PUT("pembayaran")
     Call<PembayaranData> putPembayaran(
             @Header("Authorization") String token,
-            @Field("id_pembayaran") Integer id_pemabayaran,
-            @Field("id_petugas") Integer id_kelas,
+            @Field("id_pembayaran") Integer id_pembayaran,
+            @Field("id_petugas") Integer id_petugas,
             @Field("nisn") String nisn,
-            @Field("tgl_dibayar") String tgl_dibayar,
-            @Field("bulan_dibayar") Integer bulan_dibayar,
-            @Field("tahun_dibayar") Integer tahun_dibayar,
+            @Field("tgl_bayar") String tgl_bayar,
+            @Query("bulan_spp") Integer bulan_spp,
+            @Query("tahun_spp") Integer tahun_spp,
             @Field("id_spp") Integer id_spp,
             @Field("jumlah_bayar") Integer jumlah_bayar
     );

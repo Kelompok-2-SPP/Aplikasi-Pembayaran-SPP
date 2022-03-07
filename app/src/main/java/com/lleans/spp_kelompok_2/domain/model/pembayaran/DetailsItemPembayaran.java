@@ -1,13 +1,16 @@
 package com.lleans.spp_kelompok_2.domain.model.pembayaran;
 
 import com.google.gson.annotations.SerializedName;
+import com.lleans.spp_kelompok_2.domain.model.petugas.DetailsItemPetugas;
+import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
+import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
 
 import java.io.Serializable;
 
 public class DetailsItemPembayaran implements Serializable {
 
 	@SerializedName("siswa")
-	private SiswaPembayaran siswaPembayaran;
+	private DetailsItemSiswa siswa;
 
 	@SerializedName("bulan_spp")
 	private int bulanSpp;
@@ -21,17 +24,17 @@ public class DetailsItemPembayaran implements Serializable {
 	@SerializedName("id_petugas")
 	private int idPetugas;
 
-	@SerializedName("tgl_spp")
-	private String tglSpp;
+	@SerializedName("tgl_bayar")
+	private String tglBayar;
 
 	@SerializedName("petugas")
-	private PetugasPembayaran petugasPembayaran;
+	private DetailsItemPetugas petugas;
 
 	@SerializedName("createdAt")
 	private String createdAt;
 
 	@SerializedName("spp")
-	private SppPembayaran sppPembayaran;
+	private DetailsItemSpp spp;
 
 	@SerializedName("tahun_spp")
 	private int tahunSpp;
@@ -45,12 +48,12 @@ public class DetailsItemPembayaran implements Serializable {
 	@SerializedName("updatedAt")
 	private String updatedAt;
 
-	public void setSiswa(SiswaPembayaran siswaPembayaran){
-		this.siswaPembayaran = siswaPembayaran;
+	public void setSiswa(DetailsItemSiswa detailsItemSiswa){
+		this.siswa = detailsItemSiswa;
 	}
 
-	public SiswaPembayaran getSiswa(){
-		return siswaPembayaran;
+	public DetailsItemSiswa getSiswa(){
+		return siswa;
 	}
 
 	public void setBulanSpp(int bulanSpp){
@@ -85,20 +88,20 @@ public class DetailsItemPembayaran implements Serializable {
 		return idPetugas;
 	}
 
-	public void setTglSpp(String tglSpp){
-		this.tglSpp = tglSpp;
+	public void setTglBayar(String tglBayar){
+		this.tglBayar = tglBayar;
 	}
 
-	public String getTglSpp(){
-		return tglSpp;
+	public String getTglBayar(){
+		return tglBayar;
 	}
 
-	public void setPetugas(PetugasPembayaran petugasPembayaran){
-		this.petugasPembayaran = petugasPembayaran;
+	public void setPetugas(DetailsItemPetugas petugasPembayaran){
+		this.petugas = petugasPembayaran;
 	}
 
-	public PetugasPembayaran getPetugas(){
-		return petugasPembayaran;
+	public DetailsItemPetugas getPetugas(){
+		return petugas;
 	}
 
 	public void setCreatedAt(String createdAt){
@@ -109,12 +112,12 @@ public class DetailsItemPembayaran implements Serializable {
 		return createdAt;
 	}
 
-	public void setSpp(SppPembayaran sppPembayaran){
-		this.sppPembayaran = sppPembayaran;
+	public void setSpp(DetailsItemSpp sppPembayaran){
+		this.spp = sppPembayaran;
 	}
 
-	public SppPembayaran getSpp(){
-		return sppPembayaran;
+	public DetailsItemSpp getSpp(){
+		return spp;
 	}
 
 	public void setTahunSpp(int tahunSpp){

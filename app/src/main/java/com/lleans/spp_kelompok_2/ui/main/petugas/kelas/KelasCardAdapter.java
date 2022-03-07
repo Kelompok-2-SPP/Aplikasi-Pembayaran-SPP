@@ -1,9 +1,11 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.kelas;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lleans.spp_kelompok_2.R;
+import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 
 import java.util.List;
@@ -20,6 +23,8 @@ public class KelasCardAdapter extends RecyclerView.Adapter<KelasCardAdapter.Kela
 
     private final List<DetailsItemKelas> listdata;
     private final NavController navController;
+
+    private Context context;
 
     public KelasCardAdapter(List<DetailsItemKelas> list, NavController navController) {
         this.listdata = list;
@@ -30,7 +35,8 @@ public class KelasCardAdapter extends RecyclerView.Adapter<KelasCardAdapter.Kela
     @NonNull
     @Override
     public KelasCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_kelas, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_main, parent, false);
+        context = view.getContext();
         return new KelasCardViewHolder(view);
     }
 
@@ -38,10 +44,12 @@ public class KelasCardAdapter extends RecyclerView.Adapter<KelasCardAdapter.Kela
     public void onBindViewHolder(@NonNull final KelasCardViewHolder holder, int position) {
         DetailsItemKelas data = listdata.get(position);
         holder.nama_kelas.setText(data.getNamaKelas());
-        //holder.jumlah_kelas.setText(data.get);
+        holder.jumlah_kelas.setText("Angkatan " + data.getAngkatan());
+        Utils.nicknameBuilder(context, data.getNamaKelas(), holder.nick, holder.nickFrame);
         holder.cardView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("kelas", data);
+            ;
             navController.navigate(R.id.action_kelas_petugas_to_siswa_petugas, bundle);
         });
     }
@@ -52,14 +60,18 @@ public class KelasCardAdapter extends RecyclerView.Adapter<KelasCardAdapter.Kela
     }
 
     public static class KelasCardViewHolder extends RecyclerView.ViewHolder {
-        TextView nama_kelas, jumlah_kelas;
+        TextView nama_kelas, jumlah_kelas, nick;
         CardView cardView;
+        FrameLayout nickFrame;
 
         public KelasCardViewHolder(@NonNull View itemView) {
             super(itemView);
-            nama_kelas = itemView.findViewById(R.id.kelas_name);
-            jumlah_kelas = itemView.findViewById(R.id.kelas_jumlah);
-            cardView = itemView.findViewById(R.id.card_kelas);
+            nama_kelas = itemView.findViewById(R.id.title);
+            jumlah_kelas = itemView.findViewById(R.id.secondaryText);
+            nick = itemView.findViewById(R.id.nick);
+
+            cardView = itemView.findViewById(R.id.card);
+            nickFrame = itemView.findViewById(R.id.nickFrame);
         }
     }
 }

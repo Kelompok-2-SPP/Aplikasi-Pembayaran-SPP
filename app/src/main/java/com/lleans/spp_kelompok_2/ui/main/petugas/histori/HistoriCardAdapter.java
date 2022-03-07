@@ -1,6 +1,7 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.histori;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,14 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lleans.spp_kelompok_2.R;
+import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
 
 import java.util.List;
 
 public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.HistoriCardViewHolder> {
 
+    private int orange;
     private final List<DetailsItemPembayaran> listdata;
     private final NavController navController;
 
@@ -29,17 +32,26 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
     @NonNull
     @Override
     public HistoriCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_histori, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_aktivitas, parent, false);
+        orange = view.getResources().getColor(R.color.orange);
         return new HistoriCardViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final HistoriCardViewHolder holder, int position) {
         DetailsItemPembayaran data = listdata.get(position);
-        holder.nama_histori.setText(data.getSiswa().getNama());
-        holder.kelas_histori.setText(String.valueOf(data.getSiswa().getIdKelas()));
-        holder.nominal_histori.setText("Rp. " + data.getJumlahBayar());
-        holder.card_histori.setOnClickListener(v -> {
+        holder.name.setText(data.getSiswa().getNama());
+        if (Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar())) {
+            holder.kelas.setText(data.getSiswa().getKelas().getNamaKelas());
+            holder.status.setText("Belum Lunas");
+            holder.status.setTextColor(orange);
+            holder.nominalkurang.setText(Utils.kurangBayar(data.getSpp().getNominal(), data.getJumlahBayar()));
+        }else{
+            holder.kelas.setText(data.getSiswa().getKelas().getNamaKelas());
+            holder.status.setText("Lunas");
+            holder.nominalkurang.setText(Utils.formatRupiah(data.getJumlahBayar()));
+        }
+        holder.cardView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("data", data);
             navController.navigate(R.id.action_histori_petugas_to_rincianTransaksi_siswa, bundle);
@@ -52,15 +64,17 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
     }
 
     public static class HistoriCardViewHolder extends RecyclerView.ViewHolder {
-        TextView nama_histori, kelas_histori, nominal_histori;
-        CardView card_histori;
+        TextView name, kelas, status, nominalkurang;
+        CardView cardView;
 
         public HistoriCardViewHolder(@NonNull View itemView) {
             super(itemView);
-            nama_histori = itemView.findViewById(R.id.histori_nama);
-            kelas_histori = itemView.findViewById(R.id.kelas_histori);
-            nominal_histori = itemView.findViewById(R.id.histori_nominal);
-            card_histori = itemView.findViewById(R.id.card_histori);
+            name = itemView.findViewById(R.id.title);
+            kelas = itemView.findViewById(R.id.kelas);
+            status = itemView.findViewById(R.id.status);
+            nominalkurang = itemView.findViewById(R.id.nominal);
+
+            cardView = itemView.findViewById(R.id.card);
         }
     }
 }

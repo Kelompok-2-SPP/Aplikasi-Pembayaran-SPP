@@ -1,6 +1,7 @@
 package com.lleans.spp_kelompok_2.domain.model.tunggakan;
 
 import com.google.gson.annotations.SerializedName;
+import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
 
 public class PembayaranTunggakan {
 
@@ -8,7 +9,7 @@ public class PembayaranTunggakan {
 	private String createdAt;
 
 	@SerializedName("spp")
-	private SppTunggakan sppTunggakan;
+	private DetailsItemSpp spp;
 
 	@SerializedName("bulan_spp")
 	private int bulanSpp;
@@ -36,12 +37,12 @@ public class PembayaranTunggakan {
 		return createdAt;
 	}
 
-	public void setSpp(SppTunggakan sppTunggakan){
-		this.sppTunggakan = sppTunggakan;
+	public void setSpp(DetailsItemSpp sppTunggakan){
+		this.spp = sppTunggakan;
 	}
 
-	public SppTunggakan getSpp(){
-		return sppTunggakan;
+	public DetailsItemSpp getSpp(){
+		return spp;
 	}
 
 	public void setBulanSpp(int bulanSpp){

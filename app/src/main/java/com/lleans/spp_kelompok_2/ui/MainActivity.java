@@ -18,6 +18,7 @@ import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.ActivityMainBinding;
 import com.lleans.spp_kelompok_2.ui.launcher.LauncherFragment;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
+import com.lleans.spp_kelompok_2.ui.utils.SplashScreen;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,17 +36,14 @@ public class MainActivity extends AppCompatActivity {
         intent = new Intent(MainActivity.this, LauncherFragment.class);
         setContentView(binding.getRoot());
 
-        // Splash screen
-        new Handler().postDelayed(() -> binding.splashScreen.animate().alpha(0.0f), 1000);
-
         SessionManager sessionManager = new SessionManager(MainActivity.this);
         if(sessionManager.isLoggedIn()){
             moveActivity("siswa");
         }
 
         // Button listener
-        binding.petugasLoginBtn.setOnClickListener(v -> moveActivity("petugas"));
-        binding.siswaLoginBtn.setOnClickListener(v -> moveActivity("siswa"));
+        binding.petugas.setOnClickListener(v -> moveActivity("petugas"));
+        binding.siswa.setOnClickListener(v -> moveActivity("siswa"));
     }
 
     // Function to move activity LauncherFragment

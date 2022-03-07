@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refresher"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ui.main.siswa.Homepage">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/header"
+                style="@style/SPPKelompok2.Text.Semibold.Header3"
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="30dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@string/hai_admin"
+                android:textColor="@color/red"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="@string/logout"
+                android:focusable="true"
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/icon_logout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/header" />
+
+            <FrameLayout
+                android:visibility="gone"
+                android:id="@+id/cardTunggakan"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/backgrpound_cards"
+                android:contentDescription="Cards"
+                android:foreground="?selectableItemBackgroundBorderless"
+                android:paddingStart="60dp"
+                android:paddingTop="110dp"
+                android:paddingEnd="70dp"
+                android:paddingBottom="120dp"
+                app:layout_constraintEnd_toEndOf="@+id/logout"
+                app:layout_constraintStart_toStartOf="@+id/header"
+                app:layout_constraintTop_toBottomOf="@+id/header">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        style="@style/SPPKelompok2.Text.Semibold.Header3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Tunggakan"
+                        android:textColor="?colorSurface"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/totalTunggakan"
+                        style="@style/SPPKelompok2.Text.Bold.Header1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autoSizeMaxTextSize="40sp"
+                        android:autoSizeMinTextSize="16sp"
+                        android:autoSizeStepGranularity="2sp"
+                        android:autoSizeTextType="uniform"
+                        android:maxLines="1"
+                        android:text="@string/rp500_000"
+                        android:textColor="?colorSurface"
+                        app:layout_constraintEnd_toEndOf="@+id/textView"
+                        app:layout_constraintStart_toStartOf="@+id/textView"
+                        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                    <TextView
+                        style="@style/SPPKelompok2.Text.Regular.Body3"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:text="*untuk pembayaran harap ke petugas TU"
+                        android:textColor="?colorSurface"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="Logo"
+                        android:src="@drawable/icon_cards_logo"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/totalTunggakan" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </FrameLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="3dp"
+                app:layout_constraintEnd_toEndOf="@+id/cardTunggakan"
+                app:layout_constraintStart_toStartOf="@+id/cardTunggakan"
+                app:layout_constraintTop_toBottomOf="@+id/cardTunggakan">
+
+                <TextView
+                    android:id="@+id/textView14"
+                    style="@style/SPPKelompok2.Text.Bold.Header4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginStart="30dp"
+                    android:text="Transaksi"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/transaksi"
+                    style="@style/SPPKelompok2.Text.Medium.Body3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginEnd="30dp"
+                    android:text="@string/lihat_semua"
+                    android:textColor="@color/text_black40"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView14" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:paddingHorizontal="16dp"
+                    android:paddingBottom="40dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintEnd_toEndOf="@+id/transaksi"
+                    app:layout_constraintStart_toStartOf="@+id/textView14"
+                    app:layout_constraintTop_toBottomOf="@+id/textView14"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_row_transaksi" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

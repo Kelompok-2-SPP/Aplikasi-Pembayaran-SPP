@@ -8,16 +8,16 @@
         android:pathData="M0,0h308v308h-308z"/>
     <path
         android:pathData="M0,0h308v308h-308z"
-        android:fillColor="#E5E5E5"/>
+        android:fillColor="@color/neutral_grey"/>
     <path
         android:strokeWidth="1"
         android:pathData="M0.355,-2.352L308.355,307.648"
         android:fillColor="#00000000"
-        android:strokeColor="#000000"/>
+        android:strokeColor="@color/neutral_black"/>
     <path
         android:strokeWidth="1"
         android:pathData="M308.354,0.354L0.354,308.354"
         android:fillColor="#00000000"
-        android:strokeColor="#000000"/>
+        android:strokeColor="@color/neutral_black"/>
   </group>
 </vector>

@@ -4,11 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.lleans.spp_kelompok_2.R;
@@ -19,7 +18,7 @@ public class LauncherFragment extends AppCompatActivity {
     private ActivityLauncherFragmentBinding binding;
     private NavHostFragment navHostFragment;
 
-    private AppBarLayout  appBarLayout;
+    private AppBarLayout appBar;
     private Toolbar toolbar;
 
     @Override
@@ -29,17 +28,19 @@ public class LauncherFragment extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         // Get AppBar and Toolbar
-        appBarLayout = binding.AppBar;
-        toolbar = binding.ToolbarTitle;
+        appBar = binding.appbar;
+        toolbar = binding.toolbar;
 
         // Hide and unhide AppBar
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
         navHostFragment.getNavController().addOnDestinationChangedListener((controller, destination, arguments) -> {
             toolbar.setTitle(destination.getLabel());
-            if ("homepage_petugas".equals(destination.getLabel()) || "homepage_siswa".equals(destination.getLabel()) || "login".equals(destination.getLabel())) {
-                appBarLayout.setVisibility(View.GONE);
+            if (destination.getId() == R.id.homepage_petugas || destination.getId() == R.id.homepage_siswa || destination.getId() == R.id.login) {
+                appBar.setVisibility(View.GONE);
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
             } else {
-                appBarLayout.setVisibility(View.VISIBLE);
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                appBar.setVisibility(View.VISIBLE);
                 toolbar.setNavigationOnClickListener(v -> {
                     controller.navigateUp();
                 });
