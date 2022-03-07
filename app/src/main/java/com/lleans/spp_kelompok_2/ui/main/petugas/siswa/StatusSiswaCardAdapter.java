@@ -2,7 +2,6 @@ package com.lleans.spp_kelompok_2.ui.main.petugas.siswa;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.LayoutInflater;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,9 +24,10 @@ import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranData;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranSharedModel;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
+import com.lleans.spp_kelompok_2.ui.launcher.LauncherFragment;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 import com.lleans.spp_kelompok_2.ui.utils.MoneyTextWatcher;
 
@@ -43,8 +44,9 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
     private final NavController navController;
     private InputMethodManager imm;
     private SessionManager sessionManager;
+    private Context context;
 
-    private int orange, green, neutral, sudahBayar;
+    private int orange, green, neutral;
 
     public StatusSiswaCardAdapter(List<DetailsItemPembayaran> list, NavController navController) {
         this.listData = list;
@@ -98,6 +100,7 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
         orange = view.getResources().getColor(R.color.orange);
         green = view.getResources().getColor(R.color.green);
         neutral = view.getResources().getColor(R.color.neutral_white);
+        context = view.getContext();
         imm = (InputMethodManager) parent.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         return new StatusCardViewHolder(view);
     }
@@ -160,9 +163,9 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
         });
 
         holder.card.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("pembayaran", data);
-            navController.navigate(R.id.action_status_siswa_to_rincianTransaksi_siswa2, bundle);
+            PembayaranSharedModel sharedModel = new ViewModelProvider((LauncherFragment) context).get(PembayaranSharedModel.class);
+            sharedModel.updateData(data);
+            navController.navigate(R.id.action_status_siswa_to_rincianTransaksi_siswa2);
         });
 
         holder.sudBayar.addTextChangedListener(new MoneyTextWatcher(holder.sudBayar));

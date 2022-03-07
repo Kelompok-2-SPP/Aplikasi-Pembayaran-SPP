@@ -34,7 +34,7 @@
                     android:paddingVertical="20dp">
 
                     <TextView
-                        android:id="@+id/textView15"
+                        android:id="@+id/title"
                         style="@style/SPPKelompok2.Text.Bold.Header2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -44,14 +44,14 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView16"
+                        android:id="@+id/tahunSpp"
                         style="@style/SPPKelompok2.Text.Regular.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Total SPP Tahun 2021"
                         android:textColor="?colorSurface"
-                        app:layout_constraintStart_toStartOf="@+id/textView15"
-                        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+                        app:layout_constraintStart_toStartOf="@+id/title"
+                        app:layout_constraintTop_toBottomOf="@+id/title" />
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/materialCardView2"
@@ -61,7 +61,7 @@
                         android:layout_marginTop="15dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView16">
+                        app:layout_constraintTop_toBottomOf="@+id/tahunSpp">
 
                         <TextView
                             android:id="@+id/totalSpp"
@@ -124,7 +124,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView18"
+                        android:id="@+id/idSpp"
                         style="@style/SPPKelompok2.Text.Regular.Body4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                         android:layout_marginTop="12dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/background_lines_dotted"
-                        app:layout_constraintEnd_toEndOf="@+id/textView18"
+                        app:layout_constraintEnd_toEndOf="@+id/idSpp"
                         app:layout_constraintStart_toStartOf="@+id/textView17"
                         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
@@ -156,7 +156,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/image" />
 
                     <TextView
-                        android:id="@+id/textView22"
+                        android:id="@+id/angkatan"
                         style="@style/SPPKelompok2.Text.Regular.Body3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -176,7 +176,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
                     <TextView
-                        android:id="@+id/textView21"
+                        android:id="@+id/tahun"
                         style="@style/SPPKelompok2.Text.Regular.Body3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -192,7 +192,7 @@
                         android:layout_marginTop="12dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/background_lines"
-                        app:layout_constraintEnd_toEndOf="@+id/textView21"
+                        app:layout_constraintEnd_toEndOf="@+id/tahun"
                         app:layout_constraintStart_toStartOf="@+id/textView20"
                         app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
@@ -207,6 +207,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
                     <TextView
+                        android:id="@+id/total"
                         style="@style/SPPKelompok2.Text.Semibold.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

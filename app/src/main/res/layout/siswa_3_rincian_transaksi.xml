@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <FrameLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="235dp"
@@ -25,13 +25,14 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/materialCardView4"
                     style="@style/SPPKelompok2.Card.Large"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -40,7 +41,7 @@
                         android:layout_marginVertical="16dp">
 
                         <TextView
-                            android:id="@+id/namaKelas"
+                            android:id="@+id/jumlah"
                             style="@style/SPPKelompok2.Text.Bold.Header2"
                             android:layout_width="250dp"
                             android:layout_height="wrap_content"
@@ -53,7 +54,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/jumlahSiswa"
+                            android:id="@+id/spp"
                             style="@style/SPPKelompok2.Text.Semibold.Body1"
                             android:layout_width="180dp"
                             android:layout_height="wrap_content"
@@ -62,36 +63,21 @@
                             android:gravity="center"
                             android:maxLines="1"
                             android:text="2021 • September"
-                            app:layout_constraintEnd_toEndOf="@+id/namaKelas"
-                            app:layout_constraintStart_toStartOf="@+id/namaKelas"
-                            app:layout_constraintTop_toBottomOf="@+id/namaKelas" />
+                            app:layout_constraintEnd_toEndOf="@+id/jumlah"
+                            app:layout_constraintStart_toStartOf="@+id/jumlah"
+                            app:layout_constraintTop_toBottomOf="@+id/jumlah" />
 
                         <TextView
-                            android:id="@+id/textView3"
+                            android:id="@+id/tglBayar"
                             style="@style/SPPKelompok2.Text.Regular.Body3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:text="25 Oktober 2021"
                             android:textColor="@color/dark_grey"
-                            app:layout_constraintEnd_toEndOf="@+id/jumlahSiswa"
-                            app:layout_constraintStart_toStartOf="@+id/jumlahSiswa"
-                            app:layout_constraintTop_toBottomOf="@+id/jumlahSiswa" />
-
-                        <ImageButton
-                            android:id="@+id/edit"
-                            android:layout_width="24dp"
-                            android:layout_height="27dp"
-                            android:background="?selectableItemBackground"
-                            android:clickable="true"
-                            android:contentDescription="@string/edit"
-                            android:focusable="true"
-                            android:src="@drawable/icon_edit"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView3"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="1.0"
-                            app:layout_constraintStart_toEndOf="@+id/textView3"
-                            tools:ignore="TouchTargetSizeCheck" />
+                            app:layout_constraintEnd_toEndOf="@+id/spp"
+                            app:layout_constraintStart_toStartOf="@+id/spp"
+                            app:layout_constraintTop_toBottomOf="@+id/spp" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -99,15 +85,20 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <FrameLayout
+                    android:id="@+id/frameStatus"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="55dp"
+                    android:layout_marginBottom="-25dp"
                     android:background="@drawable/background_oval_base"
                     android:backgroundTint="@color/green"
-                    android:elevation="3dp">
+                    android:elevation="3dp"
+                    app:layout_constraintBottom_toTopOf="@+id/materialCardView4"
+                    app:layout_constraintEnd_toEndOf="@+id/materialCardView4"
+                    app:layout_constraintStart_toStartOf="@+id/materialCardView4">
 
                     <ImageView
+                        android:id="@+id/status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -115,14 +106,14 @@
 
                 </FrameLayout>
 
-            </FrameLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView2"
                 style="@style/SPPKelompok2.Card.Large"
                 android:layout_width="match_parent"
-                android:layout_marginHorizontal="16dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/frameLayout"
                 app:layout_constraintStart_toStartOf="@+id/frameLayout"
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout">
@@ -142,7 +133,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView18"
+                        android:id="@+id/idSpp"
                         style="@style/SPPKelompok2.Text.Regular.Body4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -159,7 +150,7 @@
                         android:layout_marginTop="12dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/background_lines_dotted"
-                        app:layout_constraintEnd_toEndOf="@+id/textView18"
+                        app:layout_constraintEnd_toEndOf="@+id/idSpp"
                         app:layout_constraintStart_toStartOf="@+id/textView17"
                         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
@@ -174,7 +165,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/image" />
 
                     <TextView
-                        android:id="@+id/textView22"
+                        android:id="@+id/angkatan"
                         style="@style/SPPKelompok2.Text.Regular.Body3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -194,7 +185,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
                     <TextView
-                        android:id="@+id/textView21"
+                        android:id="@+id/tahun"
                         style="@style/SPPKelompok2.Text.Regular.Body3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -210,7 +201,7 @@
                         android:layout_marginTop="12dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/background_lines"
-                        app:layout_constraintEnd_toEndOf="@+id/textView21"
+                        app:layout_constraintEnd_toEndOf="@+id/tahun"
                         app:layout_constraintStart_toStartOf="@+id/textView20"
                         app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
@@ -225,6 +216,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
                     <TextView
+                        android:id="@+id/nominal"
                         style="@style/SPPKelompok2.Text.Semibold.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -239,7 +231,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView3"
+                android:id="@+id/cardPetugas"
                 style="@style/SPPKelompok2.Card.Large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -263,7 +255,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView25"
+                        android:id="@+id/petugas"
                         style="@style/SPPKelompok2.Text.Regular.Body3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

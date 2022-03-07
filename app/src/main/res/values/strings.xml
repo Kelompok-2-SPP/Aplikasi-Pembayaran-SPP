@@ -25,6 +25,8 @@
     <string name="histori">Histori</string>
     <string name="data_siswa">Data Siswa</string>
     <string name="data_petugas">Data Petugas</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

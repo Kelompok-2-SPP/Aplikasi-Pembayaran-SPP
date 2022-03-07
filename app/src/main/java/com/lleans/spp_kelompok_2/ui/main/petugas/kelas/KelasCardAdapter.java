@@ -1,7 +1,6 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.kelas;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +9,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
+import com.lleans.spp_kelompok_2.domain.model.kelas.KelasSharedModel;
+import com.lleans.spp_kelompok_2.ui.launcher.LauncherFragment;
 
 import java.util.List;
 
@@ -47,10 +49,9 @@ public class KelasCardAdapter extends RecyclerView.Adapter<KelasCardAdapter.Kela
         holder.jumlah_kelas.setText("Angkatan " + data.getAngkatan());
         Utils.nicknameBuilder(context, data.getNamaKelas(), holder.nick, holder.nickFrame);
         holder.cardView.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("kelas", data);
-            ;
-            navController.navigate(R.id.action_kelas_petugas_to_siswa_petugas, bundle);
+            KelasSharedModel sharedModel = new  ViewModelProvider((LauncherFragment) context).get(KelasSharedModel.class);
+            sharedModel.updateData(data);
+            navController.navigate(R.id.action_kelas_petugas_to_siswa_petugas);
         });
     }
 

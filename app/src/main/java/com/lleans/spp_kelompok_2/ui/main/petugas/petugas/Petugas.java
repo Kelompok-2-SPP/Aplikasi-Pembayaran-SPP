@@ -20,8 +20,6 @@ import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.Petugas2PetugasBinding;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
-import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasData;
 import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;

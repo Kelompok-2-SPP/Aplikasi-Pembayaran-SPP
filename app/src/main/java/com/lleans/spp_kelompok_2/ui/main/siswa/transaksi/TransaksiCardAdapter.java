@@ -1,5 +1,6 @@
 package com.lleans.spp_kelompok_2.ui.main.siswa.transaksi;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
 
     private final List<DetailsItemPembayaran> listdata;
     private final NavController navController;
+    private Context context;
 
     public TransaksiCardAdapter(List<DetailsItemPembayaran> list, NavController navController, boolean fromHomepage) {
         this.listdata = list;
@@ -36,6 +38,7 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
     public TransaksiCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_transaksi, parent, false);
         color = view.getResources().getColor(R.color.orange);
+        context = view.getContext();
         return new TransaksiCardViewHolder(view);
     }
 
@@ -52,19 +55,21 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
             holder.status.setText("Lunas");
         }
         holder.cardView.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("data", data);
             if (fromHomepage) {
-                navController.navigate(R.id.action_homepage_siswa_to_rincianTransaksi_siswa2, bundle);
+                navController.navigate(R.id.action_homepage_siswa_to_rincianTransaksi_siswa2);
             } else {
-                navController.navigate(R.id.action_transaksi_siswa_to_rincianTransaksi_siswa, bundle);
+                navController.navigate(R.id.action_transaksi_siswa_to_rincianTransaksi_siswa);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return count != 0 ? count:listdata.size();
+        if(count >= listdata.size() || count == 0){
+            return  listdata.size();
+        }else {
+            return count;
+        }
     }
 
     public int setItemCount(int count) {

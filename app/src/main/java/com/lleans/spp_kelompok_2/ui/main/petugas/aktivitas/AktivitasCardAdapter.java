@@ -1,6 +1,6 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.aktivitas;
 
-import android.os.Bundle;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,12 +8,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranSharedModel;
+import com.lleans.spp_kelompok_2.ui.launcher.LauncherFragment;
 
 import java.util.List;
 
@@ -21,11 +24,10 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
 
     private final List<DetailsItemPembayaran> listdata;
     private final NavController navController;
+    private Context context;
 
     private boolean fromHomepage, fromRincian;
-    private int orange;
-
-    private int count;
+    private int orange, count;
 
     public AktivitasCardAdapter(List<DetailsItemPembayaran> list, NavController navController, boolean fromHomepage, boolean fromRincian) {
         this.listdata = list;
@@ -39,6 +41,7 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
     public AktivitasCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_aktivitas, parent, false);
         orange = view.getResources().getColor(R.color.orange);
+        context = view.getContext();
         return new AktivitasCardViewHolder(view);
     }
 
@@ -57,22 +60,26 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
             holder.nominalkurang.setText(Utils.formatRupiah(data.getJumlahBayar()));
         }
         holder.cardView.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("data", data);
+            PembayaranSharedModel sharedModel = new ViewModelProvider((LauncherFragment) context).get(PembayaranSharedModel.class);
+            sharedModel.updateData(data);
             if (fromHomepage) {
-                navController.navigate(R.id.action_homepage_petugas_to_rincianTransaksi_siswa, bundle);
+                navController.navigate(R.id.action_homepage_petugas_to_rincianTransaksi_siswa);
             } else if(fromRincian){
-                navController.navigate(R.id.action_detailPetugas_petuga_to_rincianTransaksi_siswa, bundle);
+                navController.navigate(R.id.action_detailPetugas_petuga_to_rincianTransaksi_siswa);
             }
             else {
-                navController.navigate(R.id.action_aktivitas_petugas_to_rincianTransaksi_siswa, bundle);
+                navController.navigate(R.id.action_aktivitas_petugas_to_rincianTransaksi_siswa);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return count != 0 ? count:listdata.size();
+        if(count >= listdata.size() || count == 0){
+            return  listdata.size();
+        }else {
+            return count;
+        }
     }
 
     public int setItemCount(int count) {

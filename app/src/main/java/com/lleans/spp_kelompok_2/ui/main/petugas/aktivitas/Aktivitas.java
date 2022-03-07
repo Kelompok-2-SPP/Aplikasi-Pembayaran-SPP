@@ -6,30 +6,27 @@ import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
-import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas2AktivitasBinding;
-import com.lleans.spp_kelompok_2.domain.model.auth.AuthData;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
+import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasSharedModel;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
 import java.io.IOException;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -70,7 +67,7 @@ public class Aktivitas extends Fragment implements UIListener {
                     AktivitasCardAdapter cardAdapter = new AktivitasCardAdapter(response.body().getDetails(), nav, false, false);
                     binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     binding.recyclerView.setAdapter(cardAdapter);
-                } else if (response.code() <= 500){
+                } else if (response.code() <= 500) {
                     PembayaranDataList message = new Gson().fromJson(response.errorBody().charStream(), PembayaranDataList.class);
                     toaster(message.getMessage());
                 } else {

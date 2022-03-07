@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -20,8 +21,9 @@ import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas5TambahSiswaBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
+import com.lleans.spp_kelompok_2.domain.model.kelas.KelasSharedModel;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
+import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaSharedModel;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
@@ -37,14 +39,16 @@ public class TambahSiswa extends Fragment implements UIListener {
     private Petugas5TambahSiswaBinding binding;
     private SessionManager sessionManager;
     private NavController nav;
+    private KelasSharedModel kelasSharedModel;
+    private SiswaSharedModel siswaSharedModel;
 
-    private DetailsItemKelas kelas;
+    private int idKelas;
 
     public TambahSiswa() {
         // Required empty public constructor
     }
 
-    private void tambahSiswa(String nisn, String nis, String password,String namaSiswa, String alamat, String noTelp){
+    private void tambahSiswa(String nisn, String nis, String password, String namaSiswa, String alamat, String noTelp) {
         isLoading(true);
         Call<SiswaData> tambahSiswaCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -55,7 +59,7 @@ public class TambahSiswa extends Fragment implements UIListener {
                 nis,
                 password,
                 namaSiswa,
-                kelas.getIdKelas(),
+                idKelas,
                 alamat,
                 noTelp);
         tambahSiswaCall.enqueue(new Callback<SiswaData>() {
@@ -64,8 +68,9 @@ public class TambahSiswa extends Fragment implements UIListener {
                 isLoading(false);
                 if (response.body() != null && response.isSuccessful()) {
                     toaster(response.body().getMessage());
+                    siswaSharedModel.updateData(response.body().getDetails());
                     nav.navigateUp();
-                } else if (response.code() <= 500){
+                } else if (response.code() <= 500) {
                     SiswaData message = new Gson().fromJson(response.errorBody().charStream(), SiswaData.class);
                     toaster(message.getMessage());
                 } else {
@@ -92,13 +97,14 @@ public class TambahSiswa extends Fragment implements UIListener {
         nav = Navigation.findNavController(view);
         binding.simpan.setOnClickListener(view1 -> {
             String nisn, nis, password, namaSiswa, alamat, noTelp;
+
             nisn = binding.nisn.getText().toString();
             nis = binding.nis.getText().toString();
             namaSiswa = binding.nama.getText().toString();
             password = binding.password.getText().toString();
             alamat = binding.alamat.getText().toString();
             noTelp = binding.noTelp.getText().toString();
-            if(nisn.equals("") || nis.equals("") || namaSiswa.equals("") || alamat.equals("") || noTelp.equals("")) {
+            if (nisn.equals("") || nis.equals("") || namaSiswa.equals("") || alamat.equals("") || noTelp.equals("")) {
                 toaster("Data harus diisi!");
             } else {
                 tambahSiswa(nisn, nis, password, namaSiswa, alamat, noTelp);
@@ -112,8 +118,13 @@ public class TambahSiswa extends Fragment implements UIListener {
         // Inflate the layout for this fragment
         binding = Petugas5TambahSiswaBinding.inflate(inflater, container, false);
         isLoading(false);
-        Bundle bundle = getArguments();
-        kelas = (DetailsItemKelas) bundle.getSerializable("kelas");
+        kelasSharedModel = new ViewModelProvider(requireActivity()).get(KelasSharedModel.class);
+        siswaSharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
+
+        kelasSharedModel.getData().observe(getViewLifecycleOwner(), detailsItemKelas -> {
+            this.idKelas = detailsItemKelas.getIdKelas();
+        });
+
         sessionManager = new SessionManager(getContext());
         return binding.getRoot();
     }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +25,7 @@ import com.lleans.spp_kelompok_2.databinding.Petugas3DetailPetugasBinding;
 import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
 import com.lleans.spp_kelompok_2.domain.model.petugas.DetailsItemPetugas;
+import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasSharedModel;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.main.petugas.aktivitas.AktivitasCardAdapter;
@@ -39,8 +41,9 @@ public class DetailPetugas extends Fragment implements UIListener {
 
     private Petugas3DetailPetugasBinding binding;
     private NavController navController;
-    private DetailsItemPetugas data;
     private SessionManager sessionManager;
+
+    private int idPetugas;
 
     public DetailPetugas() {
         // Required empty public constructor
@@ -53,7 +56,7 @@ public class DetailPetugas extends Fragment implements UIListener {
         pembayaranDataListCall = apiInterface.getPembayaran(
                 "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                 null,
-                Integer.valueOf(sessionManager.getUserDetail().get(SessionManager.ID)),
+                idPetugas,
                 null,
                 null,
                 null,
@@ -97,28 +100,32 @@ public class DetailPetugas extends Fragment implements UIListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("petugas", data);
+
         binding.refresher.setOnRefreshListener(() -> {
             getAktivitas();
         });
+
         binding.aktivitas.setOnClickListener(v -> navController.navigate(R.id.action_detailPetugas_petuga_to_aktivitas_petugas));
-        binding.edit.setOnClickListener(v -> navController.navigate(R.id.action_detailPetugas_petuga_to_editPetugas, bundle));
+        binding.edit.setOnClickListener(v -> navController.navigate(R.id.action_detailPetugas_petuga_to_editPetugas));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Bundle bundle = getArguments();
-        data = (DetailsItemPetugas) bundle.getSerializable("petugas");
+        PetugasSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(PetugasSharedModel.class);
         sessionManager = new SessionManager(getContext());
         binding = Petugas3DetailPetugasBinding.inflate(inflater, container, false);
-        Utils.nicknameBuilder(getContext(), data.getNamaPetugas(), binding.nick, binding.nickFrame);
-        binding.nama.setText(data.getNamaPetugas());
-        binding.username.setText(data.getUsername());
-        binding.level.setText(data.getLevel().equals("petugas") ? "Petugas" : "Admin");
-        getAktivitas();
+
+        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemPetugas -> {
+            this.idPetugas = detailsItemPetugas.getIdPetugas();
+            Utils.nicknameBuilder(getContext(), detailsItemPetugas.getNamaPetugas(), binding.nick, binding.nickFrame);
+            binding.nama.setText(detailsItemPetugas.getNamaPetugas());
+            binding.username.setText(detailsItemPetugas.getUsername());
+            binding.level.setText(detailsItemPetugas.getLevel().equals("petugas") ? "Petugas" : "Admin");
+            getAktivitas();
+        });
+
         return binding.getRoot();
     }
 

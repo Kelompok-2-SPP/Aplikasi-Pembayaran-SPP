@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.cardview.widget.CardView;
 import androidx.navigation.NavController;
 
 import com.lleans.spp_kelompok_2.R;
@@ -75,6 +73,11 @@ public class Utils {
 
     public static String kurangBayar(int totalSpp, int nominalBayar) {
         return "-" + formatRupiah(totalSpp - nominalBayar);
+    }
+
+    public static String formatDateStringToLocal(String date) {
+        String arr[] = date.split("-");
+        return arr[2] + getMonth(Integer.parseInt(arr[1])) + arr[0];
     }
 
     public static Long convertServerString(String sd){

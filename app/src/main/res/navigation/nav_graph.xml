@@ -207,6 +207,9 @@
             app:destination="@id/editSiswa"
             app:enterAnim="@anim/homepagenav_enter"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim" />
+        <action
+            android:id="@+id/action_statussiswa_petugas_to_tambahStatus"
+            app:destination="@id/tambahStatus" />
     </fragment>
     <fragment
         android:id="@+id/rincianSpp_petugas"
@@ -280,4 +283,9 @@
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.spp.EditSpp"
         android:label="Edit Spp"
         tools:layout="@layout/petugas_4_edit_spp" />
+    <fragment
+        android:id="@+id/tambahStatus"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.siswa.TambahStatus"
+        android:label="Tambah Pembayaran"
+        tools:layout="@layout/petugas_5_tambah_status" />
 </navigation>

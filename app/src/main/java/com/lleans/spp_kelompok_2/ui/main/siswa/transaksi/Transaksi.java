@@ -88,8 +88,6 @@ public class Transaksi extends Fragment implements UIListener {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
-        getTransaksi(null, null, null);
-
         binding.refresher.setOnRefreshListener(() -> {
             getTransaksi(null, null, null);
         });

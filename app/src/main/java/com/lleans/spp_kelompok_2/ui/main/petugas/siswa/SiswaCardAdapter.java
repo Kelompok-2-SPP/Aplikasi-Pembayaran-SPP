@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,8 @@ import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
+import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaSharedModel;
+import com.lleans.spp_kelompok_2.ui.launcher.LauncherFragment;
 
 import java.util.List;
 
@@ -49,10 +52,9 @@ public class SiswaCardAdapter extends RecyclerView.Adapter<SiswaCardAdapter.Sisw
         holder.nisn.setText(data.getNisn());
         Utils.nicknameBuilder(context, data.getNama(), holder.nick, holder.nickFrame);
         holder.cardView.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("siswa", data);
-            bundle.putSerializable("kelas", kelas);
-            navController.navigate(R.id.action_siswa_petugas_to_detail_siswa, bundle);
+            SiswaSharedModel sharedModel = new ViewModelProvider((LauncherFragment) context).get(SiswaSharedModel.class);
+            sharedModel.updateData(data);
+            navController.navigate(R.id.action_siswa_petugas_to_detail_siswa);
         });
 
     }

@@ -22,7 +22,6 @@ import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.Petugas2KelasBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 import com.lleans.spp_kelompok_2.domain.model.kelas.KelasDataList;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
@@ -129,6 +128,7 @@ public class Kelas extends Fragment implements UIListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
+
         binding.btnTambahKelas.setOnClickListener(v -> nav.navigate(R.id.action_kelas_petugas_to_tambahKelas_petugas));
         binding.searchBar.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {

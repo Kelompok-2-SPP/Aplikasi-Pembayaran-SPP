@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -22,6 +23,7 @@ import com.lleans.spp_kelompok_2.databinding.Petugas4EditSppBinding;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
 import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
+import com.lleans.spp_kelompok_2.domain.model.spp.SppSharedModel;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
@@ -35,16 +37,18 @@ import retrofit2.Response;
 public class EditSpp extends Fragment implements UIListener {
 
     private Petugas4EditSppBinding binding;
-    private DetailsItemSpp detailsItemSpp;
+    private SppSharedModel sharedModel;
     private SessionManager sessionManager;
     private NavController nav;
+
+    private int idSpp;
 
     public EditSpp() {
         // Required empty public constructor
     }
 
     // Delete SPP function
-    private void deleteSpp(Integer idSpp) {
+    private void deleteSpp() {
         Call<SppData> sppDataCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         sppDataCall = apiInterface.deleteSpp(
@@ -57,8 +61,9 @@ public class EditSpp extends Fragment implements UIListener {
                 isLoading(false);
                 if (response.body() != null && response.isSuccessful()) {
                     toaster(response.body().getMessage());
+                    sharedModel.updateData(response.body().getDetails());
                     nav.navigateUp();
-                } else if (response.code() <= 500){
+                } else if (response.code() <= 500) {
                     SppData message = new Gson().fromJson(response.errorBody().charStream(), SppData.class);
                     toaster(message.getMessage());
                 } else {
@@ -79,7 +84,7 @@ public class EditSpp extends Fragment implements UIListener {
         });
     }
 
-    private void editSpp(Integer idSpp, Integer angkatan, Integer tahun, Integer nominal) {
+    private void editSpp(Integer angkatan, Integer tahun, Integer nominal) {
         isLoading(true);
         Call<SppData> editSppCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -95,8 +100,9 @@ public class EditSpp extends Fragment implements UIListener {
                 isLoading(false);
                 if (response.isSuccessful()) {
                     toaster(response.body().getMessage());
+                    sharedModel.updateData(response.body().getDetails());
                     nav.navigateUp();
-                } else if (response.code() <= 500){
+                } else if (response.code() <= 500) {
                     SppData message = new Gson().fromJson(response.errorBody().charStream(), SppData.class);
                     toaster(message.getMessage());
                 } else {
@@ -122,21 +128,19 @@ public class EditSpp extends Fragment implements UIListener {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
         binding.simpan.setOnClickListener(view1 -> {
-            Integer idSpp, angkatan, tahun, nominal;
-            idSpp = detailsItemSpp.getIdSpp();
+            Integer angkatan, tahun, nominal;
+
             angkatan = Integer.parseInt(binding.angkatan.getText().toString());
             tahun = Integer.parseInt(binding.tahun.getText().toString());
             nominal = Integer.parseInt(binding.nominal.getText().toString());
             if (angkatan == null || tahun == null || nominal == null) {
                 toaster("Data harus diisi!");
             } else {
-                editSpp(idSpp, angkatan, tahun, nominal);
+                editSpp(angkatan, tahun, nominal);
             }
         });
         binding.hapus.setOnClickListener(view2 -> {
-            Integer idSpp;
-            idSpp = detailsItemSpp.getIdSpp();
-            deleteSpp(idSpp);
+            deleteSpp();
         });
     }
 
@@ -147,12 +151,14 @@ public class EditSpp extends Fragment implements UIListener {
         binding = Petugas4EditSppBinding.inflate(inflater, container, false);
         isLoading(false);
         sessionManager = new SessionManager(getContext());
-        Bundle bundle = getArguments();
-        detailsItemSpp = (DetailsItemSpp) bundle.get("spp");
+        sharedModel = new ViewModelProvider(requireActivity()).get(SppSharedModel.class);
 
-        binding.angkatan.setText(String.valueOf(detailsItemSpp.getAngkatan()));
-        binding.tahun.setText(String.valueOf(detailsItemSpp.getTahun()));
-        binding.nominal.setText(String.valueOf(detailsItemSpp.getNominal()));
+        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSpp -> {
+            this.idSpp = detailsItemSpp.getIdSpp();
+            binding.angkatan.setText(String.valueOf(detailsItemSpp.getAngkatan()));
+            binding.tahun.setText(String.valueOf(detailsItemSpp.getTahun()));
+            binding.nominal.setText(String.valueOf(detailsItemSpp.getNominal()));
+        });
 
         return binding.getRoot();
     }

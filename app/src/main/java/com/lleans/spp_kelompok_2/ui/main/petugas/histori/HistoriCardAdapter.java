@@ -1,7 +1,6 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.histori;
 
-import android.os.Bundle;
-import android.text.Html;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,20 +8,25 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranSharedModel;
+import com.lleans.spp_kelompok_2.ui.launcher.LauncherFragment;
 
 import java.util.List;
 
 public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.HistoriCardViewHolder> {
 
-    private int orange;
     private final List<DetailsItemPembayaran> listdata;
     private final NavController navController;
+    private Context context;
+
+    private int orange;
 
     public HistoriCardAdapter(List<DetailsItemPembayaran> list, NavController navController) {
         this.listdata = list;
@@ -34,6 +38,7 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
     public HistoriCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_aktivitas, parent, false);
         orange = view.getResources().getColor(R.color.orange);
+        context = view.getContext();
         return new HistoriCardViewHolder(view);
     }
 
@@ -52,9 +57,9 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
             holder.nominalkurang.setText(Utils.formatRupiah(data.getJumlahBayar()));
         }
         holder.cardView.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("data", data);
-            navController.navigate(R.id.action_histori_petugas_to_rincianTransaksi_siswa, bundle);
+            PembayaranSharedModel shared = new ViewModelProvider((LauncherFragment) context).get(PembayaranSharedModel.class);
+            shared.updateData(data);
+            navController.navigate(R.id.action_histori_petugas_to_rincianTransaksi_siswa);
         });
     }
 

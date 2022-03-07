@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -20,9 +21,9 @@ import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas4EditSiswaBinding;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
-import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
+import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaSharedModel;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
@@ -36,17 +37,18 @@ import retrofit2.Response;
 public class EditSiswa extends Fragment implements UIListener {
 
     private Petugas4EditSiswaBinding binding;
-    private DetailsItemSiswa detailsItemSiswa;
-    private DetailsItemKelas kelas;
+    private SiswaSharedModel sharedModel;
     private SessionManager sessionManager;
     private NavController nav;
+
+    private String nisn;
 
     public EditSiswa() {
         // Required empty public constructor
     }
 
     // Delete siswa function
-    private void deleteSiswa(String nisn) {
+    private void deleteSiswa() {
         isLoading(true);
         Call<SiswaData> siswaDataCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -60,6 +62,7 @@ public class EditSiswa extends Fragment implements UIListener {
                 isLoading(false);
                 if (response.body() != null && response.isSuccessful()) {
                     toaster(response.body().getMessage());
+                    sharedModel.updateData(response.body().getDetails());
                     nav.navigateUp();
                 } else if (response.code() <= 500) {
                     SiswaData message = new Gson().fromJson(response.errorBody().charStream(), SiswaData.class);
@@ -84,6 +87,7 @@ public class EditSiswa extends Fragment implements UIListener {
 
 
     private void editSiswa(String nisn, String newNisn, String nis, String password, String nama, Integer idKelas, String alamat, String noTelp) {
+        isLoading(true);
         Call<SiswaData> editSiswaCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         editSiswaCall = apiInterface.putSiswa(
@@ -102,6 +106,7 @@ public class EditSiswa extends Fragment implements UIListener {
                 isLoading(false);
                 if (response.body() != null && response.isSuccessful()) {
                     toaster(response.body().getMessage());
+                    sharedModel.updateData(response.body().getDetails());
                     nav.navigateUp();
                 } else if (response.code() <= 500) {
                     SiswaData message = new Gson().fromJson(response.errorBody().charStream(), SiswaData.class);
@@ -131,7 +136,7 @@ public class EditSiswa extends Fragment implements UIListener {
 
         binding.simpan.setOnClickListener(view1 -> {
             String newNisn, nis, password, nama, alamat, noTelp;
-            Integer idKelas;
+
             newNisn = binding.nisn.getText().toString();
             nis = binding.nis.getText().toString();
             password = binding.password.getText().toString();
@@ -143,16 +148,14 @@ public class EditSiswa extends Fragment implements UIListener {
                 toaster("Data harus diisi!");
             } else {
                 if (password.equals("")) {
-                    editSiswa(detailsItemSiswa.getNisn(), newNisn, nis, null, nama, detailsItemSiswa.getIdKelas(), alamat, noTelp);
+                    editSiswa(nisn, newNisn, nis, null, nama, null, alamat, noTelp);
                 } else {
-                    editSiswa(detailsItemSiswa.getNisn(), newNisn, nis, password, nama, detailsItemSiswa.getIdKelas(), alamat, noTelp);
+                    editSiswa(nisn, newNisn, nis, password, nama, null, alamat, noTelp);
                 }
             }
         });
         binding.hapus.setOnClickListener(view2 -> {
-            String nisn;
-            nisn = detailsItemSiswa.getNisn();
-            deleteSiswa(nisn);
+            deleteSiswa();
         });
     }
 
@@ -163,14 +166,16 @@ public class EditSiswa extends Fragment implements UIListener {
         binding = Petugas4EditSiswaBinding.inflate(inflater, container, false);
         isLoading(false);
         sessionManager = new SessionManager(getContext());
-        Bundle bundle = getArguments();
-        detailsItemSiswa = (DetailsItemSiswa) bundle.get("siswa");
-        kelas = (DetailsItemKelas) bundle.get("kelas");
-        binding.nisn.setText(detailsItemSiswa.getNisn());
-        binding.nis.setText(detailsItemSiswa.getNis());
-        binding.nama.setText(detailsItemSiswa.getNama());
-        binding.alamat.setText(detailsItemSiswa.getAlamat());
-        binding.noTelp.setText(detailsItemSiswa.getNoTelp());
+        sharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
+        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSiswa -> {
+            this.nisn = detailsItemSiswa.getNisn();
+            binding.nisn.setText(detailsItemSiswa.getNisn());
+            binding.nis.setText(detailsItemSiswa.getNis());
+            binding.nama.setText(detailsItemSiswa.getNama());
+            binding.alamat.setText(detailsItemSiswa.getAlamat());
+            binding.noTelp.setText(detailsItemSiswa.getNoTelp());
+        });
+
         return binding.getRoot();
     }
 

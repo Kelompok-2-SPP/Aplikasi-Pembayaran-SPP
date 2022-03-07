@@ -1,5 +1,6 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.spp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +9,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
+import com.lleans.spp_kelompok_2.domain.model.spp.SppSharedModel;
+import com.lleans.spp_kelompok_2.ui.launcher.LauncherFragment;
 
 import java.util.List;
 
@@ -21,6 +25,7 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
 
     private final List<DetailsItemSpp> listdata;
     private final NavController navController;
+    private Context context;
 
     private boolean fromHomepage;
     private int count;
@@ -35,6 +40,7 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
     @Override
     public SppCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_spp, parent, false);
+        context = view.getContext();
         return new SppCardViewHolder(view);
     }
 
@@ -46,19 +52,23 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
 
         holder.nominal.setText(Utils.formatRupiah(data.getNominal()));
         holder.cardView.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("spp", data);
+            SppSharedModel sharedModel = new ViewModelProvider((LauncherFragment) context).get(SppSharedModel.class);
+            sharedModel.updateData(data);
             if (fromHomepage) {
-                navController.navigate(R.id.action_homepage_petugas_to_rincianSpp_petugas, bundle);
+                navController.navigate(R.id.action_homepage_petugas_to_rincianSpp_petugas);
             } else {
-                navController.navigate(R.id.action_spp_petugas_to_rincianSpp_petugas, bundle);
+                navController.navigate(R.id.action_spp_petugas_to_rincianSpp_petugas);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return count != 0 ? count:listdata.size();
+        if(count >= listdata.size() || count == 0){
+            return  listdata.size();
+        }else {
+            return count;
+        }
     }
 
     public int setItemCount(int count) {

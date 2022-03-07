@@ -2,8 +2,8 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/refresher"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.petugas.siswa.TambahSiswa">
 
@@ -80,13 +80,13 @@
                     style="@style/SPPKelompok2.Text.Medium.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
                     android:background="@drawable/selector_edit_text"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:hint="NIS"
                     android:inputType="text"
                     android:maxLength="8"
-                    android:textColor="?colorPrimary"
-                    android:focusable="true" />
+                    android:textColor="?colorPrimary" />
 
             </LinearLayout>
 
@@ -113,11 +113,11 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_edit_text"
                     android:clickable="true"
+                    android:focusable="true"
                     android:hint="Nama"
                     android:inputType="text"
                     android:maxLength="35"
-                    android:textColor="?colorPrimary"
-                    android:focusable="true" />
+                    android:textColor="?colorPrimary" />
 
             </LinearLayout>
 
@@ -144,11 +144,11 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_edit_text"
                     android:clickable="true"
+                    android:focusable="true"
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:maxLength="35"
-                    android:textColor="?colorPrimary"
-                    android:focusable="true" />
+                    android:textColor="?colorPrimary" />
 
             </LinearLayout>
 
@@ -175,10 +175,10 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_edit_text"
                     android:clickable="true"
+                    android:focusable="true"
                     android:hint="Alamat"
                     android:inputType="text"
-                    android:textColor="?colorPrimary"
-                    android:focusable="true" />
+                    android:textColor="?colorPrimary" />
 
             </LinearLayout>
 
@@ -205,11 +205,11 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_edit_text"
                     android:clickable="true"
+                    android:focusable="true"
                     android:hint="No. Telp"
                     android:inputType="phone"
                     android:maxLength="13"
-                    android:textColor="?colorPrimary"
-                    android:focusable="true" />
+                    android:textColor="?colorPrimary" />
 
             </LinearLayout>
 

@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.Petugas2SiswaBinding;
 import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
+import com.lleans.spp_kelompok_2.domain.model.kelas.KelasSharedModel;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
@@ -142,8 +144,6 @@ public class Siswa extends Fragment implements UIListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
-        Bundle bundle2 = new Bundle();
-        bundle2.putSerializable("kelas", kelas);
 
         binding.refresher.setOnRefreshListener(() -> {
             getSiswa(kelas.getIdKelas(), null);
@@ -155,8 +155,8 @@ public class Siswa extends Fragment implements UIListener {
           }
         });
 
-        binding.add.setOnClickListener(v -> nav.navigate(R.id.action_siswa_petugas_to_tambahSiswa, bundle2));
-        binding.edit.setOnClickListener(v -> nav.navigate(R.id.action_siswa_petugas_to_editKelas, bundle2));
+        binding.add.setOnClickListener(v -> nav.navigate(R.id.action_siswa_petugas_to_tambahSiswa));
+        binding.edit.setOnClickListener(v -> nav.navigate(R.id.action_siswa_petugas_to_editKelas));
     }
 
     @Override
@@ -164,17 +164,20 @@ public class Siswa extends Fragment implements UIListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = Petugas2SiswaBinding.inflate(inflater, container, false);
+        KelasSharedModel shared = new ViewModelProvider(requireActivity()).get(KelasSharedModel.class);
+
         sessionManager = new SessionManager(getContext());
         if (sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")) {
             UILimiter();
         }
-        Bundle bundle = getArguments();
-        kelas = (DetailsItemKelas) bundle.get("kelas");
-        binding.namaKelas.setText(kelas.getNamaKelas());
-        binding.jurusan.setText(kelas.getJurusan());
-        Utils.nicknameBuilder(getContext(), kelas.getNamaKelas(), binding.nick, binding.nickFrame);
-        binding.angkatan.setText(String.valueOf(kelas.getAngkatan()));
-        getSiswa(kelas.getIdKelas(), null);
+
+        shared.getData().observe(getViewLifecycleOwner(), detailsItemKelas -> {
+            binding.namaKelas.setText(detailsItemKelas.getNamaKelas());
+            binding.jurusan.setText(detailsItemKelas.getJurusan());
+            Utils.nicknameBuilder(getContext(), detailsItemKelas.getNamaKelas(), binding.nick, binding.nickFrame);
+            binding.angkatan.setText(String.valueOf(detailsItemKelas.getAngkatan()));
+            getSiswa(detailsItemKelas.getIdKelas(), null);
+        });
         return binding.getRoot();
     }
 

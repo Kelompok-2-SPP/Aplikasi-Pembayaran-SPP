@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -19,9 +20,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas4EditKelasBinding;
-import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
+import com.lleans.spp_kelompok_2.domain.model.kelas.KelasSharedModel;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
@@ -38,9 +38,9 @@ public class EditKelas extends Fragment implements UIListener {
 
     private SessionManager sessionManager;
     private NavController nav;
-    private Bundle bundle;
+    private KelasSharedModel shared;
 
-    private DetailsItemKelas data;
+    private int idKelas;
 
     public EditKelas() {
         // Required empty public constructor
@@ -48,7 +48,7 @@ public class EditKelas extends Fragment implements UIListener {
     }
 
     // Delete kelas function
-    private void deleteKelas(Integer idKelas) {
+    private void deleteKelas() {
         isLoading(true);
         Call<KelasData> kelasDataCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -62,6 +62,7 @@ public class EditKelas extends Fragment implements UIListener {
                 isLoading(false);
                 if (response.body() != null && response.isSuccessful()) {
                     toaster(response.body().getMessage());
+                    shared.updateData(response.body().getDetails());
                     nav.navigateUp();
                 } else if (response.code() <= 500) {
                     KelasData message = new Gson().fromJson(response.errorBody().charStream(), KelasData.class);
@@ -91,7 +92,7 @@ public class EditKelas extends Fragment implements UIListener {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         editKelasCall = apiInterface.putKelas(
                 "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
-                data.getIdKelas(),
+                idKelas,
                 namaKelas,
                 jurusan,
                 angkatan);
@@ -101,6 +102,7 @@ public class EditKelas extends Fragment implements UIListener {
                 isLoading(false);
                 if (response.body() != null && response.isSuccessful()) {
                     toaster(response.body().getMessage());
+                    shared.updateData(response.body().getDetails());
                     nav.navigateUp();
                 } else if (response.code() <= 500) {
                     KelasData message = new Gson().fromJson(response.errorBody().charStream(), KelasData.class);
@@ -144,9 +146,7 @@ public class EditKelas extends Fragment implements UIListener {
         });
 
         binding.hapus.setOnClickListener(view2 -> {
-            Integer idKelas;
-            idKelas = data.getIdKelas();
-            deleteKelas(idKelas);
+           deleteKelas();
         });
     }
 
@@ -155,15 +155,17 @@ public class EditKelas extends Fragment implements UIListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = Petugas4EditKelasBinding.inflate(inflater, container, false);
+        shared = new ViewModelProvider(requireActivity()).get(KelasSharedModel.class);
+
         sessionManager = new SessionManager(getContext());
         isLoading(false);
 
-        bundle = getArguments();
-        data = (DetailsItemKelas) bundle.get("kelas");
-
-        binding.namaKelas.setText(data.getNamaKelas());
-        binding.jurusan.setText(data.getJurusan());
-        binding.angkatan.setText(String.valueOf(data.getAngkatan()));
+        shared.getData().observe(getViewLifecycleOwner(), detailsItemKelas -> {
+            this.idKelas = detailsItemKelas.getIdKelas();
+            binding.namaKelas.setText(detailsItemKelas.getNamaKelas());
+            binding.jurusan.setText(detailsItemKelas.getJurusan());
+            binding.angkatan.setText(String.valueOf(detailsItemKelas.getAngkatan()));
+        });
 
         return binding.getRoot();
     }

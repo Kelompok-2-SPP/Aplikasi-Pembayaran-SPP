@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +25,7 @@ import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
 import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
+import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaSharedModel;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
@@ -39,6 +41,9 @@ public class StatusSiswa extends Fragment implements UIListener {
     private Petugas3StatusSiswaBinding binding;
     private SessionManager sessionManager;
     private NavController nav;
+    private SiswaSharedModel sharedModel;
+
+    private String nisn;
 
     private DetailsItemKelas kelas;
     private DetailsItemSiswa siswa;
@@ -51,7 +56,7 @@ public class StatusSiswa extends Fragment implements UIListener {
         binding.edit.setVisibility(View.GONE);
     }
 
-    private void getTransaksi(String nisn) {
+    private void getTransaksi() {
         isLoading(true);
         Call<PembayaranDataList> pembayaranDataCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -100,11 +105,8 @@ public class StatusSiswa extends Fragment implements UIListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
-        Bundle data = new Bundle();
-        data.putSerializable("kelas", kelas);
-        data.putSerializable("siswa", siswa);
 
-        binding.edit.setOnClickListener(v -> nav.navigate(R.id.action_statussiswa_petugas_to_editSiswa, data));
+        binding.edit.setOnClickListener(v -> nav.navigate(R.id.action_statussiswa_petugas_to_editSiswa));
     }
 
     @Override
@@ -113,19 +115,21 @@ public class StatusSiswa extends Fragment implements UIListener {
         // Inflate the layout for this fragment
         binding = Petugas3StatusSiswaBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
+        sharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
+
         if (sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")) {
             UILimiter();
         }
-        Bundle bundle = getArguments();
-        kelas = (DetailsItemKelas) bundle.getSerializable("kelas");
-        siswa = (DetailsItemSiswa) bundle.getSerializable("siswa");
-        Utils.nicknameBuilder(getContext(), siswa.getNama(), binding.nick, binding.nickFrame);
-        binding.nama.setText(siswa.getNama());
-        binding.nisn.setText(String.valueOf(siswa.getNisn()));
-        binding.nis.setText(siswa.getNis());
-        binding.alamat.setText(siswa.getAlamat());
-        binding.noTelp.setText(String.valueOf(siswa.getNoTelp()));
-        getTransaksi(siswa.getNisn());
+        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSiswa -> {
+            this.nisn = detailsItemSiswa.getNisn();
+            Utils.nicknameBuilder(getContext(), detailsItemSiswa.getNama(), binding.nick, binding.nickFrame);
+            binding.nama.setText(detailsItemSiswa.getNama());
+            binding.nisn.setText(String.valueOf(detailsItemSiswa.getNisn()));
+            binding.nis.setText(detailsItemSiswa.getNis());
+            binding.alamat.setText(detailsItemSiswa.getAlamat());
+            binding.noTelp.setText(String.valueOf(detailsItemSiswa.getNoTelp()));
+            getTransaksi();
+        });
 
         return binding.getRoot();
     }

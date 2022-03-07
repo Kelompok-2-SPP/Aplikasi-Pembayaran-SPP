@@ -1,7 +1,6 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.petugas;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +9,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.petugas.DetailsItemPetugas;
+import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasSharedModel;
+import com.lleans.spp_kelompok_2.ui.launcher.LauncherFragment;
 
 import java.util.List;
 
@@ -47,9 +49,9 @@ public class PetugasCardAdapter extends RecyclerView.Adapter<PetugasCardAdapter.
         holder.uname.setText(data.getUsername());
         Utils.nicknameBuilder(context, data.getNamaPetugas(), holder.nick, holder.nickFrame);
         holder.cardView.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("petugas", data);
-            navController.navigate(R.id.action_petugas_petugas_to_tambahPetugas, bundle);
+            PetugasSharedModel sharedModel = new ViewModelProvider((LauncherFragment) context).get(PetugasSharedModel.class);
+            sharedModel.updateData(data);
+            navController.navigate(R.id.action_petugas_petugas_to_tambahPetugas);
         });
     }
 
