@@ -18,6 +18,7 @@ import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppSharedModel;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
+import com.lleans.spp_kelompok_2.ui.utils.CustomRequestPermission;
 
 import java.io.IOException;
 
@@ -45,6 +46,8 @@ public class RincianSpp extends Fragment {
 
         binding.edit.setOnClickListener(v -> nav.navigate(R.id.action_rincianSpp_petugas_to_editSpp));
         binding.cetak.setOnClickListener(v -> {
+            CustomRequestPermission as = new CustomRequestPermission(getActivity());
+            as.checkPermission();
             try {
                 binding.edit.setVisibility(View.GONE);
                 Utils.exportToPNG(getContext(), binding.layout, binding.tahunSpp.getText().toString() + "_" + binding.title.getText().toString() + "_" + binding.idSpp.getText().toString());

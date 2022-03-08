@@ -72,7 +72,7 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
         updateStatus.enqueue(new Callback<PembayaranData>() {
             @Override
             public void onResponse(Call<PembayaranData> call, Response<PembayaranData> response) {
-                if (response.isSuccessful()) {
+                if (response.body() != null && response.isSuccessful()) {
                     listData.get(position).setJumlahBayar(response.body().getDetails().getJumlahBayar());
                     notifyItemChanged(position);
                 } else {
@@ -172,7 +172,6 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
             if (!hasFocus && unformatted == data.getJumlahBayar()) {
                 notifyItemChanged(holder.getAdapterPosition());
             } else if (!hasFocus && unformatted != data.getJumlahBayar()) {
-                listData.get(holder.getAdapterPosition()).setJumlahBayar(unformatted);
                 updateStatus(data.getIdPembayaran(), unformatted, holder.getAdapterPosition());
             }
         });

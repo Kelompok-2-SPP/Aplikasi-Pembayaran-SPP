@@ -5,7 +5,6 @@
     android:id="@+id/refresher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_alignWithParentIfMissing="true"
     tools:context=".ui.main.petugas.siswa.StatusSiswa">
 
     <ScrollView

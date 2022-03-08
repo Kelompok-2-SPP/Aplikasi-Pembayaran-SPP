@@ -26,6 +26,7 @@ import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.databinding.LoginBinding;
 import com.lleans.spp_kelompok_2.domain.model.auth.AuthData;
+import com.lleans.spp_kelompok_2.ui.MainActivity;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
 import java.io.IOException;
@@ -48,6 +49,7 @@ public class Login extends Fragment implements UIListener {
 
     // For navigating on Login fragment
     private void navigate(String type) {
+        MainActivity.act.finish();
         if (type.equals("siswa")) {
             navController.navigate(R.id.action_login_to_homepage2);
         } else {
@@ -160,7 +162,7 @@ public class Login extends Fragment implements UIListener {
             binding.usernameLabel.setText("NISN");
             binding.username.setHint("NISN");
             binding.username.setInputType(InputType.TYPE_CLASS_NUMBER);
-            binding.username.setFilters(new InputFilter[] { new InputFilter.LengthFilter(10) });
+            binding.username.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
         }
         return binding.getRoot();
     }

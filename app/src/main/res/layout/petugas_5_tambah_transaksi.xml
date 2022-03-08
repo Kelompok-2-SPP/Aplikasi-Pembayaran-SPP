@@ -45,17 +45,19 @@
                     android:layout_height="wrap_content"
                     android:text="Tgl. Bayar" />
 
-                <TextView
+                <EditText
                     android:id="@+id/tglBayar"
                     style="@style/SPPKelompok2.Text.Medium.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_spinner"
+                    android:background="@drawable/selector_edit_text"
                     android:clickable="true"
                     android:focusable="true"
                     android:hint="Tgl. Bayar"
                     android:maxLength="11"
-                    android:textColor="?colorPrimary" />
+                    android:inputType="date"
+                    android:textColor="?colorPrimary"
+                    app:drawableEndCompat="@drawable/icon_arrow_down" />
 
             </LinearLayout>
 
@@ -80,12 +82,13 @@
                     style="@style/SPPKelompok2.Text.Medium.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_spinner"
+                    android:background="@drawable/selector_edit_text"
                     android:clickable="true"
                     android:focusable="true"
                     android:hint="SPP"
                     android:maxLength="11"
-                    android:textColor="?colorPrimary" />
+                    android:textColor="?colorPrimary"
+                    app:drawableEndCompat="@drawable/icon_arrow_down" />
 
             </LinearLayout>
 
@@ -110,12 +113,13 @@
                     style="@style/SPPKelompok2.Text.Medium.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_spinner"
+                    android:background="@drawable/selector_edit_text"
                     android:clickable="true"
                     android:focusable="true"
                     android:hint="SPP Bulan-Tahun"
                     android:maxLength="11"
-                    android:textColor="?colorPrimary" />
+                    android:textColor="?colorPrimary"
+                    app:drawableEndCompat="@drawable/icon_arrow_down" />
 
             </LinearLayout>
 

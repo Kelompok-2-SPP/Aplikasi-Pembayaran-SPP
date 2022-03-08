@@ -20,6 +20,7 @@ import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranSharedModel;
 import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
+import com.lleans.spp_kelompok_2.ui.utils.CustomRequestPermission;
 
 import java.io.IOException;
 
@@ -52,6 +53,8 @@ public class RincianTransaksi extends Fragment {
             nav.navigate(R.id.action_rincianTransaksi_siswa_to_editStatus);
         });
         binding.cetak.setOnClickListener(v -> {
+            CustomRequestPermission as = new CustomRequestPermission(getActivity());
+            as.checkPermission();
             try {
                 binding.edit.setVisibility(View.GONE);
                 Utils.exportToPNG(getContext(), binding.layout, namaSiswa + "_" + binding.tglBayar.getText().toString() + "_" + idPembayaran);

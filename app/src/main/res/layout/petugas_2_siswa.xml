@@ -243,13 +243,19 @@
                 android:layout_height="wrap_content"
                 android:fillViewport="true">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:nestedScrollingEnabled="false"
-                    android:padding="16dp"
-                    tools:listitem="@layout/item_row_main" />
+                    android:layout_height="wrap_content">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:padding="16dp"
+                        tools:listitem="@layout/item_row_main" />
+
+                </RelativeLayout>
 
             </ScrollView>
 

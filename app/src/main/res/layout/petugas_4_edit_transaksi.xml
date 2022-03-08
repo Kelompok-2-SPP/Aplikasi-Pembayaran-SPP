@@ -45,16 +45,18 @@
                     android:layout_height="wrap_content"
                     android:text="Tgl. Bayar" />
 
-                <TextView
+                <EditText
                     android:id="@+id/tglBayar"
                     style="@style/SPPKelompok2.Text.Medium.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_spinner_focused"
+                    android:background="@drawable/background_edit_focused"
                     android:focusable="false"
                     android:hint="Tgl. Bayar"
+                    android:inputType="date"
                     android:maxLength="11"
-                    android:textColor="?colorPrimary" />
+                    android:textColor="?colorPrimary"
+                    app:drawableEndCompat="@drawable/icon_arrow_down_focused" />
 
             </LinearLayout>
 
@@ -79,12 +81,13 @@
                     style="@style/SPPKelompok2.Text.Medium.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_spinner_focused"
+                    android:background="@drawable/background_edit_focused"
                     android:clickable="true"
                     android:focusable="true"
                     android:hint="SPP"
                     android:maxLength="11"
-                    android:textColor="?colorPrimary" />
+                    android:textColor="?colorPrimary"
+                    app:drawableEndCompat="@drawable/icon_arrow_down_focused" />
 
             </LinearLayout>
 
@@ -109,12 +112,13 @@
                     style="@style/SPPKelompok2.Text.Medium.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_spinner_focused"
+                    android:background="@drawable/background_edit_focused"
                     android:clickable="true"
                     android:focusable="true"
                     android:hint="SPP Bulan-Tahun"
                     android:maxLength="11"
-                    android:textColor="?colorPrimary" />
+                    android:textColor="?colorPrimary"
+                    app:drawableEndCompat="@drawable/icon_arrow_down_focused" />
 
             </LinearLayout>
 
