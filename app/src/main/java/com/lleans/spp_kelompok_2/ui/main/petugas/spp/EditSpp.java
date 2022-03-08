@@ -22,8 +22,6 @@ import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas4EditSppBinding;
 import com.lleans.spp_kelompok_2.domain.Utils;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
-import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppSharedModel;
 import com.lleans.spp_kelompok_2.network.ApiClient;
@@ -32,7 +30,6 @@ import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 import com.lleans.spp_kelompok_2.ui.utils.MoneyTextWatcher;
 
 import java.io.IOException;
-import java.math.BigInteger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,14 +64,16 @@ public class EditSpp extends Fragment implements UIListener {
                     toaster(response.body().getMessage());
                     sharedModel.updateData(response.body().getDetails());
                     nav.popBackStack(R.id.spp_petugas, false);
-                } else if (response.code() <= 500) {
-                    SppData message = new Gson().fromJson(response.errorBody().charStream(), SppData.class);
-                    toaster(message.getMessage());
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        SppData message = new Gson().fromJson(response.errorBody().charStream(), SppData.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
             }
@@ -106,14 +105,16 @@ public class EditSpp extends Fragment implements UIListener {
                     toaster(response.body().getMessage());
                     sharedModel.updateData(response.body().getDetails());
                     nav.navigateUp();
-                } else if (response.code() <= 500) {
-                    SppData message = new Gson().fromJson(response.errorBody().charStream(), SppData.class);
-                    toaster(message.getMessage());
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        SppData message = new Gson().fromJson(response.errorBody().charStream(), SppData.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
             }
@@ -147,7 +148,6 @@ public class EditSpp extends Fragment implements UIListener {
         binding.hapus.setOnClickListener(view2 -> {
             deleteSpp();
         });
-        binding.nominal.addTextChangedListener(new MoneyTextWatcher(binding.nominal, Long.valueOf("99999999999")));
     }
 
     @Override
@@ -156,6 +156,7 @@ public class EditSpp extends Fragment implements UIListener {
         // Inflate the layout for this fragment
         binding = Petugas4EditSppBinding.inflate(inflater, container, false);
         isLoading(false);
+        binding.nominal.addTextChangedListener(new MoneyTextWatcher(binding.nominal, Long.valueOf("99999999999")));
         sessionManager = new SessionManager(getContext());
         sharedModel = new ViewModelProvider(requireActivity()).get(SppSharedModel.class);
 
@@ -163,7 +164,7 @@ public class EditSpp extends Fragment implements UIListener {
             this.idSpp = detailsItemSpp.getIdSpp();
             binding.angkatan.setText(String.valueOf(detailsItemSpp.getAngkatan()));
             binding.tahun.setText(String.valueOf(detailsItemSpp.getTahun()));
-            binding.nominal.setText(Utils.formatRupiah(detailsItemSpp.getNominal()));
+            binding.nominal.setText(String.valueOf(detailsItemSpp.getNominal()));
         });
 
         return binding.getRoot();

@@ -1,7 +1,6 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.spp;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,7 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
     private final NavController navController;
     private Context context;
 
-    private boolean fromHomepage;
+    private final boolean fromHomepage;
     private int count;
 
     public SppCardAdapter(List<DetailsItemSpp> list, NavController navController, boolean fromHomepage) {

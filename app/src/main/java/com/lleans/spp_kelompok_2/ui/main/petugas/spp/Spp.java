@@ -14,14 +14,12 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.Petugas2SppBinding;
-import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaDataList;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
@@ -57,33 +55,6 @@ public class Spp extends Fragment implements UIListener {
                     "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                     keyword
             );
-            sppData.enqueue(new Callback<SppDataList>() {
-                @Override
-                public void onResponse(Call<SppDataList> call, Response<SppDataList> response) {
-                    isLoading(false);
-                    if (response.body() != null && response.isSuccessful()) {
-                        SppCardAdapter cardAdapter = new SppCardAdapter(response.body().getDetails(), nav, false);
-                        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        binding.recyclerView.setAdapter(cardAdapter);
-                    } else if (response.errorBody() != null) {
-                        SppDataList message = new Gson().fromJson(response.errorBody().charStream(), SppDataList.class);
-                        toaster(message.getMessage());
-                    } else {
-                        try {
-                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
-                // On failure response
-                @Override
-                public void onFailure(@NonNull Call<SppDataList> call, @NonNull Throwable t) {
-                    isLoading(false);
-                    dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
-                }
-            });
         } else {
             sppData = apiInterface.getSpp(
                     "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
@@ -94,34 +65,36 @@ public class Spp extends Fragment implements UIListener {
                     null,
                     null
             );
-            sppData.enqueue(new Callback<SppDataList>() {
-                @Override
-                public void onResponse(Call<SppDataList> call, Response<SppDataList> response) {
-                    isLoading(false);
-                    if (response.body() != null && response.isSuccessful()) {
-                        SppCardAdapter cardAdapter = new SppCardAdapter(response.body().getDetails(), nav, false);
-                        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        binding.recyclerView.setAdapter(cardAdapter);
-                    } else if (response.code() <= 500) {
+        }
+        sppData.enqueue(new Callback<SppDataList>() {
+            @Override
+            public void onResponse(Call<SppDataList> call, Response<SppDataList> response) {
+                isLoading(false);
+                if (response.body() != null && response.isSuccessful()) {
+                    SppCardAdapter cardAdapter = new SppCardAdapter(response.body().getDetails(), nav, false);
+                    binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    binding.recyclerView.setAdapter(cardAdapter);
+                } else {
+                    try {
                         SppDataList message = new Gson().fromJson(response.errorBody().charStream(), SppDataList.class);
                         toaster(message.getMessage());
-                    } else {
+                    } catch (Exception e) {
                         try {
                             dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
                         }
                     }
                 }
+            }
 
-                // On failure response
-                @Override
-                public void onFailure(@NonNull Call<SppDataList> call, @NonNull Throwable t) {
-                    isLoading(false);
-                    dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
-                }
-            });
-        }
+            // On failure response
+            @Override
+            public void onFailure(@NonNull Call<SppDataList> call, @NonNull Throwable t) {
+                isLoading(false);
+                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            }
+        });
     }
 
     @Override
@@ -130,7 +103,7 @@ public class Spp extends Fragment implements UIListener {
         // Inflate the layout for this fragment
         binding = Petugas2SppBinding.inflate(inflater, container, false);
         binding.searchBar.setOnFocusChangeListener((v, hasFocus) -> {
-            if(!hasFocus){
+            if (!hasFocus) {
                 getSpp(binding.searchBar.getText().toString());
             }
         });

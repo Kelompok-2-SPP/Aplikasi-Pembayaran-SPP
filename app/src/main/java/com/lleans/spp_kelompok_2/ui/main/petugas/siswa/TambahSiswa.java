@@ -20,7 +20,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas5TambahSiswaBinding;
-import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 import com.lleans.spp_kelompok_2.domain.model.kelas.KelasSharedModel;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaSharedModel;
@@ -39,7 +38,6 @@ public class TambahSiswa extends Fragment implements UIListener {
     private Petugas5TambahSiswaBinding binding;
     private SessionManager sessionManager;
     private NavController nav;
-    private KelasSharedModel kelasSharedModel;
     private SiswaSharedModel siswaSharedModel;
 
     private int idKelas;
@@ -70,14 +68,16 @@ public class TambahSiswa extends Fragment implements UIListener {
                     toaster(response.body().getMessage());
                     siswaSharedModel.updateData(response.body().getDetails());
                     nav.navigateUp();
-                } else if (response.code() <= 500) {
-                    SiswaData message = new Gson().fromJson(response.errorBody().charStream(), SiswaData.class);
-                    toaster(message.getMessage());
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        SiswaData message = new Gson().fromJson(response.errorBody().charStream(), SiswaData.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
             }
@@ -118,7 +118,7 @@ public class TambahSiswa extends Fragment implements UIListener {
         // Inflate the layout for this fragment
         binding = Petugas5TambahSiswaBinding.inflate(inflater, container, false);
         isLoading(false);
-        kelasSharedModel = new ViewModelProvider(requireActivity()).get(KelasSharedModel.class);
+        KelasSharedModel kelasSharedModel = new ViewModelProvider(requireActivity()).get(KelasSharedModel.class);
         siswaSharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
 
         kelasSharedModel.getData().observe(getViewLifecycleOwner(), detailsItemKelas -> {

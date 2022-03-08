@@ -74,14 +74,17 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
             public void onResponse(Call<PembayaranData> call, Response<PembayaranData> response) {
                 if (response.isSuccessful()) {
                     listData.get(position).setJumlahBayar(response.body().getDetails().getJumlahBayar());
-                } else if (response.code() <= 500) {
-                    PembayaranData message = new Gson().fromJson(response.errorBody().charStream(), PembayaranData.class);
-                    toaster(message.getMessage());
+                    notifyItemChanged(position);
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        PembayaranData message = new Gson().fromJson(response.errorBody().charStream(), PembayaranData.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
             }
@@ -99,10 +102,10 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
     public StatusCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_status, parent, false);
         sessionManager = new SessionManager(view.getContext());
-        orange = view.getResources().getColor(R.color.orange);
-        green = view.getResources().getColor(R.color.green);
-        neutral = view.getResources().getColor(R.color.neutral_white);
-        context = view.getContext();
+        orange = parent.getResources().getColor(R.color.orange);
+        green = parent.getResources().getColor(R.color.green);
+        neutral = parent.getResources().getColor(R.color.neutral_white);
+        context = parent.getContext();
         imm = (InputMethodManager) parent.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         return new StatusCardViewHolder(view);
     }
@@ -130,11 +133,12 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
     @Override
     public void onBindViewHolder(@NonNull StatusCardViewHolder holder, int position) {
         DetailsItemPembayaran data = listData.get(position);
+        holder.sudBayar.addTextChangedListener(new MoneyTextWatcher(holder.sudBayar, data.getSpp().getNominal()));
 
         holder.bulan.setText(Utils.getMonth(data.getBulanSpp()));
         holder.tahun.setText("Status SPP tahun " + data.getTahunSpp());
         holder.totSpp.setText(Utils.formatRupiah(data.getSpp().getNominal()));
-        holder.sudBayar.setText(Utils.formatRupiah(data.getJumlahBayar()));
+        holder.sudBayar.setText(String.valueOf(data.getJumlahBayar()));
 
         setStatus(!Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar()), holder);
 
@@ -143,7 +147,6 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 1) {
                     setStatus(false, holder);
-                    listData.get(holder.getAdapterPosition()).setJumlahBayar(data.getSpp().getNominal());
                     holder.sudBayar.requestFocus();
                     imm.showSoftInput(holder.sudBayar, InputMethodManager.SHOW_IMPLICIT);
                 } else {
@@ -164,21 +167,21 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
             }
         });
 
+        holder.sudBayar.setOnFocusChangeListener((v, hasFocus) -> {
+            long unformatted = Utils.unformatRupiah(holder.sudBayar.getText().toString());
+            if (!hasFocus && unformatted == data.getJumlahBayar()) {
+                notifyItemChanged(holder.getAdapterPosition());
+            } else if (!hasFocus && unformatted != data.getJumlahBayar()) {
+                listData.get(holder.getAdapterPosition()).setJumlahBayar(unformatted);
+                updateStatus(data.getIdPembayaran(), unformatted, holder.getAdapterPosition());
+            }
+        });
+
         holder.card.setOnClickListener(v -> {
             PembayaranSharedModel sharedModel = new ViewModelProvider((LauncherFragment) context).get(PembayaranSharedModel.class);
             sharedModel.updateData(data);
             navController.navigate(R.id.action_status_siswa_to_rincianTransaksi_siswa2);
         });
-
-        holder.sudBayar.addTextChangedListener(new MoneyTextWatcher(holder.sudBayar, data.getSpp().getNominal()));
-
-        holder.sudBayar.setOnFocusChangeListener((v, hasFocus) -> {
-            long unformatted = Utils.unformatRupiah(holder.sudBayar.getText().toString());
-            if (!hasFocus && unformatted != data.getJumlahBayar() && holder.status.getSelectedTabPosition() == 1) {
-                updateStatus(data.getIdPembayaran(), Utils.unformatRupiah(holder.sudBayar.getText().toString()), holder.getAdapterPosition());
-            }
-        });
-
     }
 
     @Override
@@ -208,11 +211,11 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
     }
 
     private void toaster(String message) {
-        Toast.makeText((LauncherFragment) context, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
     private void dialog(String title, Spanned text) {
-        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder((LauncherFragment) context);
+        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(context);
         as.setTitle(title).setMessage(text).setPositiveButton("Ok", null).show();
     }
 }

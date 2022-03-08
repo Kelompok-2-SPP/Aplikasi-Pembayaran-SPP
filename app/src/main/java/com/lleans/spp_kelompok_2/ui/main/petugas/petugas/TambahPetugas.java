@@ -19,17 +19,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas5TambahPetugasBinding;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
 import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
-import com.lleans.spp_kelompok_2.ui.utils.spinner.SpinnerAdapter;
-import com.lleans.spp_kelompok_2.ui.utils.spinner.SpinnerInterface;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,14 +56,16 @@ public class TambahPetugas extends Fragment implements UIListener {
                 if (response.body() != null && response.isSuccessful()) {
                     toaster(response.body().getMessage());
                     nav.navigateUp();
-                } else if (response.code() <= 500){
-                    PetugasData message = new Gson().fromJson(response.errorBody().charStream(), PetugasData.class);
-                    toaster(message.getMessage());
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        PetugasData message = new Gson().fromJson(response.errorBody().charStream(), PetugasData.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
             }
@@ -87,7 +84,7 @@ public class TambahPetugas extends Fragment implements UIListener {
         super.onViewCreated(view, savedInstanceState);
         nav = Navigation.findNavController(view);
         binding.simpan.setOnClickListener(view1 -> {
-            String username, password, namaPetugas, level;
+            String username, password, namaPetugas;
 
             username = binding.username.getText().toString();
             password = binding.password.getText().toString();

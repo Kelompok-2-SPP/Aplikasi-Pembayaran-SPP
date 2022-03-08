@@ -38,7 +38,6 @@ public class Aktivitas extends Fragment implements UIListener {
 
     private SessionManager sessionManager;
     private NavController nav;
-    private PetugasSharedModel sharedModel;
 
     private boolean fromHomepage;
     private int idPetugas;
@@ -86,14 +85,16 @@ public class Aktivitas extends Fragment implements UIListener {
                     AktivitasCardAdapter cardAdapter = new AktivitasCardAdapter(response.body().getDetails(), nav, false, false);
                     binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     binding.recyclerView.setAdapter(cardAdapter);
-                } else if (response.code() <= 500) {
-                    PembayaranDataList message = new Gson().fromJson(response.errorBody().charStream(), PembayaranDataList.class);
-                    toaster(message.getMessage());
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        PembayaranDataList message = new Gson().fromJson(response.errorBody().charStream(), PembayaranDataList.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
             }
@@ -127,17 +128,18 @@ public class Aktivitas extends Fragment implements UIListener {
         // Inflate the layout for this fragment
         binding = Petugas2AktivitasBinding.inflate(inflater, container, false);
         sessionManager = new SessionManager(getContext());
-        sharedModel = new ViewModelProvider(requireActivity()).get(PetugasSharedModel.class);
+        PetugasSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(PetugasSharedModel.class);
         Bundle bundle = getArguments();
+        fromHomepage = bundle.getBoolean("fromHomepage");
 
-        if (bundle != null) {
-            fromHomepage = bundle.getBoolean("fromHomepage");
-        }
-
-        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemPetugas -> {
-            this.idPetugas = detailsItemPetugas.getIdPetugas();
+        if (fromHomepage) {
             getAktivitas();
-        });
+        } else {
+            sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemPetugas -> {
+                this.idPetugas = detailsItemPetugas.getIdPetugas();
+                getAktivitas();
+            });
+        }
         return binding.getRoot();
     }
 

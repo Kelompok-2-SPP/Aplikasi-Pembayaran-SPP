@@ -78,14 +78,16 @@ public class Homepage extends Fragment implements UIListener {
                     cardAdapter.setItemCount(3);
                     binding.recyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
                     binding.recyclerView1.setAdapter(cardAdapter);
-                } else if (response.code() <= 500){
-                    PembayaranDataList message = new Gson().fromJson(response.errorBody().charStream(), PembayaranDataList.class);
-                    toaster(message.getMessage());
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        PembayaranDataList message = new Gson().fromJson(response.errorBody().charStream(), PembayaranDataList.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
             }
@@ -122,14 +124,16 @@ public class Homepage extends Fragment implements UIListener {
                     cardAdapter.setItemCount(1);
                     binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     binding.recyclerView.setAdapter(cardAdapter);
-                } else if (response.code() <= 500) {
-                    SppDataList message = new Gson().fromJson(response.errorBody().charStream(), SppDataList.class);
-                    toaster(message.getMessage());
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        SppDataList message = new Gson().fromJson(response.errorBody().charStream(), SppDataList.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
             }

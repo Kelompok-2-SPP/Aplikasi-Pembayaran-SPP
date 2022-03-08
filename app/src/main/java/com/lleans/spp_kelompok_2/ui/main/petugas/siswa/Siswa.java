@@ -22,9 +22,7 @@ import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.Petugas2SiswaBinding;
 import com.lleans.spp_kelompok_2.domain.Utils;
-import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 import com.lleans.spp_kelompok_2.domain.model.kelas.KelasSharedModel;
-import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
@@ -63,34 +61,7 @@ public class Siswa extends Fragment implements UIListener {
             siswaDataCall = apiInterface.keywordSiswa(
                     "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                     keyword);
-            siswaDataCall.enqueue(new Callback<SiswaDataList>() {
-                @Override
-                public void onResponse(Call<SiswaDataList> call, Response<SiswaDataList> response) {
-                    isLoading(false);
-                    if (response.body() != null && response.isSuccessful()) {
-                        SiswaCardAdapter cardAdapter = new SiswaCardAdapter(response.body().getDetails(), nav);
-                        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        binding.recyclerView.setAdapter(cardAdapter);
-                    } else if (response.errorBody() != null) {
-                        SiswaDataList message = new Gson().fromJson(response.errorBody().charStream(), SiswaDataList.class);
-                        toaster(message.getMessage());
-                    } else {
-                        try {
-                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
-                // On failure response
-                @Override
-                public void onFailure(@NonNull Call<SiswaDataList> call, @NonNull Throwable t) {
-                    isLoading(false);
-                    dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
-                }
-            });
-        }else {
+        } else {
             siswaDataCall = apiInterface.getSiswa(
                     "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                     null,
@@ -101,36 +72,38 @@ public class Siswa extends Fragment implements UIListener {
                     null,
                     null,
                     null);
-            siswaDataCall.enqueue(new Callback<SiswaDataList>() {
-                @Override
-                public void onResponse(Call<SiswaDataList> call, Response<SiswaDataList> response) {
-                    isLoading(false);
-                    if (response.body() != null && response.isSuccessful()) {
-                        binding.jumlahSiswa.setText(response.body().getDetails().size() + " Siswa");
-                        binding.jumlahSiswa.setVisibility(View.VISIBLE);
-                        SiswaCardAdapter cardAdapter = new SiswaCardAdapter(response.body().getDetails(), nav);
-                        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        binding.recyclerView.setAdapter(cardAdapter);
-                    } else if (response.code() <= 500) {
+        }
+        siswaDataCall.enqueue(new Callback<SiswaDataList>() {
+            @Override
+            public void onResponse(Call<SiswaDataList> call, Response<SiswaDataList> response) {
+                isLoading(false);
+                if (response.body() != null && response.isSuccessful()) {
+                    SiswaCardAdapter cardAdapter = new SiswaCardAdapter(response.body().getDetails(), nav);
+                    binding.jumlahSiswa.setText(response.body().getDetails().size() + " Siswa");
+                    binding.jumlahSiswa.setVisibility(View.VISIBLE);
+                    binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    binding.recyclerView.setAdapter(cardAdapter);
+                } else {
+                    try {
                         SiswaDataList message = new Gson().fromJson(response.errorBody().charStream(), SiswaDataList.class);
                         toaster(message.getMessage());
-                    } else {
+                    } catch (Exception e) {
                         try {
                             dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
                         }
                     }
                 }
+            }
 
-                // On failure response
-                @Override
-                public void onFailure(@NonNull Call<SiswaDataList> call, @NonNull Throwable t) {
-                    isLoading(false);
-                    dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
-                }
-            });
-        }
+            // On failure response
+            @Override
+            public void onFailure(@NonNull Call<SiswaDataList> call, @NonNull Throwable t) {
+                isLoading(false);
+                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            }
+        });
     }
 
     @Override
@@ -143,9 +116,9 @@ public class Siswa extends Fragment implements UIListener {
         });
 
         binding.searchBar.setOnFocusChangeListener((v, hasFocus) -> {
-          if (!hasFocus){
-              getSiswa(binding.searchBar.getText().toString());
-          }
+            if (!hasFocus) {
+                getSiswa(binding.searchBar.getText().toString());
+            }
         });
 
         binding.add.setOnClickListener(v -> nav.navigate(R.id.action_siswa_petugas_to_tambahSiswa));

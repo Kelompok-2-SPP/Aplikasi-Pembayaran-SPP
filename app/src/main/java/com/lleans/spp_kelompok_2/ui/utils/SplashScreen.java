@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.ui.MainActivity;
 
 public class SplashScreen extends AppCompatActivity {

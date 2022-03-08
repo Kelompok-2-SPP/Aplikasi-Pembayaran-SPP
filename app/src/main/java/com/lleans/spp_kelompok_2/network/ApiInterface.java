@@ -208,7 +208,7 @@ public interface ApiInterface {
             @Query("updatedAt") String updatedAt
     );
 
-    @GET("keyword")
+    @GET("siswa")
     Call<SiswaDataList> keywordSiswa(
             @Header("Authorization") String token,
             @Query("keyword") String keyword

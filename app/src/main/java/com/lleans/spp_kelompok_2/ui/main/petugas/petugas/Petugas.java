@@ -50,33 +50,6 @@ public class Petugas extends Fragment implements UIListener {
             petugasDataCall = apiInterface.keywordPetugas(
                     "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                     keyword);
-            petugasDataCall.enqueue(new Callback<PetugasDataList>() {
-                @Override
-                public void onResponse(Call<PetugasDataList> call, Response<PetugasDataList> response) {
-                    isLoading(false);
-                    if (response.body() != null && response.isSuccessful()) {
-                        PetugasCardAdapter cardAdapter = new PetugasCardAdapter(response.body().getDetails(), nav);
-                        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        binding.recyclerView.setAdapter(cardAdapter);
-                    } else if (response.errorBody() != null) {
-                        PetugasDataList message = new Gson().fromJson(response.errorBody().charStream(), PetugasDataList.class);
-                        toaster(message.getMessage());
-                    } else {
-                        try {
-                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
-                // On failure response
-                @Override
-                public void onFailure(@NonNull Call<PetugasDataList> call, @NonNull Throwable t) {
-                    isLoading(false);
-                    dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
-                }
-            });
         } else {
             petugasDataCall = apiInterface.getPetugas(
                     "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
@@ -86,34 +59,36 @@ public class Petugas extends Fragment implements UIListener {
                     null,
                     null,
                     null);
-            petugasDataCall.enqueue(new Callback<PetugasDataList>() {
-                @Override
-                public void onResponse(Call<PetugasDataList> call, Response<PetugasDataList> response) {
-                    isLoading(false);
-                    if (response.body() != null && response.isSuccessful()) {
-                        PetugasCardAdapter cardAdapter = new PetugasCardAdapter(response.body().getDetails(), nav);
-                        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        binding.recyclerView.setAdapter(cardAdapter);
-                    } else if (response.code() <= 500) {
+        }
+        petugasDataCall.enqueue(new Callback<PetugasDataList>() {
+            @Override
+            public void onResponse(Call<PetugasDataList> call, Response<PetugasDataList> response) {
+                isLoading(false);
+                if (response.body() != null && response.isSuccessful()) {
+                    PetugasCardAdapter cardAdapter = new PetugasCardAdapter(response.body().getDetails(), nav);
+                    binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    binding.recyclerView.setAdapter(cardAdapter);
+                } else {
+                    try {
                         PetugasDataList message = new Gson().fromJson(response.errorBody().charStream(), PetugasDataList.class);
                         toaster(message.getMessage());
-                    } else {
+                    } catch (Exception e) {
                         try {
                             dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
                         }
                     }
                 }
+            }
 
-                // On failure response
-                @Override
-                public void onFailure(@NonNull Call<PetugasDataList> call, @NonNull Throwable t) {
-                    isLoading(false);
-                    dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
-                }
-            });
-        }
+            // On failure response
+            @Override
+            public void onFailure(@NonNull Call<PetugasDataList> call, @NonNull Throwable t) {
+                isLoading(false);
+                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            }
+        });
     }
 
     @Override

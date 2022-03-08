@@ -19,19 +19,23 @@ import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppSharedModel;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
+import java.io.IOException;
+
 public class RincianSpp extends Fragment {
 
     private Petugas3RincianSppBinding binding;
     private SessionManager sessionManager;
-
-    private DetailsItemSpp data;
 
     public RincianSpp() {
         // Required empty public constructor
     }
 
     private void UILimiter() {
-        binding.edit.setVisibility(View.GONE);
+        if (sessionManager.getUserDetail().get(SessionManager.TYPE).equals("siswa")) {
+            binding.edit.setVisibility(View.GONE);
+        } else {
+            binding.edit.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -40,6 +44,15 @@ public class RincianSpp extends Fragment {
         final NavController nav = Navigation.findNavController(view);
 
         binding.edit.setOnClickListener(v -> nav.navigate(R.id.action_rincianSpp_petugas_to_editSpp));
+        binding.cetak.setOnClickListener(v -> {
+            try {
+                binding.edit.setVisibility(View.GONE);
+                Utils.exportToPNG(getContext(), binding.layout, binding.tahunSpp.getText().toString() + "_" + binding.title.getText().toString() + "_" + binding.idSpp.getText().toString());
+                UILimiter();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
@@ -50,9 +63,7 @@ public class RincianSpp extends Fragment {
         sessionManager = new SessionManager(getContext());
         SppSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(SppSharedModel.class);
 
-        if(sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")){
-            UILimiter();
-        }
+        UILimiter();
 
         sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSpp -> {
             binding.title.setText("Angkatan " + detailsItemSpp.getAngkatan());
@@ -62,7 +73,7 @@ public class RincianSpp extends Fragment {
             binding.idSpp.setText(String.valueOf(detailsItemSpp.getIdSpp()));
             binding.angkatan.setText(String.valueOf(detailsItemSpp.getAngkatan()));
             binding.tahun.setText(String.valueOf(detailsItemSpp.getTahun()));
-            binding.totalSpp.setText(Utils.formatRupiah(detailsItemSpp.getNominal()));
+            binding.total.setText(Utils.formatRupiah(detailsItemSpp.getNominal()));
         });
 
         return binding.getRoot();

@@ -175,7 +175,13 @@
         android:id="@+id/rincianTransaksi_siswa"
         android:name="com.lleans.spp_kelompok_2.ui.main.siswa.transaksi.RincianTransaksi"
         android:label="Rincian Transaksi"
-        tools:layout="@layout/siswa_3_rincian_transaksi" />
+        tools:layout="@layout/siswa_3_rincian_transaksi">
+        <action
+            android:id="@+id/action_rincianTransaksi_siswa_to_editStatus"
+            app:destination="@id/editStatus"
+            app:enterAnim="@anim/homepagenav_enter"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim" />
+    </fragment>
     <fragment
         android:id="@+id/kelas_petugas"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.kelas.Kelas"
@@ -209,7 +215,9 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim" />
         <action
             android:id="@+id/action_statussiswa_petugas_to_tambahStatus"
-            app:destination="@id/tambahStatus" />
+            app:destination="@id/tambahStatus"
+            app:enterAnim="@anim/homepagenav_enter"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim" />
     </fragment>
     <fragment
         android:id="@+id/rincianSpp_petugas"
@@ -286,6 +294,11 @@
     <fragment
         android:id="@+id/tambahStatus"
         android:name="com.lleans.spp_kelompok_2.ui.main.petugas.siswa.TambahStatus"
-        android:label="Tambah Pembayaran"
-        tools:layout="@layout/petugas_5_tambah_status" />
+        android:label="Tambah Transaksi"
+        tools:layout="@layout/petugas_5_tambah_transaksi" />
+    <fragment
+        android:id="@+id/editStatus"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.siswa.EditStatus"
+        android:label="Edit Transaksi"
+        tools:layout="@layout/petugas_4_edit_transaksi" />
 </navigation>

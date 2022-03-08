@@ -19,7 +19,6 @@ import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas5TambahSppBinding;
 import com.lleans.spp_kelompok_2.domain.Utils;
-import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
@@ -27,7 +26,6 @@ import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 import com.lleans.spp_kelompok_2.ui.utils.MoneyTextWatcher;
 
 import java.io.IOException;
-import java.math.BigInteger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -59,14 +57,16 @@ public class TambahSpp extends Fragment implements UIListener {
                 if (response.isSuccessful()) {
                     toaster(response.body().getMessage());
                     nav.navigateUp();
-                } else if (response.code() <= 500){
-                    SppData message = new Gson().fromJson(response.errorBody().charStream(), SppData.class);
-                    toaster(message.getMessage());
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        SppData message = new Gson().fromJson(response.errorBody().charStream(), SppData.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
             }

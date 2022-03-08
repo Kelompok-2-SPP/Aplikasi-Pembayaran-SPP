@@ -44,6 +44,7 @@
                 app:layout_constraintTop_toTopOf="@+id/header" />
 
             <FrameLayout
+                android:visibility="gone"
                 android:id="@+id/cardTunggakan"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
@@ -84,7 +85,7 @@
                         android:autoSizeTextType="uniform"
                         android:ellipsize="end"
                         android:gravity="center_vertical"
-                        android:maxLines="2"
+                        android:maxLines="1"
                         android:text="@string/rp500_000"
                         android:textColor="?colorSurface"
                         app:layout_constraintBottom_toTopOf="@+id/textView3"

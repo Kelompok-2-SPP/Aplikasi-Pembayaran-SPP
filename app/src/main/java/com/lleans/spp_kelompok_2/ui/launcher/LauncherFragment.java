@@ -7,7 +7,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.lleans.spp_kelompok_2.R;

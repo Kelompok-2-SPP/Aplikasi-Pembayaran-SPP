@@ -62,31 +62,6 @@ public class Kelas extends Fragment implements UIListener {
             kelasDataCall = apiInterface.keywordKelas(
                     "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                     keyword);
-            kelasDataCall.enqueue(new Callback<KelasDataList>() {
-                @Override
-                public void onResponse(Call<KelasDataList> call, Response<KelasDataList> response) {
-                    isLoading(false);
-                    if (response.body() != null && response.isSuccessful()) {
-                        setAdapter(response.body().getDetails());
-                    } else if (response.errorBody() != null) {
-                        KelasDataList message = new Gson().fromJson(response.errorBody().charStream(), KelasDataList.class);
-                        toaster(message.getMessage());
-                    } else {
-                        try {
-                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
-                // On failure response
-                @Override
-                public void onFailure(@NonNull Call<KelasDataList> call, @NonNull Throwable t) {
-                    isLoading(false);
-                    dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
-                }
-            });
         } else {
             kelasDataCall = apiInterface.getKelas(
                     "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
@@ -96,32 +71,34 @@ public class Kelas extends Fragment implements UIListener {
                     null,
                     null,
                     null);
-            kelasDataCall.enqueue(new Callback<KelasDataList>() {
-                @Override
-                public void onResponse(Call<KelasDataList> call, Response<KelasDataList> response) {
-                    isLoading(false);
-                    if (response.body() != null && response.isSuccessful()) {
-                        setAdapter(response.body().getDetails());
-                    } else if (response.code() <= 500){
+        }
+        kelasDataCall.enqueue(new Callback<KelasDataList>() {
+            @Override
+            public void onResponse(Call<KelasDataList> call, Response<KelasDataList> response) {
+                isLoading(false);
+                if (response.body() != null && response.isSuccessful()) {
+                    setAdapter(response.body().getDetails());
+                } else {
+                    try {
                         KelasDataList message = new Gson().fromJson(response.errorBody().charStream(), KelasDataList.class);
                         toaster(message.getMessage());
-                    } else {
+                    } catch (Exception e) {
                         try {
                             dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
                         }
                     }
                 }
+            }
 
-                // On failure response
-                @Override
-                public void onFailure(@NonNull Call<KelasDataList> call, @NonNull Throwable t) {
-                    isLoading(false);
-                    dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
-                }
-            });
-        }
+            // On failure response
+            @Override
+            public void onFailure(@NonNull Call<KelasDataList> call, @NonNull Throwable t) {
+                isLoading(false);
+                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            }
+        });
     }
 
     @Override

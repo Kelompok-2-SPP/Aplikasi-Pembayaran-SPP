@@ -21,8 +21,6 @@ import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas4EditSiswaBinding;
-import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
-import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaSharedModel;
 import com.lleans.spp_kelompok_2.network.ApiClient;
@@ -65,14 +63,16 @@ public class EditSiswa extends Fragment implements UIListener {
                     toaster(response.body().getMessage());
                     sharedModel.updateData(response.body().getDetails());
                     nav.popBackStack(R.id.siswa_petugas, false);
-                } else if (response.code() <= 500) {
-                    SiswaData message = new Gson().fromJson(response.errorBody().charStream(), SiswaData.class);
-                    toaster(message.getMessage());
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        SiswaData message = new Gson().fromJson(response.errorBody().charStream(), SiswaData.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
             }

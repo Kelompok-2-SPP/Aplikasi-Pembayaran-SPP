@@ -15,7 +15,6 @@ import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.auth0.android.jwt.JWT;
@@ -97,15 +96,16 @@ public class Login extends Fragment implements UIListener {
                     toaster("Selamat datang " + sessionManager.getUserDetail().get(SessionManager.USERNAME));
                     navigate(loginType);
                     // On failure code
-                } else if (response.code() <= 500) {
-                    AuthData message = new Gson().fromJson(response.errorBody().charStream(), AuthData.class);
-                    toaster("Login gagal!, " + message.getMessage());
-                    // On failure any code
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        AuthData message = new Gson().fromJson(response.errorBody().charStream(), AuthData.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
             }

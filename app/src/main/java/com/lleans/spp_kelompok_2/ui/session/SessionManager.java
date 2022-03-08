@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 public class SessionManager {
 
-    private Context context;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -20,7 +19,6 @@ public class SessionManager {
 
     // Public constructor
     public SessionManager(Context context) {
-        this.context = context;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         editor = sharedPreferences.edit();
     }

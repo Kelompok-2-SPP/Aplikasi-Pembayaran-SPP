@@ -8,12 +8,14 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="40dp"
+            android:background="?background">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/frameLayout"
@@ -45,10 +47,6 @@
                             style="@style/SPPKelompok2.Text.Bold.Header2"
                             android:layout_width="250dp"
                             android:layout_height="wrap_content"
-                            android:autoSizeMaxTextSize="32sp"
-                            android:autoSizeMinTextSize="16sp"
-                            android:autoSizeStepGranularity="2sp"
-                            android:autoSizeTextType="uniform"
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
@@ -83,6 +81,20 @@
                             app:layout_constraintStart_toStartOf="@+id/spp"
                             app:layout_constraintTop_toBottomOf="@+id/spp" />
 
+                        <ImageButton
+                            android:id="@+id/edit"
+                            android:layout_width="24dp"
+                            android:layout_height="27dp"
+                            android:background="?selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:contentDescription="@string/edit"
+                            android:focusable="true"
+                            android:src="@drawable/icon_edit"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toEndOf="@+id/tglBayar"
+                            tools:ignore="TouchTargetSizeCheck" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -278,6 +290,7 @@
     </ScrollView>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cetak"
         style="@style/SPPKelompok2.Card.Large.Filled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

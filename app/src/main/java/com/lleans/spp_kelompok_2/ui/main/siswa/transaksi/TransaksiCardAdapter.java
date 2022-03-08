@@ -1,7 +1,6 @@
 package com.lleans.spp_kelompok_2.ui.main.siswa.transaksi;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,7 @@ import java.util.List;
 public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdapter.TransaksiCardViewHolder> {
 
     private int color, count;
-    private boolean fromHomepage;
+    private final boolean fromHomepage;
 
     private final List<DetailsItemPembayaran> listdata;
     private final NavController navController;

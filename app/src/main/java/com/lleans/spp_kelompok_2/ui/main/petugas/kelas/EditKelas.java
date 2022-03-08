@@ -65,14 +65,16 @@ public class EditKelas extends Fragment implements UIListener {
                     toaster(response.body().getMessage());
                     shared.updateData(response.body().getDetails());
                     nav.popBackStack(R.id.kelas_petugas, false);
-                } else if (response.code() <= 500) {
-                    KelasData message = new Gson().fromJson(response.errorBody().charStream(), KelasData.class);
-                    toaster(message.getMessage());
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        KelasData message = new Gson().fromJson(response.errorBody().charStream(), KelasData.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
             }
@@ -105,14 +107,16 @@ public class EditKelas extends Fragment implements UIListener {
                     toaster(response.body().getMessage());
                     shared.updateData(response.body().getDetails());
                     nav.navigateUp();
-                } else if (response.code() <= 500) {
-                    KelasData message = new Gson().fromJson(response.errorBody().charStream(), KelasData.class);
-                    toaster(message.getMessage());
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        KelasData message = new Gson().fromJson(response.errorBody().charStream(), KelasData.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
             }
@@ -133,7 +137,7 @@ public class EditKelas extends Fragment implements UIListener {
 
         binding.simpan.setOnClickListener(view1 -> {
             String namaKelas, jurusan;
-            Integer angkatan;
+            int angkatan;
 
             namaKelas = binding.namaKelas.getText().toString();
             jurusan = binding.jurusan.getText().toString();
@@ -147,7 +151,7 @@ public class EditKelas extends Fragment implements UIListener {
         });
 
         binding.hapus.setOnClickListener(view2 -> {
-           deleteKelas();
+            deleteKelas();
         });
     }
 

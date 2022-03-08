@@ -24,7 +24,6 @@ import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas3DetailPetugasBinding;
 import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
-import com.lleans.spp_kelompok_2.domain.model.petugas.DetailsItemPetugas;
 import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasSharedModel;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
@@ -74,14 +73,16 @@ public class DetailPetugas extends Fragment implements UIListener {
                     cardAdapter.setItemCount(3);
                     binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     binding.recyclerView.setAdapter(cardAdapter);
-                } else if (response.code() <= 500){
-                    PembayaranDataList message = new Gson().fromJson(response.errorBody().charStream(), PembayaranDataList.class);
-                    toaster(message.getMessage());
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        PembayaranDataList message = new Gson().fromJson(response.errorBody().charStream(), PembayaranDataList.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
             }
@@ -103,9 +104,7 @@ public class DetailPetugas extends Fragment implements UIListener {
         Bundle bundle = new Bundle();
         bundle.putBoolean("fromHomepage", false);
 
-        binding.refresher.setOnRefreshListener(() -> {
-            getAktivitas();
-        });
+        binding.refresher.setOnRefreshListener(this::getAktivitas);
 
         binding.aktivitas.setOnClickListener(v -> navController.navigate(R.id.action_detailPetugas_petuga_to_aktivitas_petugas, bundle));
         binding.edit.setOnClickListener(v -> navController.navigate(R.id.action_detailPetugas_petuga_to_editPetugas));

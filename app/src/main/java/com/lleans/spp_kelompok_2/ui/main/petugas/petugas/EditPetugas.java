@@ -64,14 +64,16 @@ public class EditPetugas extends Fragment implements UIListener {
                     toaster(response.body().getMessage());
                     sharedModel.updateData(response.body().getDetails());
                     nav.popBackStack(R.id.petugas_petugas, false);
-                } else if (response.code() <= 500) {
-                    PetugasData message = new Gson().fromJson(response.errorBody().charStream(), PetugasData.class);
-                    toaster(message.getMessage());
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        PetugasData message = new Gson().fromJson(response.errorBody().charStream(), PetugasData.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
             }
@@ -104,14 +106,16 @@ public class EditPetugas extends Fragment implements UIListener {
                     toaster(response.body().getMessage());
                     sharedModel.updateData(response.body().getDetails());
                     nav.navigateUp();
-                } else if (response.code() <= 500) {
-                    PetugasData message = new Gson().fromJson(response.errorBody().charStream(), PetugasData.class);
-                    toaster(message.getMessage());
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        PetugasData message = new Gson().fromJson(response.errorBody().charStream(), PetugasData.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
             }
