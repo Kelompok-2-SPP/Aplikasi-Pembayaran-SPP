@@ -60,19 +60,10 @@ public class TambahTransaksi extends Fragment implements UIListener {
         // Required empty public constructor
     }
 
-    private void sppSpinner(String nisn) {
+    private void latestSpp(String nisn) {
         isLoading(true);
-        Call<SppDataList> sppDataListCall;
         Call<SppData> spplatestCall;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        sppDataListCall = apiInterface.getSpp(
-                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
         spplatestCall = apiInterface.getLatestSpp(
                 "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                 nisn,
@@ -81,7 +72,7 @@ public class TambahTransaksi extends Fragment implements UIListener {
             @Override
             public void onResponse(Call<SppData> call, Response<SppData> response) {
                 if (response.body() != null && response.isSuccessful()) {
-                    idSpp = response.body().getDetails().getIdSpp();
+                    sppSpinner(response.body().getDetails().getIdSpp());
                 } else {
                     try {
                         SppDataList message = new Gson().fromJson(response.errorBody().charStream(), SppDataList.class);
@@ -101,6 +92,20 @@ public class TambahTransaksi extends Fragment implements UIListener {
 
             }
         });
+    }
+
+    private void sppSpinner(int idSpp) {
+        isLoading(true);
+        Call<SppDataList> sppDataListCall;
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        sppDataListCall = apiInterface.getSpp(
+                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
         sppDataListCall.enqueue(new Callback<SppDataList>() {
             @Override
             public void onResponse(Call<SppDataList> call, Response<SppDataList> response) {
@@ -121,10 +126,9 @@ public class TambahTransaksi extends Fragment implements UIListener {
 
                     SpinnerAdapter adapter = new SpinnerAdapter(getContext(), sppList, true);
                     binding.spp.setAdapter(adapter);
-                    sppData = response.body().getDetails().get(located);
-                    binding.jumlahBayar.addTextChangedListener(new MoneyTextWatcher(binding.jumlahBayar, sppData.getNominal()));
-                    binding.jumlahBayar.setText("0");
                     binding.spp.setSelection(located);
+                    binding.jumlahBayar.addTextChangedListener(new MoneyTextWatcher(binding.jumlahBayar, response.body().getDetails().get(located).getNominal()));
+                    binding.jumlahBayar.setText(String.valueOf(response.body().getDetails().get(located).getNominal()));
                 } else {
                     try {
                         SppDataList message = new Gson().fromJson(response.errorBody().charStream(), SppDataList.class);
@@ -251,7 +255,7 @@ public class TambahTransaksi extends Fragment implements UIListener {
 
         sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSiswa -> {
             this.nisn = detailsItemSiswa.getNisn();
-            sppSpinner(this.nisn);
+            latestSpp(nisn);
         });
 
         binding.tglBayar.setText(Utils.formatDateStringToLocal(Utils.parseDateLongToString(this.tglPembayaran)));
