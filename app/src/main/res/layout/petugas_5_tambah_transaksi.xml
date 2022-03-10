@@ -85,7 +85,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:maxLength="11"
-                    android:popupBackground="@drawable/background_edit_unfocused"
+                    android:popupBackground="@drawable/background_edit_focused"
                     android:textColor="?colorPrimary" />
 
             </LinearLayout>

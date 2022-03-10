@@ -42,6 +42,7 @@ public class StatusSiswa extends Fragment implements UIListener {
     private NavController nav;
 
     private String nisn;
+    private int sizeTransaksi;
 
     public StatusSiswa() {
         // Required empty public constructor
@@ -72,6 +73,7 @@ public class StatusSiswa extends Fragment implements UIListener {
             public void onResponse(Call<PembayaranDataList> call, Response<PembayaranDataList> response) {
                 isLoading(false);
                 if (response.body() != null && response.isSuccessful()) {
+                    sizeTransaksi = response.body().getDetails().size();
                     StatusSiswaCardAdapter cardAdapter = new StatusSiswaCardAdapter(response.body().getDetails(), nav);
                     binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     binding.recyclerView.setAdapter(cardAdapter);
@@ -86,6 +88,9 @@ public class StatusSiswa extends Fragment implements UIListener {
                             ioException.printStackTrace();
                         }
                     }
+                }
+                if (sizeTransaksi == 0) {
+                    binding.add.setVisibility(View.VISIBLE);
                 }
             }
 

@@ -222,15 +222,6 @@ public class EditTransaksi extends Fragment implements UIListener {
         });
     }
 
-    private void monthPicker() {
-        MaterialDatePicker<Long> mat = MaterialDatePicker.Builder.datePicker().setTitleText("Pilih Tahun Bulan SPP").setSelection(this.sppDate).build();
-        mat.show(getChildFragmentManager(), "TAG");
-        mat.addOnPositiveButtonClickListener(selection -> {
-            this.sppDate = selection;
-            binding.sppTahunBulan.setText(Utils.formatYearMonthStringToLocal(Utils.parseDateLongToServerString(this.sppDate, "MM-yyyy")));
-        });
-    }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -238,10 +229,6 @@ public class EditTransaksi extends Fragment implements UIListener {
 
         binding.tglBayar.setOnClickListener(v -> {
             datePicker();
-        });
-
-        binding.sppTahunBulan.setOnClickListener(v -> {
-            monthPicker();
         });
 
         binding.simpan.setOnClickListener(v -> {
