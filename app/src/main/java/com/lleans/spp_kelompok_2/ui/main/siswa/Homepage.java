@@ -60,7 +60,6 @@ public class Homepage extends Fragment implements UIListener {
         tunggakanDataCall.enqueue(new Callback<TunggakanData>() {
             @Override
             public void onResponse(Call<TunggakanData> call, Response<TunggakanData> response) {
-                isLoading(false);
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getDetails().getJumlahTunggakan() == 0) {
                         binding.cardTunggakan.setBackgroundTintList(ColorStateList.valueOf(green));
