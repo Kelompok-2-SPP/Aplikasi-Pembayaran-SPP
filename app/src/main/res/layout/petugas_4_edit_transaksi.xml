@@ -5,7 +5,7 @@
     android:id="@+id/refresher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.petugas.siswa.EditStatus">
+    tools:context=".ui.main.petugas.siswa.EditTransaksi">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -45,18 +45,17 @@
                     android:layout_height="wrap_content"
                     android:text="Tgl. Bayar" />
 
-                <EditText
+                <TextView
                     android:id="@+id/tglBayar"
                     style="@style/SPPKelompok2.Text.Medium.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_edit_focused"
-                    android:focusable="false"
+                    android:background="@drawable/selector_spinner_focused"
+                    android:focusable="true"
+                    android:clickable="true"
                     android:hint="Tgl. Bayar"
-                    android:inputType="date"
-                    android:maxLength="11"
-                    android:textColor="?colorPrimary"
-                    app:drawableEndCompat="@drawable/icon_arrow_down_focused" />
+                    android:inputType="none"
+                    android:textColor="?colorPrimary" />
 
             </LinearLayout>
 
@@ -76,18 +75,17 @@
                     android:layout_height="wrap_content"
                     android:text="SPP" />
 
-                <TextView
+                <Spinner
                     android:id="@+id/spp"
                     style="@style/SPPKelompok2.Text.Medium.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_edit_focused"
+                    android:background="@drawable/selector_spinner_focused"
                     android:clickable="true"
                     android:focusable="true"
-                    android:hint="SPP"
                     android:maxLength="11"
-                    android:textColor="?colorPrimary"
-                    app:drawableEndCompat="@drawable/icon_arrow_down_focused" />
+                    android:popupBackground="@drawable/background_edit_focused"
+                    android:textColor="?colorPrimary" />
 
             </LinearLayout>
 
@@ -105,20 +103,19 @@
                     style="@style/SPPKelompok2.Text.Semibold.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SPP Bulan-Tahun" />
+                    android:text="SPP Tahun-Bulan" />
 
                 <TextView
-                    android:id="@+id/sppBulanTahun"
+                    android:id="@+id/sppTahunBulan"
                     style="@style/SPPKelompok2.Text.Medium.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_edit_focused"
+                    android:background="@drawable/selector_spinner_focused"
                     android:clickable="true"
                     android:focusable="true"
-                    android:hint="SPP Bulan-Tahun"
-                    android:maxLength="11"
-                    android:textColor="?colorPrimary"
-                    app:drawableEndCompat="@drawable/icon_arrow_down_focused" />
+                    android:hint="SPP Tahun-Bulan"
+                    android:inputType="none"
+                    android:textColor="?colorPrimary" />
 
             </LinearLayout>
 
@@ -162,12 +159,24 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:text="SIMPAN"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/hapus"
+                app:layout_constraintEnd_toEndOf="@+id/hapus"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/hapus"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
                 app:layout_constraintVertical_bias="0.9" />
+
+            <Button
+                android:id="@+id/hapus"
+                style="@style/SPPKelompok2.Button.Medium.Outline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="HAPUS"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

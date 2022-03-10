@@ -27,6 +27,7 @@ import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
+import com.lleans.spp_kelompok_2.ui.utils.UtilsUI;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -141,7 +142,7 @@ public class Siswa extends Fragment implements UIListener {
             this.idKelas = detailsItemKelas.getIdKelas();
             binding.namaKelas.setText(detailsItemKelas.getNamaKelas());
             binding.jurusan.setText(detailsItemKelas.getJurusan());
-            Utils.nicknameBuilder(getContext(), detailsItemKelas.getNamaKelas(), binding.nick, binding.nickFrame);
+            UtilsUI.nicknameBuilder(getContext(), detailsItemKelas.getNamaKelas(), binding.nick, binding.nickFrame);
             binding.angkatan.setText(String.valueOf(detailsItemKelas.getAngkatan()));
             getSiswa(null);
         });

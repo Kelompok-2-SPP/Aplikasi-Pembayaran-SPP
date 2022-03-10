@@ -18,9 +18,8 @@ import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.Siswa3RincianTransaksiBinding;
 import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranSharedModel;
-import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
-import com.lleans.spp_kelompok_2.ui.utils.CustomRequestPermission;
+import com.lleans.spp_kelompok_2.ui.utils.UtilsUI;
 
 import java.io.IOException;
 
@@ -53,11 +52,9 @@ public class RincianTransaksi extends Fragment {
             nav.navigate(R.id.action_rincianTransaksi_siswa_to_editStatus);
         });
         binding.cetak.setOnClickListener(v -> {
-            CustomRequestPermission as = new CustomRequestPermission(getActivity());
-            as.checkPermission();
             try {
                 binding.edit.setVisibility(View.GONE);
-                Utils.exportToPNG(getContext(), binding.layout, namaSiswa + "_" + binding.tglBayar.getText().toString() + "_" + idPembayaran);
+                UtilsUI.exportToPNG(getActivity(), binding.layout, namaSiswa + "_" + binding.tglBayar.getText().toString() + "_" + idPembayaran);
                 UILimiter();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -87,15 +84,20 @@ public class RincianTransaksi extends Fragment {
                 binding.jumlah.setText(Utils.formatRupiah(detailsItemPembayaran.getJumlahBayar()));
             }
             binding.spp.setText(detailsItemPembayaran.getTahunSpp() + " • " + Utils.getMonth(detailsItemPembayaran.getBulanSpp()));
-            binding.tglBayar.setText(Utils.formatDateStringToLocal(detailsItemPembayaran.getTglBayar()));
+            if (detailsItemPembayaran.getTglBayar() == null) {
+                binding.tglBayar.setVisibility(View.GONE);
+            } else {
+                binding.tglBayar.setText(Utils.formatDateStringToLocal(detailsItemPembayaran.getTglBayar()));
+            }
             binding.idSpp.setText(String.valueOf(detailsItemPembayaran.getSpp().getIdSpp()));
             binding.angkatan.setText(String.valueOf(detailsItemPembayaran.getSpp().getAngkatan()));
             binding.tahun.setText(String.valueOf(detailsItemPembayaran.getTahunSpp()));
             binding.nominal.setText(Utils.formatRupiah(detailsItemPembayaran.getSpp().getNominal()));
-            if (detailsItemPembayaran.getPetugas() == null)
+            if (detailsItemPembayaran.getPetugas() == null) {
                 binding.cardPetugas.setVisibility(View.GONE);
-            else
+            } else {
                 binding.petugas.setText(detailsItemPembayaran.getPetugas().getNamaPetugas());
+            }
         });
 
         return binding.getRoot();

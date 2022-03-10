@@ -168,15 +168,16 @@
                     android:layout_height="wrap_content"
                     android:text="Kelas" />
 
-                <TextView
+                <Spinner
                     android:id="@+id/kelas"
                     style="@style/SPPKelompok2.Text.Semibold.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_edit_focused"
+                    android:background="@drawable/selector_spinner_focused"
                     android:clickable="true"
+                    android:popupBackground="@drawable/background_edit_focused"
                     android:focusable="true"
-                    app:drawableEndCompat="@drawable/icon_arrow_down_focused" />
+                    android:hint="Kelas" />
 
             </LinearLayout>
 

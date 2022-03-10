@@ -17,13 +17,13 @@
 
         <item name="android:fontFamily">@font/poopins</item>
         <item name="android:textColor">@color/text_black80</item>
-        <item name="android:textColorPrimary">@color/neutral_white</item>
+        <item name="android:textColorPrimary">@color/red</item>
         <item name="android:textColorPrimaryInverse">@color/neutral_white</item>
         <item name="android:colorBackground">?background</item>
-        <item name="android:textColorSecondary">@color/neutral_white</item>
+        <item name="android:textColorSecondary">@color/text_black40</item>
         <item name="android:textColorHint">@color/text_black40</item>
         <item name="android:textColorHighlight">@color/neutral_lightGrey</item>
-        <item name="android:outlineAmbientShadowColor">@color/shadow_ambient</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
     </style>
 
     <style name="SPPKelompok2.SplashScreen" parent="SPPKelompok2">
@@ -31,6 +31,10 @@
         <item name="android:statusBarColor">?colorPrimary</item>
         <item name="android:navigationBarColor">?colorPrimary</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="cornerSize">16dp</item>
     </style>
 
 </resources>

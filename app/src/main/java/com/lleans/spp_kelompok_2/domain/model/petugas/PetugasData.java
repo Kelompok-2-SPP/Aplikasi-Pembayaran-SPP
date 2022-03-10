@@ -2,8 +2,6 @@ package com.lleans.spp_kelompok_2.domain.model.petugas;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class PetugasData {
 
     @SerializedName("details")

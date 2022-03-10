@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <layer-list>
+            <item android:drawable="@drawable/background_edit_focused" />
+            <item android:gravity="center_vertical|end">
+                <rotate android:drawable="@drawable/icon_arrow_down_focused" android:fromDegrees="180" android:pivotX="50%" android:pivotY="50%" android:toDegrees="180" />
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <item android:drawable="@drawable/background_edit_focused" />
+            <item android:gravity="center_vertical|end">
+                <rotate android:drawable="@drawable/icon_arrow_down_focused" />
+            </item>
+        </layer-list>
+    </item>
+</selector>

@@ -18,6 +18,7 @@ import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.siswa.DetailsItemSiswa;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaSharedModel;
 import com.lleans.spp_kelompok_2.ui.launcher.LauncherFragment;
+import com.lleans.spp_kelompok_2.ui.utils.UtilsUI;
 
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class SiswaCardAdapter extends RecyclerView.Adapter<SiswaCardAdapter.Sisw
         DetailsItemSiswa data = listdata.get(position);
         holder.name.setText(data.getNama());
         holder.nisn.setText(data.getNisn());
-        Utils.nicknameBuilder(context, data.getNama(), holder.nick, holder.nickFrame);
+        UtilsUI.nicknameBuilder(context, data.getNama(), holder.nick, holder.nickFrame);
         holder.cardView.setOnClickListener(v -> {
             SiswaSharedModel sharedModel = new ViewModelProvider((LauncherFragment) context).get(SiswaSharedModel.class);
             sharedModel.updateData(data);

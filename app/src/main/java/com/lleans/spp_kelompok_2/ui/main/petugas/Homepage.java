@@ -29,6 +29,7 @@ import com.lleans.spp_kelompok_2.ui.auth.Logout;
 import com.lleans.spp_kelompok_2.ui.main.petugas.aktivitas.AktivitasCardAdapter;
 import com.lleans.spp_kelompok_2.ui.main.petugas.spp.SppCardAdapter;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
+import com.lleans.spp_kelompok_2.ui.utils.UtilsUI;
 
 import java.io.IOException;
 
@@ -152,7 +153,7 @@ public class Homepage extends Fragment implements UIListener {
         super.onViewCreated(view, savedInstanceState);
         // Define navigation, Login killer fallback
         nav = Navigation.findNavController(view);
-        Utils.activityKiller(nav, getActivity());
+        UtilsUI.activityKiller(nav, getActivity());
         Bundle bundle = new Bundle();
         bundle.putBoolean("fromHomepage", true);
 

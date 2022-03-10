@@ -14,10 +14,10 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lleans.spp_kelompok_2.R;
-import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.kelas.DetailsItemKelas;
 import com.lleans.spp_kelompok_2.domain.model.kelas.KelasSharedModel;
 import com.lleans.spp_kelompok_2.ui.launcher.LauncherFragment;
+import com.lleans.spp_kelompok_2.ui.utils.UtilsUI;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class KelasCardAdapter extends RecyclerView.Adapter<KelasCardAdapter.Kela
         DetailsItemKelas data = listdata.get(position);
         holder.nama_kelas.setText(data.getNamaKelas());
         holder.jumlah_kelas.setText("Angkatan " + data.getAngkatan());
-        Utils.nicknameBuilder(context, data.getNamaKelas(), holder.nick, holder.nickFrame);
+        UtilsUI.nicknameBuilder(context, data.getNamaKelas(), holder.nick, holder.nickFrame);
         holder.cardView.setOnClickListener(v -> {
             KelasSharedModel sharedModel = new  ViewModelProvider((LauncherFragment) context).get(KelasSharedModel.class);
             sharedModel.updateData(data);

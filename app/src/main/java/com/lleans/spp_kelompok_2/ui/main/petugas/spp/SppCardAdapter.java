@@ -27,7 +27,7 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
     private Context context;
 
     private final boolean fromHomepage;
-    private int count;
+    private int count, orange;
 
     public SppCardAdapter(List<DetailsItemSpp> list, NavController navController, boolean fromHomepage) {
         this.listdata = list;
@@ -40,6 +40,7 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
     public SppCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_spp, parent, false);
         context = view.getContext();
+        orange = view.getResources().getColor(R.color.orange);
         return new SppCardViewHolder(view);
     }
 
@@ -50,6 +51,10 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
         holder.tahun.setText("Tahun " + data.getTahun());
 
         holder.nominal.setText(Utils.formatRupiah(data.getNominal()));
+        if(data.getNominal() <= 400000){
+            holder.cardView.setCardBackgroundColor(orange);
+            holder.nominal.setTextColor(orange);
+        }
         holder.cardView.setOnClickListener(v -> {
             SppSharedModel sharedModel = new ViewModelProvider((LauncherFragment) context).get(SppSharedModel.class);
             sharedModel.updateData(data);

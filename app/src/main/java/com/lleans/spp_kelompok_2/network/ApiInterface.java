@@ -11,7 +11,7 @@ import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaDataList;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppDataList;
-import com.lleans.spp_kelompok_2.domain.model.tunggakan.TunggakanData;;
+import com.lleans.spp_kelompok_2.domain.model.tunggakan.TunggakanData;
 
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -121,8 +121,8 @@ public interface ApiInterface {
             @Field("id_petugas") Integer id_petugas,
             @Field("nisn") String nisn,
             @Field("tgl_bayar") String tgl_bayar,
-            @Query("bulan_spp") Integer bulan_spp,
-            @Query("tahun_spp") Integer tahun_spp,
+            @Field("bulan_spp") Integer bulan_spp,
+            @Field("tahun_spp") Integer tahun_spp,
             @Field("id_spp") Integer id_spp,
             @Field("jumlah_bayar") Long jumlah_bayar
     );
@@ -135,8 +135,8 @@ public interface ApiInterface {
             @Field("id_petugas") Integer id_petugas,
             @Field("nisn") String nisn,
             @Field("tgl_bayar") String tgl_bayar,
-            @Query("bulan_spp") Integer bulan_spp,
-            @Query("tahun_spp") Integer tahun_spp,
+            @Field("bulan_spp") Integer bulan_spp,
+            @Field("tahun_spp") Integer tahun_spp,
             @Field("id_spp") Integer id_spp,
             @Field("jumlah_bayar") Long jumlah_bayar
     );
@@ -144,7 +144,7 @@ public interface ApiInterface {
     @DELETE("pembayaran")
     Call<PembayaranData> deletePembayaram(
             @Header("Authorization") String token,
-            @Query("id_pembayaran") Integer id_kelas
+            @Query("id_pembayaran") Integer id_pembayaran
     );
 
 

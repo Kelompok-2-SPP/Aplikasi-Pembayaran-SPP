@@ -293,12 +293,18 @@
         tools:layout="@layout/petugas_4_edit_spp" />
     <fragment
         android:id="@+id/tambahStatus"
-        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.siswa.TambahStatus"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.siswa.TambahTransaksi"
         android:label="Tambah Transaksi"
         tools:layout="@layout/petugas_5_tambah_transaksi" />
     <fragment
         android:id="@+id/editStatus"
-        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.siswa.EditStatus"
+        android:name="com.lleans.spp_kelompok_2.ui.main.petugas.siswa.EditTransaksi"
         android:label="Edit Transaksi"
-        tools:layout="@layout/petugas_4_edit_transaksi" />
+        tools:layout="@layout/petugas_4_edit_transaksi" >
+        <action
+            android:id="@+id/action_editStatus_to_statussiswa_petugas"
+            app:destination="@id/statussiswa_petugas"
+            app:enterAnim="@anim/homepagenav_enter"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"/>
+    </fragment>
 </navigation>

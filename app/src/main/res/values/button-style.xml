@@ -92,7 +92,7 @@
         <item name="android:fontFamily">@font/poopins_semibold</item>
         <item name="android:textColor">?android:colorPrimary</item>
         <item name="android:textSize">14sp</item>
-        <item name="background">@color/neutral_white</item>
+        <item name="backgroundTint">?colorSurface</item>
 
         <!--Padding-->
         <item name="android:paddingTop">15dp</item>
@@ -147,7 +147,7 @@
         <item name="android:fontFamily">@font/poopins_regular</item>
         <item name="android:textColor">?android:colorPrimary</item>
         <item name="android:textSize">12sp</item>
-        <item name="background">@color/neutral_white</item>
+        <item name="backgroundTint">?colorSurface</item>
 
         <!--Padding-->
         <item name="android:paddingTop">15dp</item>

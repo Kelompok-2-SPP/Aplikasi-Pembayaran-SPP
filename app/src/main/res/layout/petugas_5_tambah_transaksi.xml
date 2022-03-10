@@ -5,7 +5,7 @@
     android:id="@+id/refresher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.petugas.siswa.TambahStatus">
+    tools:context=".ui.main.petugas.siswa.TambahTransaksi">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:text="Tgl. Bayar" />
 
-                <EditText
+                <TextView
                     android:id="@+id/tglBayar"
                     style="@style/SPPKelompok2.Text.Medium.Body2"
                     android:layout_width="match_parent"
@@ -54,8 +54,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:hint="Tgl. Bayar"
-                    android:maxLength="11"
-                    android:inputType="date"
+                    android:inputType="none"
                     android:textColor="?colorPrimary"
                     app:drawableEndCompat="@drawable/icon_arrow_down" />
 
@@ -77,18 +76,17 @@
                     android:layout_height="wrap_content"
                     android:text="SPP" />
 
-                <TextView
+                <Spinner
                     android:id="@+id/spp"
                     style="@style/SPPKelompok2.Text.Medium.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_edit_text"
+                    android:background="@drawable/selector_spinner"
                     android:clickable="true"
                     android:focusable="true"
-                    android:hint="SPP"
                     android:maxLength="11"
-                    android:textColor="?colorPrimary"
-                    app:drawableEndCompat="@drawable/icon_arrow_down" />
+                    android:popupBackground="@drawable/background_edit_unfocused"
+                    android:textColor="?colorPrimary" />
 
             </LinearLayout>
 
@@ -106,18 +104,18 @@
                     style="@style/SPPKelompok2.Text.Semibold.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SPP Bulan-Tahun" />
+                    android:text="SPP Tahun-Bulan" />
 
                 <TextView
                     android:id="@+id/sppBulanTahun"
                     style="@style/SPPKelompok2.Text.Medium.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_edit_text"
+                    android:background="@drawable/background_edit_unfocused"
                     android:clickable="true"
                     android:focusable="true"
-                    android:hint="SPP Bulan-Tahun"
-                    android:maxLength="11"
+                    android:hint="SPP Tahun-Bulan"
+                    android:inputType="none"
                     android:textColor="?colorPrimary"
                     app:drawableEndCompat="@drawable/icon_arrow_down" />
 

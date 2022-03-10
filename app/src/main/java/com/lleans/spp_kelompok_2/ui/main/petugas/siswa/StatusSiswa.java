@@ -27,6 +27,7 @@ import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaSharedModel;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
+import com.lleans.spp_kelompok_2.ui.utils.UtilsUI;
 
 import java.io.IOException;
 
@@ -120,7 +121,7 @@ public class StatusSiswa extends Fragment implements UIListener {
         }
         sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSiswa -> {
             this.nisn = detailsItemSiswa.getNisn();
-            Utils.nicknameBuilder(getContext(), detailsItemSiswa.getNama(), binding.nick, binding.nickFrame);
+            UtilsUI.nicknameBuilder(getContext(), detailsItemSiswa.getNama(), binding.nick, binding.nickFrame);
             binding.nama.setText(detailsItemSiswa.getNama());
             binding.nisn.setText(String.valueOf(detailsItemSiswa.getNisn()));
             binding.nis.setText(detailsItemSiswa.getNis());

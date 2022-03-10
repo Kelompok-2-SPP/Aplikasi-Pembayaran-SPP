@@ -30,6 +30,7 @@ import com.lleans.spp_kelompok_2.ui.MainActivity;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -98,7 +99,7 @@ public class Login extends Fragment implements UIListener {
                     toaster("Selamat datang " + sessionManager.getUserDetail().get(SessionManager.USERNAME));
                     navigate(loginType);
                     // On failure code
-                } else {
+                } else if (response.errorBody() != null) {
                     try {
                         AuthData message = new Gson().fromJson(response.errorBody().charStream(), AuthData.class);
                         toaster(message.getMessage());
@@ -126,11 +127,10 @@ public class Login extends Fragment implements UIListener {
         super.onViewCreated(view, savedInstanceState);
         // Define navController, Session, and Color
         navController = Navigation.findNavController(view);
-        sessionManager = new SessionManager(getContext());
 
         // Check if session is logged in
         if (sessionManager.isLoggedIn()) {
-            navigate(sessionManager.getUserDetail().get(SessionManager.TYPE));
+            navigate(Objects.requireNonNull(sessionManager.getUserDetail().get(SessionManager.TYPE)));
         }
 
         // Button listener
@@ -152,8 +152,9 @@ public class Login extends Fragment implements UIListener {
                              Bundle savedInstanceState) {
         // Inflate layout, define binding, get Intent from MainActivity
         binding = LoginBinding.inflate(inflater, container, false);
+        sessionManager = new SessionManager(getContext());
         isLoading(false);
-        loginType = getActivity().getIntent().getStringExtra("type");
+        loginType = requireActivity().getIntent().getStringExtra("type");
 
         // Check login type
         if (loginType.equals("siswa")) {

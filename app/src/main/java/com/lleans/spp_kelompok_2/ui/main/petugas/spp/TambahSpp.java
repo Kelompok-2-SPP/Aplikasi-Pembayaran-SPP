@@ -97,7 +97,6 @@ public class TambahSpp extends Fragment implements UIListener {
                 tambahSpp(angkatan, tahun, nominal);
             }
         });
-        binding.nominal.addTextChangedListener(new MoneyTextWatcher(binding.nominal, Long.valueOf("99999999999")));
     }
 
     @Override
@@ -105,6 +104,8 @@ public class TambahSpp extends Fragment implements UIListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = Petugas5TambahSppBinding.inflate(inflater, container, false);
+        binding.nominal.addTextChangedListener(new MoneyTextWatcher(binding.nominal, Long.valueOf("99999999999")));
+        binding.nominal.setText("0");
         isLoading(false);
         sessionManager = new SessionManager(getContext());
         return binding.getRoot();

@@ -29,6 +29,7 @@ import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.main.petugas.aktivitas.AktivitasCardAdapter;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
+import com.lleans.spp_kelompok_2.ui.utils.UtilsUI;
 
 import java.io.IOException;
 
@@ -120,7 +121,7 @@ public class DetailPetugas extends Fragment implements UIListener {
 
         sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemPetugas -> {
             this.idPetugas = detailsItemPetugas.getIdPetugas();
-            Utils.nicknameBuilder(getContext(), detailsItemPetugas.getNamaPetugas(), binding.nick, binding.nickFrame);
+            UtilsUI.nicknameBuilder(getContext(), detailsItemPetugas.getNamaPetugas(), binding.nick, binding.nickFrame);
             binding.nama.setText(detailsItemPetugas.getNamaPetugas());
             binding.username.setText(detailsItemPetugas.getUsername());
             binding.level.setText(detailsItemPetugas.getLevel().equals("petugas") ? "Petugas" : "Admin");

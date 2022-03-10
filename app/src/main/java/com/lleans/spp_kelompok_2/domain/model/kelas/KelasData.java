@@ -2,8 +2,6 @@ package com.lleans.spp_kelompok_2.domain.model.kelas;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class KelasData {
 
     @SerializedName("details")

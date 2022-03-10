@@ -21,13 +21,18 @@ import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas4EditSiswaBinding;
+import com.lleans.spp_kelompok_2.domain.model.kelas.KelasDataList;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaSharedModel;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
+import com.lleans.spp_kelompok_2.ui.utils.spinner.SpinnerAdapter;
+import com.lleans.spp_kelompok_2.ui.utils.spinner.SpinnerInterface;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,9 +46,66 @@ public class EditSiswa extends Fragment implements UIListener {
     private NavController nav;
 
     private String nisn;
+    private List<SpinnerInterface> kelasList;
 
     public EditSiswa() {
         // Required empty public constructor
+    }
+
+    private void kelasSpinner(int idKelas) {
+        isLoading(true);
+        Call<KelasDataList> kelasDataCall;
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        kelasDataCall = apiInterface.getKelas(
+                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+        kelasDataCall.enqueue(new Callback<KelasDataList>() {
+            @Override
+            public void onResponse(Call<KelasDataList> call, Response<KelasDataList> response) {
+                isLoading(false);
+                if (response.body() != null && response.isSuccessful()) {
+                    kelasList = new ArrayList<>();
+                    int located = 0;
+
+                    for (int x = 0; x < response.body().getDetails().size(); x++) {
+                        SpinnerInterface a = new SpinnerInterface();
+                        a.setName("Kelas " + response.body().getDetails().get(x).getNamaKelas() + "-Jurusan " + response.body().getDetails().get(x).getJurusan() + "-Angkatan " + response.body().getDetails().get(x).getAngkatan());
+                        a.setValue(response.body().getDetails().get(x).getIdKelas());
+                        if (response.body().getDetails().get(x).getIdKelas() == idKelas) {
+                            located = x;
+                        }
+                        kelasList.add(a);
+                    }
+
+                    SpinnerAdapter adapter = new SpinnerAdapter(getContext(), kelasList, true);
+                    binding.kelas.setAdapter(adapter);
+                    binding.kelas.setSelection(located);
+                } else {
+                    try {
+                        KelasDataList message = new Gson().fromJson(response.errorBody().charStream(), KelasDataList.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+            // On failure response
+            @Override
+            public void onFailure(@NonNull Call<KelasDataList> call, @NonNull Throwable t) {
+                isLoading(false);
+                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            }
+        });
     }
 
     // Delete siswa function
@@ -137,6 +199,7 @@ public class EditSiswa extends Fragment implements UIListener {
 
         binding.simpan.setOnClickListener(view1 -> {
             String newNisn, nis, password, nama, alamat, noTelp;
+            int idKelas;
 
             newNisn = binding.nisn.getText().toString();
             nis = binding.nis.getText().toString();
@@ -144,14 +207,14 @@ public class EditSiswa extends Fragment implements UIListener {
             nama = binding.nama.getText().toString();
             alamat = binding.alamat.getText().toString();
             noTelp = binding.noTelp.getText().toString();
-//            idKelas = Integer.parseInt(binding.angkatan.getText().toString());
-            if (newNisn.equals("") || nis.equals("") || nama.equals("") || alamat.equals("") || noTelp.equals("")) {
+            idKelas = kelasList.get(binding.kelas.getSelectedItemPosition()).getValue();
+            if (newNisn.equals("") || nis.equals("") || nama.equals("") || alamat.equals("") || noTelp.equals("") || idKelas == 0) {
                 toaster("Data harus diisi!");
             } else {
                 if (password.equals("")) {
-                    editSiswa(nisn, newNisn, nis, null, nama, null, alamat, noTelp);
+                    editSiswa(nisn, newNisn, nis, null, nama, idKelas, alamat, noTelp);
                 } else {
-                    editSiswa(nisn, newNisn, nis, password, nama, null, alamat, noTelp);
+                    editSiswa(nisn, newNisn, nis, password, nama, idKelas, alamat, noTelp);
                 }
             }
         });
@@ -170,6 +233,7 @@ public class EditSiswa extends Fragment implements UIListener {
         sharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
         sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSiswa -> {
             this.nisn = detailsItemSiswa.getNisn();
+            kelasSpinner(detailsItemSiswa.getIdKelas());
             binding.nisn.setText(detailsItemSiswa.getNisn());
             binding.nis.setText(detailsItemSiswa.getNis());
             binding.nama.setText(detailsItemSiswa.getNama());

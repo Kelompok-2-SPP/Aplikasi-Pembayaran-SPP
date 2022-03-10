@@ -20,6 +20,7 @@
             app:buttonGravity="center_vertical"
             app:navigationIcon="@drawable/icon_arrow_left"
             app:title="@string/app_name"
+            app:titleTextColor="?colorSurface"
             app:titleTextAppearance="@style/SPPKelompok2.Text.Bold.Header4" />
 
     </com.google.android.material.appbar.AppBarLayout>
