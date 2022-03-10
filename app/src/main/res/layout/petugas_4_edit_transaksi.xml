@@ -121,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_marginTop="3dp"
                     android:layout_height="wrap_content"
-                    android:text="*bulan tidak bisa diedit"
+                    android:text="*bulan tidak bisa diedit."
                     android:textColor="?colorPrimary"
                     style="@style/SPPKelompok2.Text.Regular.Body3"/>
 

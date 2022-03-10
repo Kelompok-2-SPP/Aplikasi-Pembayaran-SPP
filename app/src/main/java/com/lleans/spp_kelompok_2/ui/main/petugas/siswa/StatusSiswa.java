@@ -1,5 +1,6 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.siswa;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -24,6 +25,7 @@ import com.lleans.spp_kelompok_2.databinding.Petugas3StatusSiswaBinding;
 import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaSharedModel;
+import com.lleans.spp_kelompok_2.domain.model.tunggakan.TunggakanData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
@@ -50,6 +52,42 @@ public class StatusSiswa extends Fragment implements UIListener {
 
     private void UILimiter() {
         binding.edit.setVisibility(View.GONE);
+    }
+
+    private void getTunggakan() {
+        isLoading(true);
+        Call<TunggakanData> tunggakanDataCall;
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        tunggakanDataCall = apiInterface.getTunggakan(
+                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
+                nisn);
+        tunggakanDataCall.enqueue(new Callback<TunggakanData>() {
+            @Override
+            public void onResponse(Call<TunggakanData> call, Response<TunggakanData> response) {
+                isLoading(false);
+                if (response.body() != null && response.isSuccessful()) {
+                    getTransaksi();
+                } else {
+                    try {
+                        TunggakanData message = new Gson().fromJson(response.errorBody().charStream(), TunggakanData.class);
+                        toaster(message.getMessage());
+                    } catch (Exception e) {
+                        try {
+                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+            // On failure response
+            @Override
+            public void onFailure(@NonNull Call<TunggakanData> call, @NonNull Throwable t) {
+                isLoading(false);
+                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            }
+        });
     }
 
     private void getTransaksi() {
@@ -132,7 +170,7 @@ public class StatusSiswa extends Fragment implements UIListener {
             binding.nis.setText(detailsItemSiswa.getNis());
             binding.alamat.setText(detailsItemSiswa.getAlamat());
             binding.noTelp.setText(String.valueOf(detailsItemSiswa.getNoTelp()));
-            getTransaksi();
+            getTunggakan();
         });
 
         return binding.getRoot();
@@ -147,13 +185,13 @@ public class StatusSiswa extends Fragment implements UIListener {
     // Abstract class for Toast
     @Override
     public void toaster(String text) {
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     // Abstract class for Dialog
     @Override
     public void dialog(String title, Spanned message) {
-        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(getContext());
+        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(requireContext());
         as.setTitle(title).setMessage(message).setPositiveButton("Ok", null).show();
     }
 }

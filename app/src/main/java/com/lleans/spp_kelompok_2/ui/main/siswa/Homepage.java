@@ -65,6 +65,7 @@ public class Homepage extends Fragment implements UIListener {
                     if (response.body().getDetails().getJumlahTunggakan() == 0) {
                         binding.cardTunggakan.setBackgroundTintList(ColorStateList.valueOf(green));
                         binding.totalTunggakan.setText("LUNAS");
+                        getTransaksi();
                     } else if (response.body().getDetails().getJumlahTunggakan() > 1) {
                         binding.cardTunggakan.setBackgroundTintList(ColorStateList.valueOf(orange));
                         binding.totalTunggakan.setText(Utils.formatRupiah(response.body().getDetails().getTotalTunggakan()));
@@ -156,10 +157,7 @@ public class Homepage extends Fragment implements UIListener {
         binding.cardTunggakan.setOnClickListener(v -> nav.navigate(R.id.action_homepage2_to_transaksi));
         binding.transaksi.setOnClickListener(v -> nav.navigate(R.id.action_homepage2_to_transaksi));
         binding.logout.setOnClickListener(v -> new Logout(getContext(), getActivity()));
-        binding.refresher.setOnRefreshListener(() -> {
-            getTunggakan();
-            getTransaksi();
-        });
+        binding.refresher.setOnRefreshListener(this::getTransaksi);
     }
 
     @Override
@@ -170,7 +168,6 @@ public class Homepage extends Fragment implements UIListener {
         sessionManager = new SessionManager(getContext());
 
         getTunggakan();
-        getTransaksi();
 
         // Change layout before it show
         binding.header.setText("Hai, " + sessionManager.getUserDetail().get(SessionManager.USERNAME));
@@ -187,13 +184,13 @@ public class Homepage extends Fragment implements UIListener {
     // Abstract class for Toast
     @Override
     public void toaster(String text) {
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     // Abstract class for Dialog
     @Override
     public void dialog(String title, Spanned message) {
-        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(getContext());
+        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(requireContext());
         as.setTitle(title).setMessage(message).setPositiveButton("Ok", null).show();
     }
 }

@@ -143,7 +143,7 @@
                         style="@style/SPPKelompok2.Text.Semibold.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Detail Spp"
+                        android:text="Detail SPP"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -246,7 +246,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardPetugas"
+                android:id="@+id/cardSiswa"
                 style="@style/SPPKelompok2.Card.Large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -265,20 +265,65 @@
                         style="@style/SPPKelompok2.Text.Semibold.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dilayani oleh"
+                        android:text="Nama Siswa"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/siswa"
+                        style="@style/SPPKelompok2.Text.Regular.Body3"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="end"
+                        android:maxLines="1"
+                        android:text="Agung GUntur Widjaja"
+                        android:textColor="@color/dark_grey"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView24"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textView24" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardPetugas"
+                style="@style/SPPKelompok2.Card.Large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/cardSiswa"
+                app:layout_constraintStart_toStartOf="@+id/cardSiswa"
+                app:layout_constraintTop_toBottomOf="@+id/cardSiswa">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp">
+
+                    <TextView
+                        android:id="@+id/textView25"
+                        style="@style/SPPKelompok2.Text.Semibold.Body2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dilayani Oleh"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/petugas"
                         style="@style/SPPKelompok2.Text.Regular.Body3"
-                        android:layout_width="wrap_content"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="end"
+                        android:maxLines="1"
                         android:text="Wahyuningsih"
                         android:textColor="@color/dark_grey"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView24"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView25"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView24" />
+                        app:layout_constraintTop_toTopOf="@+id/textView25" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -152,13 +152,13 @@ public class Aktivitas extends Fragment implements UIListener {
     // Abstract class for Toast
     @Override
     public void toaster(String text) {
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     // Abstract class for Dialog
     @Override
     public void dialog(String title, Spanned message) {
-        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(getContext());
+        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(requireContext());
         as.setTitle(title).setMessage(message).setPositiveButton("Ok", null).show();
     }
 }

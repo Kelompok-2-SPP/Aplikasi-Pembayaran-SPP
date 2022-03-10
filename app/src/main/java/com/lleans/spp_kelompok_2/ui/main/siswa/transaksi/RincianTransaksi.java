@@ -89,6 +89,7 @@ public class RincianTransaksi extends Fragment {
             } else {
                 binding.tglBayar.setText(Utils.formatDateStringToLocal(detailsItemPembayaran.getTglBayar()));
             }
+            binding.siswa.setText(detailsItemPembayaran.getSiswa().getNama());
             binding.idSpp.setText(String.valueOf(detailsItemPembayaran.getSpp().getIdSpp()));
             binding.angkatan.setText(String.valueOf(detailsItemPembayaran.getSpp().getAngkatan()));
             binding.tahun.setText(String.valueOf(detailsItemPembayaran.getTahunSpp()));
