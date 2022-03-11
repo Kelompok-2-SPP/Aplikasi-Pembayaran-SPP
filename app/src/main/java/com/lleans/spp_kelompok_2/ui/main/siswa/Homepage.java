@@ -64,7 +64,6 @@ public class Homepage extends Fragment implements UIListener {
                     if (response.body().getDetails().getJumlahTunggakan() == 0) {
                         binding.cardTunggakan.setBackgroundTintList(ColorStateList.valueOf(green));
                         binding.totalTunggakan.setText("LUNAS");
-                        getTransaksi();
                     } else if (response.body().getDetails().getJumlahTunggakan() > 1) {
                         binding.cardTunggakan.setBackgroundTintList(ColorStateList.valueOf(orange));
                         binding.totalTunggakan.setText(Utils.formatRupiah(response.body().getDetails().getTotalTunggakan()));
@@ -72,6 +71,7 @@ public class Homepage extends Fragment implements UIListener {
                         binding.totalTunggakan.setText(Utils.formatRupiah(response.body().getDetails().getTotalTunggakan()));
                     }
                     binding.cardTunggakan.setVisibility(View.VISIBLE);
+                    getTransaksi();
                 } else {
                     try {
                         TunggakanData message = new Gson().fromJson(response.errorBody().charStream(), TunggakanData.class);
