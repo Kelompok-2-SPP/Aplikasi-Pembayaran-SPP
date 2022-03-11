@@ -63,6 +63,8 @@ public class EditPetugas extends Fragment implements UIListener {
                 if (response.body() != null && response.isSuccessful()) {
                     toaster(response.body().getMessage());
                     sharedModel.updateData(response.body().getDetails());
+                    nav.popBackStack(R.id.editPetugas, true);
+                    nav.popBackStack(R.id.detailPetugas_petuga, true);
                     nav.popBackStack(R.id.petugas_petugas, false);
                 } else {
                     try {

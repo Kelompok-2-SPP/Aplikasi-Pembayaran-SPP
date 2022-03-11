@@ -64,6 +64,8 @@ public class EditKelas extends Fragment implements UIListener {
                 if (response.body() != null && response.isSuccessful()) {
                     toaster(response.body().getMessage());
                     shared.updateData(response.body().getDetails());
+                    nav.popBackStack(R.id.editKelas, true);
+                    nav.popBackStack(R.id.siswa_petugas, true);
                     nav.popBackStack(R.id.kelas_petugas, false);
                 } else {
                     try {

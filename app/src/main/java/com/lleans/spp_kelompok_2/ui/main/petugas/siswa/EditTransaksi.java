@@ -144,6 +144,8 @@ public class EditTransaksi extends Fragment implements UIListener {
                     toaster(response.body().getMessage());
                     sharedModel.updateData(response.body().getDetails());
                     nav.navigate(R.id.action_editStatus_to_statussiswa_petugas);
+                    nav.popBackStack(R.id.rincianTransaksi_siswa, true);
+                    nav.popBackStack(R.id.editStatus, true);
                 } else {
                     try {
                         PembayaranData message = new Gson().fromJson(response.errorBody().charStream(), PembayaranData.class);

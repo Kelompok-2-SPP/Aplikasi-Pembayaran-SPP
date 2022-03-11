@@ -124,6 +124,8 @@ public class EditSiswa extends Fragment implements UIListener {
                 if (response.body() != null && response.isSuccessful()) {
                     toaster(response.body().getMessage());
                     sharedModel.updateData(response.body().getDetails());
+                    nav.popBackStack(R.id.editSiswa, true);
+                    nav.popBackStack(R.id.statussiswa_petugas, true);
                     nav.popBackStack(R.id.siswa_petugas, false);
                 } else {
                     try {

@@ -63,6 +63,8 @@ public class EditSpp extends Fragment implements UIListener {
                 if (response.body() != null && response.isSuccessful()) {
                     toaster(response.body().getMessage());
                     sharedModel.updateData(response.body().getDetails());
+                    nav.popBackStack(R.id.editSpp, true);
+                    nav.popBackStack(R.id.rincianSpp_petugas, true);
                     nav.popBackStack(R.id.spp_petugas, false);
                 } else {
                     try {
