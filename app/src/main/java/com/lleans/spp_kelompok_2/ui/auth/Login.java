@@ -91,7 +91,7 @@ public class Login extends Fragment implements UIListener {
                         );
                     } else {
                         sessionManager.createLogininSessFor(
-                                token.getClaim("username").asString(),
+                                token.getClaim("nama_petugas").asString(),
                                 token.getClaim("id_petugas").asString(),
                                 token.getClaim("level").asString(),
                                 response.body().getDetails().getToken());
