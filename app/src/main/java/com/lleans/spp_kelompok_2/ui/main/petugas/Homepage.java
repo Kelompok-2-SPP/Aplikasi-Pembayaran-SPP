@@ -119,12 +119,12 @@ public class Homepage extends Fragment implements UIListener {
         sppData.enqueue(new Callback<SppDataList>() {
             @Override
             public void onResponse(Call<SppDataList> call, Response<SppDataList> response) {
-                isLoading(false);
                 if (response.body() != null && response.isSuccessful()) {
                     SppCardAdapter cardAdapter = new SppCardAdapter(response.body().getDetails(), nav, true);
                     cardAdapter.setItemCount(1);
                     binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     binding.recyclerView.setAdapter(cardAdapter);
+                    getAktivitas();
                 } else {
                     try {
                         SppDataList message = new Gson().fromJson(response.errorBody().charStream(), SppDataList.class);
@@ -167,10 +167,7 @@ public class Homepage extends Fragment implements UIListener {
         binding.aktivitas.setOnClickListener(v -> nav.navigate(R.id.action_homepage_petugas_to_aktivitasPetugas, bundle));
         binding.logout.setOnClickListener(v -> new Logout(getContext(), getActivity()));
 
-        binding.refresher.setOnRefreshListener(() -> {
-            getSpp();
-            getAktivitas();
-        });
+        binding.refresher.setOnRefreshListener(this::getSpp);
     }
 
     @Override
@@ -181,7 +178,6 @@ public class Homepage extends Fragment implements UIListener {
         sessionManager = new SessionManager(getContext());
 
         getSpp();
-        getAktivitas();
 
         // Change layout before it show
         binding.header.setText("Hai, " + sessionManager.getUserDetail().get(SessionManager.USERNAME));
