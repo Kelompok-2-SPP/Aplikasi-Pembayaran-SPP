@@ -91,7 +91,7 @@ public class EditKelas extends Fragment {
         });
     }
 
-    private void editKelas(String namaKelas, String jurusan, Integer angkatan) {
+    private void editKelas(String namaKelas, String jurusan, Long angkatan) {
         UtilsUI.isLoading(binding.refresher, false, true);
         Call<BaseResponse<KelasData>> editKelasCall;
 
@@ -136,11 +136,11 @@ public class EditKelas extends Fragment {
 
         binding.simpan.setOnClickListener(view1 -> {
             String namaKelas, jurusan;
-            Integer angkatan;
+            Long angkatan;
 
             namaKelas = binding.namaKelas.getText().toString();
             jurusan = binding.jurusan.getText().toString();
-            angkatan = Integer.parseInt(binding.angkatan.getText().toString());
+            angkatan = Long.parseLong(binding.angkatan.getText().toString());
             if (namaKelas.isEmpty() || jurusan.isEmpty() || angkatan == null) {
                 UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
             } else {

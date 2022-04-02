@@ -38,7 +38,6 @@ import retrofit2.Response;
 public class Siswa extends Fragment {
 
     private Petugas2SiswaBinding binding;
-    private SessionManager sessionManager;
     private NavController controller;
     private ApiInterface apiInterface;
 
@@ -68,6 +67,14 @@ public class Siswa extends Fragment {
         // Required empty public constructor
     }
 
+    private void notFoundHandling(boolean check) {
+        if (check) {
+            binding.recyclerView.setVisibility(View.GONE);
+            binding.notFound.getRoot().setVisibility(View.VISIBLE);
+            UtilsUI.simpleAnimation(binding.notFound.getRoot());
+        }
+    }
+
     private void UILimiter() {
         binding.edit.setVisibility(View.GONE);
         binding.add.setVisibility(View.GONE);
@@ -81,6 +88,7 @@ public class Siswa extends Fragment {
 
     private void setAdapter(List<SiswaData> data) {
         cardAdapter = new SiswaCardAdapter(data, controller);
+        notFoundHandling(cardAdapter.getItemCount() == 0);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(cardAdapter);
     }
@@ -106,14 +114,18 @@ public class Siswa extends Fragment {
                     calcSiswa(response.body().getDetails().size());
                     setAdapter(response.body().getDetails());
                 } else {
-                    try {
-                        BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
-                        UtilsUI.toaster(getContext(), message.getMessage());
-                    } catch (Exception e) {
+                    if (response.code() == 404) {
+                        notFoundHandling(true);
+                    } else {
                         try {
-                            UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
-                        } catch (IOException ioException) {
-                            ioException.printStackTrace();
+                            BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                            UtilsUI.toaster(getContext(), message.getMessage());
+                        } catch (Exception e) {
+                            try {
+                                UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
                         }
                     }
                 }
@@ -150,7 +162,7 @@ public class Siswa extends Fragment {
         binding = Petugas2SiswaBinding.inflate(inflater, container, false);
 
         KelasSharedModel shared = new ViewModelProvider(requireActivity()).get(KelasSharedModel.class);
-        sessionManager = new SessionManager(getActivity().getApplicationContext());
+        SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
         apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
         if (sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")) {
             UILimiter();

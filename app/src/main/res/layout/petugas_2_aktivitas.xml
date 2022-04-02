@@ -20,6 +20,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <include
+                    android:id="@+id/notFound"
+                    layout="@layout/not_found_screen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/recyclerView"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"

@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:paddingVertical="80dp">
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="270dp"
+        android:layout_height="270dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
-        android:text="Transaksi tidak ditemukan"
+        android:text="Data tidak ditemukan"
         app:layout_constraintEnd_toEndOf="@+id/imageView4"
         app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
@@ -31,7 +32,7 @@
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Sepertinya anda belum pernah melakukan transaksi di tahun ini."
+        android:text="Pastikan keyword yang dimasukkan sudah benar."
         app:layout_constraintEnd_toEndOf="@+id/warningTitle"
         app:layout_constraintStart_toStartOf="@+id/warningTitle"
         app:layout_constraintTop_toBottomOf="@+id/warningTitle" />

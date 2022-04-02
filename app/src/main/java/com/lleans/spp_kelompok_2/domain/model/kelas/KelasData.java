@@ -11,7 +11,7 @@ public class KelasData {
     private String namaKelas;
 
     @SerializedName("angkatan")
-    private int angkatan;
+    private Long angkatan;
 
     @SerializedName("id_kelas")
     private int idKelas;
@@ -38,11 +38,11 @@ public class KelasData {
         return namaKelas;
     }
 
-    public void setAngkatan(int angkatan) {
+    public void setAngkatan(Long angkatan) {
         this.angkatan = angkatan;
     }
 
-    public int getAngkatan() {
+    public Long getAngkatan() {
         return angkatan;
     }
 

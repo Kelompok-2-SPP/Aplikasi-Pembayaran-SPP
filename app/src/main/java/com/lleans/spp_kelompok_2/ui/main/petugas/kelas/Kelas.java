@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,12 +65,21 @@ public class Kelas extends Fragment {
         // Required empty public constructor
     }
 
+    public void notFoundHandling(boolean check) {
+        if (check) {
+            binding.recyclerView.setVisibility(View.GONE);
+            binding.notFound.getRoot().setVisibility(View.VISIBLE);
+            UtilsUI.simpleAnimation(binding.notFound.getRoot());
+        }
+    }
+
     private void UILimiter() {
         binding.btnTambahKelas.setVisibility(View.GONE);
     }
 
     private void setAdapter(List<KelasData> data) {
         cardAdapter = new KelasCardAdapter(data, controller);
+        notFoundHandling(cardAdapter.getItemCount() == 0);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(cardAdapter);
     }
@@ -92,14 +102,18 @@ public class Kelas extends Fragment {
                 if (response.body() != null && response.isSuccessful()) {
                     setAdapter(response.body().getDetails());
                 } else {
-                    try {
-                        BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
-                        UtilsUI.toaster(getContext(), message.getMessage());
-                    } catch (Exception e) {
+                    if (response.code() == 404) {
+                        notFoundHandling(true);
+                    } else {
                         try {
-                            UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
-                        } catch (IOException ioException) {
-                            ioException.printStackTrace();
+                            BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                            UtilsUI.toaster(getContext(), message.getMessage());
+                        } catch (Exception e) {
+                            try {
+                                UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
                         }
                     }
                 }

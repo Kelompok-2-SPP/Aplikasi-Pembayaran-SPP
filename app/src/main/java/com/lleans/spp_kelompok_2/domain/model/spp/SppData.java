@@ -17,7 +17,7 @@ public class SppData {
     private int idSpp;
 
     @SerializedName("angkatan")
-    private int angkatan;
+    private Long angkatan;
 
     @SerializedName("updatedAt")
     private String updatedAt;
@@ -54,11 +54,11 @@ public class SppData {
         return idSpp;
     }
 
-    public void setAngkatan(int angkatan){
+    public void setAngkatan(Long angkatan){
         this.angkatan = angkatan;
     }
 
-    public int getAngkatan(){
+    public Long getAngkatan(){
         return angkatan;
     }
 

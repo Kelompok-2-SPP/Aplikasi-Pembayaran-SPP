@@ -35,6 +35,7 @@ import com.lleans.spp_kelompok_2.ui.utils.spinner.SpinnerInterface;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -240,7 +241,7 @@ public class EditTransaksi extends Fragment {
 
         binding.hapus.setOnClickListener(v -> {
             UtilsUI.dialog(getActivity(), "Hapus data?", "Apakah anda yakin untuk menghapus data berikut, data transaksi berikut mungkin akan muncul kembali dikarenakan sistem tunggakan mengambil data transaksi paling terbaru.", true).setPositiveButton("Ok", (dialog, which) -> {
-                if(idPembayaran != 0) deletePembayaran();
+                if (idPembayaran != 0) deletePembayaran();
             }).show();
         });
     }
@@ -260,6 +261,8 @@ public class EditTransaksi extends Fragment {
             if (detailsItemPembayaran.getTglBayar() != null) {
                 this.tglPembayaran = Utils.parseServerStringtoLongDate(detailsItemPembayaran.getTglBayar(), "yyyy-MM-dd");
                 binding.tglBayar.setText(Utils.parseLongtoStringDate(Utils.parseServerStringtoLongDate(detailsItemPembayaran.getTglBayar(), "yyyy-MM-dd"), "dd MMMM yyyy"));
+            } else {
+                this.tglPembayaran = Calendar.getInstance().getTimeInMillis();
             }
             this.sppDate = Utils.parseServerStringtoLongDate(detailsItemPembayaran.getTahunSpp() + "-" + detailsItemPembayaran.getBulanSpp(), "yyyy-MM");
             sppSpinner(detailsItemPembayaran.getIdSpp());

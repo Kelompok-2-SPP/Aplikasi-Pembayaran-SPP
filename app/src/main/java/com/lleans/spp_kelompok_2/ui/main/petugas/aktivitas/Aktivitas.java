@@ -49,8 +49,17 @@ public class Aktivitas extends Fragment {
         // Required empty public constructor
     }
 
+    private void notFoundHandling(boolean check) {
+        if (check) {
+            binding.recyclerView.setVisibility(View.GONE);
+            binding.notFound.getRoot().setVisibility(View.VISIBLE);
+            UtilsUI.simpleAnimation(binding.notFound.getRoot());
+        }
+    }
+
     private void setAdapter(List<PembayaranData> data) {
         cardAdapter = new AktivitasCardAdapter(data, controller, "aktivitas");
+        notFoundHandling(cardAdapter.getItemCount() == 0);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(cardAdapter);
     }
@@ -92,14 +101,18 @@ public class Aktivitas extends Fragment {
                     setAdapter(response.body().getDetails());
                     cachedPembayaranSharedModel.updateData(response.body().getDetails());
                 } else {
-                    try {
-                        BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
-                        UtilsUI.toaster(getContext(), message.getMessage());
-                    } catch (Exception e) {
+                    if (response.code() == 404) {
+                        notFoundHandling(true);
+                    } else {
                         try {
-                            UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
-                        } catch (IOException ioException) {
-                            ioException.printStackTrace();
+                            BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                            UtilsUI.toaster(getContext(), message.getMessage());
+                        } catch (Exception e) {
+                            try {
+                                UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
                         }
                     }
                 }
@@ -131,8 +144,8 @@ public class Aktivitas extends Fragment {
 
             MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
                 if (cardAdapter != null) {
-                    binding.tgl.setText(Utils.parseLongtoStringDate(Utils.parseServerStringtoLongDate(selectedYear + "-" + selectedMonth, "yyyy-MM"), "MMMM yyyy"));
-                    cardAdapter.getFilter().filter(String.valueOf(Utils.parseServerStringtoLongDate(selectedYear + "-" + selectedMonth, "yyyy-MM")));
+                    binding.tgl.setText(Utils.parseLongtoStringDate(Utils.parseServerStringtoLongDate(selectedYear + "-" + (selectedMonth + 1), "yyyy-MM"), "MMMM yyyy"));
+                    cardAdapter.getFilter().filter(String.valueOf(Utils.parseServerStringtoLongDate(selectedYear + "-" + (selectedMonth + 1), "yyyy-MM")));
                 }
             }, year, month);
             builder.setActivatedMonth(month)

@@ -32,7 +32,7 @@ public class KelasCardAdapter extends RecyclerView.Adapter<KelasCardAdapter.Kela
     private Context context;
 
     private final List<KelasData> listData, listAll;
-    private int angkatan;
+    private Long angkatan;
 
     public KelasCardAdapter(List<KelasData> list, NavController controller) {
         this.listData = list;
@@ -51,6 +51,7 @@ public class KelasCardAdapter extends RecyclerView.Adapter<KelasCardAdapter.Kela
     @Override
     public void onBindViewHolder(@NonNull final KelasCardViewHolder holder, int position) {
         KelasData data = listData.get(position);
+
         if (this.angkatan != data.getAngkatan()) {
             this.angkatan = data.getAngkatan();
             holder.sectionText.setText("Angkatan " + data.getAngkatan());

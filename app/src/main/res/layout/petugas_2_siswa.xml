@@ -247,6 +247,16 @@
                     app:layout_constraintStart_toStartOf="@+id/materialCardView"
                     app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
+                <include
+                    android:id="@+id/notFound"
+                    layout="@layout/not_found_screen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_below="@id/recyclerView"
+                    android:layout_centerInParent="true"
+                     />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"

@@ -1,13 +1,9 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.spp;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.databinding.Petugas2SppBinding;
-import com.lleans.spp_kelompok_2.domain.Utils;
 import com.lleans.spp_kelompok_2.domain.model.BaseResponse;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
@@ -48,12 +43,21 @@ public class Spp extends Fragment {
         // Required empty public constructor
     }
 
+    private void notFoundHandling(boolean check) {
+        if (check) {
+            binding.recyclerView.setVisibility(View.GONE);
+            binding.notFound.getRoot().setVisibility(View.VISIBLE);
+            UtilsUI.simpleAnimation(binding.notFound.getRoot());
+        }
+    }
+
     private void UILimiter() {
         binding.add.setVisibility(View.GONE);
     }
 
     private void setAdapter(List<SppData> data) {
         cardAdapter = new SppCardAdapter(data, controller, false);
+        notFoundHandling(cardAdapter.getItemCount() == 0);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(cardAdapter);
     }
@@ -77,14 +81,18 @@ public class Spp extends Fragment {
                 if (response.body() != null && response.isSuccessful()) {
                     setAdapter(response.body().getDetails());
                 } else {
-                    try {
-                        BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
-                        UtilsUI.toaster(getContext(), message.getMessage());
-                    } catch (Exception e) {
+                    if (response.code() == 404) {
+                        notFoundHandling(true);
+                    } else {
                         try {
-                            UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
-                        } catch (IOException ioException) {
-                            ioException.printStackTrace();
+                            BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                            UtilsUI.toaster(getContext(), message.getMessage());
+                        } catch (Exception e) {
+                            try {
+                                UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
                         }
                     }
                 }

@@ -48,7 +48,7 @@ public interface ApiInterface {
             @Query("id_kelas") Integer id_kelas,
             @Query("nama_kelas") String nama_kelas,
             @Query("jurusan") String jurusan,
-            @Query("angkatan") Integer angkatan,
+            @Query("angkatan") Long angkatan,
             @Query("createdAt") String createdAt,
             @Query("updatedAt") String updatedAt
     );
@@ -63,7 +63,7 @@ public interface ApiInterface {
     Call<BaseResponse<KelasData>> postKelas(
             @Field("nama_kelas") String nama_kelas,
             @Field("jurusan") String jurusan,
-            @Field("angkatan") Integer angkatan
+            @Field("angkatan") Long angkatan
     );
 
     @FormUrlEncoded
@@ -72,7 +72,7 @@ public interface ApiInterface {
             @Field("id_kelas") Integer id_kelas,
             @Field("nama_kelas") String nama_kelas,
             @Field("jurusan") String jurusan,
-            @Field("angkatan") Integer angkatan
+            @Field("angkatan") Long angkatan
     );
 
     @DELETE("v1/kelas")
@@ -231,7 +231,7 @@ public interface ApiInterface {
     @GET("v1/spp")
     Call<BaseResponse<List<SppData>>> getSpp(
             @Query("id_spp") Integer id_spp,
-            @Query("angkatan") Integer angkatan,
+            @Query("angkatan") Long angkatan,
             @Query("tahun") Integer tahun,
             @Query("nominal") Long nominal,
             @Query("createdAt") String createdAt,
@@ -252,7 +252,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("v1/spp")
     Call<BaseResponse<SppData>> postSpp(
-            @Field("angkatan") Integer angkatan,
+            @Field("angkatan") Long angkatan,
             @Field("tahun") Integer tahun,
             @Field("nominal") Long nominal
     );
@@ -261,7 +261,7 @@ public interface ApiInterface {
     @PUT("v1/spp")
     Call<BaseResponse<SppData>> putSpp(
             @Field("id_spp") Integer id_spp,
-            @Field("angkatan") Integer angkatan,
+            @Field("angkatan") Long angkatan,
             @Field("tahun") Integer tahun,
             @Field("nominal") Long nominal
     );

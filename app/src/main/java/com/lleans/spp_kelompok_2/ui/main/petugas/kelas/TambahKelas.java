@@ -37,7 +37,7 @@ public class TambahKelas extends Fragment {
         // Required empty public constructor
     }
 
-    private void tambahKelas(String namaKelas, String jurusan, Integer angkatan) {
+    private void tambahKelas(String namaKelas, String jurusan, Long angkatan) {
         UtilsUI.isLoading(binding.refresher, false, true);
         Call<BaseResponse<KelasData>> tambahKelasCall;
 
@@ -81,11 +81,11 @@ public class TambahKelas extends Fragment {
 
         binding.simpan.setOnClickListener(view1 -> {
             String namakelas, jurusan;
-            Integer angkatan;
+            Long angkatan;
 
             namakelas = binding.namaKelas.getText().toString();
             jurusan = binding.jurusan.getText().toString();
-            angkatan = Integer.parseInt(binding.angkatan.getText().toString());
+            angkatan = Long.parseLong(binding.angkatan.getText().toString());
             if (namakelas.isEmpty() || jurusan.isEmpty() || angkatan == null) {
                 UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
             } else {
