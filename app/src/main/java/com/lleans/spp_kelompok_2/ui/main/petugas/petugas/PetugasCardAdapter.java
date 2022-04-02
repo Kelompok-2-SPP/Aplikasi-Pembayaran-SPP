@@ -31,11 +31,13 @@ public class PetugasCardAdapter extends RecyclerView.Adapter<PetugasCardAdapter.
     private Context context;
 
     private final List<PetugasData> listData, listAll;
+    private final Petugas petugas;
 
-    public PetugasCardAdapter(List<PetugasData> list, NavController controller) {
+    public PetugasCardAdapter(List<PetugasData> list, NavController controller, Petugas petugas) {
         this.listData = list;
         this.listAll = new ArrayList<>(list);
         this.controller = controller;
+        this.petugas = petugas;
     }
 
     @NonNull
@@ -98,6 +100,7 @@ public class PetugasCardAdapter extends RecyclerView.Adapter<PetugasCardAdapter.
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 listData.clear();
                 listData.addAll((Collection<? extends PetugasData>) results.values);
+                petugas.notFoundHandling(((Collection<?>) results.values).size() == 0);
                 notifyDataSetChanged();
             }
         };

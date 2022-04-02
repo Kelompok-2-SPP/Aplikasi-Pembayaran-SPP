@@ -73,7 +73,7 @@ public class RincianTransaksi extends Fragment {
             this.namaSiswa = detailsItemPembayaran.getSiswa().getNama();
             this.idPembayaran = String.valueOf(detailsItemPembayaran.getIdPembayaran());
             UILimiter();
-            if (Utils.statusPembayaran(detailsItemPembayaran.getSpp().getNominal(), detailsItemPembayaran.getJumlahBayar())) {
+            if (detailsItemPembayaran.getSpp() != null && Utils.statusPembayaran(detailsItemPembayaran.getSpp().getNominal(), detailsItemPembayaran.getJumlahBayar())) {
                 binding.status.setImageResource(R.drawable.icon_warning);
                 binding.statusText.setText("Belum Lunas");
                 binding.statusText.setTextColor(getResources().getColor(R.color.orange));
@@ -90,10 +90,12 @@ public class RincianTransaksi extends Fragment {
                 binding.tglBayar.setText(Utils.parseLongtoStringDate(Utils.parseServerStringtoLongDate(detailsItemPembayaran.getTglBayar(), "yyyy-MM-dd"), "dd MMMM yyyy"));
             }
             binding.siswa.setText(detailsItemPembayaran.getSiswa().getNama());
-            binding.idSpp.setText("SPP-" + detailsItemPembayaran.getSpp().getIdSpp());
-            binding.angkatan.setText(String.valueOf(detailsItemPembayaran.getSpp().getAngkatan()));
+            if(detailsItemPembayaran.getSpp() != null) {
+                binding.idSpp.setText("SPP-" + detailsItemPembayaran.getSpp().getIdSpp());
+                binding.angkatan.setText(String.valueOf(detailsItemPembayaran.getSpp().getAngkatan()));
+                binding.nominal.setText(Utils.formatRupiah(detailsItemPembayaran.getSpp().getNominal()));
+            }
             binding.tahun.setText(String.valueOf(detailsItemPembayaran.getTahunSpp()));
-            binding.nominal.setText(Utils.formatRupiah(detailsItemPembayaran.getSpp().getNominal()));
             if (detailsItemPembayaran.getPetugas() == null) {
                 binding.cardPetugas.setVisibility(View.GONE);
             } else {

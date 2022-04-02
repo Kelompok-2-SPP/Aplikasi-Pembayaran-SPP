@@ -46,7 +46,7 @@ public class DetailPetugas extends Fragment {
     }
 
     private void setAdapter(List<PembayaranData> data) {
-        AktivitasCardAdapter cardAdapter = new AktivitasCardAdapter(data, controller, "detailPetugas");
+        AktivitasCardAdapter cardAdapter = new AktivitasCardAdapter(data, controller, "detailPetugas", null);
         cardAdapter.setItemCount(3);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(cardAdapter);

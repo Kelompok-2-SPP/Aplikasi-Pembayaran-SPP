@@ -51,7 +51,7 @@ public class Homepage extends Fragment {
     }
 
     private void setAdapter(List<PembayaranData> data) {
-        TransaksiCardAdapter cardAdapter = new TransaksiCardAdapter(data, controller, true);
+        TransaksiCardAdapter cardAdapter = new TransaksiCardAdapter(data, controller, true, null);
 
         cachedPembayaranSharedModel.updateData(data);
         cardAdapter.setItemCount(3);

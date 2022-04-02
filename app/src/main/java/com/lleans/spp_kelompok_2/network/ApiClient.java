@@ -10,12 +10,13 @@ public class ApiClient {
     private static final String API_URL = "https://praktek-ukk-spp.herokuapp.com/api/";
 
     private static Retrofit retrofit;
-    private static OkHttpClient okHttpClient;
+    private static String savToken;
 
     public static synchronized Retrofit getClient(String token) {
 
-        if (okHttpClient == null && token != null) {
-            okHttpClient = new OkHttpClient.Builder().addInterceptor(chain -> {
+        if (token != null && !token.equals(savToken)) {
+            savToken = token;
+            OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(chain -> {
                 Request newRequest = chain.request().newBuilder()
                         .addHeader("Authorization", "Bearer " + token)
                         .build();
@@ -26,7 +27,7 @@ public class ApiClient {
                     .baseUrl(API_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-        } else if (retrofit == null) {
+        } else if (retrofit == null && token == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(API_URL)
                     .addConverterFactory(GsonConverterFactory.create())

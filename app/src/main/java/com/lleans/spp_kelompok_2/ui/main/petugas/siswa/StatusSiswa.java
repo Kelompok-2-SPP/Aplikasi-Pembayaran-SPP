@@ -48,12 +48,24 @@ public class StatusSiswa extends Fragment {
         // Required empty public constructor
     }
 
+    public void notFoundHandling(boolean check) {
+        if (check) {
+            binding.recyclerView.setVisibility(View.GONE);
+            binding.add.setVisibility(View.GONE);
+            binding.notFound.getRoot().setVisibility(View.VISIBLE);
+            UtilsUI.simpleAnimation(binding.notFound.getRoot());
+        } else {
+            binding.notFound.getRoot().setVisibility(View.GONE);
+            binding.recyclerView.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void UILimiter() {
         binding.edit.setVisibility(View.GONE);
     }
 
     private void setAdapter(List<PembayaranData> data) {
-        cardAdapter = new StatusSiswaCardAdapter(data, controller, apiInterface);
+        cardAdapter = new StatusSiswaCardAdapter(data, controller, apiInterface, this);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(cardAdapter);
     }

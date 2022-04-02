@@ -31,13 +31,15 @@ public class KelasCardAdapter extends RecyclerView.Adapter<KelasCardAdapter.Kela
     private final NavController controller;
     private Context context;
 
+    private final Kelas kelas;
     private final List<KelasData> listData, listAll;
     private Long angkatan;
 
-    public KelasCardAdapter(List<KelasData> list, NavController controller) {
+    public KelasCardAdapter(List<KelasData> list, NavController controller, Kelas kelas) {
         this.listData = list;
         this.listAll = new ArrayList<>(list);
         this.controller = controller;
+        this.kelas = kelas;
     }
 
     @NonNull
@@ -104,6 +106,7 @@ public class KelasCardAdapter extends RecyclerView.Adapter<KelasCardAdapter.Kela
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 listData.clear();
                 listData.addAll((Collection<? extends KelasData>) results.values);
+                kelas.notFoundHandling(((Collection<?>) results.values).size() == 0);
                 notifyDataSetChanged();
             }
         };

@@ -54,14 +54,14 @@ public class Homepage extends Fragment {
     }
 
     private void setSppAdapter(List<SppData> data) {
-        SppCardAdapter cardAdapter = new SppCardAdapter(data, controller, true);
+        SppCardAdapter cardAdapter = new SppCardAdapter(data, controller, true, null);
         cardAdapter.setItemCount(1);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(cardAdapter);
     }
 
     private void setAktivitasAdpter(List<PembayaranData> data) {
-        AktivitasCardAdapter cardAdapter = new AktivitasCardAdapter(data, controller, "homepage");
+        AktivitasCardAdapter cardAdapter = new AktivitasCardAdapter(data, controller, "homepage", null);
 
         cachedPembayaranSharedModel.updateData(data);
         cardAdapter.setItemCount(3);

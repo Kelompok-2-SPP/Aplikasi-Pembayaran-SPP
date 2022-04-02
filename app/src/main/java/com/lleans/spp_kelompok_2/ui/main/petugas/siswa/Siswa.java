@@ -67,11 +67,14 @@ public class Siswa extends Fragment {
         // Required empty public constructor
     }
 
-    private void notFoundHandling(boolean check) {
+    public void notFoundHandling(boolean check) {
         if (check) {
             binding.recyclerView.setVisibility(View.GONE);
             binding.notFound.getRoot().setVisibility(View.VISIBLE);
             UtilsUI.simpleAnimation(binding.notFound.getRoot());
+        } else {
+            binding.notFound.getRoot().setVisibility(View.GONE);
+            binding.recyclerView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -87,7 +90,7 @@ public class Siswa extends Fragment {
     }
 
     private void setAdapter(List<SiswaData> data) {
-        cardAdapter = new SiswaCardAdapter(data, controller);
+        cardAdapter = new SiswaCardAdapter(data, controller, this);
         notFoundHandling(cardAdapter.getItemCount() == 0);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(cardAdapter);

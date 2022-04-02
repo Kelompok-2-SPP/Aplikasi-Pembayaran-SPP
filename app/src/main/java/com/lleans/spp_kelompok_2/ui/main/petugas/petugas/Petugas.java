@@ -64,16 +64,19 @@ public class Petugas extends Fragment {
         // Required empty public constructor
     }
 
-    private void notFoundHandling(boolean check) {
+    public void notFoundHandling(boolean check) {
         if (check) {
             binding.recyclerView.setVisibility(View.GONE);
             binding.notFound.getRoot().setVisibility(View.VISIBLE);
             UtilsUI.simpleAnimation(binding.notFound.getRoot());
+        } else {
+            binding.notFound.getRoot().setVisibility(View.GONE);
+            binding.recyclerView.setVisibility(View.VISIBLE);
         }
     }
 
     private void setAdapter(List<PetugasData> data) {
-        cardAdapter = new PetugasCardAdapter(data, controller);
+        cardAdapter = new PetugasCardAdapter(data, controller, this);
         notFoundHandling(cardAdapter.getItemCount() == 0);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(cardAdapter);

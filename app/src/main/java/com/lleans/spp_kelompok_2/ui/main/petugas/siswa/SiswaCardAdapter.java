@@ -31,11 +31,13 @@ public class SiswaCardAdapter extends RecyclerView.Adapter<SiswaCardAdapter.Sisw
     private Context context;
 
     private final List<SiswaData> listData, listAll;
+    private final Siswa siswa;
 
-    public SiswaCardAdapter(List<SiswaData> list, NavController controller) {
+    public SiswaCardAdapter(List<SiswaData> list, NavController controller, Siswa siswa) {
         this.listData = list;
         this.listAll = new ArrayList<>(list);
         this.controller = controller;
+        this.siswa = siswa;
     }
 
     @NonNull
@@ -98,6 +100,7 @@ public class SiswaCardAdapter extends RecyclerView.Adapter<SiswaCardAdapter.Sisw
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 listData.clear();
                 listData.addAll((Collection<? extends SiswaData>) results.values);
+                siswa.notFoundHandling(((Collection<?>) results.values).size() == 0);
                 notifyDataSetChanged();
             }
         };

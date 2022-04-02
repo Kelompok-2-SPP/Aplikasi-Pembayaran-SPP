@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -34,12 +35,14 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
     private final List<SppData> listData, listAll;
     private final boolean fromHomepage;
     private int count, orange, tahun;
+    private Spp spp;
 
-    public SppCardAdapter(List<SppData> list, NavController controller, boolean fromHomepage) {
+    public SppCardAdapter(List<SppData> list, NavController controller, boolean fromHomepage, @Nullable Spp spp) {
         this.listData = list;
         this.listAll = new ArrayList<>(list);
         this.controller = controller;
         this.fromHomepage = fromHomepage;
+        this.spp = spp;
     }
 
     @NonNull
@@ -122,6 +125,7 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 listData.clear();
                 listData.addAll((Collection<? extends SppData>) results.values);
+                spp.notFoundHandling(((Collection<?>) results.values).size() == 0);
                 notifyDataSetChanged();
             }
         };

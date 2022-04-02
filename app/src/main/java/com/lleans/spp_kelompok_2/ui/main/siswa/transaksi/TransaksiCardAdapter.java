@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -35,12 +36,14 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
     private final List<PembayaranData> listData, listAll;
     private int color, count, tahun;
     private final boolean fromHomepage;
+    private Transaksi transaksi;
 
-    public TransaksiCardAdapter(List<PembayaranData> list, NavController controller, boolean fromHomepage) {
+    public TransaksiCardAdapter(List<PembayaranData> list, NavController controller, boolean fromHomepage, @Nullable Transaksi transaksi) {
         this.listData = list;
         this.listAll = new ArrayList<>(list);
         this.controller = controller;
         this.fromHomepage = fromHomepage;
+        this.transaksi = transaksi;
     }
 
     @NonNull
@@ -125,6 +128,7 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 listData.clear();
                 listData.addAll((Collection<? extends PembayaranData>) results.values);
+                transaksi.notFoundHandling(((Collection<?>) results.values).size() == 0);
                 notifyDataSetChanged();
             }
         };

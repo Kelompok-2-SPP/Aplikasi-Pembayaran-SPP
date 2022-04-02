@@ -70,6 +70,9 @@ public class Kelas extends Fragment {
             binding.recyclerView.setVisibility(View.GONE);
             binding.notFound.getRoot().setVisibility(View.VISIBLE);
             UtilsUI.simpleAnimation(binding.notFound.getRoot());
+        } else {
+            binding.notFound.getRoot().setVisibility(View.GONE);
+            binding.recyclerView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -78,7 +81,7 @@ public class Kelas extends Fragment {
     }
 
     private void setAdapter(List<KelasData> data) {
-        cardAdapter = new KelasCardAdapter(data, controller);
+        cardAdapter = new KelasCardAdapter(data, controller, this);
         notFoundHandling(cardAdapter.getItemCount() == 0);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(cardAdapter);

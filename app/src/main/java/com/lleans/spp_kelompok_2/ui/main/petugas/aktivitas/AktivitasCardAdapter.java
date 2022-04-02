@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -37,12 +38,14 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
     private final String fromWhere;
     private int orange, count;
     private String date;
+    private final Aktivitas aktivitas;
 
-    public AktivitasCardAdapter(List<PembayaranData> list, NavController navController, String fromWhere) {
+    public AktivitasCardAdapter(List<PembayaranData> list, NavController navController, String fromWhere, @Nullable Aktivitas aktivitas) {
         this.listData = list;
         this.listAll = new ArrayList<>(list);
         this.controller = navController;
         this.fromWhere = fromWhere;
+        this.aktivitas = aktivitas;
     }
 
     @NonNull
@@ -143,6 +146,7 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 listData.clear();
                 listData.addAll((Collection<? extends PembayaranData>) results.values);
+                aktivitas.notFoundHandling(((Collection<?>) results.values).size() == 0);
                 notifyDataSetChanged();
             }
         };

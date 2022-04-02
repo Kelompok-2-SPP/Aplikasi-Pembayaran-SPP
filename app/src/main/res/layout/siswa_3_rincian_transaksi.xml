@@ -164,7 +164,6 @@
                         style="@style/SPPKelompok2.Text.Regular.Body4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SPP-01"
                         android:textColor="@color/dark_grey"
                         app:layout_constraintBottom_toBottomOf="@+id/textView17"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -196,7 +195,6 @@
                         style="@style/SPPKelompok2.Text.Regular.Body3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="28"
                         app:layout_constraintBottom_toBottomOf="@+id/textView19"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView19" />
@@ -216,7 +214,6 @@
                         style="@style/SPPKelompok2.Text.Regular.Body3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2021"
                         app:layout_constraintBottom_toBottomOf="@+id/textView20"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView20" />
@@ -247,9 +244,7 @@
                         style="@style/SPPKelompok2.Text.Semibold.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/rp500_000"
                         app:layout_constraintBottom_toBottomOf="@+id/textView23"
-
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView23" />
 

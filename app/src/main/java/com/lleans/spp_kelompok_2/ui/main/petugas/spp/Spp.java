@@ -38,16 +38,20 @@ public class Spp extends Fragment {
     private ApiInterface apiInterface;
 
     private SppCardAdapter cardAdapter;
+    private int year, month;
 
     public Spp() {
         // Required empty public constructor
     }
 
-    private void notFoundHandling(boolean check) {
+    public void notFoundHandling(boolean check) {
         if (check) {
             binding.recyclerView.setVisibility(View.GONE);
             binding.notFound.getRoot().setVisibility(View.VISIBLE);
             UtilsUI.simpleAnimation(binding.notFound.getRoot());
+        } else {
+            binding.notFound.getRoot().setVisibility(View.GONE);
+            binding.recyclerView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -56,7 +60,7 @@ public class Spp extends Fragment {
     }
 
     private void setAdapter(List<SppData> data) {
-        cardAdapter = new SppCardAdapter(data, controller, false);
+        cardAdapter = new SppCardAdapter(data, controller, false, this);
         notFoundHandling(cardAdapter.getItemCount() == 0);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(cardAdapter);
@@ -114,18 +118,16 @@ public class Spp extends Fragment {
         binding.refresher.setOnRefreshListener(this::getSpp);
         binding.add.setOnClickListener(v -> controller.navigate(R.id.action_spp_petugas_to_tambahspp_petugas));
         binding.calendar.setOnClickListener(v -> {
-            int year = Calendar.getInstance().get(Calendar.YEAR);
-            int month = Calendar.getInstance().get(Calendar.MONTH);
-
             MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
                 if (cardAdapter != null) {
+                    this.year = selectedYear;
                     binding.tgl.setText(String.valueOf(selectedYear));
                     cardAdapter.getFilter().filter(String.valueOf(selectedYear));
                 }
-            }, year, month);
+            }, this.year, this.month);
             builder.setTitle("Pilih Tahun SPP")
-                    .setActivatedYear(year)
-                    .setMaxYear(year)
+                    .setActivatedYear(this.year)
+                    .setMaxYear(this.year)
                     .showYearOnly()
                     .build().show();
         });
@@ -141,6 +143,8 @@ public class Spp extends Fragment {
         if (sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")) {
             UILimiter();
         }
+        this.year = Calendar.getInstance().get(Calendar.YEAR);
+        this.month = Calendar.getInstance().get(Calendar.MONTH);
         getSpp();
         UtilsUI.simpleAnimation(binding.add);
         UtilsUI.simpleAnimation(binding.calendar);

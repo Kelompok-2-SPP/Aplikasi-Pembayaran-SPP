@@ -53,12 +53,14 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
 
     private final List<PembayaranData> listData, listAll;
     private int orange, green, neutral, tahun;
+    private final StatusSiswa statusSiswa;
 
-    public StatusSiswaCardAdapter(List<PembayaranData> list, NavController controller, ApiInterface apiInterface) {
+    public StatusSiswaCardAdapter(List<PembayaranData> list, NavController controller, ApiInterface apiInterface, StatusSiswa statusSiswa) {
         this.listData = list;
         this.listAll = new ArrayList<>(list);
         this.controller = controller;
         this.apiInterface = apiInterface;
+        this.statusSiswa = statusSiswa;
     }
 
     private void localUpdate(int postion, long jumlahBayar) {
@@ -157,14 +159,17 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
             holder.sectionText.setText("Tahun " + data.getTahunSpp());
             holder.section.setVisibility(View.VISIBLE);
         }
-        holder.sudBayar.addTextChangedListener(new MoneyTextWatcher(holder.sudBayar, data.getSpp().getNominal()));
         if (data.getSpp() != null) {
+            holder.sudBayar.addTextChangedListener(new MoneyTextWatcher(holder.sudBayar, data.getSpp().getNominal()));
             setStatus(!Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar()), holder);
             holder.totSpp.setText(Utils.formatRupiah(data.getSpp().getNominal()));
+        } else {
+            setStatus(true, holder);
+            holder.sudBayar.addTextChangedListener(new MoneyTextWatcher(holder.sudBayar, data.getJumlahBayar()));
         }
+        holder.sudBayar.setText(String.valueOf(data.getJumlahBayar()));
         holder.bulan.setText(Utils.parseLongtoStringDate(Utils.parseServerStringtoLongDate(String.valueOf(data.getBulanSpp()), "MM"), "MMMM"));
         holder.tahun.setText("Status SPP tahun " + data.getTahunSpp());
-        holder.sudBayar.setText(String.valueOf(data.getJumlahBayar()));
         holder.status.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -247,6 +252,8 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 listData.clear();
                 listData.addAll((Collection<? extends PembayaranData>) results.values);
+                statusSiswa.notFoundHandling(((Collection<?>) results.values).size() == 0);
+                tahun = 0;
                 notifyDataSetChanged();
             }
         };

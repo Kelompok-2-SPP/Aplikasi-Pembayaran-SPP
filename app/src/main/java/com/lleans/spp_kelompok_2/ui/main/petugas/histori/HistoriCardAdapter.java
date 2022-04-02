@@ -34,12 +34,14 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
 
     private final List<PembayaranData> listData, listAll;
     private int orange;
-    private String date = "";
+    private String date;
+    private final Histori histori;
 
-    public HistoriCardAdapter(List<PembayaranData> list, NavController navController) {
+    public HistoriCardAdapter(List<PembayaranData> list, NavController navController, Histori histori) {
         this.listData = list;
         this.listAll = new ArrayList<>(list);
         this.controller = navController;
+        this.histori = histori;
     }
 
     @NonNull
@@ -126,6 +128,7 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 listData.clear();
                 listData.addAll((Collection<? extends PembayaranData>) results.values);
+                histori.notFoundHandling(((Collection<?>) results.values).size() == 0);
                 notifyDataSetChanged();
             }
         };

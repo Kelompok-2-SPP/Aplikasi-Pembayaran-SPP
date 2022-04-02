@@ -47,17 +47,20 @@ public class Transaksi extends Fragment {
         // Required empty public constructor
     }
 
-    private void notFoundHandling(boolean check) {
+    public void notFoundHandling(boolean check) {
         if (check) {
             binding.recyclerView.setVisibility(View.GONE);
             binding.notFound.getRoot().setVisibility(View.VISIBLE);
             UtilsUI.simpleAnimation(binding.notFound.getRoot());
+        } else {
+            binding.notFound.getRoot().setVisibility(View.GONE);
+            binding.recyclerView.setVisibility(View.VISIBLE);
         }
     }
 
     private void setAdapter(List<PembayaranData> data) {
         notFoundHandling(data.size() == 0 || data == null);
-        cardAdapter = new TransaksiCardAdapter(data, navController, false);
+        cardAdapter = new TransaksiCardAdapter(data, navController, false, this);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(cardAdapter);
     }
