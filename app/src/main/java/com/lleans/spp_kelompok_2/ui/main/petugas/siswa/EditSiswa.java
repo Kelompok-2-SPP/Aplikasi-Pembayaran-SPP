@@ -9,24 +9,21 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.text.Html;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.R;
-import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas4EditSiswaBinding;
-import com.lleans.spp_kelompok_2.domain.model.kelas.KelasDataList;
+import com.lleans.spp_kelompok_2.domain.model.BaseResponse;
+import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaSharedModel;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
+import com.lleans.spp_kelompok_2.ui.utils.UtilsUI;
 import com.lleans.spp_kelompok_2.ui.utils.spinner.SpinnerAdapter;
 import com.lleans.spp_kelompok_2.ui.utils.spinner.SpinnerInterface;
 
@@ -38,60 +35,74 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditSiswa extends Fragment implements UIListener {
+public class EditSiswa extends Fragment {
 
     private Petugas4EditSiswaBinding binding;
-    private SiswaSharedModel sharedModel;
-    private SessionManager sessionManager;
-    private NavController nav;
+    private NavController controller;
+    private ApiInterface apiInterface;
 
-    private String nisn;
     private List<SpinnerInterface> kelasList;
+    private SiswaSharedModel sharedModel;
+    private String nisn;
 
     public EditSiswa() {
         // Required empty public constructor
     }
 
+    private void getBack(SiswaData data, boolean isDeleted) {
+        if (isDeleted) {
+            controller.popBackStack(R.id.editSiswa, true);
+            controller.popBackStack(R.id.statussiswa_petugas, true);
+            controller.popBackStack(R.id.siswa_petugas, false);
+        } else {
+            sharedModel.updateData(data);
+            controller.navigateUp();
+        }
+    }
+
+    private void setSpinnerAdapter(List<KelasData> data, int idKelas) {
+        kelasList = new ArrayList<>();
+        int located = 0;
+
+        for (int x = 0; x < data.size(); x++) {
+            SpinnerInterface a = new SpinnerInterface();
+            a.setName("Kelas " + data.get(x).getNamaKelas() + "-Jurusan " + data.get(x).getJurusan() + "-Angkatan " + data.get(x).getAngkatan());
+            a.setValue(data.get(x).getIdKelas());
+            if (data.get(x).getIdKelas() == idKelas) {
+                located = x;
+            }
+            kelasList.add(a);
+        }
+
+        SpinnerAdapter adapter = new SpinnerAdapter(getContext(), kelasList, true);
+        binding.kelas.setAdapter(adapter);
+        binding.kelas.setSelection(located);
+    }
+
     private void kelasSpinner(int idKelas) {
-        isLoading(true);
-        Call<KelasDataList> kelasDataCall;
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        UtilsUI.isLoading(binding.refresher, false, true);
+        Call<BaseResponse<List<KelasData>>> kelasDataCall;
+
         kelasDataCall = apiInterface.getKelas(
-                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                 null,
                 null,
                 null,
                 null,
                 null,
                 null);
-        kelasDataCall.enqueue(new Callback<KelasDataList>() {
+        kelasDataCall.enqueue(new Callback<BaseResponse<List<KelasData>>>() {
             @Override
-            public void onResponse(Call<KelasDataList> call, Response<KelasDataList> response) {
-                isLoading(false);
+            public void onResponse(Call<BaseResponse<List<KelasData>>> call, Response<BaseResponse<List<KelasData>>> response) {
+                UtilsUI.isLoading(binding.refresher, false, false);
                 if (response.body() != null && response.isSuccessful()) {
-                    kelasList = new ArrayList<>();
-                    int located = 0;
-
-                    for (int x = 0; x < response.body().getDetails().size(); x++) {
-                        SpinnerInterface a = new SpinnerInterface();
-                        a.setName("Kelas " + response.body().getDetails().get(x).getNamaKelas() + "-Jurusan " + response.body().getDetails().get(x).getJurusan() + "-Angkatan " + response.body().getDetails().get(x).getAngkatan());
-                        a.setValue(response.body().getDetails().get(x).getIdKelas());
-                        if (response.body().getDetails().get(x).getIdKelas() == idKelas) {
-                            located = x;
-                        }
-                        kelasList.add(a);
-                    }
-
-                    SpinnerAdapter adapter = new SpinnerAdapter(getContext(), kelasList, true);
-                    binding.kelas.setAdapter(adapter);
-                    binding.kelas.setSelection(located);
+                    setSpinnerAdapter(response.body().getDetails(), idKelas);
                 } else {
                     try {
-                        KelasDataList message = new Gson().fromJson(response.errorBody().charStream(), KelasDataList.class);
-                        toaster(message.getMessage());
+                        BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                        UtilsUI.toaster(getContext(), message.getMessage());
                     } catch (Exception e) {
                         try {
-                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                            UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }
@@ -99,41 +110,33 @@ public class EditSiswa extends Fragment implements UIListener {
                 }
             }
 
-            // On failure response
             @Override
-            public void onFailure(@NonNull Call<KelasDataList> call, @NonNull Throwable t) {
-                isLoading(false);
-                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            public void onFailure(@NonNull Call<BaseResponse<List<KelasData>>> call, @NonNull Throwable t) {
+                UtilsUI.isLoading(binding.refresher, false, false);
+                UtilsUI.dialog(getContext(), "Something went wrong!", t.getLocalizedMessage(), false).show();
             }
         });
     }
 
-    // Delete siswa function
     private void deleteSiswa() {
-        isLoading(true);
-        Call<SiswaData> siswaDataCall;
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        siswaDataCall = apiInterface.deleteSiswa(
-                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
-                nisn
-        );
-        siswaDataCall.enqueue(new Callback<SiswaData>() {
+        UtilsUI.isLoading(binding.refresher, false, true);
+        Call<BaseResponse<SiswaData>> siswaDataCall;
+
+        siswaDataCall = apiInterface.deleteSiswa(nisn);
+        siswaDataCall.enqueue(new Callback<BaseResponse<SiswaData>>() {
             @Override
-            public void onResponse(Call<SiswaData> call, Response<SiswaData> response) {
-                isLoading(false);
+            public void onResponse(Call<BaseResponse<SiswaData>> call, Response<BaseResponse<SiswaData>> response) {
+                UtilsUI.isLoading(binding.refresher, false, false);
                 if (response.body() != null && response.isSuccessful()) {
-                    toaster(response.body().getMessage());
-                    sharedModel.updateData(response.body().getDetails());
-                    nav.popBackStack(R.id.editSiswa, true);
-                    nav.popBackStack(R.id.statussiswa_petugas, true);
-                    nav.popBackStack(R.id.siswa_petugas, false);
+                    UtilsUI.toaster(getContext(), response.body().getMessage());
+                    getBack(response.body().getDetails(), true);
                 } else {
                     try {
-                        SiswaData message = new Gson().fromJson(response.errorBody().charStream(), SiswaData.class);
-                        toaster(message.getMessage());
+                        BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                        UtilsUI.toaster(getContext(), message.getMessage());
                     } catch (Exception e) {
                         try {
-                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                            UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }
@@ -141,22 +144,20 @@ public class EditSiswa extends Fragment implements UIListener {
                 }
             }
 
-            // On failure response
             @Override
-            public void onFailure(@NonNull Call<SiswaData> call, @NonNull Throwable t) {
-                isLoading(false);
-                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            public void onFailure(@NonNull Call<BaseResponse<SiswaData>> call, @NonNull Throwable t) {
+                UtilsUI.isLoading(binding.refresher, false, false);
+                UtilsUI.dialog(getContext(), "Something went wrong!", t.getLocalizedMessage(), false).show();
             }
         });
     }
 
 
     private void editSiswa(String nisn, String newNisn, String nis, String password, String nama, Integer idKelas, String alamat, String noTelp) {
-        isLoading(true);
-        Call<SiswaData> editSiswaCall;
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        UtilsUI.isLoading(binding.refresher, false, true);
+        Call<BaseResponse<SiswaData>> editSiswaCall;
+
         editSiswaCall = apiInterface.putSiswa(
-                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                 nisn,
                 newNisn,
                 nis,
@@ -165,31 +166,29 @@ public class EditSiswa extends Fragment implements UIListener {
                 idKelas,
                 alamat,
                 noTelp);
-        editSiswaCall.enqueue(new Callback<SiswaData>() {
+        editSiswaCall.enqueue(new Callback<BaseResponse<SiswaData>>() {
             @Override
-            public void onResponse(Call<SiswaData> call, Response<SiswaData> response) {
-                isLoading(false);
+            public void onResponse(Call<BaseResponse<SiswaData>> call, Response<BaseResponse<SiswaData>> response) {
+                UtilsUI.isLoading(binding.refresher, false, false);
                 if (response.body() != null && response.isSuccessful()) {
-                    toaster(response.body().getMessage());
-                    sharedModel.updateData(response.body().getDetails());
-                    nav.navigateUp();
+                    UtilsUI.toaster(getContext(), response.body().getMessage());
+                    getBack(response.body().getDetails(), false);
                 } else if (response.code() <= 500) {
-                    SiswaData message = new Gson().fromJson(response.errorBody().charStream(), SiswaData.class);
-                    toaster(message.getMessage());
+                    BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                    UtilsUI.toaster(getContext(), message.getMessage());
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
 
-            // On failure response
             @Override
-            public void onFailure(@NonNull Call<SiswaData> call, @NonNull Throwable t) {
-                isLoading(false);
-                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            public void onFailure(@NonNull Call<BaseResponse<SiswaData>> call, @NonNull Throwable t) {
+                UtilsUI.isLoading(binding.refresher, false, false);
+                UtilsUI.dialog(getContext(), "Something went wrong!", t.getLocalizedMessage(), false).show();
             }
         });
     }
@@ -197,7 +196,7 @@ public class EditSiswa extends Fragment implements UIListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        nav = Navigation.findNavController(view);
+        controller = Navigation.findNavController(view);
 
         binding.simpan.setOnClickListener(view1 -> {
             String newNisn, nis, password, nama, alamat, noTelp;
@@ -210,28 +209,33 @@ public class EditSiswa extends Fragment implements UIListener {
             alamat = binding.alamat.getText().toString();
             noTelp = binding.noTelp.getText().toString();
             idKelas = kelasList.get(binding.kelas.getSelectedItemPosition()).getValue();
-            if (newNisn.equals("") || nis.equals("") || nama.equals("") || alamat.equals("") || noTelp.equals("") || idKelas == 0) {
-                toaster("Data harus diisi!");
+            if (newNisn.isEmpty() || nis.isEmpty() || nama.isEmpty() || alamat.isEmpty() || noTelp.isEmpty() || idKelas == 0) {
+                UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
             } else {
-                if (password.equals("")) {
-                    editSiswa(nisn, newNisn, nis, null, nama, idKelas, alamat, noTelp);
-                } else {
-                    editSiswa(nisn, newNisn, nis, password, nama, idKelas, alamat, noTelp);
-                }
+                UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
+                    if (password.isEmpty()) {
+                        editSiswa(nisn, newNisn, nis, null, nama, idKelas, alamat, noTelp);
+                    } else {
+                        editSiswa(nisn, newNisn, nis, password, nama, idKelas, alamat, noTelp);
+                    }
+                }).show();
             }
         });
         binding.hapus.setOnClickListener(view2 -> {
-            deleteSiswa();
+            UtilsUI.dialog(getContext(), "Hapus data?", "Apakah anda yakin untuk menghapus data berikut, data transaksi di dalam siswa ini akan terhapus.", true).setPositiveButton("Ok", (dialog, which) -> {
+                deleteSiswa();
+            }).show();
         });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = Petugas4EditSiswaBinding.inflate(inflater, container, false);
-        isLoading(false);
-        sessionManager = new SessionManager(getContext());
+
+        UtilsUI.isLoading(binding.refresher, false, false);
+        SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
+        apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
         sharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
         sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSiswa -> {
             this.nisn = detailsItemSiswa.getNisn();
@@ -242,27 +246,7 @@ public class EditSiswa extends Fragment implements UIListener {
             binding.alamat.setText(detailsItemSiswa.getAlamat());
             binding.noTelp.setText(detailsItemSiswa.getNoTelp());
         });
-
         return binding.getRoot();
     }
 
-    // Abstract class for loadingBar
-    @Override
-    public void isLoading(Boolean isLoading) {
-        binding.refresher.setEnabled(isLoading);
-        binding.refresher.setRefreshing(isLoading);
-    }
-
-    // Abstract class for Toast
-    @Override
-    public void toaster(String text) {
-        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    // Abstract class for Dialog
-    @Override
-    public void dialog(String title, Spanned message) {
-        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(requireContext());
-        as.setTitle(title).setMessage(message).setPositiveButton("Ok", null).show();
-    }
 }

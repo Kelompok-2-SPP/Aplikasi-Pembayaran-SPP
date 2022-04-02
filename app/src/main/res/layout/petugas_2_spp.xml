@@ -6,60 +6,82 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.petugas.spp.Spp">
 
-    <RelativeLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresher"
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:padding="16dp"
+                    tools:listitem="@layout/item_row_spp" />
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/calendar"
+        style="@style/SPPKelompok2.Card.Large.Filled"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackgroundBorderless"
+        app:cardElevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <EditText
-            android:id="@+id/searchBar"
-            style="@style/SPPKelompok2.Text.Medium.Body2"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/background_edit_unfocused"
-            android:clickable="true"
-            android:drawableStart="@drawable/icon_search"
-            android:drawablePadding="9dp"
-            android:focusable="true"
-            android:hint="Cari Kelas"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="22dp"
+            android:paddingVertical="9dp">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/refresher"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/searchBar">
-
-            <ScrollView
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fillViewport="true">
+                android:contentDescription="CETAK"
+                android:src="@drawable/icon_calendar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tgl"
+                style="@style/SPPKelompok2.Text.Semibold.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="Filter"
+                android:textColor="?colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:nestedScrollingEnabled="false"
-                        android:padding="16dp"
-                        tools:listitem="@layout/item_row_main" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </RelativeLayout>
-
-            </ScrollView>
-
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <ImageButton
         android:id="@+id/add"

@@ -35,22 +35,22 @@ public class MoneyTextWatcher implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
         EditText editText = editTextWeakReference.get();
-        if (editText == null || editText.getText().toString().equals("")) {
+        if (editText == null || editText.getText().toString().isEmpty()) {
             return;
         }
         editText.removeTextChangedListener(this);
 
         BigDecimal parsed = parseCurrencyValue(editText.getText().toString());
         BigDecimal max = parseCurrencyValue(String.valueOf(maxValue));
+        String formatted;
+
         if (parsed.compareTo(max) > 0) {
-            String formatted = numberFormat.format(max);
-            editText.setText(formatted);
-            editText.setSelection(formatted.length());
+            formatted = numberFormat.format(max);
         } else {
-            String formatted = numberFormat.format(parsed);
-            editText.setText(formatted);
-            editText.setSelection(formatted.length());
+            formatted = numberFormat.format(parsed);
         }
+        editText.setText(formatted);
+        editText.setSelection(formatted.length());
 
         editText.addTextChangedListener(this);
     }
@@ -61,7 +61,7 @@ public class MoneyTextWatcher implements TextWatcher {
             String currencyValue = value.replaceAll(replaceRegex, "");
             return new BigDecimal(currencyValue);
         } catch (Exception e) {
-            Log.e("MyApp", e.getMessage(), e);
+            Log.e("Debug", e.getMessage(), e);
         }
         return BigDecimal.ZERO;
     }

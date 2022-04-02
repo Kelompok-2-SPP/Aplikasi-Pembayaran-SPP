@@ -71,7 +71,8 @@
                         android:focusable="true"
                         android:hint="Username"
                         android:inputType="text"
-                        android:maxLength="25" />
+                        android:maxLength="25"
+                        android:textColor="?colorPrimary" />
 
                 </LinearLayout>
 
@@ -100,7 +101,8 @@
                         android:focusable="true"
                         android:hint="Password"
                         android:inputType="textPassword"
-                        android:maxLength="255" />
+                        android:maxLength="255"
+                        android:textColor="?colorPrimary" />
 
                 </LinearLayout>
 

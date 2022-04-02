@@ -1,7 +1,7 @@
 package com.lleans.spp_kelompok_2.domain.model.tunggakan;
 
 import com.google.gson.annotations.SerializedName;
-import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
+import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
 
 public class PembayaranTunggakan {
 
@@ -9,7 +9,7 @@ public class PembayaranTunggakan {
 	private String createdAt;
 
 	@SerializedName("spp")
-	private DetailsItemSpp spp;
+	private SppData spp;
 
 	@SerializedName("bulan_spp")
 	private int bulanSpp;
@@ -21,10 +21,10 @@ public class PembayaranTunggakan {
 	private int tahunSpp;
 
 	@SerializedName("jumlah_bayar")
-	private Object jumlahBayar;
+	private Long jumlahBayar;
 
 	@SerializedName("tgl_bayar")
-	private Object tglBayar;
+	private String tglBayar;
 
 	@SerializedName("updatedAt")
 	private String updatedAt;
@@ -37,11 +37,11 @@ public class PembayaranTunggakan {
 		return createdAt;
 	}
 
-	public void setSpp(DetailsItemSpp sppTunggakan){
+	public void setSpp(SppData sppTunggakan){
 		this.spp = sppTunggakan;
 	}
 
-	public DetailsItemSpp getSpp(){
+	public SppData getSpp(){
 		return spp;
 	}
 
@@ -69,19 +69,19 @@ public class PembayaranTunggakan {
 		return tahunSpp;
 	}
 
-	public void setJumlahBayar(Object jumlahBayar){
+	public void setJumlahBayar(Long jumlahBayar){
 		this.jumlahBayar = jumlahBayar;
 	}
 
-	public Object getJumlahBayar(){
+	public Long getJumlahBayar(){
 		return jumlahBayar;
 	}
 
-	public void setTglBayar(Object tglBayar){
+	public void setTglBayar(String tglBayar){
 		this.tglBayar = tglBayar;
 	}
 
-	public Object getTglBayar(){
+	public String getTglBayar(){
 		return tglBayar;
 	}
 

@@ -25,6 +25,7 @@
             android:drawablePadding="9dp"
             android:focusable="true"
             android:hint="Cari Kelas"
+            android:imeOptions="actionSearch"
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,6 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never"
                         android:padding="16dp"
                         tools:listitem="@layout/item_row_main" />
 

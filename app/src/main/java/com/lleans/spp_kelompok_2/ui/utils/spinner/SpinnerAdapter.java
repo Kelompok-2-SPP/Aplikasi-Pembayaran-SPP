@@ -12,10 +12,9 @@ import com.lleans.spp_kelompok_2.R;
 import java.util.List;
 
 public class SpinnerAdapter extends BaseAdapter {
-    private Context context;
-    private List<SpinnerInterface> list;
-
-    private boolean focused;
+    private final Context context;
+    private final List<SpinnerInterface> list;
+    private final boolean focused;
 
     public SpinnerAdapter(Context context, List<SpinnerInterface> list, boolean focused) {
         this.context = context;
@@ -45,7 +44,7 @@ public class SpinnerAdapter extends BaseAdapter {
 
         TextView text = view.findViewById(R.id.text);
 
-        if(focused){
+        if (focused) {
             text.setTextColor(primary);
         }
         text.setText(list.get(position).getName());

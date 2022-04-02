@@ -3,19 +3,14 @@
 
     <style name="SPPKelompok2.Card" parent="Widget.Material3.CardView.Elevated">
         <item name="cardBackgroundColor">?colorSurface</item>
-        <item name="paddingStart">20dp</item>
-        <item name="paddingEnd">20dp</item>
-        <item name="paddingTopNoTitle">20dp</item>
-        <item name="paddingBottomNoButtons">20dp</item>
+        <item name="rippleColor">@color/ambient</item>
         <item name="cardUseCompatPadding">true</item>
     </style>
 
     <style name="SPPKelompok2.Card.Filled" parent="Widget.Material3.CardView.Filled">
         <item name="cardBackgroundColor">?colorSurface</item>
-        <item name="paddingStart">20dp</item>
-        <item name="paddingEnd">20dp</item>
-        <item name="paddingTopNoTitle">20dp</item>
-        <item name="paddingBottomNoButtons">20dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="rippleColor">@color/ambient</item>
     </style>
 
     <style name="SPPKelompok2.Card.Small" parent="SPPKelompok2.Card">

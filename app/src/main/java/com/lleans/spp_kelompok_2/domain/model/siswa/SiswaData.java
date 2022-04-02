@@ -1,39 +1,106 @@
 package com.lleans.spp_kelompok_2.domain.model.siswa;
 
 import com.google.gson.annotations.SerializedName;
+import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
 
 public class SiswaData {
 
-	@SerializedName("details")
-	private DetailsItemSiswa details;
+	@SerializedName("createdAt")
+	private String createdAt;
 
-	@SerializedName("message")
-	private String message;
+	@SerializedName("nama")
+	private String nama;
 
-	@SerializedName("status")
-	private int status;
+	@SerializedName("nisn")
+	private String nisn;
 
-	public void setDetails(DetailsItemSiswa details){
-		this.details = details;
+	@SerializedName("kelas")
+	private KelasData kelas;
+
+	@SerializedName("nis")
+	private String nis;
+
+	@SerializedName("id_kelas")
+	private int idKelas;
+
+	@SerializedName("no_telp")
+	private String noTelp;
+
+	@SerializedName("alamat")
+	private String alamat;
+
+	@SerializedName("updatedAt")
+	private String updatedAt;
+
+	public void setCreatedAt(String createdAt){
+		this.createdAt = createdAt;
 	}
 
-	public DetailsItemSiswa getDetails(){
-		return details;
+	public String getCreatedAt(){
+		return createdAt;
 	}
 
-	public void setMessage(String message){
-		this.message = message;
+	public void setNama(String nama){
+		this.nama = nama;
 	}
 
-	public String getMessage(){
-		return message;
+	public String getNama(){
+		return nama;
 	}
 
-	public void setStatus(int status){
-		this.status = status;
+	public void setNisn(String nisn){
+		this.nisn = nisn;
 	}
 
-	public int getStatus(){
-		return status;
+	public String getNisn(){
+		return nisn;
+	}
+
+	public void setKelas(KelasData kelasSiswa){
+		this.kelas = kelasSiswa;
+	}
+
+	public KelasData getKelas(){
+		return kelas;
+	}
+
+	public void setNis(String nis){
+		this.nis = nis;
+	}
+
+	public String getNis(){
+		return nis;
+	}
+
+	public void setIdKelas(int idKelas){
+		this.idKelas = idKelas;
+	}
+
+	public int getIdKelas(){
+		return idKelas;
+	}
+
+	public void setNoTelp(String noTelp){
+		this.noTelp = noTelp;
+	}
+
+	public String getNoTelp(){
+		return noTelp;
+	}
+
+	public void setAlamat(String alamat){
+		this.alamat = alamat;
+	}
+
+	public String getAlamat(){
+		return alamat;
+	}
+
+	public void setUpdatedAt(String updatedAt){
+		this.updatedAt = updatedAt;
+	}
+
+	public String getUpdatedAt(){
+		return updatedAt;
 	}
 }

@@ -133,7 +133,7 @@
                 android:id="@+id/linearLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
                 app:layout_constraintStart_toStartOf="@+id/linearLayout4"

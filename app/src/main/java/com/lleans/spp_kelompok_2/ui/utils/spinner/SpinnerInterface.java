@@ -7,10 +7,6 @@ public class SpinnerInterface implements Serializable {
     private String name;
     private int value;
 
-    public SpinnerInterface(){
-
-    }
-
     public String getName() {
         return name;
     }

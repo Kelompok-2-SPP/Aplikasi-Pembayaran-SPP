@@ -2,38 +2,51 @@ package com.lleans.spp_kelompok_2.domain.model.tunggakan;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class TunggakanData {
 
-	@SerializedName("details")
-	private DetailsItemTunggakan detailsItemTunggakan;
+    @SerializedName("tunggakan")
+    private List<PembayaranTunggakan> tunggakan;
 
-	@SerializedName("message")
-	private String message;
+    @SerializedName("nisn")
+    private String nisn;
 
-	@SerializedName("status")
-	private int status;
+    @SerializedName("jumlah_tunggakan")
+    private int jumlahTunggakan;
 
-	public void setDetails(DetailsItemTunggakan detailsItemTunggakan){
-		this.detailsItemTunggakan = detailsItemTunggakan;
-	}
+    @SerializedName("total_tunggakan")
+    private Long totalTunggakan;
 
-	public DetailsItemTunggakan getDetails(){
-		return detailsItemTunggakan;
-	}
+    public void setTunggakan(List<PembayaranTunggakan> tunggakan){
+        this.tunggakan = tunggakan;
+    }
 
-	public void setMessage(String message){
-		this.message = message;
-	}
+    public List<PembayaranTunggakan> getTunggakan(){
+        return tunggakan;
+    }
 
-	public String getMessage(){
-		return message;
-	}
+    public void setNisn(String nisn){
+        this.nisn = nisn;
+    }
 
-	public void setStatus(int status){
-		this.status = status;
-	}
+    public String getNisn(){
+        return nisn;
+    }
 
-	public int getStatus(){
-		return status;
-	}
+    public void setJumlahTunggakan(int jumlahTunggakan){
+        this.jumlahTunggakan = jumlahTunggakan;
+    }
+
+    public int getJumlahTunggakan(){
+        return jumlahTunggakan;
+    }
+
+    public void setTotalTunggakan(Long totalTunggakan){
+        this.totalTunggakan = totalTunggakan;
+    }
+
+    public Long getTotalTunggakan(){
+        return totalTunggakan;
+    }
 }

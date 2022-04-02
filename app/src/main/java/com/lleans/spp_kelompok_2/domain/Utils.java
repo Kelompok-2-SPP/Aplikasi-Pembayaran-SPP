@@ -1,95 +1,74 @@
 package com.lleans.spp_kelompok_2.domain;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
+import android.util.Log;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 public class Utils {
 
+    final static Locale local = new Locale("in", "ID");
+    final static NumberFormat rupiahFormat = NumberFormat.getCurrencyInstance(local);
+
     public static String formatRupiah(long money) {
-        NumberFormat rupiahFormat = NumberFormat.getCurrencyInstance(new Locale("in", "ID"));
         rupiahFormat.setMaximumFractionDigits(0);
         rupiahFormat.setRoundingMode(RoundingMode.FLOOR);
         return rupiahFormat.format(new BigDecimal(money));
     }
 
-    public static long unformatRupiah(String money) {
-        long parsed = 0;
-
-        NumberFormat rupiahFormat = NumberFormat.getCurrencyInstance(new Locale("in", "ID"));
+    public static Long unformatRupiah(String money) {
         try {
-            parsed = Long.parseLong(String.valueOf(new BigDecimal(String.valueOf(rupiahFormat.parse(money)))));
+            return (Long) rupiahFormat.parse(money);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e("Debug", e.getMessage(), e);
         }
-        return parsed;
+        return 0L;
     }
 
-    public static Boolean statusPembayaran(long totalSpp, long nominalBayar) {
+    public static String kurangBayar(Long totalSpp, Long nominalBayar) {
+        if (nominalBayar == null) nominalBayar = 0L;
+        return ("-" + formatRupiah(totalSpp - nominalBayar));
+    }
+
+    public static Boolean statusPembayaran(Long totalSpp, Long nominalBayar) {
+        if (nominalBayar == null) nominalBayar = 0L;
         return nominalBayar < totalSpp;
     }
 
     public static String getCurrentDateAndTime(String format) {
         Date c = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat(format, new Locale("in", "ID"));
+        SimpleDateFormat df = new SimpleDateFormat(format, local);
         return df.format(c);
     }
 
-    public static Long parseDateStringToLong(String date) {
-        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
-        Long miliseconds = null;
+    public static Long parseServerStringtoLongDate(String date, String format) {
+        String clean = date.replaceAll("T", " ").replaceAll(".000Z", "");
+        SimpleDateFormat sdf = new SimpleDateFormat(format, local);
 
         try {
-            Date d = f.parse(date + "-07:00:00");
-            miliseconds = d.getTime();
+            Date d = sdf.parse(clean);
+            return Objects.requireNonNull(d).getTime();
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e("Debug", e.getMessage(), e);
         }
-        return miliseconds;
+        return 0L;
     }
 
-    public static String parseDateLongToString(Long date) {
-        Date dat = new Date(date);
-        SimpleDateFormat df2 = new SimpleDateFormat("dd-MM-yyyy");
-        return df2.format(dat);
-    }
+    public static String parseLongtoStringDate(Long date, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format, local);
 
-    public static String parseDateLongToServerString(Long date, String format) {
-        Date dat = new Date(date);
-        SimpleDateFormat df2 = new SimpleDateFormat(format);
-        return df2.format(dat);
-    }
-
-    public static String kurangBayar(long totalSpp, long nominalBayar) {
-        return "-" + formatRupiah(totalSpp - nominalBayar);
-    }
-
-    public static String formatDateStringToLocal(String date) {
-        String[] arr = date.split("-");
-        return arr[2] + " " + getMonth(Integer.parseInt(arr[1])) + " " + arr[0];
-    }
-
-    public static String formatYearMonthStringToLocal(String date) {
-        String[] arr = date.split("-");
-        return arr[1] + " " + getMonth(Integer.parseInt(arr[0]));
-    }
-
-    public static String getMonth(int month) {
-        String[] months = {"none", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "Nopember", "Desember"};
-        return months[month];
+        try {
+            return sdf.format(date);
+        } catch (Exception e) {
+            Log.e("Debug", e.getMessage(), e);
+        }
+        return "";
     }
 }

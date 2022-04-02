@@ -1,13 +1,9 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.siswa;
 
-import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,34 +13,36 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.R;
-import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas3StatusSiswaBinding;
 import com.lleans.spp_kelompok_2.domain.Utils;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
+import com.lleans.spp_kelompok_2.domain.model.BaseResponse;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaSharedModel;
 import com.lleans.spp_kelompok_2.domain.model.tunggakan.TunggakanData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 import com.lleans.spp_kelompok_2.ui.utils.UtilsUI;
+import com.whiteelephant.monthpicker.MonthPickerDialog;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class StatusSiswa extends Fragment implements UIListener {
+public class StatusSiswa extends Fragment {
 
     private Petugas3StatusSiswaBinding binding;
-    private SessionManager sessionManager;
-    private NavController nav;
+    private NavController controller;
+    private ApiInterface apiInterface;
 
+    private StatusSiswaCardAdapter cardAdapter;
     private String nisn;
-    private int sizeTransaksi;
 
     public StatusSiswa() {
         // Required empty public constructor
@@ -54,25 +52,36 @@ public class StatusSiswa extends Fragment implements UIListener {
         binding.edit.setVisibility(View.GONE);
     }
 
+    private void setAdapter(List<PembayaranData> data) {
+        cardAdapter = new StatusSiswaCardAdapter(data, controller, apiInterface);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setAdapter(cardAdapter);
+    }
+
+    private void showAddTransaksi(boolean isNone) {
+        if (isNone) {
+            UtilsUI.simpleAnimation(binding.add);
+            binding.add.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void getTunggakan() {
-        isLoading(true);
-        Call<TunggakanData> tunggakanDataCall;
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        tunggakanDataCall = apiInterface.getTunggakan(
-                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
-                nisn);
-        tunggakanDataCall.enqueue(new Callback<TunggakanData>() {
+        UtilsUI.isLoading(binding.refresher, true, true);
+        Call<BaseResponse<TunggakanData>> tunggakanDataCall;
+
+        tunggakanDataCall = apiInterface.getTunggakan(nisn);
+        tunggakanDataCall.enqueue(new Callback<BaseResponse<TunggakanData>>() {
             @Override
-            public void onResponse(Call<TunggakanData> call, Response<TunggakanData> response) {
+            public void onResponse(Call<BaseResponse<TunggakanData>> call, Response<BaseResponse<TunggakanData>> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     getTransaksi();
                 } else {
                     try {
-                        TunggakanData message = new Gson().fromJson(response.errorBody().charStream(), TunggakanData.class);
-                        toaster(message.getMessage());
+                        BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                        UtilsUI.toaster(getContext(), message.getMessage());
                     } catch (Exception e) {
                         try {
-                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                            UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }
@@ -80,21 +89,20 @@ public class StatusSiswa extends Fragment implements UIListener {
                 }
             }
 
-            // On failure response
             @Override
-            public void onFailure(@NonNull Call<TunggakanData> call, @NonNull Throwable t) {
-                isLoading(false);
-                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            public void onFailure(@NonNull Call<BaseResponse<TunggakanData>> call, @NonNull Throwable t) {
+                getTransaksi();
+                UtilsUI.isLoading(binding.refresher, true, false);
+                UtilsUI.dialog(getContext(), "Something went wrong!", t.getLocalizedMessage(), false).show();
             }
         });
     }
 
     private void getTransaksi() {
-        isLoading(true);
-        Call<PembayaranDataList> pembayaranDataCall;
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        UtilsUI.isLoading(binding.refresher, true, true);
+        Call<BaseResponse<List<PembayaranData>>> pembayaranDataCall;
+
         pembayaranDataCall = apiInterface.getPembayaran(
-                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                 null,
                 null,
                 nisn,
@@ -105,37 +113,35 @@ public class StatusSiswa extends Fragment implements UIListener {
                 null,
                 null,
                 null);
-        pembayaranDataCall.enqueue(new Callback<PembayaranDataList>() {
+        pembayaranDataCall.enqueue(new Callback<BaseResponse<List<PembayaranData>>>() {
             @Override
-            public void onResponse(Call<PembayaranDataList> call, Response<PembayaranDataList> response) {
-                isLoading(false);
+            public void onResponse(Call<BaseResponse<List<PembayaranData>>> call, Response<BaseResponse<List<PembayaranData>>> response) {
+                UtilsUI.isLoading(binding.refresher, true, false);
                 if (response.body() != null && response.isSuccessful()) {
-                    sizeTransaksi = response.body().getDetails().size();
-                    StatusSiswaCardAdapter cardAdapter = new StatusSiswaCardAdapter(response.body().getDetails(), nav);
-                    binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    binding.recyclerView.setAdapter(cardAdapter);
+                    setAdapter(response.body().getDetails());
                 } else {
-                    try {
-                        PembayaranDataList message = new Gson().fromJson(response.errorBody().charStream(), PembayaranDataList.class);
-                        toaster(message.getMessage());
-                    } catch (Exception e) {
+                    if (response.code() == 404) {
+                        UtilsUI.toaster(getContext(), "Transaksi tidak ditemukan, silahkan buat transaksi baru");
+                        showAddTransaksi(true);
+                    } else {
                         try {
-                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                        } catch (IOException ioException) {
-                            ioException.printStackTrace();
+                            BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                            UtilsUI.toaster(getContext(), message.getMessage());
+                        } catch (Exception e) {
+                            try {
+                                UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
                         }
                     }
                 }
-                if (sizeTransaksi == 0) {
-                    binding.add.setVisibility(View.VISIBLE);
-                }
             }
 
-            // On failure response
             @Override
-            public void onFailure(@NonNull Call<PembayaranDataList> call, @NonNull Throwable t) {
-                isLoading(false);
-                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            public void onFailure(@NonNull Call<BaseResponse<List<PembayaranData>>> call, @NonNull Throwable t) {
+                UtilsUI.isLoading(binding.refresher, true, false);
+                UtilsUI.dialog(getContext(), "Something went wrong!", t.getLocalizedMessage(), false).show();
             }
         });
     }
@@ -143,27 +149,42 @@ public class StatusSiswa extends Fragment implements UIListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        nav = Navigation.findNavController(view);
+        controller = Navigation.findNavController(view);
 
         binding.refresher.setOnRefreshListener(this::getTransaksi);
-        binding.edit.setOnClickListener(v -> nav.navigate(R.id.action_statussiswa_petugas_to_editSiswa));
-        binding.add.setOnClickListener(v -> nav.navigate(R.id.action_statussiswa_petugas_to_tambahStatus));
+        binding.edit.setOnClickListener(v -> controller.navigate(R.id.action_statussiswa_petugas_to_editSiswa));
+        binding.add.setOnClickListener(v -> controller.navigate(R.id.action_statussiswa_petugas_to_tambahStatus));
+        binding.calendar.setOnClickListener(v -> {
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+            int month = Calendar.getInstance().get(Calendar.MONTH);
+
+            MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
+                if (cardAdapter != null) {
+                    binding.tgl.setText(String.valueOf(selectedYear));
+                    cardAdapter.getFilter().filter(String.valueOf(selectedYear));
+                }
+            }, year, month);
+            builder.setTitle("Pilih Tahun SPP")
+                    .setActivatedYear(year)
+                    .setMaxYear(year)
+                    .showYearOnly()
+                    .build().show();
+        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = Petugas3StatusSiswaBinding.inflate(inflater, container, false);
-        sessionManager = new SessionManager(getContext());
-        SiswaSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
 
-        if (sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")) {
+        SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
+        apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
+        SiswaSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
+        if (sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas"))
             UILimiter();
-        }
         sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSiswa -> {
             this.nisn = detailsItemSiswa.getNisn();
-            UtilsUI.nicknameBuilder(getContext(), detailsItemSiswa.getNama(), binding.nick, binding.nickFrame);
+            UtilsUI.nicknameBuilder(getActivity().getApplicationContext(), detailsItemSiswa.getNama(), binding.nick, binding.nickFrame);
             binding.nama.setText(detailsItemSiswa.getNama());
             binding.nisn.setText(String.valueOf(detailsItemSiswa.getNisn()));
             binding.nis.setText(detailsItemSiswa.getNis());
@@ -171,26 +192,8 @@ public class StatusSiswa extends Fragment implements UIListener {
             binding.noTelp.setText(String.valueOf(detailsItemSiswa.getNoTelp()));
             getTunggakan();
         });
-
+        UtilsUI.simpleAnimation(binding.calendar);
         return binding.getRoot();
     }
 
-    // Abstract class for loadingBar
-    @Override
-    public void isLoading(Boolean isLoading) {
-        binding.refresher.setRefreshing(isLoading);
-    }
-
-    // Abstract class for Toast
-    @Override
-    public void toaster(String text) {
-        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    // Abstract class for Dialog
-    @Override
-    public void dialog(String title, Spanned message) {
-        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(requireContext());
-        as.setTitle(title).setMessage(message).setPositiveButton("Ok", null).show();
-    }
 }

@@ -1,59 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card_spp"
-    style="@style/SPPKelompok2.Card.Large"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/green">
+    android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
+        android:id="@+id/section"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginVertical="15dp">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="5dp"
+        android:visibility="gone">
 
         <TextView
-            android:id="@+id/titleSpp"
-            style="@style/SPPKelompok2.Text.Semibold.Body2"
+            android:id="@+id/sectionText"
+            style="@style/SPPKelompok2.Text.Regular.Body3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_spp"
-            android:textColor="?colorSurface"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="Section"
+            android:textColor="?android:textColorSecondary" />
 
-        <TextView
-            android:id="@+id/tahunSpp"
-            style="@style/SPPKelompok2.Text.Regular.Body4"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/angkatan_spp"
-            android:textColor="?colorSurface"
-            app:layout_constraintStart_toStartOf="@+id/titleSpp"
-            app:layout_constraintTop_toBottomOf="@+id/titleSpp" />
+            android:layout_below="@id/sectionText"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background_lines_dotted" />
 
-        <com.google.android.material.card.MaterialCardView
-            style="@style/SPPKelompok2.Card.Medium.Filled"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+    </RelativeLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_spp"
+        style="@style/SPPKelompok2.Card.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/section"
+        app:cardBackgroundColor="@color/green">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginVertical="15dp">
 
             <TextView
-                android:id="@+id/jumlahSpp"
-                style="@style/SPPKelompok2.Text.Bold.Header4"
+                android:id="@+id/titleSpp"
+                style="@style/SPPKelompok2.Text.Semibold.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="9dp"
-                android:text="@string/rp500_000"
-                android:textColor="@color/green" />
+                android:text="@string/title_spp"
+                android:textColor="?colorSurface"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/tahunSpp"
+                style="@style/SPPKelompok2.Text.Regular.Body4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/angkatan_spp"
+                android:textColor="?colorSurface"
+                app:layout_constraintStart_toStartOf="@+id/titleSpp"
+                app:layout_constraintTop_toBottomOf="@+id/titleSpp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.card.MaterialCardView
+                style="@style/SPPKelompok2.Card.Medium.Filled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-</com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/jumlahSpp"
+                    style="@style/SPPKelompok2.Text.Bold.Header4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="9dp"
+                    android:text="@string/rp500_000"
+                    android:textColor="@color/green" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</RelativeLayout>

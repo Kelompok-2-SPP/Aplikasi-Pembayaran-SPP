@@ -1,38 +1,38 @@
 package com.lleans.spp_kelompok_2.ui.main.petugas.siswa;
 
+import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.text.Html;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.DatePicker;
 
-import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
-import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas5TambahTransaksiBinding;
 import com.lleans.spp_kelompok_2.domain.Utils;
+import com.lleans.spp_kelompok_2.domain.model.BaseResponse;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranData;
 import com.lleans.spp_kelompok_2.domain.model.siswa.SiswaSharedModel;
-import com.lleans.spp_kelompok_2.domain.model.spp.DetailsItemSpp;
 import com.lleans.spp_kelompok_2.domain.model.spp.SppData;
-import com.lleans.spp_kelompok_2.domain.model.spp.SppDataList;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 import com.lleans.spp_kelompok_2.ui.utils.MoneyTextWatcher;
+import com.lleans.spp_kelompok_2.ui.utils.UtilsUI;
 import com.lleans.spp_kelompok_2.ui.utils.spinner.SpinnerAdapter;
 import com.lleans.spp_kelompok_2.ui.utils.spinner.SpinnerInterface;
+import com.whiteelephant.monthpicker.MonthPickerDialog;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,99 +43,115 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TambahTransaksi extends Fragment implements UIListener {
+public class TambahTransaksi extends Fragment {
 
     private Petugas5TambahTransaksiBinding binding;
     private SessionManager sessionManager;
-    private SiswaSharedModel sharedModel;
-    private NavController nav;
+    private NavController controller;
+    private ApiInterface apiInterface;
 
     private List<SpinnerInterface> sppList;
-    private int idSpp;
     private String nisn;
     private Long tglPembayaran, sppDate;
-    private DetailsItemSpp sppData;
 
     public TambahTransaksi() {
         // Required empty public constructor
     }
 
+    private void setSpinnerAdapter(List<SppData> data, int idSpp) {
+        sppList = new ArrayList<>();
+        int located = 0;
+
+        for (int x = 0; x < data.size(); x++) {
+            SpinnerInterface a = new SpinnerInterface();
+            a.setName("Angkatan " + data.get(x).getAngkatan() + "-Tahun " + data.get(x).getTahun() + "-" + Utils.formatRupiah(data.get(x).getNominal()));
+            a.setValue(data.get(x).getIdSpp());
+            if (data.get(x).getIdSpp() == idSpp) {
+                located = x;
+            }
+            sppList.add(a);
+        }
+
+        SpinnerAdapter adapter = new SpinnerAdapter(getContext(), sppList, true);
+        binding.spp.setAdapter(adapter);
+        binding.jumlahBayar.addTextChangedListener(new MoneyTextWatcher(binding.jumlahBayar, Long.MAX_VALUE));
+        binding.spp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                binding.jumlahBayar.setText(String.valueOf(data.get(position).getNominal()));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        if (located != 0) binding.spp.setSelection(located);
+    }
+
     private void latestSpp(String nisn) {
-        isLoading(true);
-        Call<SppData> spplatestCall;
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        UtilsUI.isLoading(binding.refresher, false, true);
+        Call<BaseResponse<SppData>> spplatestCall;
+
         spplatestCall = apiInterface.getLatestSpp(
-                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                 nisn,
                 Utils.getCurrentDateAndTime("yyyy"));
-        spplatestCall.enqueue(new Callback<SppData>() {
+        spplatestCall.enqueue(new Callback<BaseResponse<SppData>>() {
             @Override
-            public void onResponse(Call<SppData> call, Response<SppData> response) {
+            public void onResponse(Call<BaseResponse<SppData>> call, Response<BaseResponse<SppData>> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     sppSpinner(response.body().getDetails().getIdSpp());
                 } else {
-                    try {
-                        SppDataList message = new Gson().fromJson(response.errorBody().charStream(), SppDataList.class);
-                        toaster(message.getMessage());
-                    } catch (Exception e) {
+                    sppSpinner(0);
+                    if (response.code() == 404) {
+                        UtilsUI.toaster(getContext(), "Spp dengan angkatan yang sama tidak ditemukan, coba tambahkan spp dengan angkatan yang sama");
+                    } else {
                         try {
-                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
-                        } catch (IOException ioException) {
-                            ioException.printStackTrace();
+                            BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                            UtilsUI.toaster(getContext(), message.getMessage());
+                        } catch (Exception e) {
+                            try {
+                                UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
                         }
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<SppData> call, Throwable t) {
-
+            public void onFailure(Call<BaseResponse<SppData>> call, Throwable t) {
+                UtilsUI.isLoading(binding.refresher, false, false);
+                UtilsUI.dialog(getContext(), "Something went wrong!", t.getLocalizedMessage(), false).show();
             }
         });
     }
 
     private void sppSpinner(int idSpp) {
-        isLoading(true);
-        Call<SppDataList> sppDataListCall;
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        UtilsUI.isLoading(binding.refresher, false, true);
+        Call<BaseResponse<List<SppData>>> sppDataListCall;
+
         sppDataListCall = apiInterface.getSpp(
-                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                 null,
                 null,
                 null,
                 null,
                 null,
                 null);
-        sppDataListCall.enqueue(new Callback<SppDataList>() {
+        sppDataListCall.enqueue(new Callback<BaseResponse<List<SppData>>>() {
             @Override
-            public void onResponse(Call<SppDataList> call, Response<SppDataList> response) {
-                isLoading(false);
+            public void onResponse(Call<BaseResponse<List<SppData>>> call, Response<BaseResponse<List<SppData>>> response) {
+                UtilsUI.isLoading(binding.refresher, false, false);
                 if (response.body() != null && response.isSuccessful()) {
-                    sppList = new ArrayList<>();
-                    int located = 0;
-
-                    for (int x = 0; x < response.body().getDetails().size(); x++) {
-                        SpinnerInterface a = new SpinnerInterface();
-                        a.setName("Angkatan " + response.body().getDetails().get(x).getAngkatan() + "-Tahun " + response.body().getDetails().get(x).getTahun() + "-" + Utils.formatRupiah(response.body().getDetails().get(x).getNominal()));
-                        a.setValue(response.body().getDetails().get(x).getIdSpp());
-                        if (response.body().getDetails().get(x).getIdSpp() == idSpp) {
-                            located = x;
-                        }
-                        sppList.add(a);
-                    }
-
-                    SpinnerAdapter adapter = new SpinnerAdapter(getContext(), sppList, true);
-                    binding.spp.setAdapter(adapter);
-                    binding.spp.setSelection(located);
-                    binding.jumlahBayar.addTextChangedListener(new MoneyTextWatcher(binding.jumlahBayar, response.body().getDetails().get(located).getNominal()));
-                    binding.jumlahBayar.setText(String.valueOf(response.body().getDetails().get(located).getNominal()));
+                    setSpinnerAdapter(response.body().getDetails(), idSpp);
                 } else {
                     try {
-                        SppDataList message = new Gson().fromJson(response.errorBody().charStream(), SppDataList.class);
-                        toaster(message.getMessage());
+                        BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                        UtilsUI.toaster(getContext(), message.getMessage());
                     } catch (Exception e) {
                         try {
-                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                            UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }
@@ -143,143 +159,119 @@ public class TambahTransaksi extends Fragment implements UIListener {
                 }
             }
 
-            // On failure response
             @Override
-            public void onFailure(@NonNull Call<SppDataList> call, @NonNull Throwable t) {
-                isLoading(false);
-                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            public void onFailure(@NonNull Call<BaseResponse<List<SppData>>> call, @NonNull Throwable t) {
+                UtilsUI.isLoading(binding.refresher, false, false);
+                UtilsUI.dialog(getContext(), "Something went wrong!", t.getLocalizedMessage(), false).show();
             }
         });
     }
 
-    private void postPembayaran(Long jumlahBayar) {
-        isLoading(true);
-        Call<PembayaranData> postPembayaranCall;
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+    private void tambahPembayaran(Long jumlahBayar, int idSpp) {
+        UtilsUI.isLoading(binding.refresher, false, true);
+        Call<BaseResponse<PembayaranData>> postPembayaranCall;
+
         postPembayaranCall = apiInterface.postPembayaran(
-                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                 Integer.valueOf(sessionManager.getUserDetail().get(SessionManager.ID)),
                 nisn,
-                Utils.parseDateLongToServerString(this.tglPembayaran, "yyyy-MM-dd"),
-                Integer.valueOf(Utils.parseDateLongToServerString(this.sppDate, "MM")),
-                Integer.valueOf(Utils.parseDateLongToServerString(this.sppDate, "yyyy")),
+                Utils.parseLongtoStringDate(this.tglPembayaran, "yyyy-MM-dd"),
+                Integer.valueOf(Utils.parseLongtoStringDate(this.sppDate, "MM")),
+                Integer.valueOf(Utils.parseLongtoStringDate(this.sppDate, "yyyy")),
                 idSpp,
                 jumlahBayar
         );
-        postPembayaranCall.enqueue(new Callback<PembayaranData>() {
+        postPembayaranCall.enqueue(new Callback<BaseResponse<PembayaranData>>() {
             @Override
-            public void onResponse(Call<PembayaranData> call, Response<PembayaranData> response) {
-                isLoading(false);
+            public void onResponse(Call<BaseResponse<PembayaranData>> call, Response<BaseResponse<PembayaranData>> response) {
+                UtilsUI.isLoading(binding.refresher, false, false);
                 if (response.body() != null && response.isSuccessful()) {
-                    toaster(response.body().getMessage());
-                    nav.navigateUp();
+                    UtilsUI.toaster(getContext(), response.body().getMessage());
+                    controller.navigateUp();
                 } else if (response.code() <= 500) {
-                    PembayaranData message = new Gson().fromJson(response.errorBody().charStream(), PembayaranData.class);
-                    toaster(message.getMessage());
+                    BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                    UtilsUI.toaster(getContext(), message.getMessage());
                 } else {
                     try {
-                        dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                        UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
 
-            // On failure response
             @Override
-            public void onFailure(@NonNull Call<PembayaranData> call, @NonNull Throwable t) {
-                isLoading(false);
-                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            public void onFailure(@NonNull Call<BaseResponse<PembayaranData>> call, @NonNull Throwable t) {
+                UtilsUI.isLoading(binding.refresher, false, false);
+                UtilsUI.dialog(getContext(), "Something went wrong!", t.getLocalizedMessage(), false).show();
             }
         });
     }
 
-    private void datePicker() {
-        MaterialDatePicker<Long> mat = MaterialDatePicker.Builder.datePicker().setTitleText("Pilih Tgl. Bayar").setSelection(this.tglPembayaran).build();
-        mat.show(getChildFragmentManager(), "TAG");
-        mat.addOnPositiveButtonClickListener(selection -> {
-            this.tglPembayaran = selection;
-            binding.tglBayar.setText(Utils.formatDateStringToLocal(Utils.parseDateLongToString(this.tglPembayaran)));
-        });
-    }
-
-    private void monthPicker() {
-        MaterialDatePicker<Long> mat = MaterialDatePicker.Builder.datePicker().setTitleText("Pilih Tahun Bulan SPP").setSelection(this.sppDate).build();
-        mat.show(getChildFragmentManager(), "TAG");
-        mat.addOnPositiveButtonClickListener(selection -> {
-            this.sppDate = selection;
-            binding.sppBulanTahun.setText(Utils.formatYearMonthStringToLocal(Utils.parseDateLongToServerString(this.sppDate, "MM-yyyy")));
-        });
-    }
-
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        nav = Navigation.findNavController(view);
+        controller = Navigation.findNavController(view);
 
         binding.tglBayar.setOnClickListener(v -> {
-            datePicker();
-        });
+            int date = Integer.parseInt(Utils.parseLongtoStringDate(this.tglPembayaran, "dd"));
+            int month = Integer.parseInt(Utils.parseLongtoStringDate(this.tglPembayaran, "MM"));
+            int year = Integer.parseInt(Utils.parseLongtoStringDate(this.tglPembayaran, "yyyy"));
 
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view12, year1, month1, dayOfMonth) -> {
+                this.tglPembayaran = Utils.parseServerStringtoLongDate(year1 + "-" + month1 + "-" + dayOfMonth, "yyyy-MM-dd");
+                binding.tglBayar.setText(Utils.parseLongtoStringDate(this.tglPembayaran, "dd MMMM yyyy"));
+            }, year, month, date);
+            datePickerDialog.setTitle("Pilih Tgl. Bayar");
+            datePickerDialog.show();
+        });
         binding.sppBulanTahun.setOnClickListener(v -> {
-            monthPicker();
+            int month = Integer.parseInt(Utils.parseLongtoStringDate(this.sppDate, "MM"));
+            int year = Integer.parseInt(Utils.parseLongtoStringDate(this.sppDate, "yyyy"));
+
+            MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
+                this.sppDate = Utils.parseServerStringtoLongDate(String.valueOf(selectedMonth), "MM");
+                binding.sppBulanTahun.setText(Utils.parseLongtoStringDate(this.sppDate, "MMMM yyyy"));
+            }, year, month);
+            builder.setActivatedMonth(month)
+                    .setTitle("Pilih Bulan dan Tahun SPP")
+                    .setMinYear(year - 1)
+                    .setMaxYear(year + 1)
+                    .setActivatedYear(year)
+                    .build().show();
         });
-
         binding.simpan.setOnClickListener(v -> {
-            idSpp = sppList.get(binding.spp.getSelectedItemPosition()).getValue();
+            int idSpp = sppList.get(binding.spp.getSelectedItemPosition()).getValue();
 
-            if (idSpp != 0 && tglPembayaran != null && sppDate != null) {
-                postPembayaran(Utils.unformatRupiah(binding.jumlahBayar.getText().toString()));
+            if (idSpp == 0 && tglPembayaran == null && sppDate == null) {
+                UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
             } else {
-                toaster("Data harus diisi!");
+                UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, sistem tunggakan akan berjalan secara otomatis sesuai dengan transaksi yang ditambahkan, pastikan data diatas sudah benar!.", true).setPositiveButton("Ok", (dialog, which) -> {
+                    tambahPembayaran(Utils.unformatRupiah(binding.jumlahBayar.getText().toString()), idSpp);
+                }).show();
             }
         });
 
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = Petugas5TambahTransaksiBinding.inflate(inflater, container, false);
-        isLoading(false);
-        sessionManager = new SessionManager(getContext());
-        sharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
+
+        UtilsUI.isLoading(binding.refresher, false, false);
+        sessionManager = new SessionManager(getActivity().getApplicationContext());
+        apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
+        SiswaSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
         this.tglPembayaran = Calendar.getInstance().getTimeInMillis();
         this.sppDate = Calendar.getInstance().getTimeInMillis();
-
         sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSiswa -> {
             this.nisn = detailsItemSiswa.getNisn();
             latestSpp(nisn);
         });
-
-        binding.tglBayar.setText(Utils.formatDateStringToLocal(Utils.parseDateLongToString(this.tglPembayaran)));
-        binding.sppBulanTahun.setText(Utils.formatYearMonthStringToLocal(Utils.parseDateLongToServerString(this.sppDate, "MM-yyyy")));
+        binding.tglBayar.setText(Utils.parseLongtoStringDate(this.tglPembayaran, "dd MMMM yyyy"));
+        binding.sppBulanTahun.setText(Utils.parseLongtoStringDate(this.sppDate, "MMMM yyyy"));
         return binding.getRoot();
     }
 
-    // Abstract class for loadingBar
-    @Override
-    public void isLoading(Boolean isLoading) {
-        binding.refresher.setEnabled(isLoading);
-        binding.refresher.setRefreshing(isLoading);
-    }
-
-    // Abstract class for Toast
-    @Override
-    public void toaster(String text) {
-        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    // Abstract class for Dialog
-    @Override
-    public void dialog(String title, Spanned message) {
-        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(requireContext());
-        as.setTitle(title).setMessage(message).setPositiveButton("Ok", null).show();
-    }
 }

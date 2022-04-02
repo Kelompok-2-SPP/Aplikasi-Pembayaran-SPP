@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class SppSharedModel extends ViewModel {
-    private final MutableLiveData<DetailsItemSpp> data = new MutableLiveData<DetailsItemSpp>();
+    private final MutableLiveData<SppData> data = new MutableLiveData<SppData>();
 
-    public void updateData(DetailsItemSpp data) {
+    public void updateData(SppData data) {
         this.data.setValue(data);
     }
 
-    public LiveData<DetailsItemSpp> getData() {
+    public LiveData<SppData> getData() {
         return this.data;
     }
 }

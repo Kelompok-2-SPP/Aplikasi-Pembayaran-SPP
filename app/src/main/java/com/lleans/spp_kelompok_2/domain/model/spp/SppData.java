@@ -4,36 +4,69 @@ import com.google.gson.annotations.SerializedName;
 
 public class SppData {
 
-    @SerializedName("details")
-    private DetailsItemSpp details;
+    @SerializedName("createdAt")
+    private String createdAt;
 
-    @SerializedName("message")
-    private String message;
+    @SerializedName("tahun")
+    private int tahun;
 
-    @SerializedName("status")
-    private int status;
+    @SerializedName("nominal")
+    private Long nominal;
 
-    public void setDetails(DetailsItemSpp details) {
-        this.details = details;
+    @SerializedName("id_spp")
+    private int idSpp;
+
+    @SerializedName("angkatan")
+    private int angkatan;
+
+    @SerializedName("updatedAt")
+    private String updatedAt;
+
+    public void setCreatedAt(String createdAt){
+        this.createdAt = createdAt;
     }
 
-    public DetailsItemSpp getDetails() {
-        return details;
+    public String getCreatedAt(){
+        return createdAt;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setTahun(int tahun){
+        this.tahun = tahun;
     }
 
-    public String getMessage() {
-        return message;
+    public int getTahun(){
+        return tahun;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setNominal(Long nominal){
+        this.nominal = nominal;
     }
 
-    public int getStatus() {
-        return status;
+    public Long getNominal(){
+        return nominal;
+    }
+
+    public void setIdSpp(int idSpp){
+        this.idSpp = idSpp;
+    }
+
+    public int getIdSpp(){
+        return idSpp;
+    }
+
+    public void setAngkatan(int angkatan){
+        this.angkatan = angkatan;
+    }
+
+    public int getAngkatan(){
+        return angkatan;
+    }
+
+    public void setUpdatedAt(String updatedAt){
+        this.updatedAt = updatedAt;
+    }
+
+    public String getUpdatedAt(){
+        return updatedAt;
     }
 }

@@ -6,13 +6,13 @@ import androidx.lifecycle.ViewModel;
 
 
 public class PembayaranSharedModel extends ViewModel {
-    private final MutableLiveData<DetailsItemPembayaran> data = new MutableLiveData<DetailsItemPembayaran>();
+    private final MutableLiveData<PembayaranData> data = new MutableLiveData<PembayaranData>();
 
-    public void updateData(DetailsItemPembayaran data) {
+    public void updateData(PembayaranData data) {
         this.data.setValue(data);
     }
 
-    public LiveData<DetailsItemPembayaran> getData() {
+    public LiveData<PembayaranData> getData() {
         return this.data;
     }
 }

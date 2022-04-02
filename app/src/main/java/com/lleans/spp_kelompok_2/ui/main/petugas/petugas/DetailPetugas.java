@@ -10,20 +10,15 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.text.Html;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.R;
-import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas3DetailPetugasBinding;
-import com.lleans.spp_kelompok_2.domain.Utils;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
+import com.lleans.spp_kelompok_2.domain.model.BaseResponse;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranData;
 import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasSharedModel;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
@@ -32,16 +27,17 @@ import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 import com.lleans.spp_kelompok_2.ui.utils.UtilsUI;
 
 import java.io.IOException;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailPetugas extends Fragment implements UIListener {
+public class DetailPetugas extends Fragment {
 
     private Petugas3DetailPetugasBinding binding;
-    private NavController navController;
-    private SessionManager sessionManager;
+    private NavController controller;
+    private ApiInterface apiInterface;
 
     private int idPetugas;
 
@@ -49,12 +45,18 @@ public class DetailPetugas extends Fragment implements UIListener {
         // Required empty public constructor
     }
 
+    private void setAdapter(List<PembayaranData> data) {
+        AktivitasCardAdapter cardAdapter = new AktivitasCardAdapter(data, controller, "detailPetugas");
+        cardAdapter.setItemCount(3);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setAdapter(cardAdapter);
+    }
+
     private void getAktivitas() {
-        isLoading(true);
-        Call<PembayaranDataList> pembayaranDataListCall;
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        UtilsUI.isLoading(binding.refresher, true, true);
+        Call<BaseResponse<List<PembayaranData>>> pembayaranDataListCall;
+
         pembayaranDataListCall = apiInterface.getPembayaran(
-                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                 null,
                 idPetugas,
                 null,
@@ -65,22 +67,19 @@ public class DetailPetugas extends Fragment implements UIListener {
                 null,
                 null,
                 null);
-        pembayaranDataListCall.enqueue(new Callback<PembayaranDataList>() {
+        pembayaranDataListCall.enqueue(new Callback<BaseResponse<List<PembayaranData>>>() {
             @Override
-            public void onResponse(Call<PembayaranDataList> call, Response<PembayaranDataList> response) {
-                isLoading(false);
+            public void onResponse(Call<BaseResponse<List<PembayaranData>>> call, Response<BaseResponse<List<PembayaranData>>> response) {
+                UtilsUI.isLoading(binding.refresher, true, false);
                 if (response.body() != null && response.isSuccessful()) {
-                    AktivitasCardAdapter cardAdapter = new AktivitasCardAdapter(response.body().getDetails(), navController, false, true);
-                    cardAdapter.setItemCount(3);
-                    binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    binding.recyclerView.setAdapter(cardAdapter);
+                    setAdapter(response.body().getDetails());
                 } else {
                     try {
-                        PembayaranDataList message = new Gson().fromJson(response.errorBody().charStream(), PembayaranDataList.class);
-                        toaster(message.getMessage());
+                        BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                        UtilsUI.toaster(getContext(), message.getMessage());
                     } catch (Exception e) {
                         try {
-                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                            UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }
@@ -88,11 +87,10 @@ public class DetailPetugas extends Fragment implements UIListener {
                 }
             }
 
-            // On failure response
             @Override
-            public void onFailure(@NonNull Call<PembayaranDataList> call, @NonNull Throwable t) {
-                isLoading(false);
-                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            public void onFailure(@NonNull Call<BaseResponse<List<PembayaranData>>> call, @NonNull Throwable t) {
+                UtilsUI.isLoading(binding.refresher, true, false);
+                UtilsUI.dialog(getContext(), "Something went wrong!", t.getLocalizedMessage(), false).show();
             }
         });
 
@@ -101,52 +99,32 @@ public class DetailPetugas extends Fragment implements UIListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        navController = Navigation.findNavController(view);
+        controller = Navigation.findNavController(view);
+
         Bundle bundle = new Bundle();
         bundle.putBoolean("fromHomepage", false);
-
         binding.refresher.setOnRefreshListener(this::getAktivitas);
-
-        binding.aktivitas.setOnClickListener(v -> navController.navigate(R.id.action_detailPetugas_petuga_to_aktivitas_petugas, bundle));
-        binding.edit.setOnClickListener(v -> navController.navigate(R.id.action_detailPetugas_petuga_to_editPetugas));
+        binding.aktivitas.setOnClickListener(v -> controller.navigate(R.id.action_detailPetugas_petuga_to_aktivitas_petugas, bundle));
+        binding.edit.setOnClickListener(v -> controller.navigate(R.id.action_detailPetugas_petuga_to_editPetugas));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        PetugasSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(PetugasSharedModel.class);
-        sessionManager = new SessionManager(getContext());
         binding = Petugas3DetailPetugasBinding.inflate(inflater, container, false);
 
+        PetugasSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(PetugasSharedModel.class);
+        SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
+        apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
         sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemPetugas -> {
             this.idPetugas = detailsItemPetugas.getIdPetugas();
-            UtilsUI.nicknameBuilder(getContext(), detailsItemPetugas.getNamaPetugas(), binding.nick, binding.nickFrame);
+            UtilsUI.nicknameBuilder(getActivity().getApplicationContext(), detailsItemPetugas.getNamaPetugas(), binding.nick, binding.nickFrame);
             binding.nama.setText(detailsItemPetugas.getNamaPetugas());
             binding.username.setText(detailsItemPetugas.getUsername());
             binding.level.setText(detailsItemPetugas.getLevel().equals("petugas") ? "Petugas" : "Admin");
             getAktivitas();
         });
-
         return binding.getRoot();
     }
 
-    // Abstract class for loadingBar
-    @Override
-    public void isLoading(Boolean isLoading) {
-        binding.refresher.setRefreshing(isLoading);
-    }
-
-    // Abstract class for Toast
-    @Override
-    public void toaster(String text) {
-        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    // Abstract class for Dialog
-    @Override
-    public void dialog(String title, Spanned message) {
-        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(requireContext());
-        as.setTitle(title).setMessage(message).setPositiveButton("Ok", null).show();
-    }
 }

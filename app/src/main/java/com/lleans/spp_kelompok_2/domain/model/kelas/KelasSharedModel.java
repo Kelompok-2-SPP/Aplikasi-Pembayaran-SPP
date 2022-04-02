@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class KelasSharedModel extends ViewModel {
-    private final MutableLiveData<DetailsItemKelas> data = new MutableLiveData<DetailsItemKelas>();
+    private final MutableLiveData<KelasData> data = new MutableLiveData<KelasData>();
 
-    public void updateData(DetailsItemKelas data) {
+    public void updateData(KelasData data) {
         this.data.setValue(data);
     }
 
-    public LiveData<DetailsItemKelas> getData() {
+    public LiveData<KelasData> getData() {
         return this.data;
     }
 }

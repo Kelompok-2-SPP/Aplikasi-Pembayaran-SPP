@@ -1,19 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
     <style name="SPPKelompok2" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor" tools:targetApi="l">?colorPrimary</item>
 
-        <!-- Primary brand color. -->
         <item name="colorPrimary">@color/red</item>
         <item name="colorPrimaryVariant">@color/neutral_white</item>
         <item name="colorOnPrimary">@color/neutral_white</item>
         <item name="colorSurface">@color/neutral_white</item>
         <item name="background">@color/neutral_lightGrey</item>
-        <!-- Secondary brand color. -->
+
         <item name="colorSecondary">@color/red</item>
         <item name="colorSecondaryVariant">@color/neutral_white</item>
         <item name="colorOnSecondary">@color/neutral_black</item>
-        <!-- Status bar color. -->
 
         <item name="android:fontFamily">@font/poopins</item>
         <item name="android:textColor">@color/text_black80</item>
@@ -23,7 +21,9 @@
         <item name="android:textColorSecondary">@color/text_black40</item>
         <item name="android:textColorHint">@color/text_black40</item>
         <item name="android:textColorHighlight">@color/neutral_lightGrey</item>
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/SPPKelompok2.CustomDialog</item>
+        <item name="shapeAppearanceLargeComponent">@style/SPPKelompok2.MonthPicker</item>
+        <item name="cornerFamily">rounded</item>
     </style>
 
     <style name="SPPKelompok2.SplashScreen" parent="SPPKelompok2">
@@ -33,8 +33,24 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
     </style>
 
-    <style name="ShapeAppearance.App.MediumComponent" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+    <style name="SPPKelompok2.CustomDialog" parent="Theme.MaterialComponents.Dialog">
         <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="SPPKelompok2.MonthPicker" parent="MonthPickerDialogStyle">
+        <item name="monthBgColor">?colorSurface</item>
+        <item name="monthBgSelectedColor">?colorPrimary</item>
+        <item name="monthFontColorSelected">?colorSurface</item>
+        <item name="monthFontColorNormal">?colorSurface</item>
+        <item name="monthFontColorDisabled">?background</item>
+
+        <item name="headerBgColor">?colorPrimary</item>
+        <item name="headerFontColorSelected">?colorSurface</item>
+        <item name="headerFontColorNormal">?colorOnSecondary</item>
+        <item name="headerTitleColor">?colorSurface</item>
+
+        <item name="dialogActionButtonColor">?colorPrimary</item>
+        <item name="dialogCornerRadius">16dp</item>
     </style>
 
 </resources>

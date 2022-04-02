@@ -9,45 +9,53 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.text.Html;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
-import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Petugas2HistoriBinding;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
+import com.lleans.spp_kelompok_2.domain.Utils;
+import com.lleans.spp_kelompok_2.domain.model.BaseResponse;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
+import com.lleans.spp_kelompok_2.ui.utils.UtilsUI;
+import com.whiteelephant.monthpicker.MonthPickerDialog;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Histori extends Fragment implements UIListener {
+public class Histori extends Fragment {
 
     private Petugas2HistoriBinding binding;
-
     private SessionManager sessionManager;
-    private NavController nav;
+    private NavController controller;
+    private ApiInterface apiInterface;
+
+    private HistoriCardAdapter cardAdapter;
 
     public Histori() {
         // Required empty public constructor
     }
 
-    private void getHistori(){
-        isLoading(true);
-        Call<PembayaranDataList> historiDataCall;
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+    private void setAdapter(List<PembayaranData> data) {
+        cardAdapter = new HistoriCardAdapter(data, controller);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setAdapter(cardAdapter);
+    }
+
+    private void getHistori() {
+        UtilsUI.isLoading(binding.refresher, true, true);
+        Call<BaseResponse<List<PembayaranData>>> historiDataCall;
+
         historiDataCall = apiInterface.getPembayaran(
-                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                 null,
                 Integer.valueOf(sessionManager.getUserDetail().get(SessionManager.ID)),
                 null,
@@ -58,22 +66,20 @@ public class Histori extends Fragment implements UIListener {
                 null,
                 null,
                 null
-                );
-        historiDataCall.enqueue(new Callback<PembayaranDataList>() {
+        );
+        historiDataCall.enqueue(new Callback<BaseResponse<List<PembayaranData>>>() {
             @Override
-            public void onResponse(Call<PembayaranDataList> call, Response<PembayaranDataList> response) {
-                isLoading(false);
+            public void onResponse(Call<BaseResponse<List<PembayaranData>>> call, Response<BaseResponse<List<PembayaranData>>> response) {
+                UtilsUI.isLoading(binding.refresher, true, false);
                 if (response.body() != null && response.isSuccessful()) {
-                    HistoriCardAdapter cardAdapter = new HistoriCardAdapter(response.body().getDetails(), nav);
-                    binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    binding.recyclerView.setAdapter(cardAdapter);
+                    setAdapter(response.body().getDetails());
                 } else {
                     try {
-                        PembayaranDataList message = new Gson().fromJson(response.errorBody().charStream(), PembayaranDataList.class);
-                        toaster(message.getMessage());
+                        BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                        UtilsUI.toaster(getContext(), message.getMessage());
                     } catch (Exception e) {
                         try {
-                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                            UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }
@@ -81,11 +87,10 @@ public class Histori extends Fragment implements UIListener {
                 }
             }
 
-            // On failure response
             @Override
-            public void onFailure(@NonNull Call<PembayaranDataList> call, @NonNull Throwable t) {
-                isLoading(false);
-                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            public void onFailure(@NonNull Call<BaseResponse<List<PembayaranData>>> call, @NonNull Throwable t) {
+                UtilsUI.isLoading(binding.refresher, true, false);
+                UtilsUI.dialog(getContext(), "Something went wrong!", t.getLocalizedMessage(), false).show();
             }
         });
     }
@@ -93,36 +98,38 @@ public class Histori extends Fragment implements UIListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        nav = Navigation.findNavController(view);
+        controller = Navigation.findNavController(view);
+
         binding.refresher.setOnRefreshListener(this::getHistori);
+        binding.calendar.setOnClickListener(v -> {
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+            int month = Calendar.getInstance().get(Calendar.MONTH);
+
+            MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
+                if (cardAdapter != null) {
+                    binding.tgl.setText(Utils.parseLongtoStringDate(Utils.parseServerStringtoLongDate(selectedYear + "-" + selectedMonth, "yyyy-MM"), "MMMM yyyy"));
+                    cardAdapter.getFilter().filter(String.valueOf(Utils.parseServerStringtoLongDate(selectedYear + "-" + selectedMonth, "yyyy-MM")));
+                }
+            }, year, month);
+            builder.setActivatedMonth(month)
+                    .setTitle("Pilih Bulan dan Tahun")
+                    .setMinYear(year - 1)
+                    .setMaxYear(year)
+                    .setActivatedYear(year)
+                    .build().show();
+        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = Petugas2HistoriBinding.inflate(inflater, container, false);
-        sessionManager = new SessionManager(getContext());
+
+        sessionManager = new SessionManager(getActivity().getApplicationContext());
+        apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
         getHistori();
+        UtilsUI.simpleAnimation(binding.calendar);
         return binding.getRoot();
     }
 
-    // Abstract class for loadingBar
-    @Override
-    public void isLoading(Boolean isLoading) {
-        binding.refresher.setRefreshing(isLoading);
-    }
-
-    // Abstract class for Toast
-    @Override
-    public void toaster(String text) {
-        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    // Abstract class for Dialog
-    @Override
-    public void dialog(String title, Spanned message) {
-        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(requireContext());
-        as.setTitle(title).setMessage(message).setPositiveButton("Ok", null).show();
-    }
 }

@@ -1,313 +1,368 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/refresher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.petugas.siswa.StatusSiswa">
 
-    <ScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresher"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/frameLayout"
+                    android:id="@+id/constraint"
                     android:layout_width="match_parent"
-                    android:layout_height="270dp"
-                    android:layout_marginHorizontal="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/frameLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="40dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/materialCardView4"
+                            style="@style/SPPKelompok2.Card.Large"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="30dp"
+                                android:layout_marginVertical="20dp">
+
+                                <TextView
+                                    android:id="@+id/nama"
+                                    style="@style/SPPKelompok2.Text.Bold.Header2"
+                                    android:layout_width="250dp"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:gravity="center"
+                                    android:maxLines="2"
+                                    android:text="Agung Guntur Widjaja"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/nisn"
+                                    style="@style/SPPKelompok2.Text.Semibold.Body1"
+                                    android:layout_width="180dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:ellipsize="end"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:text="0034523226"
+                                    app:layout_constraintEnd_toEndOf="@+id/nama"
+                                    app:layout_constraintStart_toStartOf="@+id/nama"
+                                    app:layout_constraintTop_toBottomOf="@+id/nama" />
+
+                                <ImageButton
+                                    android:id="@+id/edit"
+                                    android:layout_width="24dp"
+                                    android:layout_height="27dp"
+                                    android:layout_marginStart="36dp"
+                                    android:background="?selectableItemBackgroundBorderless"
+                                    android:clickable="true"
+                                    android:contentDescription="@string/edit"
+                                    android:focusable="true"
+                                    android:src="@drawable/icon_edit"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toEndOf="@+id/nisn"
+                                    tools:ignore="TouchTargetSizeCheck" />
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <FrameLayout
+                            android:id="@+id/nickFrame"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="-30dp"
+                            android:background="@drawable/background_oval_base"
+                            android:backgroundTint="@color/green"
+                            android:elevation="3dp"
+                            app:layout_constraintBottom_toTopOf="@+id/materialCardView4"
+                            app:layout_constraintEnd_toEndOf="@+id/materialCardView4"
+                            app:layout_constraintStart_toStartOf="@+id/materialCardView4">
+
+                            <TextView
+                                android:id="@+id/nick"
+                                style="@style/SPPKelompok2.Text.Semibold.Header3"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:maxLength="2"
+                                android:text="R1"
+                                android:textAllCaps="true"
+                                android:textColor="?colorSurface" />
+
+                        </FrameLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/materialCardView4"
+                        android:id="@+id/materialCardView"
                         style="@style/SPPKelompok2.Card.Large"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent">
+                        android:layout_marginHorizontal="12dp"
+                        app:layout_constraintEnd_toEndOf="@+id/frameLayout"
+                        app:layout_constraintStart_toStartOf="@+id/frameLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="30dp"
-                            android:layout_marginVertical="20dp">
+                            android:layout_height="match_parent">
 
-                            <TextView
-                                android:id="@+id/nama"
-                                style="@style/SPPKelompok2.Text.Bold.Header2"
-                                android:layout_width="250dp"
+                            <RelativeLayout
+                                android:id="@+id/relativeLayout"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:gravity="center"
-                                android:maxLines="2"
-                                android:text="Agung Guntur Widjaja"
+                                android:layout_marginHorizontal="30dp"
+                                android:layout_marginVertical="16dp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintTop_toTopOf="parent">
 
-                            <TextView
-                                android:id="@+id/nisn"
-                                style="@style/SPPKelompok2.Text.Semibold.Body1"
-                                android:layout_width="180dp"
+                                <TextView
+                                    android:id="@+id/textView26"
+                                    style="@style/SPPKelompok2.Text.Regular.Body2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="NIS" />
+
+                                <TextView
+                                    android:id="@+id/nis"
+                                    style="@style/SPPKelompok2.Text.Regular.Body2"
+                                    android:layout_width="140dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/textView26"
+                                    android:layout_alignBottom="@+id/textView26"
+                                    android:layout_alignParentEnd="true"
+                                    android:ellipsize="end"
+                                    android:gravity="end"
+                                    android:maxLines="1"
+                                    android:text="SMK-326324"
+                                    app:layout_constraintBottom_toBottomOf="@+id/textView26"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:ellipsize="end"
-                                android:gravity="center"
-                                android:maxLines="1"
-                                android:text="0034523226"
-                                app:layout_constraintEnd_toEndOf="@+id/nama"
-                                app:layout_constraintStart_toStartOf="@+id/nama"
-                                app:layout_constraintTop_toBottomOf="@+id/nama" />
-
-                            <ImageButton
-                                android:id="@+id/edit"
-                                android:layout_width="24dp"
-                                android:layout_height="27dp"
-                                android:layout_marginStart="36dp"
-                                android:background="?selectableItemBackgroundBorderless"
-                                android:clickable="true"
-                                android:contentDescription="@string/edit"
-                                android:focusable="true"
-                                android:src="@drawable/icon_edit"
-                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginVertical="10dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/background_lines"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.0"
-                                app:layout_constraintStart_toEndOf="@+id/nisn"
-                                tools:ignore="TouchTargetSizeCheck" />
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/relativeLayout"
+                                app:tint="@color/neutral_grey" />
 
+                            <RelativeLayout
+                                android:id="@+id/relativeLayout1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="30dp"
+                                android:layout_marginVertical="16dp"
+                                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                                app:layout_constraintEnd_toEndOf="@+id/imageView2"
+                                app:layout_constraintStart_toStartOf="@+id/imageView2"
+                                app:layout_constraintTop_toBottomOf="@id/imageView2">
+
+                                <TextView
+                                    android:id="@+id/textView27"
+                                    style="@style/SPPKelompok2.Text.Regular.Body2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Alamat" />
+
+                                <TextView
+                                    android:id="@+id/alamat"
+                                    style="@style/SPPKelompok2.Text.Regular.Body2"
+                                    android:layout_width="140dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/textView27"
+                                    android:layout_alignBottom="@+id/textView27"
+                                    android:layout_alignParentEnd="true"
+                                    android:ellipsize="end"
+                                    android:gravity="end"
+                                    android:maxLength="25"
+                                    android:maxLines="1"
+                                    android:text="Sawojajar, Malang"
+                                    app:layout_constraintBottom_toBottomOf="@+id/textView27"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="@+id/textView27" />
+
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:id="@+id/imageView3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="10dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/background_lines"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/relativeLayout1"
+                                app:tint="@color/neutral_grey" />
+
+                            <RelativeLayout
+                                android:id="@+id/relativeLayout2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="30dp"
+                                android:layout_marginVertical="16dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="@+id/imageView3"
+                                app:layout_constraintStart_toStartOf="@+id/imageView3"
+                                app:layout_constraintTop_toBottomOf="@id/imageView3">
+
+                                <TextView
+                                    android:id="@+id/textView29"
+                                    style="@style/SPPKelompok2.Text.Regular.Body2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="No. Telp" />
+
+                                <TextView
+                                    android:id="@+id/noTelp"
+                                    style="@style/SPPKelompok2.Text.Regular.Body2"
+                                    android:layout_width="140dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/textView29"
+                                    android:layout_alignBottom="@+id/textView29"
+                                    android:layout_alignParentEnd="true"
+                                    android:ellipsize="end"
+                                    android:gravity="end"
+                                    android:maxLines="1"
+                                    android:text="083462786523"
+                                    app:layout_constraintBottom_toBottomOf="@+id/textView29"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="@+id/textView29" />
+
+                            </RelativeLayout>
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </com.google.android.material.card.MaterialCardView>
 
-                    <FrameLayout
-                        android:id="@+id/nickFrame"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="-30dp"
-                        android:background="@drawable/background_oval_base"
-                        android:backgroundTint="@color/green"
-                        android:elevation="3dp"
-                        app:layout_constraintBottom_toTopOf="@+id/materialCardView4"
-                        app:layout_constraintEnd_toEndOf="@+id/materialCardView4"
-                        app:layout_constraintStart_toStartOf="@+id/materialCardView4">
-
-                        <TextView
-                            android:id="@+id/nick"
-                            style="@style/SPPKelompok2.Text.Semibold.Header3"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:maxLength="2"
-                            android:text="R1"
-                            android:textAllCaps="true"
-                            android:textColor="?colorSurface" />
-
-                    </FrameLayout>
+                    <TextView
+                        android:id="@+id/textView28"
+                        style="@style/SPPKelompok2.Text.Semibold.Header3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Status SPP"
+                        android:textColor="?colorPrimary"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/materialCardView"
-                    style="@style/SPPKelompok2.Card.Large"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="12dp"
-                    app:layout_constraintEnd_toEndOf="@+id/frameLayout"
-                    app:layout_constraintStart_toStartOf="@+id/frameLayout"
-                    app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+                    android:layout_below="@+id/constraint"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:paddingHorizontal="12dp"
+                    tools:listitem="@layout/item_row_status" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <RelativeLayout
-                            android:id="@+id/relativeLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="30dp"
-                            android:layout_marginVertical="16dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <TextView
-                                android:id="@+id/textView26"
-                                style="@style/SPPKelompok2.Text.Regular.Body2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="NIS" />
-
-                            <TextView
-                                android:id="@+id/nis"
-                                style="@style/SPPKelompok2.Text.Regular.Body2"
-                                android:layout_width="140dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignTop="@+id/textView26"
-                                android:layout_alignBottom="@+id/textView26"
-                                android:layout_alignParentEnd="true"
-                                android:ellipsize="end"
-                                android:gravity="end"
-                                android:maxLines="1"
-                                android:text="SMK-326324"
-                                app:layout_constraintBottom_toBottomOf="@+id/textView26"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/textView26" />
-
-                        </RelativeLayout>
-
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="10dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/background_lines"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/relativeLayout"
-                            app:tint="@color/neutral_grey" />
-
-                        <RelativeLayout
-                            android:id="@+id/relativeLayout1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="30dp"
-                            android:layout_marginVertical="16dp"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                            app:layout_constraintStart_toStartOf="@+id/imageView2"
-                            app:layout_constraintTop_toBottomOf="@id/imageView2">
-
-                            <TextView
-                                android:id="@+id/textView27"
-                                style="@style/SPPKelompok2.Text.Regular.Body2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Alamat" />
-
-                            <TextView
-                                android:id="@+id/alamat"
-                                style="@style/SPPKelompok2.Text.Regular.Body2"
-                                android:layout_width="140dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignTop="@+id/textView27"
-                                android:layout_alignBottom="@+id/textView27"
-                                android:layout_alignParentEnd="true"
-                                android:ellipsize="end"
-                                android:gravity="end"
-                                android:maxLength="25"
-                                android:maxLines="1"
-                                android:text="Sawojajar, Malang"
-                                app:layout_constraintBottom_toBottomOf="@+id/textView27"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/textView27" />
-
-                        </RelativeLayout>
-
-                        <ImageView
-                            android:id="@+id/imageView3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="10dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/background_lines"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/relativeLayout1"
-                            app:tint="@color/neutral_grey" />
-
-                        <RelativeLayout
-                            android:id="@+id/relativeLayout2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="30dp"
-                            android:layout_marginVertical="16dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView3"
-                            app:layout_constraintStart_toStartOf="@+id/imageView3"
-                            app:layout_constraintTop_toBottomOf="@id/imageView3">
-
-                            <TextView
-                                android:id="@+id/textView29"
-                                style="@style/SPPKelompok2.Text.Regular.Body2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="No. Telp" />
-
-                            <TextView
-                                android:id="@+id/noTelp"
-                                style="@style/SPPKelompok2.Text.Regular.Body2"
-                                android:layout_width="140dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignTop="@+id/textView29"
-                                android:layout_alignBottom="@+id/textView29"
-                                android:layout_alignParentEnd="true"
-                                android:ellipsize="end"
-                                android:gravity="end"
-                                android:maxLines="1"
-                                android:text="083462786523"
-                                app:layout_constraintBottom_toBottomOf="@+id/textView29"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/textView29" />
-
-                        </RelativeLayout>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <TextView
-                    android:id="@+id/textView28"
-                    style="@style/SPPKelompok2.Text.Semibold.Header3"
-                    android:layout_width="wrap_content"
+                <ImageButton
+                    android:id="@+id/add"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="15dp"
-                    android:text="Status SPP"
-                    android:textColor="?colorPrimary"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+                    android:layout_below="@id/recyclerView"
+                    android:layout_marginVertical="12dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:elevation="2dp"
+                    android:src="@drawable/background_add_pembayaran"
+                    android:visibility="gone" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </RelativeLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/calendar"
+        style="@style/SPPKelompok2.Card.Large.Filled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackgroundBorderless"
+        app:cardElevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="22dp"
+            android:paddingVertical="9dp">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/constraint"
-                android:nestedScrollingEnabled="false"
-                android:paddingHorizontal="12dp"
-                tools:listitem="@layout/item_row_status" />
+                android:contentDescription="CETAK"
+                android:src="@drawable/icon_calendar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/add"
-                android:visibility="gone"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tgl"
+                style="@style/SPPKelompok2.Text.Semibold.Body1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/recyclerView"
-                android:layout_marginVertical="12dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:elevation="2dp"
-                android:src="@drawable/background_add_pembayaran" />
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="Filter"
+                android:textColor="?colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </com.google.android.material.card.MaterialCardView>
 
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

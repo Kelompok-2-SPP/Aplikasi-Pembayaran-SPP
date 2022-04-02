@@ -15,8 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="12dp"
-            android:paddingBottom="30dp"
-            android:paddingTop="30dp">
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView"
@@ -69,14 +69,14 @@
                             style="@style/SPPKelompok2.Text.Bold.Header2"
                             android:layout_width="200dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="24dp"
+                            android:layout_marginVertical="16dp"
                             android:autoSizeMaxTextSize="32sp"
                             android:autoSizeMinTextSize="16sp"
                             android:autoSizeStepGranularity="2sp"
                             android:autoSizeTextType="uniform"
-                            android:maxLines="1"
                             android:gravity="center"
-                            android:layout_marginHorizontal="24dp"
-                            android:layout_marginVertical="16dp"
+                            android:maxLines="1"
                             android:text="@string/rp500_000"
                             android:textColor="@color/green" />
 

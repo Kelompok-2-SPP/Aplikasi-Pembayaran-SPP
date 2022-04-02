@@ -44,7 +44,6 @@
                 app:layout_constraintTop_toTopOf="@+id/header" />
 
             <FrameLayout
-                android:visibility="gone"
                 android:id="@+id/cardTunggakan"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
@@ -56,6 +55,7 @@
                 android:paddingTop="110dp"
                 android:paddingEnd="70dp"
                 android:paddingBottom="120dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/logout"
                 app:layout_constraintStart_toStartOf="@+id/header"
                 app:layout_constraintTop_toBottomOf="@+id/header">
@@ -157,6 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
                     android:paddingHorizontal="16dp"
                     android:paddingBottom="40dp"
                     app:layout_constraintEnd_toEndOf="@+id/transaksi"

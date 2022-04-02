@@ -1,51 +1,63 @@
 package com.lleans.spp_kelompok_2.ui.main.siswa.transaksi;
 
 import android.os.Bundle;
-import android.text.Html;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.gson.Gson;
-import com.lleans.spp_kelompok_2.UIListener;
 import com.lleans.spp_kelompok_2.databinding.Siswa2TransaksiBinding;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranDataList;
+import com.lleans.spp_kelompok_2.domain.Utils;
+import com.lleans.spp_kelompok_2.domain.model.BaseResponse;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.CachedPembayaranSharedModel;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
+import com.lleans.spp_kelompok_2.ui.utils.UtilsUI;
+import com.whiteelephant.monthpicker.MonthPickerDialog;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Transaksi extends Fragment implements UIListener {
+public class Transaksi extends Fragment {
 
     private Siswa2TransaksiBinding binding;
     private SessionManager sessionManager;
     private NavController navController;
+    private ApiInterface apiInterface;
+
+    private TransaksiCardAdapter cardAdapter;
 
     public Transaksi() {
         // Required empty public constructor
     }
 
+    private void setAdapter(List<PembayaranData> data) {
+        cardAdapter = new TransaksiCardAdapter(data, navController, false);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setAdapter(cardAdapter);
+    }
+
     private void getTransaksi(String tglDibayar, Integer bulanDibayar, Integer tahun_dibayar) {
-        isLoading(true);
-        Call<PembayaranDataList> pembayaranDataCall;
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        UtilsUI.isLoading(binding.refresher, true, true);
+        Call<BaseResponse<List<PembayaranData>>> pembayaranDataCall;
+
         pembayaranDataCall = apiInterface.getPembayaran(
-                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                 null,
                 null,
                 sessionManager.getUserDetail().get(SessionManager.ID),
@@ -54,21 +66,19 @@ public class Transaksi extends Fragment implements UIListener {
                 null,
                 null,
                 null);
-        pembayaranDataCall.enqueue(new Callback<PembayaranDataList>() {
+        pembayaranDataCall.enqueue(new Callback<BaseResponse<List<PembayaranData>>>() {
             @Override
-            public void onResponse(Call<PembayaranDataList> call, Response<PembayaranDataList> response) {
-                isLoading(false);
+            public void onResponse(Call<BaseResponse<List<PembayaranData>>> call, Response<BaseResponse<List<PembayaranData>>> response) {
+                UtilsUI.isLoading(binding.refresher, true, false);
                 if (response.body() != null && response.isSuccessful()) {
-                    TransaksiCardAdapter cardAdapter = new TransaksiCardAdapter(response.body().getDetails(), navController, false);
-                    binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    binding.recyclerView.setAdapter(cardAdapter);
+                    setAdapter(response.body().getDetails());
                 } else {
                     try {
-                        PembayaranDataList message = new Gson().fromJson(response.errorBody().charStream(), PembayaranDataList.class);
-                        toaster(message.getMessage());
+                        BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                        UtilsUI.toaster(getContext(), message.getMessage());
                     } catch (Exception e) {
                         try {
-                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                            UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }
@@ -76,11 +86,10 @@ public class Transaksi extends Fragment implements UIListener {
                 }
             }
 
-            // On failure response
             @Override
-            public void onFailure(@NonNull Call<PembayaranDataList> call, @NonNull Throwable t) {
-                isLoading(false);
-                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            public void onFailure(@NonNull Call<BaseResponse<List<PembayaranData>>> call, @NonNull Throwable t) {
+                UtilsUI.isLoading(binding.refresher, true, false);
+                UtilsUI.dialog(getContext(), "Something went wrong!", t.getLocalizedMessage(), false).show();
             }
         });
     }
@@ -90,6 +99,22 @@ public class Transaksi extends Fragment implements UIListener {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
+        binding.calendar.setOnClickListener(v -> {
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+            int month = Calendar.getInstance().get(Calendar.MONTH);
+
+            MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
+                if (cardAdapter != null) {
+                    binding.tgl.setText(String.valueOf(selectedYear));
+                    cardAdapter.getFilter().filter(String.valueOf(selectedYear));
+                }
+            }, year, month);
+            builder.setTitle("Pilih Tahun SPP")
+                    .setActivatedYear(year)
+                    .setMaxYear(year)
+                    .showYearOnly()
+                    .build().show();
+        });
         binding.refresher.setOnRefreshListener(() -> {
             getTransaksi(null, null, null);
         });
@@ -98,29 +123,20 @@ public class Transaksi extends Fragment implements UIListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = Siswa2TransaksiBinding.inflate(inflater, container, false);
-        sessionManager = new SessionManager(getContext());
-        getTransaksi(null, null, null);
+
+        sessionManager = new SessionManager(getActivity().getApplicationContext());
+        apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
+        CachedPembayaranSharedModel cached = new ViewModelProvider(requireActivity()).get(CachedPembayaranSharedModel.class);
+        cached.getData().observe(getViewLifecycleOwner(), pembayaranData -> {
+            if (pembayaranData != null) {
+                setAdapter(pembayaranData);
+            } else {
+                getTransaksi(null, null, null);
+            }
+        });
+        UtilsUI.simpleAnimation(binding.calendar);
         return binding.getRoot();
     }
 
-    // Abstract class for loadingBar
-    @Override
-    public void isLoading(Boolean isLoading) {
-        binding.refresher.setRefreshing(isLoading);
-    }
-
-    // Abstract class for Toast
-    @Override
-    public void toaster(String text) {
-        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    // Abstract class for Dialog
-    @Override
-    public void dialog(String title, Spanned message) {
-        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(requireContext());
-        as.setTitle(title).setMessage(message).setPositiveButton("Ok", null).show();
-    }
 }

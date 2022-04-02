@@ -2,8 +2,8 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/refresher"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.petugas.spp.EditSpp">
 
@@ -79,14 +79,14 @@
                     android:id="@+id/tahun"
                     style="@style/SPPKelompok2.Text.Medium.Body2"
                     android:layout_width="match_parent"
-                    android:clickable="true"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_edit_focused"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:hint="Tahun"
                     android:inputType="number"
                     android:maxLength="11"
-                    android:textColor="?colorPrimary"
-                    android:focusable="true" />
+                    android:textColor="?colorPrimary" />
 
             </LinearLayout>
 
@@ -112,12 +112,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_edit_focused"
-                    android:hint="Nominal"
                     android:clickable="true"
+                    android:focusable="true"
+                    android:hint="Nominal"
                     android:inputType="number"
                     android:maxLength="18"
-                    android:textColor="?colorPrimary"
-                    android:focusable="true" />
+                    android:textColor="?colorPrimary" />
 
             </LinearLayout>
 

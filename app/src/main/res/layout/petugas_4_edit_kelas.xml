@@ -80,13 +80,13 @@
                     style="@style/SPPKelompok2.Text.Medium.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
                     android:background="@drawable/background_edit_focused"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:hint="Jurusan"
                     android:inputType="text"
                     android:maxLength="35"
-                    android:textColor="?colorPrimary"
-                    android:focusable="true" />
+                    android:textColor="?colorPrimary" />
 
             </LinearLayout>
 
@@ -111,13 +111,13 @@
                     style="@style/SPPKelompok2.Text.Medium.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
                     android:background="@drawable/background_edit_focused"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:hint="Angkatan"
                     android:inputType="number"
-                    android:maxLength="11"
-                    android:textColor="?colorPrimary"
-                    android:focusable="true" />
+                    android:maxLength="8"
+                    android:textColor="?colorPrimary" />
 
             </LinearLayout>
 

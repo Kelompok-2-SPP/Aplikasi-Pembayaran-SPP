@@ -19,7 +19,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="235dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 android:layout_marginHorizontal="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +40,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="30dp"
-                        android:layout_marginVertical="16dp">
+                        android:layout_marginVertical="24dp">
+
+                        <TextView
+                            android:id="@+id/statusText"
+                            style="@style/SPPKelompok2.Text.Semibold.Body1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lunas"
+                            android:textColor="@color/green"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/jumlah"
@@ -50,9 +62,9 @@
                             android:gravity="center"
                             android:maxLines="1"
                             android:text="@string/rp500_000"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintEnd_toEndOf="@+id/statusText"
+                            app:layout_constraintStart_toStartOf="@+id/statusText"
+                            app:layout_constraintTop_toBottomOf="@+id/statusText" />
 
                         <TextView
                             android:id="@+id/spp"

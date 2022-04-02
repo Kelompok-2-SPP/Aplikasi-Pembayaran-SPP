@@ -4,6 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,29 +17,36 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.domain.Utils;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
+import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranData;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranSharedModel;
 import com.lleans.spp_kelompok_2.ui.launcher.LauncherFragment;
+import com.lleans.spp_kelompok_2.ui.utils.UtilsUI;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
-public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.HistoriCardViewHolder> {
+public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.HistoriCardViewHolder> implements Filterable {
 
-    private final List<DetailsItemPembayaran> listdata;
-    private final NavController navController;
+    private final NavController controller;
     private Context context;
 
+    private final List<PembayaranData> listData, listAll;
     private int orange;
+    private String date = "";
 
-    public HistoriCardAdapter(List<DetailsItemPembayaran> list, NavController navController) {
-        this.listdata = list;
-        this.navController = navController;
+    public HistoriCardAdapter(List<PembayaranData> list, NavController navController) {
+        this.listData = list;
+        this.listAll = new ArrayList<>(list);
+        this.controller = navController;
     }
 
     @NonNull
     @Override
     public HistoriCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_aktivitas, parent, false);
+
         orange = view.getResources().getColor(R.color.orange);
         context = view.getContext();
         return new HistoriCardViewHolder(view);
@@ -44,33 +54,87 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final HistoriCardViewHolder holder, int position) {
-        DetailsItemPembayaran data = listdata.get(position);
+        PembayaranData data = listData.get(position);
+
+        String parsed = Utils.parseLongtoStringDate(Utils.parseServerStringtoLongDate(data.getUpdatedAt(), "yyyy-MM-dd"), "dd MMMM yyyy");
+        Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        c1.add(Calendar.DAY_OF_YEAR, -1);
+        c2.setTimeInMillis(Utils.parseServerStringtoLongDate(data.getUpdatedAt(), "yyyy-MM-dd"));
+        if (!parsed.equals(date)) {
+            this.date = parsed;
+            if (parsed.equals(Utils.getCurrentDateAndTime("dd MMMM yyyy"))) {
+                holder.sectionText.setText("Hari ini");
+            } else if (c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR) && c1.get(Calendar.DAY_OF_YEAR) == c2.get(Calendar.DAY_OF_YEAR)) {
+                holder.sectionText.setText("Kemarin");
+            } else {
+                holder.sectionText.setText(parsed);
+            }
+            holder.section.setVisibility(View.VISIBLE);
+        }
         holder.name.setText(data.getSiswa().getNama());
-        if (Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar())) {
-            holder.kelas.setText(data.getSiswa().getKelas().getNamaKelas());
+        holder.kelas.setText(data.getSiswa().getKelas().getNamaKelas());
+        if (data.getSpp() != null && Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar())) {
             holder.status.setText("Belum Lunas");
             holder.status.setTextColor(orange);
             holder.nominalkurang.setText(Utils.kurangBayar(data.getSpp().getNominal(), data.getJumlahBayar()));
-        }else{
-            holder.kelas.setText(data.getSiswa().getKelas().getNamaKelas());
+        } else {
             holder.status.setText("Lunas");
             holder.nominalkurang.setText(Utils.formatRupiah(data.getJumlahBayar()));
         }
         holder.cardView.setOnClickListener(v -> {
             PembayaranSharedModel shared = new ViewModelProvider((LauncherFragment) context).get(PembayaranSharedModel.class);
             shared.updateData(data);
-            navController.navigate(R.id.action_histori_petugas_to_rincianTransaksi_siswa);
+            controller.navigate(R.id.action_histori_petugas_to_rincianTransaksi_siswa);
         });
+        UtilsUI.simpleAnimation(holder.itemView);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull HistoriCardViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+
+        holder.celarAnnimation();
     }
 
     @Override
     public int getItemCount() {
-        return listdata.size();
+        return listData.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String year = Utils.parseLongtoStringDate(Long.valueOf(constraint.toString()), "yyyy");
+                String month = Utils.parseLongtoStringDate(Long.valueOf(constraint.toString()), "MM");
+                List<PembayaranData> filteredlist = new ArrayList<>();
+
+                for (PembayaranData data : listAll) {
+                    long date = Utils.parseServerStringtoLongDate(data.getUpdatedAt(), "yyyy-MM");
+                    if (Utils.parseLongtoStringDate(date, "yyyy").equals(year) && Utils.parseLongtoStringDate(date, "MM").equals(month) ) {
+                        filteredlist.add(data);
+                    }
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filteredlist;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                listData.clear();
+                listData.addAll((Collection<? extends PembayaranData>) results.values);
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public static class HistoriCardViewHolder extends RecyclerView.ViewHolder {
-        TextView name, kelas, status, nominalkurang;
+        TextView name, kelas, status, nominalkurang, sectionText;
         CardView cardView;
+        RelativeLayout section;
 
         public HistoriCardViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -80,6 +144,13 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
             nominalkurang = itemView.findViewById(R.id.nominal);
 
             cardView = itemView.findViewById(R.id.card);
+            section = itemView.findViewById(R.id.section);
+            sectionText = itemView.findViewById(R.id.sectionText);
+        }
+
+        public void celarAnnimation() {
+            itemView.clearAnimation();
         }
     }
+
 }

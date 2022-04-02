@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class SiswaSharedModel extends ViewModel {
-    private final MutableLiveData<DetailsItemSiswa> data = new MutableLiveData<DetailsItemSiswa>();
+    private final MutableLiveData<SiswaData> data = new MutableLiveData<SiswaData>();
 
-    public void updateData(DetailsItemSiswa data) {
+    public void updateData(SiswaData data) {
         this.data.setValue(data);
     }
 
-    public LiveData<DetailsItemSiswa> getData() {
+    public LiveData<SiswaData> getData() {
         return this.data;
     }
 }

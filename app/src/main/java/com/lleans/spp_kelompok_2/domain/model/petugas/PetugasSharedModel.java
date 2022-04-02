@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class PetugasSharedModel extends ViewModel {
-    private final MutableLiveData<DetailsItemPetugas> data = new MutableLiveData<DetailsItemPetugas>();
+    private final MutableLiveData<PetugasData> data = new MutableLiveData<PetugasData>();
 
-    public void updateData(DetailsItemPetugas data) {
+    public void updateData(PetugasData data) {
         this.data.setValue(data);
     }
 
-    public LiveData<DetailsItemPetugas> getData() {
+    public LiveData<PetugasData> getData() {
         return this.data;
     }
 

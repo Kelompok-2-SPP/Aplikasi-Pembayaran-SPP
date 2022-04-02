@@ -2,15 +2,16 @@ package com.lleans.spp_kelompok_2.ui.main.petugas.siswa;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.text.Html;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -19,47 +20,65 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.lleans.spp_kelompok_2.R;
 import com.lleans.spp_kelompok_2.domain.Utils;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.DetailsItemPembayaran;
+import com.lleans.spp_kelompok_2.domain.model.BaseResponse;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranData;
 import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranSharedModel;
-import com.lleans.spp_kelompok_2.network.ApiClient;
+import com.lleans.spp_kelompok_2.domain.model.petugas.PetugasData;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.launcher.LauncherFragment;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 import com.lleans.spp_kelompok_2.ui.utils.MoneyTextWatcher;
+import com.lleans.spp_kelompok_2.ui.utils.UtilsUI;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCardAdapter.StatusCardViewHolder> {
+public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCardAdapter.StatusCardViewHolder> implements Filterable {
 
-    private final List<DetailsItemPembayaran> listData;
-    private final NavController navController;
-    private InputMethodManager imm;
+    private final NavController controller;
+    private final ApiInterface apiInterface;
+    private InputMethodManager inputMethodManager;
     private SessionManager sessionManager;
     private Context context;
 
-    private int orange, green, neutral;
+    private final List<PembayaranData> listData, listAll;
+    private int orange, green, neutral, tahun;
 
-    public StatusSiswaCardAdapter(List<DetailsItemPembayaran> list, NavController navController) {
+    public StatusSiswaCardAdapter(List<PembayaranData> list, NavController controller, ApiInterface apiInterface) {
         this.listData = list;
-        this.navController = navController;
+        this.listAll = new ArrayList<>(list);
+        this.controller = controller;
+        this.apiInterface = apiInterface;
+    }
+
+    private void localUpdate(int postion, long jumlahBayar) {
+        PembayaranData obj = listData.get(postion);
+        PetugasData pet = new PetugasData();
+
+        pet.setIdPetugas(Integer.parseInt(sessionManager.getUserDetail().get(SessionManager.ID)));
+        pet.setNamaPetugas(sessionManager.getUserDetail().get(SessionManager.USERNAME));
+        obj.setIdPetugas(Integer.parseInt(sessionManager.getUserDetail().get(SessionManager.ID)));
+        obj.setPetugas(pet);
+        obj.setTglBayar(Utils.getCurrentDateAndTime("yyyy-MM-dd"));
+        obj.setJumlahBayar(jumlahBayar);
+        listData.set(postion, obj);
     }
 
     private void updateStatus(int idPembayaran, long jumlahPembayaran, int position) {
-        Call<PembayaranData> updateStatus;
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        localUpdate(position, jumlahPembayaran);
+        Call<BaseResponse<PembayaranData>> updateStatus;
+
         updateStatus = apiInterface.putPembayaran(
-                "Bearer " + sessionManager.getUserDetail().get(SessionManager.TOKEN),
                 idPembayaran,
                 Integer.valueOf(sessionManager.getUserDetail().get(SessionManager.ID)),
                 null,
@@ -69,19 +88,18 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
                 null,
                 jumlahPembayaran
         );
-        updateStatus.enqueue(new Callback<PembayaranData>() {
+        updateStatus.enqueue(new Callback<BaseResponse<PembayaranData>>() {
             @Override
-            public void onResponse(Call<PembayaranData> call, Response<PembayaranData> response) {
+            public void onResponse(Call<BaseResponse<PembayaranData>> call, Response<BaseResponse<PembayaranData>> response) {
                 if (response.body() != null && response.isSuccessful()) {
-                    listData.get(position).setJumlahBayar(response.body().getDetails().getJumlahBayar());
-                    notifyItemChanged(position);
+                    listData.set(position, response.body().getDetails());
                 } else {
                     try {
-                        PembayaranData message = new Gson().fromJson(response.errorBody().charStream(), PembayaranData.class);
-                        toaster(message.getMessage());
+                        BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                        UtilsUI.toaster(context, message.getMessage());
                     } catch (Exception e) {
                         try {
-                            dialog("Something went wrong !", Html.fromHtml(response.errorBody().string()));
+                            UtilsUI.dialog(context, "Something went wrong!", response.errorBody().string(), false).show();
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }
@@ -89,10 +107,9 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
                 }
             }
 
-            // On failure response
             @Override
-            public void onFailure(@NonNull Call<PembayaranData> call, @NonNull Throwable t) {
-                dialog("Something went wrong !", Html.fromHtml(t.getLocalizedMessage()));
+            public void onFailure(@NonNull Call<BaseResponse<PembayaranData>> call, @NonNull Throwable t) {
+                UtilsUI.dialog(context, "Something went wrong!", t.getLocalizedMessage(), false).show();
             }
         });
     }
@@ -101,12 +118,13 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
     @Override
     public StatusCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_status, parent, false);
+
         sessionManager = new SessionManager(view.getContext());
         orange = parent.getResources().getColor(R.color.orange);
         green = parent.getResources().getColor(R.color.green);
         neutral = parent.getResources().getColor(R.color.neutral_white);
         context = parent.getContext();
-        imm = (InputMethodManager) parent.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager = (InputMethodManager) parent.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         return new StatusCardViewHolder(view);
     }
 
@@ -132,27 +150,36 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
 
     @Override
     public void onBindViewHolder(@NonNull StatusCardViewHolder holder, int position) {
-        DetailsItemPembayaran data = listData.get(position);
+        PembayaranData data = listData.get(position);
+
+        if (this.tahun != data.getTahunSpp()) {
+            this.tahun = data.getTahunSpp();
+            holder.sectionText.setText("Tahun " + data.getTahunSpp());
+            holder.section.setVisibility(View.VISIBLE);
+        }
         holder.sudBayar.addTextChangedListener(new MoneyTextWatcher(holder.sudBayar, data.getSpp().getNominal()));
-
-        holder.bulan.setText(Utils.getMonth(data.getBulanSpp()));
+        if (data.getSpp() != null) {
+            setStatus(!Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar()), holder);
+            holder.totSpp.setText(Utils.formatRupiah(data.getSpp().getNominal()));
+        }
+        holder.bulan.setText(Utils.parseLongtoStringDate(Utils.parseServerStringtoLongDate(String.valueOf(data.getBulanSpp()), "MM"), "MMMM"));
         holder.tahun.setText("Status SPP tahun " + data.getTahunSpp());
-        holder.totSpp.setText(Utils.formatRupiah(data.getSpp().getNominal()));
         holder.sudBayar.setText(String.valueOf(data.getJumlahBayar()));
-
-        setStatus(!Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar()), holder);
-
         holder.status.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 1) {
                     setStatus(false, holder);
                     holder.sudBayar.requestFocus();
-                    imm.showSoftInput(holder.sudBayar, InputMethodManager.SHOW_IMPLICIT);
+                    inputMethodManager.showSoftInput(holder.sudBayar, InputMethodManager.SHOW_IMPLICIT);
                 } else {
                     setStatus(true, holder);
-                    imm.hideSoftInputFromWindow(holder.sudBayar.getWindowToken(), 0);
-                    updateStatus(data.getIdPembayaran(), data.getSpp().getNominal(), holder.getAdapterPosition());
+                    inputMethodManager.hideSoftInputFromWindow(holder.sudBayar.getWindowToken(), 0);
+                    if (data.getSpp() != null) {
+                        updateStatus(data.getIdPembayaran(), data.getSpp().getNominal(), holder.getAdapterPosition());
+                    } else {
+                        updateStatus(data.getIdPembayaran(), data.getJumlahBayar(), holder.getAdapterPosition());
+                    }
                 }
             }
 
@@ -166,21 +193,24 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
 
             }
         });
-
-        holder.sudBayar.setOnFocusChangeListener((v, hasFocus) -> {
+        holder.sudBayar.setOnEditorActionListener((v, actionId, event) -> {
+            v.clearFocus();
             long unformatted = Utils.unformatRupiah(holder.sudBayar.getText().toString());
-            if (!hasFocus && unformatted == data.getJumlahBayar()) {
-                notifyItemChanged(holder.getAdapterPosition());
-            } else if (!hasFocus && unformatted != data.getJumlahBayar()) {
-                updateStatus(data.getIdPembayaran(), unformatted, holder.getAdapterPosition());
+            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
+                if (unformatted == data.getJumlahBayar()) {
+                    notifyItemChanged(holder.getAdapterPosition());
+                } else if (unformatted != data.getJumlahBayar()) {
+                    updateStatus(data.getIdPembayaran(), unformatted, holder.getAdapterPosition());
+                }
             }
+            return false;
         });
-
         holder.card.setOnClickListener(v -> {
             PembayaranSharedModel sharedModel = new ViewModelProvider((LauncherFragment) context).get(PembayaranSharedModel.class);
             sharedModel.updateData(data);
-            navController.navigate(R.id.action_status_siswa_to_rincianTransaksi_siswa2);
+            controller.navigate(R.id.action_status_siswa_to_rincianTransaksi_siswa2);
         });
+        UtilsUI.simpleAnimation(holder.itemView);
     }
 
     @Override
@@ -188,12 +218,47 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
         return listData.size();
     }
 
+    @Override
+    public void onViewDetachedFromWindow(@NonNull StatusCardViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+
+        holder.clearAnimation();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                int year = Integer.parseInt(constraint.toString());
+                List<PembayaranData> filteredlist = new ArrayList<>();
+
+                for (PembayaranData data : listAll) {
+                    if (data.getTahunSpp() == year) {
+                        filteredlist.add(data);
+                    }
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filteredlist;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                listData.clear();
+                listData.addAll((Collection<? extends PembayaranData>) results.values);
+                notifyDataSetChanged();
+            }
+        };
+    }
+
     public static class StatusCardViewHolder extends RecyclerView.ViewHolder {
-        TextView bulan, tahun, totSpp;
+        TextView bulan, tahun, totSpp, sectionText;
         EditText sudBayar;
 
         ConstraintLayout belumLunas;
         CardView card;
+        RelativeLayout section;
         TabLayout status;
 
         public StatusCardViewHolder(@NonNull View itemView) {
@@ -206,15 +271,14 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
             belumLunas = itemView.findViewById(R.id.belumBayar);
             status = itemView.findViewById(R.id.tabStatus);
             card = itemView.findViewById(R.id.card);
+
+            section = itemView.findViewById(R.id.section);
+            sectionText = itemView.findViewById(R.id.sectionText);
+        }
+
+        public void clearAnimation() {
+            itemView.clearAnimation();
         }
     }
 
-    private void toaster(String message) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-    }
-
-    private void dialog(String title, Spanned text) {
-        MaterialAlertDialogBuilder as = new MaterialAlertDialogBuilder(context);
-        as.setTitle(title).setMessage(text).setPositiveButton("Ok", null).show();
-    }
 }

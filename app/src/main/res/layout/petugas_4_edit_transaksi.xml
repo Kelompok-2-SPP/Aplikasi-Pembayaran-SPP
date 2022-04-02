@@ -51,8 +51,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_spinner_focused"
-                    android:focusable="true"
                     android:clickable="true"
+                    android:focusable="true"
                     android:hint="Tgl. Bayar"
                     android:inputType="none"
                     android:textColor="?colorPrimary" />
@@ -103,7 +103,7 @@
                     style="@style/SPPKelompok2.Text.Semibold.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SPP Tahun-Bulan" />
+                    android:text="SPP Tahun Bulan" />
 
                 <TextView
                     android:id="@+id/sppTahunBulan"
@@ -118,12 +118,12 @@
                     android:textColor="?colorPrimary" />
 
                 <TextView
+                    style="@style/SPPKelompok2.Text.Regular.Body3"
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="3dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
                     android:text="*bulan tidak bisa diedit."
-                    android:textColor="?colorPrimary"
-                    style="@style/SPPKelompok2.Text.Regular.Body3"/>
+                    android:textColor="?colorPrimary" />
 
             </LinearLayout>
 
@@ -131,7 +131,7 @@
                 android:id="@+id/linearLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
                 app:layout_constraintStart_toStartOf="@+id/linearLayout4"

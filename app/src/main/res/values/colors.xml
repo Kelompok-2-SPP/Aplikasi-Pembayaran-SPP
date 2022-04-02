@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--Main colors-->
     <color name="red">#FF0000</color>
     <color name="orange">#FF9900</color>
     <color name="purple">#8000FF</color>
     <color name="green">#01C370</color>
 
-    <!--Neutral color-->
     <color name="neutral_white">#FEFEFE</color>
     <color name="neutral_lightGrey">#F9F9F9</color>
     <color name="neutral_grey">#E7E7E9</color>
     <color name="dark_grey">#6E6E77</color>
     <color name="neutral_black">#0D0E1C</color>
 
-    <!--Text color-->
     <color name="text_black10">#E7E7E9</color>
     <color name="text_black20">#CFCFD2</color>
     <color name="text_black40">#9E9FA4</color>
@@ -21,14 +18,6 @@
     <color name="text_black80">#3D3E49</color>
     <color name="text_black">#0D0E1C</color>
 
-    <color name="shadow_ambient">#C5C5C7</color>
-
-    <!--Array color-->
-    <integer-array name="androidcolors">
-        <item>@color/purple</item>
-        <item>@color/green</item>
-        <item>@color/orange</item>
-        <item>@color/red</item>
-    </integer-array>
+    <color name="ambient">#330D0E1C</color>
 
 </resources>

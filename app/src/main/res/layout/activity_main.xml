@@ -68,12 +68,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
+                android:focusable="true"
                 android:text="@string/petugas_btn"
                 android:textAllCaps="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/siswa"
-                app:layout_constraintStart_toStartOf="@+id/siswa"
-                android:focusable="true" />
+                app:layout_constraintStart_toStartOf="@+id/siswa" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

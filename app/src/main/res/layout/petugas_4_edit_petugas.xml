@@ -86,7 +86,15 @@
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:maxLength="255"
-                    android:textColor="?colorPrimary"/>
+                    android:textColor="?colorPrimary" />
+
+                <TextView
+                    style="@style/SPPKelompok2.Text.Regular.Body3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="*biarkan kosong, jika tidak merubah password."
+                    android:textColor="?colorPrimary" />
 
             </LinearLayout>
 
@@ -117,7 +125,7 @@
                     android:hint="Nama Petugas"
                     android:inputType="text"
                     android:maxLength="35"
-                    android:textColor="?colorPrimary"/>
+                    android:textColor="?colorPrimary" />
 
             </LinearLayout>
 

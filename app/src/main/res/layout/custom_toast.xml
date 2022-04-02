@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/SPPKelompok2.Card.Large.Filled"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="?colorPrimary"
+    app:cardCornerRadius="24dp"
+    app:contentPaddingBottom="12dp"
+    app:contentPaddingLeft="24dp"
+    app:contentPaddingRight="24dp"
+    app:contentPaddingTop="12dp">
+
+    <TextView
+        android:id="@+id/toastMessage"
+        style="@style/SPPKelompok2.Text.Semibold.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="toast text"
+        android:textColor="?colorSurface"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.cardview.widget.CardView>

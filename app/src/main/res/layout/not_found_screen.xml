@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/illust" />
+
+    <TextView
+        android:id="@+id/warningTitle"
+        style="@style/SPPKelompok2.Text.Semibold.Body1"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:text="Transaksi tidak ditemukan"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <TextView
+        android:id="@+id/warningSecondary"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Sepertinya anda belum pernah melakukan transaksi di tahun ini."
+        app:layout_constraintEnd_toEndOf="@+id/warningTitle"
+        app:layout_constraintStart_toStartOf="@+id/warningTitle"
+        app:layout_constraintTop_toBottomOf="@+id/warningTitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

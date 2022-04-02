@@ -1,145 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card"
-    style="@style/SPPKelompok2.Card.Large"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/orange">
+    android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
+        android:id="@+id/section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp">
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="5dp"
+        android:visibility="gone">
 
         <TextView
-            android:id="@+id/bulan"
-            style="@style/SPPKelompok2.Text.Bold.Header2"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="Bulan"
-            android:textColor="?colorSurface"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tahun"
-            style="@style/SPPKelompok2.Text.Regular.Body1"
+            android:id="@+id/sectionText"
+            style="@style/SPPKelompok2.Text.Regular.Body3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Status SPP Tahun 2021"
-            android:textColor="?colorSurface"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/bulan"
-            app:layout_constraintTop_toBottomOf="@+id/bulan" />
+            android:text="Section"
+            android:textColor="?android:textColorSecondary" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView3"
-            style="@style/SPPKelompok2.Card.Medium.Filled"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/totalSpp"
-                style="@style/SPPKelompok2.Text.Bold.Header4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:text="@string/rp500_000"
-                android:textColor="@color/orange" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabStatus"
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/background_tab_layout_base"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tahun"
-            app:tabIndicator="@drawable/background_tab_indicator"
-            app:tabIndicatorColor="@color/orange"
-            app:tabIndicatorGravity="stretch"
-            app:tabMode="fixed"
-            app:tabTextAppearance="@style/SPPKelompok2.Text.Semibold.Body2"
-            app:tabTextColor="@color/neutral_black">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sectionText"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background_lines_dotted" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Lunas" />
+    </RelativeLayout>
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Belum Lunas" />
-
-        </com.google.android.material.tabs.TabLayout>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        style="@style/SPPKelompok2.Card.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/section"
+        app:cardBackgroundColor="@color/orange">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/belumBayar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@+id/tabStatus">
+            android:layout_margin="20dp">
 
             <TextView
-                android:id="@+id/textView6"
-                style="@style/SPPKelompok2.Text.Semibold.Body1"
-                android:layout_width="wrap_content"
+                android:id="@+id/bulan"
+                style="@style/SPPKelompok2.Text.Bold.Header2"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:text="Sudah Bayar"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Bulan"
                 android:textColor="?colorSurface"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/tahun"
+                style="@style/SPPKelompok2.Text.Regular.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status SPP Tahun 2021"
+                android:textColor="?colorSurface"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/bulan"
+                app:layout_constraintTop_toBottomOf="@+id/bulan" />
+
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView3"
                 style="@style/SPPKelompok2.Card.Medium.Filled"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@+id/textView6"
-                app:layout_constraintTop_toBottomOf="@+id/textView6">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/totalSpp"
+                    style="@style/SPPKelompok2.Text.Bold.Header4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginVertical="14dp"
-                    android:gravity="center">
-
-                    <EditText
-                        android:id="@+id/sudahBayar"
-                        style="@style/SPPKelompok2.Text.Bold.Header4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="-4dp"
-                        android:layout_marginTop="-11dp"
-                        android:layout_marginBottom="-13dp"
-                        android:drawableEnd="@drawable/icon_edit"
-                        android:drawablePadding="10dp"
-                        android:drawableTint="@color/orange"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:inputType="number"
-                        android:maxLength="18"
-                        android:maxLines="1"
-                        android:text="@string/rp500_000"
-                        android:textColor="@color/orange" />
-
-                </LinearLayout>
+                    android:layout_margin="12dp"
+                    android:text="@string/rp500_000"
+                    android:textColor="@color/orange" />
 
             </com.google.android.material.card.MaterialCardView>
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabStatus"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/background_tab_layout_base"
+                android:paddingVertical="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tahun"
+                app:tabIndicator="@drawable/background_tab_indicator"
+                app:tabIndicatorColor="@color/orange"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorGravity="stretch"
+                app:tabMode="fixed"
+                app:tabTextAppearance="@style/SPPKelompok2.Text.Semibold.Body2"
+                app:tabTextColor="@color/neutral_black">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="              Lunas               " />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="      Belum Lunas       " />
+
+            </com.google.android.material.tabs.TabLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/belumBayar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@+id/tabStatus">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    style="@style/SPPKelompok2.Text.Semibold.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sudah Bayar"
+                    android:textColor="?colorSurface"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/SPPKelompok2.Card.Medium.Filled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/textView6"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="14dp"
+                        android:gravity="center">
+
+                        <EditText
+                            android:id="@+id/sudahBayar"
+                            style="@style/SPPKelompok2.Text.Bold.Header4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="-4dp"
+                            android:layout_marginTop="-11dp"
+                            android:layout_marginBottom="-13dp"
+                            android:drawableEnd="@drawable/icon_edit"
+                            android:drawablePadding="10dp"
+                            android:drawableTint="@color/orange"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:inputType="number"
+                            android:maxLength="18"
+                            android:maxLines="1"
+                            android:text="@string/rp500_000"
+                            android:textColor="@color/orange" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-</androidx.cardview.widget.CardView>
+</RelativeLayout>
