@@ -8,7 +8,7 @@ public class SppData {
     private String createdAt;
 
     @SerializedName("tahun")
-    private int tahun;
+    private Long tahun;
 
     @SerializedName("nominal")
     private Long nominal;
@@ -30,11 +30,11 @@ public class SppData {
         return createdAt;
     }
 
-    public void setTahun(int tahun){
+    public void setTahun(Long tahun){
         this.tahun = tahun;
     }
 
-    public int getTahun(){
+    public Long getTahun(){
         return tahun;
     }
 

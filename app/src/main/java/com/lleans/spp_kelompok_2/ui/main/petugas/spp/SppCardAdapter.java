@@ -34,7 +34,8 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
 
     private final List<SppData> listData, listAll;
     private final boolean fromHomepage;
-    private int count, orange, tahun;
+    private int count, orange;
+    private Long tahun;
     private Spp spp;
 
     public SppCardAdapter(List<SppData> list, NavController controller, boolean fromHomepage, @Nullable Spp spp) {

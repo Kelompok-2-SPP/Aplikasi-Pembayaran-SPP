@@ -232,7 +232,7 @@ public interface ApiInterface {
     Call<BaseResponse<List<SppData>>> getSpp(
             @Query("id_spp") Integer id_spp,
             @Query("angkatan") Long angkatan,
-            @Query("tahun") Integer tahun,
+            @Query("tahun") Long tahun,
             @Query("nominal") Long nominal,
             @Query("createdAt") String createdAt,
             @Query("updatedAt") String updatedAt
@@ -253,7 +253,7 @@ public interface ApiInterface {
     @POST("v1/spp")
     Call<BaseResponse<SppData>> postSpp(
             @Field("angkatan") Long angkatan,
-            @Field("tahun") Integer tahun,
+            @Field("tahun") Long tahun,
             @Field("nominal") Long nominal
     );
 
@@ -262,7 +262,7 @@ public interface ApiInterface {
     Call<BaseResponse<SppData>> putSpp(
             @Field("id_spp") Integer id_spp,
             @Field("angkatan") Long angkatan,
-            @Field("tahun") Integer tahun,
+            @Field("tahun") Long tahun,
             @Field("nominal") Long nominal
     );
 

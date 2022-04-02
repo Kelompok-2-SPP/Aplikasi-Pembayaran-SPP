@@ -38,7 +38,7 @@ public class TambahSpp extends Fragment {
         // Required empty public constructor
     }
 
-    private void tambahSpp(Long angkatan, Integer tahun, Long nominal) {
+    private void tambahSpp(Long angkatan, Long tahun, Long nominal) {
         UtilsUI.isLoading(binding.refresher, false, true);
         Call<BaseResponse<SppData>> tambahSppCall;
 
@@ -80,11 +80,10 @@ public class TambahSpp extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
         binding.simpan.setOnClickListener(view1 -> {
-            Integer tahun;
-            Long nominal, angkatan;
+            Long nominal, angkatan, tahun;
 
             angkatan = Long.parseLong(binding.angkatan.getText().toString());
-            tahun = Integer.parseInt(binding.tahun.getText().toString());
+            tahun = Long.parseLong(binding.tahun.getText().toString());
             nominal = Utils.unformatRupiah(binding.nominal.getText().toString());
             if (angkatan == null || tahun == null || nominal == null) {
                 UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
