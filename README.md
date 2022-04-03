@@ -13,7 +13,7 @@ This application is divided into 3 levels.
 
 | Student (Siswa) 👩‍🎓 | Officer (Petugas) 👨‍💼 | Admin (Admin) 🔑  | 
 | ------------------ | -------------------- | ---------------------  |
-| <code><img width=300 src="https://github.com/Kelompok-2-SPP/Aplikasi-Pembayaran-SPP/blob/master/.github/siswa.gif?raw=true" alt="Student preview"></code> | <code><img width=300 src="https://github.com/Kelompok-2-SPP/Aplikasi-Pembayaran-SPP/blob/master/.github/petugas.gif?raw=true" alt="Student preview"></code> | <code><img width=300 src="https://github.com/Kelompok-2-SPP/Aplikasi-Pembayaran-SPP/blob/master/.github/admin.gif?raw=true" alt="Student preview"></code> |
+| <code><img width=280 src="https://github.com/Kelompok-2-SPP/Aplikasi-Pembayaran-SPP/blob/master/.github/siswa.gif?raw=true" alt="Student preview"></code> | <code><img width=280 src="https://github.com/Kelompok-2-SPP/Aplikasi-Pembayaran-SPP/blob/master/.github/petugas.gif?raw=true" alt="Student preview"></code> | <code><img width=280 src="https://github.com/Kelompok-2-SPP/Aplikasi-Pembayaran-SPP/blob/master/.github/admin.gif?raw=true" alt="Student preview"></code> |
 | On student level is intended for students can display the transaction history of these students, students will find it easier to find out the underpayment of their payments. | Intended for administrative officers, in this section later the officer will update the student journals if their payments are lacking or in full. | Is the highest level, has access to all add or delete all data in the database, admin can delete and add all data in the database including officer data. |
 
 #
