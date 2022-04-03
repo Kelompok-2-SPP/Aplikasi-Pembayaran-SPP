@@ -220,7 +220,7 @@ public class TambahTransaksi extends Fragment {
     }
 
     private void monthYearPicker() {
-        int month = Integer.parseInt(Utils.parseLongtoStringDate(this.sppDate, "MM"));
+        int month = Integer.parseInt(Utils.parseLongtoStringDate(this.sppDate, "MM")) - 1;
         int year = Integer.parseInt(Utils.parseLongtoStringDate(this.sppDate, "yyyy"));
 
         MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
