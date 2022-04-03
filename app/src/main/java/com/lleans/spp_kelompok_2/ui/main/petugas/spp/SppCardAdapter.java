@@ -34,8 +34,8 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
 
     private final List<SppData> listData, listAll;
     private final boolean fromHomepage;
-    private int count, orange;
-    private Long tahun;
+    private int count, green, orange;
+    private int tahun;
     private final Spp spp;
 
     public SppCardAdapter(List<SppData> list, NavController controller, boolean fromHomepage, @Nullable Spp spp) {
@@ -51,26 +51,30 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
     public SppCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_spp, parent, false);
 
-        if (context == null) context = view.getContext();
-        if (orange == 0) orange = view.getResources().getColor(R.color.orange);
+        context = view.getContext();
+        orange = view.getResources().getColor(R.color.orange);
+        green = view.getResources().getColor(R.color.green);
         return new SppCardViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull final SppCardViewHolder holder, int position) {
-        SppData data = listData.get(position);
-
-        if (this.tahun != data.getTahun() && !fromHomepage) {
-            this.tahun = data.getTahun();
+    private void setSection(SppData data, SppCardViewHolder holder) {
+        if (this.tahun != Integer.parseInt(String.valueOf(data.getTahun())) && !fromHomepage) {
+            this.tahun = Integer.parseInt(String.valueOf(data.getTahun()));
             holder.sectionText.setText("Tahun " + data.getTahun());
             holder.section.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void setHolder(SppData data, SppCardViewHolder holder){
         holder.judul.setText("Total SPP\nAngkatan " + data.getAngkatan());
         holder.tahun.setText("Tahun " + data.getTahun());
         holder.nominal.setText(Utils.formatRupiah(data.getNominal()));
         if (data.getNominal() <= 400000) {
             holder.cardView.setCardBackgroundColor(orange);
             holder.nominal.setTextColor(orange);
+        } else {
+            holder.cardView.setCardBackgroundColor(green);
+            holder.nominal.setTextColor(green);
         }
         holder.cardView.setOnClickListener(v -> {
             SppSharedModel sharedModel = new ViewModelProvider((LauncherFragment) context).get(SppSharedModel.class);
@@ -81,6 +85,14 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
                 controller.navigate(R.id.action_spp_petugas_to_rincianSpp_petugas);
             }
         });
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final SppCardViewHolder holder, int position) {
+        SppData data = listData.get(position);
+
+        setSection(data, holder);
+        setHolder(data, holder);
         UtilsUI.simpleAnimation(holder.itemView);
     }
 

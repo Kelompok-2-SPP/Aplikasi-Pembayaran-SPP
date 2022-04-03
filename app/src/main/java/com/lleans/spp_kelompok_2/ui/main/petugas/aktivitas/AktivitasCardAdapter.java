@@ -36,7 +36,7 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
 
     private final List<PembayaranData> listData, listAll;
     private final String fromWhere;
-    private int orange, count;
+    private int orange, green, count;
     private String date;
     private final Aktivitas aktivitas;
     private final Calendar c1, c2;
@@ -57,8 +57,9 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
     public AktivitasCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_aktivitas, parent, false);
 
-        if (orange == 0) orange = view.getResources().getColor(R.color.orange);
-        if (context == null) context = view.getContext();
+        orange = view.getResources().getColor(R.color.orange);
+        green = view.getResources().getColor(R.color.green);
+        context = view.getContext();
         return new AktivitasCardViewHolder(view);
     }
 
@@ -87,6 +88,7 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
             holder.nominalkurang.setText(Utils.kurangBayar(data.getSpp().getNominal(), data.getJumlahBayar()));
         } else {
             holder.status.setText("Lunas");
+            holder.status.setTextColor(green);
             holder.nominalkurang.setText(Utils.formatRupiah(data.getJumlahBayar()));
         }
         holder.cardView.setOnClickListener(v -> {

@@ -33,7 +33,7 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
     private Context context;
 
     private final List<PembayaranData> listData, listAll;
-    private int orange;
+    private int orange, green;
     private String date;
     private final Histori histori;
     private final Calendar c1, c2;
@@ -53,8 +53,9 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
     public HistoriCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_aktivitas, parent, false);
 
-        if (orange == 0) orange = view.getResources().getColor(R.color.orange);
-        if (context == null) context = view.getContext();
+        orange = view.getResources().getColor(R.color.orange);
+        green = view.getResources().getColor(R.color.green);
+        context = view.getContext();
         return new HistoriCardViewHolder(view);
     }
 
@@ -83,6 +84,7 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
             holder.nominalkurang.setText(Utils.kurangBayar(data.getSpp().getNominal(), data.getJumlahBayar()));
         } else {
             holder.status.setText("Lunas");
+            holder.status.setTextColor(green);
             holder.nominalkurang.setText(Utils.formatRupiah(data.getJumlahBayar()));
         }
         holder.cardView.setOnClickListener(v -> {

@@ -33,7 +33,7 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
     private Context context;
 
     private final List<PembayaranData> listData, listAll;
-    private int orange, count, tahun;
+    private int orange, green, count, tahun;
     private final boolean fromHomepage;
     private final Transaksi transaksi;
 
@@ -50,8 +50,9 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
     public TransaksiCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_transaksi, parent, false);
 
-        if (orange == 0) orange = view.getResources().getColor(R.color.orange);
-        if (context == null) context = view.getContext();
+        orange = view.getResources().getColor(R.color.orange);
+        green = view.getResources().getColor(R.color.green);
+        context = view.getContext();
         return new TransaksiCardViewHolder(view);
     }
 
@@ -72,6 +73,7 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
         } else {
             holder.nominal.setText(Utils.formatRupiah(data.getJumlahBayar()));
             holder.status.setText("Lunas");
+            holder.status.setTextColor(green);
         }
         holder.cardView.setOnClickListener(v -> {
             PembayaranSharedModel sharedModel = new ViewModelProvider((LauncherFragment) context).get(PembayaranSharedModel.class);

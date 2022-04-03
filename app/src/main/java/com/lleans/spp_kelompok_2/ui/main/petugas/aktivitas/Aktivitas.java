@@ -78,6 +78,7 @@ public class Aktivitas extends Fragment {
         builder.setActivatedMonth(month)
                 .setTitle("Pilih Bulan dan Tahun")
                 .setMaxYear(year)
+                .setMaxMonth(month)
                 .setActivatedYear(year)
                 .build().show();
     }

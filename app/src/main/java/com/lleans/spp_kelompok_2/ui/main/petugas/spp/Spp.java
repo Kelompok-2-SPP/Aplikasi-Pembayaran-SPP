@@ -113,7 +113,6 @@ public class Spp extends Fragment {
     private void monthYearPicker() {
         MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
             if (cardAdapter != null) {
-                this.year = selectedYear;
                 binding.tgl.setText(String.valueOf(selectedYear));
                 cardAdapter.getFilter().filter(String.valueOf(selectedYear));
             }

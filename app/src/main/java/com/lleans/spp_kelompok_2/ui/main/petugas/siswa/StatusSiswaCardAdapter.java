@@ -123,10 +123,10 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_status, parent, false);
 
         sessionManager = new SessionManager(view.getContext());
-        if (orange == 0) orange = parent.getResources().getColor(R.color.orange);
-        if (green == 0) green = parent.getResources().getColor(R.color.green);
-        if (neutral == 0) neutral = parent.getResources().getColor(R.color.neutral_white);
-        if (context == null) context = parent.getContext();
+        orange = parent.getResources().getColor(R.color.orange);
+        green = parent.getResources().getColor(R.color.green);
+        neutral = parent.getResources().getColor(R.color.neutral_white);
+        context = parent.getContext();
         if (inputMethodManager == null)
             inputMethodManager = (InputMethodManager) parent.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         return new StatusCardViewHolder(view);
