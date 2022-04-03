@@ -136,13 +136,7 @@ public class Transaksi extends Fragment {
         });
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = Siswa2TransaksiBinding.inflate(inflater, container, false);
-
-        sessionManager = new SessionManager(getActivity().getApplicationContext());
-        apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
+    private void isCached() {
         CachedPembayaranSharedModel cached = new ViewModelProvider(requireActivity()).get(CachedPembayaranSharedModel.class);
         cached.getData().observe(getViewLifecycleOwner(), pembayaranData -> {
             if (pembayaranData != null) {
@@ -151,6 +145,16 @@ public class Transaksi extends Fragment {
                 getTransaksi(null, null, null);
             }
         });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = Siswa2TransaksiBinding.inflate(inflater, container, false);
+
+        sessionManager = new SessionManager(getActivity().getApplicationContext());
+        apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
+        isCached();
         UtilsUI.simpleAnimation(binding.calendar);
         return binding.getRoot();
     }

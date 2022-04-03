@@ -209,52 +209,48 @@ public class EditTransaksi extends Fragment {
         });
     }
 
+    private void datePicker() {
+        int date = Integer.parseInt(Utils.parseLongtoStringDate(this.tglPembayaran, "dd"));
+        int month = Integer.parseInt(Utils.parseLongtoStringDate(this.tglPembayaran, "MM"));
+        int year = Integer.parseInt(Utils.parseLongtoStringDate(this.tglPembayaran, "yyyy"));
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view12, year1, month1, dayOfMonth) -> {
+            this.tglPembayaran = Utils.parseServerStringtoLongDate(year1 + "-" + month1 + "-" + dayOfMonth, "yyyy-MM-dd");
+            binding.tglBayar.setText(Utils.parseLongtoStringDate(this.tglPembayaran, "dd MMMM yyyy"));
+        }, year, month, date);
+        datePickerDialog.show();
+    }
+
+    private void diagSimpan() {
+        int idSpp = sppList.get(binding.spp.getSelectedItemPosition()).getValue();
+
+        if (idSpp == 0 && tglPembayaran == null && sppDate == null) {
+            UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
+        } else {
+            UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
+                editPembayaran(Utils.unformatRupiah(binding.jumlahBayar.getText().toString()), idSpp);
+            }).show();
+        }
+    }
+
+    private void diagHapus() {
+        UtilsUI.dialog(getActivity(), "Hapus data?", "Apakah anda yakin untuk menghapus data berikut, data transaksi berikut mungkin akan muncul kembali dikarenakan sistem tunggakan mengambil data transaksi paling terbaru.", true).setPositiveButton("Ok", (dialog, which) -> {
+            if (idPembayaran != 0) deletePembayaran();
+        }).show();
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
 
-        binding.tglBayar.setOnClickListener(v -> {
-            int date = Integer.parseInt(Utils.parseLongtoStringDate(this.tglPembayaran, "dd"));
-            int month = Integer.parseInt(Utils.parseLongtoStringDate(this.tglPembayaran, "MM"));
-            int year = Integer.parseInt(Utils.parseLongtoStringDate(this.tglPembayaran, "yyyy"));
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view12, year1, month1, dayOfMonth) -> {
-                this.tglPembayaran = Utils.parseServerStringtoLongDate(year1 + "-" + month1 + "-" + dayOfMonth, "yyyy-MM-dd");
-                binding.tglBayar.setText(Utils.parseLongtoStringDate(this.tglPembayaran, "dd MMMM yyyy"));
-            }, year, month, date);
-            datePickerDialog.setTitle("Pilih Tgl. Bayar");
-            datePickerDialog.show();
-        });
-        binding.simpan.setOnClickListener(v -> {
-            int idSpp = sppList.get(binding.spp.getSelectedItemPosition()).getValue();
-
-            if (idSpp == 0 && tglPembayaran == null && sppDate == null) {
-                UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
-            } else {
-                UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
-                    editPembayaran(Utils.unformatRupiah(binding.jumlahBayar.getText().toString()), idSpp);
-                }).show();
-            }
-        });
-
-        binding.hapus.setOnClickListener(v -> {
-            UtilsUI.dialog(getActivity(), "Hapus data?", "Apakah anda yakin untuk menghapus data berikut, data transaksi berikut mungkin akan muncul kembali dikarenakan sistem tunggakan mengambil data transaksi paling terbaru.", true).setPositiveButton("Ok", (dialog, which) -> {
-                if (idPembayaran != 0) deletePembayaran();
-            }).show();
-        });
+        binding.tglBayar.setOnClickListener(v -> datePicker());
+        binding.simpan.setOnClickListener(v -> diagSimpan());
+        binding.hapus.setOnClickListener(v -> diagHapus());
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = Petugas4EditTransaksiBinding.inflate(inflater, container, false);
-
-        UtilsUI.isLoading(binding.refresher, false, false);
-        sessionManager = new SessionManager(getActivity().getApplicationContext());
-        apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
-        UILimiter(sessionManager.getUserDetail().get(SessionManager.TYPE));
+    private void getSharedModel() {
         sharedModel = new ViewModelProvider(requireActivity()).get(PembayaranSharedModel.class);
         sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemPembayaran -> {
             this.idPembayaran = detailsItemPembayaran.getIdPembayaran();
@@ -270,6 +266,18 @@ public class EditTransaksi extends Fragment {
             binding.sppTahunBulan.setText(Utils.parseLongtoStringDate(Utils.parseServerStringtoLongDate(detailsItemPembayaran.getTahunSpp() + "-" + detailsItemPembayaran.getBulanSpp(), "yyyy-MM"), "MMMM yyyy"));
             binding.jumlahBayar.setText(String.valueOf(detailsItemPembayaran.getJumlahBayar()));
         });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = Petugas4EditTransaksiBinding.inflate(inflater, container, false);
+
+        UtilsUI.isLoading(binding.refresher, false, false);
+        sessionManager = new SessionManager(getActivity().getApplicationContext());
+        apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
+        UILimiter(sessionManager.getUserDetail().get(SessionManager.TYPE));
+        getSharedModel();
         return binding.getRoot();
     }
 

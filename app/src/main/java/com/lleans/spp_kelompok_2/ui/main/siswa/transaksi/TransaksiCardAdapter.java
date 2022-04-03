@@ -1,7 +1,6 @@
 package com.lleans.spp_kelompok_2.ui.main.siswa.transaksi;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,9 +33,9 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
     private Context context;
 
     private final List<PembayaranData> listData, listAll;
-    private int color, count, tahun;
+    private int orange, count, tahun;
     private final boolean fromHomepage;
-    private Transaksi transaksi;
+    private final Transaksi transaksi;
 
     public TransaksiCardAdapter(List<PembayaranData> list, NavController controller, boolean fromHomepage, @Nullable Transaksi transaksi) {
         this.listData = list;
@@ -51,25 +50,25 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
     public TransaksiCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_transaksi, parent, false);
 
-        color = view.getResources().getColor(R.color.orange);
-        context = view.getContext();
+        if (orange == 0) orange = view.getResources().getColor(R.color.orange);
+        if (context == null) context = view.getContext();
         return new TransaksiCardViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull final TransaksiCardViewHolder holder, int position) {
-
-        PembayaranData data = listData.get(position);
+    private void setSection(PembayaranData data, TransaksiCardViewHolder holder) {
         if (this.tahun != data.getTahunSpp() && !fromHomepage) {
             this.tahun = data.getTahunSpp();
             holder.sectionText.setText("Tahun " + data.getTahunSpp());
             holder.section.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void setHolder(PembayaranData data, TransaksiCardViewHolder holder) {
         holder.title.setText(Utils.parseLongtoStringDate(Utils.parseServerStringtoLongDate(data.getTahunSpp() + "-" + data.getBulanSpp(), "yyyy-MM"), "yyyy • MMMM"));
         if (data.getSpp() != null && Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar())) {
             holder.nominal.setText(Utils.kurangBayar(data.getSpp().getNominal(), data.getJumlahBayar()));
             holder.status.setText("Belum Lunas");
-            holder.status.setTextColor(color);
+            holder.status.setTextColor(orange);
         } else {
             holder.nominal.setText(Utils.formatRupiah(data.getJumlahBayar()));
             holder.status.setText("Lunas");
@@ -83,6 +82,15 @@ public class TransaksiCardAdapter extends RecyclerView.Adapter<TransaksiCardAdap
                 controller.navigate(R.id.action_transaksi_siswa_to_rincianTransaksi_siswa);
             }
         });
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final TransaksiCardViewHolder holder, int position) {
+
+        PembayaranData data = listData.get(position);
+
+        setSection(data, holder);
+        setHolder(data, holder);
         UtilsUI.simpleAnimation(holder.itemView);
     }
 

@@ -40,8 +40,6 @@ public class Aktivitas extends Fragment {
     private NavController controller;
     private ApiInterface apiInterface;
 
-    private boolean fromHomepage;
-    private CachedPembayaranSharedModel cachedPembayaranSharedModel;
     private AktivitasCardAdapter cardAdapter;
     private int idPetugas;
 
@@ -67,7 +65,43 @@ public class Aktivitas extends Fragment {
         binding.recyclerView.setAdapter(cardAdapter);
     }
 
-    private void getAktivitas() {
+    private void monthYeardPicker() {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+
+        MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
+            if (cardAdapter != null) {
+                binding.tgl.setText(Utils.parseLongtoStringDate(Utils.parseServerStringtoLongDate(selectedYear + "-" + (selectedMonth + 1), "yyyy-MM"), "MMMM yyyy"));
+                cardAdapter.getFilter().filter(String.valueOf(Utils.parseServerStringtoLongDate(selectedYear + "-" + (selectedMonth + 1), "yyyy-MM")));
+            }
+        }, year, month);
+        builder.setActivatedMonth(month)
+                .setTitle("Pilih Bulan dan Tahun")
+                .setMaxYear(year)
+                .setActivatedYear(year)
+                .build().show();
+    }
+
+    private void isCached(boolean fromHomepage) {
+        CachedPembayaranSharedModel cachedPembayaranSharedModel = new ViewModelProvider(requireActivity()).get(CachedPembayaranSharedModel.class);
+        PetugasSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(PetugasSharedModel.class);
+        if (fromHomepage) {
+            cachedPembayaranSharedModel.getData().observe(getViewLifecycleOwner(), pembayaranData -> {
+                if (pembayaranData != null) {
+                    setAdapter(pembayaranData);
+                } else {
+                    getAktivitas(true);
+                }
+            });
+        } else {
+            sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemPetugas -> {
+                this.idPetugas = detailsItemPetugas.getIdPetugas();
+                getAktivitas(false);
+            });
+        }
+    }
+
+    private void getAktivitas(boolean fromHomepage) {
         UtilsUI.isLoading(binding.refresher, true, true);
         Call<BaseResponse<List<PembayaranData>>> pembayaranDataListCall;
 
@@ -102,7 +136,6 @@ public class Aktivitas extends Fragment {
                 UtilsUI.isLoading(binding.refresher, true, false);
                 if (response.body() != null && response.isSuccessful()) {
                     setAdapter(response.body().getDetails());
-                    cachedPembayaranSharedModel.updateData(response.body().getDetails());
                 } else {
                     if (response.code() == 404) {
                         notFoundHandling(true);
@@ -140,23 +173,8 @@ public class Aktivitas extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
 
-        binding.refresher.setOnRefreshListener(this::getAktivitas);
-        binding.calendar.setOnClickListener(v -> {
-            int year = Calendar.getInstance().get(Calendar.YEAR);
-            int month = Calendar.getInstance().get(Calendar.MONTH);
-
-            MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
-                if (cardAdapter != null) {
-                    binding.tgl.setText(Utils.parseLongtoStringDate(Utils.parseServerStringtoLongDate(selectedYear + "-" + (selectedMonth + 1), "yyyy-MM"), "MMMM yyyy"));
-                    cardAdapter.getFilter().filter(String.valueOf(Utils.parseServerStringtoLongDate(selectedYear + "-" + (selectedMonth + 1), "yyyy-MM")));
-                }
-            }, year, month);
-            builder.setActivatedMonth(month)
-                    .setTitle("Pilih Bulan dan Tahun")
-                    .setMaxYear(year)
-                    .setActivatedYear(year)
-                    .build().show();
-        });
+        binding.refresher.setOnRefreshListener(() -> getAktivitas(getArguments().getBoolean("fromHomepage")));
+        binding.calendar.setOnClickListener(v -> monthYeardPicker());
     }
 
     @Override
@@ -165,24 +183,9 @@ public class Aktivitas extends Fragment {
         binding = Petugas2AktivitasBinding.inflate(inflater, container, false);
 
         SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
-        PetugasSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(PetugasSharedModel.class);
         apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
-        cachedPembayaranSharedModel = new ViewModelProvider(requireActivity()).get(CachedPembayaranSharedModel.class);
-        fromHomepage = getArguments().getBoolean("fromHomepage");
-        if (fromHomepage) {
-            cachedPembayaranSharedModel.getData().observe(getViewLifecycleOwner(), pembayaranData -> {
-                if (pembayaranData != null) {
-                    setAdapter(pembayaranData);
-                } else {
-                    getAktivitas();
-                }
-            });
-        } else {
-            sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemPetugas -> {
-                this.idPetugas = detailsItemPetugas.getIdPetugas();
-                getAktivitas();
-            });
-        }
+        assert getArguments() != null;
+        isCached(getArguments().getBoolean("fromHomepage"));
         UtilsUI.simpleAnimation(binding.calendar);
         return binding.getRoot();
     }

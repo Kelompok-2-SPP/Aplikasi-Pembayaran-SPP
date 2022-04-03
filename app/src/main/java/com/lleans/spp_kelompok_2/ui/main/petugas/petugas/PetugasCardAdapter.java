@@ -45,14 +45,11 @@ public class PetugasCardAdapter extends RecyclerView.Adapter<PetugasCardAdapter.
     public PetugasCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_main, parent, false);
 
-        context = view.getContext();
+        if (context == null) context = view.getContext();
         return new PetugasCardViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull final PetugasCardViewHolder holder, int position) {
-        PetugasData data = listData.get(position);
-
+    private void setHolder(PetugasData data, PetugasCardViewHolder holder) {
         holder.name.setText(data.getNamaPetugas());
         holder.uname.setText(data.getUsername());
         UtilsUI.nicknameBuilder(context.getApplicationContext(), data.getNamaPetugas(), holder.nick, holder.nickFrame);
@@ -61,6 +58,13 @@ public class PetugasCardAdapter extends RecyclerView.Adapter<PetugasCardAdapter.
             sharedModel.updateData(data);
             controller.navigate(R.id.action_petugas_petugas_to_detailPetugas);
         });
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final PetugasCardViewHolder holder, int position) {
+        PetugasData data = listData.get(position);
+
+        setHolder(data, holder);
         UtilsUI.simpleAnimation(holder.itemView);
     }
 

@@ -39,35 +39,28 @@ public class RincianSpp extends Fragment {
         }
     }
 
+    private void diagCetak() {
+        try {
+            binding.edit.setVisibility(View.GONE);
+            UtilsUI.exportToPNG(getContext(), binding.layout, binding.tahunSpp.getText().toString() + "_" + binding.title.getText().toString() + "_" + binding.idSpp.getText().toString());
+            UILimiter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final NavController nav = Navigation.findNavController(view);
 
         binding.edit.setOnClickListener(v -> nav.navigate(R.id.action_rincianSpp_petugas_to_editSpp));
-        binding.cetak.setOnClickListener(v -> {
-            try {
-                binding.edit.setVisibility(View.GONE);
-                UtilsUI.exportToPNG(getContext(), binding.layout, binding.tahunSpp.getText().toString() + "_" + binding.title.getText().toString() + "_" + binding.idSpp.getText().toString());
-                UILimiter();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        binding.cetak.setOnClickListener(v -> diagCetak());
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = Petugas3RincianSppBinding.inflate(inflater, container, false);
-
-        sessionManager = new SessionManager(getActivity().getApplicationContext());
+    private void getSharedModel() {
         int orange = getResources().getColor(R.color.orange);
         SppSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(SppSharedModel.class);
-        UILimiter();
-        UtilsUI.simpleAnimation(binding.cardView);
-        UtilsUI.simpleAnimation(binding.cardView2);
-        UtilsUI.simpleAnimation(binding.cetak);
         sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSpp -> {
             binding.title.setText("Angkatan " + detailsItemSpp.getAngkatan());
             binding.tahunSpp.setText("Total SPP Tahun " + detailsItemSpp.getTahun());
@@ -82,6 +75,19 @@ public class RincianSpp extends Fragment {
             binding.tahun.setText(String.valueOf(detailsItemSpp.getTahun()));
             binding.total.setText(Utils.formatRupiah(detailsItemSpp.getNominal()));
         });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = Petugas3RincianSppBinding.inflate(inflater, container, false);
+
+        sessionManager = new SessionManager(getActivity().getApplicationContext());
+        UILimiter();
+        getSharedModel();
+        UtilsUI.simpleAnimation(binding.cardView);
+        UtilsUI.simpleAnimation(binding.cardView2);
+        UtilsUI.simpleAnimation(binding.cetak);
         return binding.getRoot();
     }
 }

@@ -74,26 +74,28 @@ public class TambahKelas extends Fragment {
         });
     }
 
+    private void diagSimpan() {
+        String namakelas, jurusan;
+        Long angkatan;
+
+        namakelas = binding.namaKelas.getText().toString();
+        jurusan = binding.jurusan.getText().toString();
+        angkatan = Long.parseLong(binding.angkatan.getText().toString());
+        if (namakelas.isEmpty() || jurusan.isEmpty() || angkatan == null) {
+            UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
+        } else {
+            UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
+                tambahKelas(namakelas, jurusan, angkatan);
+            }).show();
+        }
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
 
-        binding.simpan.setOnClickListener(view1 -> {
-            String namakelas, jurusan;
-            Long angkatan;
-
-            namakelas = binding.namaKelas.getText().toString();
-            jurusan = binding.jurusan.getText().toString();
-            angkatan = Long.parseLong(binding.angkatan.getText().toString());
-            if (namakelas.isEmpty() || jurusan.isEmpty() || angkatan == null) {
-                UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
-            } else {
-                UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
-                    tambahKelas(namakelas, jurusan, angkatan);
-                }).show();
-            }
-        });
+        binding.simpan.setOnClickListener(view1 -> diagSimpan());
     }
 
     @Override

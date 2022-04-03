@@ -128,14 +128,18 @@ public class Homepage extends Fragment {
                 if (response.body() != null && response.isSuccessful()) {
                     setAdapter(response.body().getDetails());
                 } else {
-                    try {
-                        BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
-                        UtilsUI.toaster(getContext(), message.getMessage());
-                    } catch (Exception e) {
+                    if (response.code() == 404) {
+                        UtilsUI.toaster(getContext(), "Transaksi tidak ditemukan");
+                    } else {
                         try {
-                            UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
-                        } catch (IOException ioException) {
-                            ioException.printStackTrace();
+                            BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                            UtilsUI.toaster(getContext(), message.getMessage());
+                        } catch (Exception e) {
+                            try {
+                                UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
                         }
                     }
                 }

@@ -85,27 +85,37 @@ public class TambahSiswa extends Fragment {
         });
     }
 
+    private void diagSimpan() {
+        String nisn, nis, password, namaSiswa, alamat, noTelp;
+
+        nisn = binding.nisn.getText().toString();
+        nis = binding.nis.getText().toString();
+        namaSiswa = binding.nama.getText().toString();
+        password = binding.password.getText().toString();
+        alamat = binding.alamat.getText().toString();
+        noTelp = binding.noTelp.getText().toString();
+        if (nisn.isEmpty() || nis.isEmpty() || namaSiswa.isEmpty() || alamat.isEmpty() || noTelp.isEmpty() || password.isEmpty()) {
+            UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
+        } else {
+            UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
+                tambahSiswa(nisn, nis, password, namaSiswa, alamat, noTelp);
+            }).show();
+        }
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
 
-        binding.simpan.setOnClickListener(view1 -> {
-            String nisn, nis, password, namaSiswa, alamat, noTelp;
+        binding.simpan.setOnClickListener(view1 -> diagSimpan());
+    }
 
-            nisn = binding.nisn.getText().toString();
-            nis = binding.nis.getText().toString();
-            namaSiswa = binding.nama.getText().toString();
-            password = binding.password.getText().toString();
-            alamat = binding.alamat.getText().toString();
-            noTelp = binding.noTelp.getText().toString();
-            if (nisn.isEmpty() || nis.isEmpty() || namaSiswa.isEmpty() || alamat.isEmpty() || noTelp.isEmpty() || password.isEmpty()) {
-                UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
-            } else {
-                UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
-                    tambahSiswa(nisn, nis, password, namaSiswa, alamat, noTelp);
-                }).show();
-            }
+    private void getSharedModel() {
+        KelasSharedModel kelasSharedModel = new ViewModelProvider(requireActivity()).get(KelasSharedModel.class);
+        siswaSharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
+        kelasSharedModel.getData().observe(getViewLifecycleOwner(), detailsItemKelas -> {
+            this.idKelas = detailsItemKelas.getIdKelas();
         });
     }
 
@@ -115,13 +125,9 @@ public class TambahSiswa extends Fragment {
         binding = Petugas5TambahSiswaBinding.inflate(inflater, container, false);
 
         UtilsUI.isLoading(binding.refresher, false, false);
-        KelasSharedModel kelasSharedModel = new ViewModelProvider(requireActivity()).get(KelasSharedModel.class);
-        siswaSharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
-        kelasSharedModel.getData().observe(getViewLifecycleOwner(), detailsItemKelas -> {
-            this.idKelas = detailsItemKelas.getIdKelas();
-        });
         SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
         apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
+        getSharedModel();
         return binding.getRoot();
     }
 

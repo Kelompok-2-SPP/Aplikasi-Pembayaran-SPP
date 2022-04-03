@@ -207,51 +207,71 @@ public class TambahTransaksi extends Fragment {
         });
     }
 
+    private void datePicker() {
+        int date = Integer.parseInt(Utils.parseLongtoStringDate(this.tglPembayaran, "dd"));
+        int month = Integer.parseInt(Utils.parseLongtoStringDate(this.tglPembayaran, "MM"));
+        int year = Integer.parseInt(Utils.parseLongtoStringDate(this.tglPembayaran, "yyyy"));
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view12, year1, month1, dayOfMonth) -> {
+            this.tglPembayaran = Utils.parseServerStringtoLongDate(year1 + "-" + month1 + "-" + dayOfMonth, "yyyy-MM-dd");
+            binding.tglBayar.setText(Utils.parseLongtoStringDate(this.tglPembayaran, "dd MMMM yyyy"));
+        }, year, month, date);
+        datePickerDialog.show();
+    }
+
+    private void monthYearPicker() {
+        int month = Integer.parseInt(Utils.parseLongtoStringDate(this.sppDate, "MM"));
+        int year = Integer.parseInt(Utils.parseLongtoStringDate(this.sppDate, "yyyy"));
+
+        MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
+            this.sppDate = Utils.parseServerStringtoLongDate(String.valueOf(selectedMonth), "MM");
+            binding.sppBulanTahun.setText(Utils.parseLongtoStringDate(this.sppDate, "MMMM yyyy"));
+        }, year, month);
+        builder.setActivatedMonth(month)
+                .setTitle("Pilih Bulan dan Tahun SPP")
+                .setMinYear(year - 1)
+                .setMaxYear(year + 1)
+                .setActivatedYear(year)
+                .build().show();
+    }
+
+    private void diagSimpan() {
+        int idSpp = sppList.get(binding.spp.getSelectedItemPosition()).getValue();
+
+        if (idSpp == 0 && tglPembayaran == null && sppDate == null) {
+            UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
+        } else {
+            UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, sistem tunggakan akan berjalan secara otomatis sesuai dengan transaksi yang ditambahkan, pastikan data diatas sudah benar!.", true).setPositiveButton("Ok", (dialog, which) -> {
+                tambahPembayaran(Utils.unformatRupiah(binding.jumlahBayar.getText().toString()), idSpp);
+            }).show();
+        }
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
 
-        binding.tglBayar.setOnClickListener(v -> {
-            int date = Integer.parseInt(Utils.parseLongtoStringDate(this.tglPembayaran, "dd"));
-            int month = Integer.parseInt(Utils.parseLongtoStringDate(this.tglPembayaran, "MM"));
-            int year = Integer.parseInt(Utils.parseLongtoStringDate(this.tglPembayaran, "yyyy"));
+        binding.tglBayar.setOnClickListener(v -> datePicker());
+        binding.sppBulanTahun.setOnClickListener(v -> monthYearPicker());
+        binding.simpan.setOnClickListener(v -> diagSimpan());
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view12, year1, month1, dayOfMonth) -> {
-                this.tglPembayaran = Utils.parseServerStringtoLongDate(year1 + "-" + month1 + "-" + dayOfMonth, "yyyy-MM-dd");
-                binding.tglBayar.setText(Utils.parseLongtoStringDate(this.tglPembayaran, "dd MMMM yyyy"));
-            }, year, month, date);
-            datePickerDialog.setTitle("Pilih Tgl. Bayar");
-            datePickerDialog.show();
+    }
+
+    private void getSharedModel() {
+        SiswaSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
+        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSiswa -> {
+            this.nisn = detailsItemSiswa.getNisn();
+            latestSpp(nisn);
         });
-        binding.sppBulanTahun.setOnClickListener(v -> {
-            int month = Integer.parseInt(Utils.parseLongtoStringDate(this.sppDate, "MM"));
-            int year = Integer.parseInt(Utils.parseLongtoStringDate(this.sppDate, "yyyy"));
+    }
 
-            MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
-                this.sppDate = Utils.parseServerStringtoLongDate(String.valueOf(selectedMonth), "MM");
-                binding.sppBulanTahun.setText(Utils.parseLongtoStringDate(this.sppDate, "MMMM yyyy"));
-            }, year, month);
-            builder.setActivatedMonth(month)
-                    .setTitle("Pilih Bulan dan Tahun SPP")
-                    .setMinYear(year - 1)
-                    .setMaxYear(year + 1)
-                    .setActivatedYear(year)
-                    .build().show();
-        });
-        binding.simpan.setOnClickListener(v -> {
-            int idSpp = sppList.get(binding.spp.getSelectedItemPosition()).getValue();
-
-            if (idSpp == 0 && tglPembayaran == null && sppDate == null) {
-                UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
-            } else {
-                UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, sistem tunggakan akan berjalan secara otomatis sesuai dengan transaksi yang ditambahkan, pastikan data diatas sudah benar!.", true).setPositiveButton("Ok", (dialog, which) -> {
-                    tambahPembayaran(Utils.unformatRupiah(binding.jumlahBayar.getText().toString()), idSpp);
-                }).show();
-            }
-        });
-
+    private void setTime() {
+        this.tglPembayaran = Calendar.getInstance().getTimeInMillis();
+        this.sppDate = Calendar.getInstance().getTimeInMillis();
+        binding.tglBayar.setText(Utils.parseLongtoStringDate(this.tglPembayaran, "dd MMMM yyyy"));
+        binding.sppBulanTahun.setText(Utils.parseLongtoStringDate(this.sppDate, "MMMM yyyy"));
     }
 
     @Override
@@ -262,15 +282,8 @@ public class TambahTransaksi extends Fragment {
         UtilsUI.isLoading(binding.refresher, false, false);
         sessionManager = new SessionManager(getActivity().getApplicationContext());
         apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
-        SiswaSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
-        this.tglPembayaran = Calendar.getInstance().getTimeInMillis();
-        this.sppDate = Calendar.getInstance().getTimeInMillis();
-        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSiswa -> {
-            this.nisn = detailsItemSiswa.getNisn();
-            latestSpp(nisn);
-        });
-        binding.tglBayar.setText(Utils.parseLongtoStringDate(this.tglPembayaran, "dd MMMM yyyy"));
-        binding.sppBulanTahun.setText(Utils.parseLongtoStringDate(this.sppDate, "MMMM yyyy"));
+        getSharedModel();
+        setTime();
         return binding.getRoot();
     }
 

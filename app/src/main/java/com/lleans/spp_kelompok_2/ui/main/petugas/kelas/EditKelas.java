@@ -19,14 +19,12 @@ import com.lleans.spp_kelompok_2.databinding.Petugas4EditKelasBinding;
 import com.lleans.spp_kelompok_2.domain.model.BaseResponse;
 import com.lleans.spp_kelompok_2.domain.model.kelas.KelasData;
 import com.lleans.spp_kelompok_2.domain.model.kelas.KelasSharedModel;
-import com.lleans.spp_kelompok_2.domain.model.pembayaran.PembayaranData;
 import com.lleans.spp_kelompok_2.network.ApiClient;
 import com.lleans.spp_kelompok_2.network.ApiInterface;
 import com.lleans.spp_kelompok_2.ui.session.SessionManager;
 import com.lleans.spp_kelompok_2.ui.utils.UtilsUI;
 
 import java.io.IOException;
-import java.sql.Struct;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,6 +53,28 @@ public class EditKelas extends Fragment {
             sharedModel.updateData(data);
             controller.navigateUp();
         }
+    }
+
+    private void diagSimpan() {
+        String namaKelas, jurusan;
+        Long angkatan;
+
+        namaKelas = binding.namaKelas.getText().toString();
+        jurusan = binding.jurusan.getText().toString();
+        angkatan = Long.parseLong(binding.angkatan.getText().toString());
+        if (namaKelas.isEmpty() || jurusan.isEmpty() || angkatan == null) {
+            UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
+        } else {
+            UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
+                editKelas(namaKelas, jurusan, angkatan);
+            }).show();
+        }
+    }
+
+    private void diagHapus() {
+        UtilsUI.dialog(getContext(), "Hapus data?", "Apakah anda yakin untuk menghapus data berikut, data siswa di dalam kelas ini akan terhapus beserta data transaksinya.", true).setPositiveButton("Ok", (dialog, which) -> {
+            deleteKelas();
+        }).show();
     }
 
     private void deleteKelas() {
@@ -129,32 +149,23 @@ public class EditKelas extends Fragment {
         });
     }
 
+    private void getSharedModel() {
+        sharedModel = new ViewModelProvider(requireActivity()).get(KelasSharedModel.class);
+        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemKelas -> {
+            this.idKelas = detailsItemKelas.getIdKelas();
+            binding.namaKelas.setText(detailsItemKelas.getNamaKelas());
+            binding.jurusan.setText(detailsItemKelas.getJurusan());
+            binding.angkatan.setText(String.valueOf(detailsItemKelas.getAngkatan()));
+        });
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
 
-        binding.simpan.setOnClickListener(view1 -> {
-            String namaKelas, jurusan;
-            Long angkatan;
-
-            namaKelas = binding.namaKelas.getText().toString();
-            jurusan = binding.jurusan.getText().toString();
-            angkatan = Long.parseLong(binding.angkatan.getText().toString());
-            if (namaKelas.isEmpty() || jurusan.isEmpty() || angkatan == null) {
-                UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
-            } else {
-                UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
-                    editKelas(namaKelas, jurusan, angkatan);
-                }).show();
-            }
-        });
-
-        binding.hapus.setOnClickListener(view2 -> {
-            UtilsUI.dialog(getContext(), "Hapus data?", "Apakah anda yakin untuk menghapus data berikut, data siswa di dalam kelas ini akan terhapus beserta data transaksinya.", true).setPositiveButton("Ok", (dialog, which) -> {
-                deleteKelas();
-            }).show();
-        });
+        binding.simpan.setOnClickListener(view1 -> diagSimpan());
+        binding.hapus.setOnClickListener(view2 -> diagHapus());
     }
 
     @Override
@@ -162,16 +173,10 @@ public class EditKelas extends Fragment {
                              Bundle savedInstanceState) {
         binding = Petugas4EditKelasBinding.inflate(inflater, container, false);
 
-        sharedModel = new ViewModelProvider(requireActivity()).get(KelasSharedModel.class);
+        UtilsUI.isLoading(binding.refresher, false, false);
         SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
         apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
-        UtilsUI.isLoading(binding.refresher, false, false);
-        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemKelas -> {
-            this.idKelas = detailsItemKelas.getIdKelas();
-            binding.namaKelas.setText(detailsItemKelas.getNamaKelas());
-            binding.jurusan.setText(detailsItemKelas.getJurusan());
-            binding.angkatan.setText(String.valueOf(detailsItemKelas.getAngkatan()));
-        });
+        getSharedModel();
         return binding.getRoot();
     }
 

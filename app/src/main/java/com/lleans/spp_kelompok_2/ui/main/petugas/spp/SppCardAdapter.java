@@ -36,7 +36,7 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
     private final boolean fromHomepage;
     private int count, orange;
     private Long tahun;
-    private Spp spp;
+    private final Spp spp;
 
     public SppCardAdapter(List<SppData> list, NavController controller, boolean fromHomepage, @Nullable Spp spp) {
         this.listData = list;
@@ -51,8 +51,8 @@ public class SppCardAdapter extends RecyclerView.Adapter<SppCardAdapter.SppCardV
     public SppCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_spp, parent, false);
 
-        context = view.getContext();
-        orange = view.getResources().getColor(R.color.orange);
+        if (context == null) context = view.getContext();
+        if (orange == 0) orange = view.getResources().getColor(R.color.orange);
         return new SppCardViewHolder(view);
     }
 

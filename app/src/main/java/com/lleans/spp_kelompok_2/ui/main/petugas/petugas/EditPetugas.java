@@ -43,12 +43,12 @@ public class EditPetugas extends Fragment {
         // Required empty public constructor
     }
 
-    private void getBack(PetugasData data, boolean isDeleted){
+    private void getBack(PetugasData data, boolean isDeleted) {
         if (isDeleted) {
             controller.popBackStack(R.id.editPetugas, true);
             controller.popBackStack(R.id.detailPetugas_petuga, true);
             controller.popBackStack(R.id.petugas_petugas, false);
-        }else {
+        } else {
             sharedModel.updateData(data);
             controller.navigateUp();
         }
@@ -127,34 +127,47 @@ public class EditPetugas extends Fragment {
         });
     }
 
+    private void diagSimpan() {
+        String username, password, namaPetugas;
+
+        username = binding.username.getText().toString();
+        password = binding.password.getText().toString();
+        namaPetugas = binding.namaPetugas.getText().toString();
+        if (username.isEmpty() || namaPetugas.isEmpty()) {
+            UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
+        } else {
+            UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
+                if (password.isEmpty()) {
+                    editPetugas(username, null, namaPetugas);
+                } else {
+                    editPetugas(username, password, namaPetugas);
+                }
+            }).show();
+        }
+    }
+
+    private void diagHapus() {
+        UtilsUI.dialog(getContext(), "Hapus data?", "Apakah anda yakin untuk menghapus data berikut.", true).setPositiveButton("Ok", (dialog, which) -> {
+            deletePetugas();
+        }).show();
+    }
+
+    private void getSharedModel() {
+        sharedModel = new ViewModelProvider(requireActivity()).get(PetugasSharedModel.class);
+        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemPetugas -> {
+            this.idPetugas = detailsItemPetugas.getIdPetugas();
+            binding.username.setText(detailsItemPetugas.getUsername());
+            binding.namaPetugas.setText(detailsItemPetugas.getNamaPetugas());
+        });
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
 
-        binding.simpan.setOnClickListener(view1 -> {
-            String username, password, namaPetugas;
-
-            username = binding.username.getText().toString();
-            password = binding.password.getText().toString();
-            namaPetugas = binding.namaPetugas.getText().toString();
-            if (username.isEmpty() || namaPetugas.isEmpty()) {
-                UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
-            } else {
-                UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
-                    if (password.isEmpty()) {
-                        editPetugas(username, null, namaPetugas);
-                    } else {
-                        editPetugas(username, password, namaPetugas);
-                    }
-                }).show();
-            }
-        });
-        binding.hapus.setOnClickListener(view2 -> {
-            UtilsUI.dialog(getContext(), "Hapus data?", "Apakah anda yakin untuk menghapus data berikut.", true).setPositiveButton("Ok", (dialog, which) -> {
-                deletePetugas();
-            }).show();
-        });
+        binding.simpan.setOnClickListener(view1 -> diagSimpan());
+        binding.hapus.setOnClickListener(view2 -> diagHapus());
     }
 
     @Override
@@ -165,12 +178,7 @@ public class EditPetugas extends Fragment {
         UtilsUI.isLoading(binding.refresher, false, false);
         SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
         apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
-        sharedModel = new ViewModelProvider(requireActivity()).get(PetugasSharedModel.class);
-        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemPetugas -> {
-            this.idPetugas = detailsItemPetugas.getIdPetugas();
-            binding.username.setText(detailsItemPetugas.getUsername());
-            binding.namaPetugas.setText(detailsItemPetugas.getNamaPetugas());
-        });
+        getSharedModel();
         return binding.getRoot();
     }
 

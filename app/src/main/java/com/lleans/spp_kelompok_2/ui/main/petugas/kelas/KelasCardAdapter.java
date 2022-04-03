@@ -46,19 +46,20 @@ public class KelasCardAdapter extends RecyclerView.Adapter<KelasCardAdapter.Kela
     @Override
     public KelasCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_main, parent, false);
-        context = view.getContext();
+
+        if (context == null) context = view.getContext();
         return new KelasCardViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull final KelasCardViewHolder holder, int position) {
-        KelasData data = listData.get(position);
-
+    private void setSection(KelasData data, KelasCardViewHolder holder) {
         if (this.angkatan != data.getAngkatan()) {
             this.angkatan = data.getAngkatan();
             holder.sectionText.setText("Angkatan " + data.getAngkatan());
             holder.section.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void setHolder(KelasData data, KelasCardViewHolder holder) {
         holder.nama_kelas.setText(data.getNamaKelas());
         holder.angkatan.setText("Angkatan " + data.getAngkatan());
         UtilsUI.nicknameBuilder(context.getApplicationContext(), data.getNamaKelas(), holder.nick, holder.nickFrame);
@@ -67,6 +68,14 @@ public class KelasCardAdapter extends RecyclerView.Adapter<KelasCardAdapter.Kela
             sharedModel.updateData(data);
             controller.navigate(R.id.action_kelas_petugas_to_siswa_petugas);
         });
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final KelasCardViewHolder holder, int position) {
+        KelasData data = listData.get(position);
+
+        setSection(data, holder);
+        setHolder(data, holder);
         UtilsUI.simpleAnimation(holder.itemView);
     }
 

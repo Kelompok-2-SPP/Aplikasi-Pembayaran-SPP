@@ -69,6 +69,7 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
 
         pet.setIdPetugas(Integer.parseInt(sessionManager.getUserDetail().get(SessionManager.ID)));
         pet.setNamaPetugas(sessionManager.getUserDetail().get(SessionManager.USERNAME));
+
         obj.setIdPetugas(Integer.parseInt(sessionManager.getUserDetail().get(SessionManager.ID)));
         obj.setPetugas(pet);
         obj.setTglBayar(Utils.getCurrentDateAndTime("yyyy-MM-dd"));
@@ -122,11 +123,12 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_status, parent, false);
 
         sessionManager = new SessionManager(view.getContext());
-        orange = parent.getResources().getColor(R.color.orange);
-        green = parent.getResources().getColor(R.color.green);
-        neutral = parent.getResources().getColor(R.color.neutral_white);
-        context = parent.getContext();
-        inputMethodManager = (InputMethodManager) parent.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (orange == 0) orange = parent.getResources().getColor(R.color.orange);
+        if (green == 0) green = parent.getResources().getColor(R.color.green);
+        if (neutral == 0) neutral = parent.getResources().getColor(R.color.neutral_white);
+        if (context == null) context = parent.getContext();
+        if (inputMethodManager == null)
+            inputMethodManager = (InputMethodManager) parent.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         return new StatusCardViewHolder(view);
     }
 
@@ -150,15 +152,15 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
         }
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull StatusCardViewHolder holder, int position) {
-        PembayaranData data = listData.get(position);
-
+    private void setSection(PembayaranData data, StatusCardViewHolder holder) {
         if (this.tahun != data.getTahunSpp()) {
             this.tahun = data.getTahunSpp();
             holder.sectionText.setText("Tahun " + data.getTahunSpp());
             holder.section.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void setHolder(PembayaranData data, StatusCardViewHolder holder) {
         if (data.getSpp() != null) {
             holder.sudBayar.addTextChangedListener(new MoneyTextWatcher(holder.sudBayar, data.getSpp().getNominal()));
             setStatus(!Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar()), holder);
@@ -215,6 +217,14 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
             sharedModel.updateData(data);
             controller.navigate(R.id.action_status_siswa_to_rincianTransaksi_siswa2);
         });
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull StatusCardViewHolder holder, int position) {
+        PembayaranData data = listData.get(position);
+
+        setSection(data, holder);
+        setHolder(data, holder);
         UtilsUI.simpleAnimation(holder.itemView);
     }
 

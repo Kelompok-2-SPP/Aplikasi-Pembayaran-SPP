@@ -45,14 +45,11 @@ public class SiswaCardAdapter extends RecyclerView.Adapter<SiswaCardAdapter.Sisw
     public SiswaCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_main, parent, false);
 
-        context = parent.getContext();
+        if (context == null) context = view.getContext();
         return new SiswaCardViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull final SiswaCardViewHolder holder, int position) {
-        SiswaData data = listData.get(position);
-
+    private void setHolder(SiswaData data, SiswaCardViewHolder holder) {
         holder.name.setText(data.getNama());
         holder.nisn.setText(data.getNisn());
         UtilsUI.nicknameBuilder(context.getApplicationContext(), data.getNama(), holder.nick, holder.nickFrame);
@@ -61,6 +58,13 @@ public class SiswaCardAdapter extends RecyclerView.Adapter<SiswaCardAdapter.Sisw
             sharedModel.updateData(data);
             controller.navigate(R.id.action_siswa_petugas_to_detail_siswa);
         });
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final SiswaCardViewHolder holder, int position) {
+        SiswaData data = listData.get(position);
+
+        setHolder(data, holder);
         UtilsUI.simpleAnimation(holder.itemView);
     }
 

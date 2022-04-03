@@ -158,6 +158,23 @@ public class StatusSiswa extends Fragment {
         });
     }
 
+    private void datePicker() {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+
+        MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
+            if (cardAdapter != null) {
+                binding.tgl.setText(String.valueOf(selectedYear));
+                cardAdapter.getFilter().filter(String.valueOf(selectedYear));
+            }
+        }, year, month);
+        builder.setTitle("Pilih Tahun SPP")
+                .setActivatedYear(year)
+                .setMaxYear(year)
+                .showYearOnly()
+                .build().show();
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -166,34 +183,11 @@ public class StatusSiswa extends Fragment {
         binding.refresher.setOnRefreshListener(this::getTransaksi);
         binding.edit.setOnClickListener(v -> controller.navigate(R.id.action_statussiswa_petugas_to_editSiswa));
         binding.add.setOnClickListener(v -> controller.navigate(R.id.action_statussiswa_petugas_to_tambahStatus));
-        binding.calendar.setOnClickListener(v -> {
-            int year = Calendar.getInstance().get(Calendar.YEAR);
-            int month = Calendar.getInstance().get(Calendar.MONTH);
-
-            MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
-                if (cardAdapter != null) {
-                    binding.tgl.setText(String.valueOf(selectedYear));
-                    cardAdapter.getFilter().filter(String.valueOf(selectedYear));
-                }
-            }, year, month);
-            builder.setTitle("Pilih Tahun SPP")
-                    .setActivatedYear(year)
-                    .setMaxYear(year)
-                    .showYearOnly()
-                    .build().show();
-        });
+        binding.calendar.setOnClickListener(v -> datePicker());
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = Petugas3StatusSiswaBinding.inflate(inflater, container, false);
-
-        SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
-        apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
+    private void getSharedModel() {
         SiswaSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
-        if (sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas"))
-            UILimiter();
         sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSiswa -> {
             this.nisn = detailsItemSiswa.getNisn();
             UtilsUI.nicknameBuilder(getActivity().getApplicationContext(), detailsItemSiswa.getNama(), binding.nick, binding.nickFrame);
@@ -204,6 +198,17 @@ public class StatusSiswa extends Fragment {
             binding.noTelp.setText(String.valueOf(detailsItemSiswa.getNoTelp()));
             getTunggakan();
         });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = Petugas3StatusSiswaBinding.inflate(inflater, container, false);
+
+        SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
+        apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
+        if (sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas"))
+            UILimiter();
+        getSharedModel();
         UtilsUI.simpleAnimation(binding.calendar);
         return binding.getRoot();
     }

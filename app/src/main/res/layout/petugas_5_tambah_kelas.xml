@@ -127,8 +127,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="220dp"
-                android:clickable="true"
-                android:focusable="true"
                 android:text="SIMPAN"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -43,31 +43,26 @@ public class RincianTransaksi extends Fragment {
         }
     }
 
+    private void diagCetak() {
+        try {
+            binding.edit.setVisibility(View.GONE);
+            UtilsUI.exportToPNG(getContext(), binding.layout, namaSiswa + "_" + binding.tglBayar.getText().toString() + "_" + idPembayaran);
+            UILimiter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
 
-        binding.edit.setOnClickListener(v -> {
-            controller.navigate(R.id.action_rincianTransaksi_siswa_to_editStatus);
-        });
-        binding.cetak.setOnClickListener(v -> {
-            try {
-                binding.edit.setVisibility(View.GONE);
-                UtilsUI.exportToPNG(getContext(), binding.layout, namaSiswa + "_" + binding.tglBayar.getText().toString() + "_" + idPembayaran);
-                UILimiter();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        binding.edit.setOnClickListener(v -> controller.navigate(R.id.action_rincianTransaksi_siswa_to_editStatus));
+        binding.cetak.setOnClickListener(v -> diagCetak());
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = Siswa3RincianTransaksiBinding.inflate(inflater, container, false);
-
-        sessionManager = new SessionManager(getActivity().getApplicationContext());
+    private void getSharedModel() {
         PembayaranSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(PembayaranSharedModel.class);
         sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemPembayaran -> {
             this.namaSiswa = detailsItemPembayaran.getSiswa().getNama();
@@ -102,6 +97,15 @@ public class RincianTransaksi extends Fragment {
                 binding.petugas.setText(detailsItemPembayaran.getPetugas().getNamaPetugas());
             }
         });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = Siswa3RincianTransaksiBinding.inflate(inflater, container, false);
+
+        sessionManager = new SessionManager(getActivity().getApplicationContext());
+        getSharedModel();
         return binding.getRoot();
     }
 

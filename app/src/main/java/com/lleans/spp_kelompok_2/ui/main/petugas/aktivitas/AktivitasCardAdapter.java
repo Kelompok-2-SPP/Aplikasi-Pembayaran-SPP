@@ -39,6 +39,7 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
     private int orange, count;
     private String date;
     private final Aktivitas aktivitas;
+    private final Calendar c1, c2;
 
     public AktivitasCardAdapter(List<PembayaranData> list, NavController navController, String fromWhere, @Nullable Aktivitas aktivitas) {
         this.listData = list;
@@ -46,6 +47,9 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
         this.controller = navController;
         this.fromWhere = fromWhere;
         this.aktivitas = aktivitas;
+        this.c1 = Calendar.getInstance();
+        this.c1.add(Calendar.DAY_OF_YEAR, -1);
+        this.c2 = Calendar.getInstance();
     }
 
     @NonNull
@@ -53,20 +57,14 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
     public AktivitasCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_aktivitas, parent, false);
 
-        orange = view.getResources().getColor(R.color.orange);
-        context = view.getContext();
+        if (orange == 0) orange = view.getResources().getColor(R.color.orange);
+        if (context == null) context = view.getContext();
         return new AktivitasCardViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull final AktivitasCardViewHolder holder, int position) {
-        PembayaranData data = listData.get(position);
-
+    private void setSection(PembayaranData data, AktivitasCardViewHolder holder) {
         String parsed = Utils.parseLongtoStringDate(Utils.parseServerStringtoLongDate(data.getUpdatedAt(), "yyyy-MM-dd"), "dd MMMM yyyy");
-        Calendar c1 = Calendar.getInstance();
-        Calendar c2 = Calendar.getInstance();
-        c1.add(Calendar.DAY_OF_YEAR, -1);
-        c2.setTimeInMillis(Utils.parseServerStringtoLongDate(data.getUpdatedAt(), "yyyy-MM-dd"));
+        this.c2.setTimeInMillis(Utils.parseServerStringtoLongDate(data.getUpdatedAt(), "yyyy-MM-dd"));
         if (!parsed.equals(date) && !fromWhere.equals("homepage") && !fromWhere.equals("detailPetugas")) {
             this.date = parsed;
             if (parsed.equals(Utils.getCurrentDateAndTime("dd MMMM yyyy"))) {
@@ -78,6 +76,9 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
             }
             holder.section.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void setHolder(PembayaranData data, AktivitasCardViewHolder holder) {
         holder.name.setText(data.getSiswa().getNama());
         holder.kelas.setText(data.getSiswa().getKelas().getNamaKelas());
         if (data.getSpp() != null && Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar())) {
@@ -91,14 +92,25 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
         holder.cardView.setOnClickListener(v -> {
             PembayaranSharedModel sharedModel = new ViewModelProvider((LauncherFragment) context).get(PembayaranSharedModel.class);
             sharedModel.updateData(data);
-            if (fromWhere.equals("homepage")) {
-                controller.navigate(R.id.action_homepage_petugas_to_rincianTransaksi_siswa);
-            } else if (fromWhere.equals("detailPetugas")) {
-                controller.navigate(R.id.action_detailPetugas_petuga_to_rincianTransaksi_siswa);
-            } else {
-                controller.navigate(R.id.action_aktivitas_petugas_to_rincianTransaksi_siswa);
+            switch (fromWhere) {
+                case "homepage":
+                    controller.navigate(R.id.action_homepage_petugas_to_rincianTransaksi_siswa);
+                    break;
+                case "detailPetugas":
+                    controller.navigate(R.id.action_detailPetugas_petuga_to_rincianTransaksi_siswa);
+                    break;
+                default:
+                    controller.navigate(R.id.action_aktivitas_petugas_to_rincianTransaksi_siswa);
             }
         });
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final AktivitasCardViewHolder holder, int position) {
+        PembayaranData data = listData.get(position);
+
+        setSection(data, holder);
+        setHolder(data, holder);
         UtilsUI.simpleAnimation(holder.itemView);
     }
 
@@ -133,7 +145,7 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
 
                 for (PembayaranData data : listAll) {
                     long date = Utils.parseServerStringtoLongDate(data.getUpdatedAt(), "yyyy-MM");
-                    if (Utils.parseLongtoStringDate(date, "yyyy").equals(year) && Utils.parseLongtoStringDate(date, "MM").equals(month) ) {
+                    if (Utils.parseLongtoStringDate(date, "yyyy").equals(year) && Utils.parseLongtoStringDate(date, "MM").equals(month)) {
                         filteredlist.add(data);
                     }
                 }
@@ -169,7 +181,7 @@ public class AktivitasCardAdapter extends RecyclerView.Adapter<AktivitasCardAdap
             section = itemView.findViewById(R.id.section);
         }
 
-        public void clearAnimation(){
+        public void clearAnimation() {
             itemView.clearAnimation();
         }
     }

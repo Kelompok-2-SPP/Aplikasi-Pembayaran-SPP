@@ -128,29 +128,44 @@ public class EditSpp extends Fragment {
         });
     }
 
+    private void diagSimpan() {
+        Long nominal, angkatan, tahun;
+
+        angkatan = Long.valueOf(binding.angkatan.getText().toString());
+        tahun = Long.valueOf(binding.tahun.getText().toString());
+        nominal = Utils.unformatRupiah(binding.nominal.getText().toString());
+        if (angkatan == null || tahun == null || nominal == null) {
+            UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
+        } else {
+            UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
+                editSpp(angkatan, tahun, nominal);
+            }).show();
+        }
+    }
+
+    private void diagHapus() {
+        UtilsUI.dialog(getContext(), "Hapus data?", "Apakah anda yakin untuk menghapus data berikut.", true).setPositiveButton("Ok", (dialog, which) -> {
+            deleteSpp();
+        }).show();
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
 
-        binding.simpan.setOnClickListener(view1 -> {
-            Long nominal, angkatan, tahun;
+        binding.simpan.setOnClickListener(view1 -> diagSimpan());
+        binding.hapus.setOnClickListener(view2 -> diagHapus());
+    }
 
-            angkatan = Long.valueOf(binding.angkatan.getText().toString());
-            tahun = Long.valueOf(binding.tahun.getText().toString());
-            nominal = Utils.unformatRupiah(binding.nominal.getText().toString());
-            if (angkatan == null || tahun == null || nominal == null) {
-                UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
-            } else {
-                UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
-                    editSpp(angkatan, tahun, nominal);
-                }).show();
-            }
-        });
-        binding.hapus.setOnClickListener(view2 -> {
-            UtilsUI.dialog(getContext(), "Hapus data?", "Apakah anda yakin untuk menghapus data berikut.", true).setPositiveButton("Ok", (dialog, which) -> {
-                deleteSpp();
-            }).show();
+    private void getSharedModel() {
+        binding.nominal.addTextChangedListener(new MoneyTextWatcher(binding.nominal, Long.valueOf("99999999999")));
+        sharedModel = new ViewModelProvider(requireActivity()).get(SppSharedModel.class);
+        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSpp -> {
+            this.idSpp = detailsItemSpp.getIdSpp();
+            binding.angkatan.setText(String.valueOf(detailsItemSpp.getAngkatan()));
+            binding.tahun.setText(String.valueOf(detailsItemSpp.getTahun()));
+            binding.nominal.setText(String.valueOf(detailsItemSpp.getNominal()));
         });
     }
 
@@ -160,16 +175,9 @@ public class EditSpp extends Fragment {
         binding = Petugas4EditSppBinding.inflate(inflater, container, false);
 
         UtilsUI.isLoading(binding.refresher, false, false);
-        binding.nominal.addTextChangedListener(new MoneyTextWatcher(binding.nominal, Long.valueOf("99999999999")));
         SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
         apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
-        sharedModel = new ViewModelProvider(requireActivity()).get(SppSharedModel.class);
-        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSpp -> {
-            this.idSpp = detailsItemSpp.getIdSpp();
-            binding.angkatan.setText(String.valueOf(detailsItemSpp.getAngkatan()));
-            binding.tahun.setText(String.valueOf(detailsItemSpp.getTahun()));
-            binding.nominal.setText(String.valueOf(detailsItemSpp.getNominal()));
-        });
+        getSharedModel();
         return binding.getRoot();
     }
 

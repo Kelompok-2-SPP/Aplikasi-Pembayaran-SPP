@@ -193,38 +193,55 @@ public class EditSiswa extends Fragment {
         });
     }
 
+    private void diagSimpan() {
+        String newNisn, nis, password, nama, alamat, noTelp;
+        int idKelas;
+
+        newNisn = binding.nisn.getText().toString();
+        nis = binding.nis.getText().toString();
+        password = binding.password.getText().toString();
+        nama = binding.nama.getText().toString();
+        alamat = binding.alamat.getText().toString();
+        noTelp = binding.noTelp.getText().toString();
+        idKelas = kelasList.get(binding.kelas.getSelectedItemPosition()).getValue();
+        if (newNisn.isEmpty() || nis.isEmpty() || nama.isEmpty() || alamat.isEmpty() || noTelp.isEmpty() || idKelas == 0) {
+            UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
+        } else {
+            UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
+                if (password.isEmpty()) {
+                    editSiswa(nisn, newNisn, nis, null, nama, idKelas, alamat, noTelp);
+                } else {
+                    editSiswa(nisn, newNisn, nis, password, nama, idKelas, alamat, noTelp);
+                }
+            }).show();
+        }
+    }
+
+    private void diagHapus() {
+        UtilsUI.dialog(getContext(), "Hapus data?", "Apakah anda yakin untuk menghapus data berikut, data transaksi di dalam siswa ini akan terhapus.", true).setPositiveButton("Ok", (dialog, which) -> {
+            deleteSiswa();
+        }).show();
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
 
-        binding.simpan.setOnClickListener(view1 -> {
-            String newNisn, nis, password, nama, alamat, noTelp;
-            int idKelas;
+        binding.simpan.setOnClickListener(view1 -> diagSimpan());
+        binding.hapus.setOnClickListener(view2 -> diagHapus());
+    }
 
-            newNisn = binding.nisn.getText().toString();
-            nis = binding.nis.getText().toString();
-            password = binding.password.getText().toString();
-            nama = binding.nama.getText().toString();
-            alamat = binding.alamat.getText().toString();
-            noTelp = binding.noTelp.getText().toString();
-            idKelas = kelasList.get(binding.kelas.getSelectedItemPosition()).getValue();
-            if (newNisn.isEmpty() || nis.isEmpty() || nama.isEmpty() || alamat.isEmpty() || noTelp.isEmpty() || idKelas == 0) {
-                UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
-            } else {
-                UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
-                    if (password.isEmpty()) {
-                        editSiswa(nisn, newNisn, nis, null, nama, idKelas, alamat, noTelp);
-                    } else {
-                        editSiswa(nisn, newNisn, nis, password, nama, idKelas, alamat, noTelp);
-                    }
-                }).show();
-            }
-        });
-        binding.hapus.setOnClickListener(view2 -> {
-            UtilsUI.dialog(getContext(), "Hapus data?", "Apakah anda yakin untuk menghapus data berikut, data transaksi di dalam siswa ini akan terhapus.", true).setPositiveButton("Ok", (dialog, which) -> {
-                deleteSiswa();
-            }).show();
+    private void getSharedModel() {
+        sharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
+        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSiswa -> {
+            this.nisn = detailsItemSiswa.getNisn();
+            kelasSpinner(detailsItemSiswa.getIdKelas());
+            binding.nisn.setText(detailsItemSiswa.getNisn());
+            binding.nis.setText(detailsItemSiswa.getNis());
+            binding.nama.setText(detailsItemSiswa.getNama());
+            binding.alamat.setText(detailsItemSiswa.getAlamat());
+            binding.noTelp.setText(detailsItemSiswa.getNoTelp());
         });
     }
 
@@ -236,16 +253,7 @@ public class EditSiswa extends Fragment {
         UtilsUI.isLoading(binding.refresher, false, false);
         SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
         apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
-        sharedModel = new ViewModelProvider(requireActivity()).get(SiswaSharedModel.class);
-        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemSiswa -> {
-            this.nisn = detailsItemSiswa.getNisn();
-            kelasSpinner(detailsItemSiswa.getIdKelas());
-            binding.nisn.setText(detailsItemSiswa.getNisn());
-            binding.nis.setText(detailsItemSiswa.getNis());
-            binding.nama.setText(detailsItemSiswa.getNama());
-            binding.alamat.setText(detailsItemSiswa.getAlamat());
-            binding.noTelp.setText(detailsItemSiswa.getNoTelp());
-        });
+        getSharedModel();
         return binding.getRoot();
     }
 

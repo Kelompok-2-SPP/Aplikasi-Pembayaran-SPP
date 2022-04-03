@@ -54,6 +54,26 @@ public class Login extends Fragment {
         }
     }
 
+    private void setupSession(AuthData data) {
+        JWT token = new JWT(data.getToken());
+
+        if (loginType.equals("siswa")) {
+            sessionManager.createLogininSessFor(
+                    token.getClaim("nama").asString(),
+                    token.getClaim("nisn").asString(),
+                    loginType,
+                    data.getToken()
+            );
+        } else {
+            sessionManager.createLogininSessFor(
+                    token.getClaim("nama_petugas").asString(),
+                    token.getClaim("id_petugas").asString(),
+                    token.getClaim("level").asString(),
+                    data.getToken());
+        }
+        UtilsUI.toaster(getContext(), "Selamat datang " + sessionManager.getUserDetail().get(SessionManager.USERNAME));
+    }
+
     private void authLogin(String username, String password) {
         UtilsUI.isLoading(binding.refresher, false, true);
         Call<BaseResponse<AuthData>> logind;
@@ -70,23 +90,7 @@ public class Login extends Fragment {
             public void onResponse(Call<BaseResponse<AuthData>> call, Response<BaseResponse<AuthData>> response) {
                 UtilsUI.isLoading(binding.refresher, false, false);
                 if (response.body() != null && response.isSuccessful() && response.body().getDetails().isLogged()) {
-                    JWT token = new JWT(response.body().getDetails().getToken());
-
-                    if (loginType.equals("siswa")) {
-                        sessionManager.createLogininSessFor(
-                                token.getClaim("nama").asString(),
-                                token.getClaim("nisn").asString(),
-                                loginType,
-                                response.body().getDetails().getToken()
-                        );
-                    } else {
-                        sessionManager.createLogininSessFor(
-                                token.getClaim("nama_petugas").asString(),
-                                token.getClaim("id_petugas").asString(),
-                                token.getClaim("level").asString(),
-                                response.body().getDetails().getToken());
-                    }
-                    UtilsUI.toaster(getContext(), "Selamat datang " + sessionManager.getUserDetail().get(SessionManager.USERNAME));
+                    setupSession(response.body().getDetails());
                     navigate(loginType);
 
                 } else if (response.errorBody() != null) {
@@ -131,14 +135,7 @@ public class Login extends Fragment {
         });
     }
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = LoginBinding.inflate(inflater, container, false);
-
-        sessionManager = new SessionManager(getActivity().getApplicationContext());
-        UtilsUI.isLoading(binding.refresher, false, false);
-        UtilsUI.simpleAnimation(binding.login);
+    private void setupLogin() {
         loginType = requireActivity().getIntent().getStringExtra("type");
         if (loginType.equals("siswa")) {
             binding.header.setText("Login Siswa");
@@ -148,6 +145,17 @@ public class Login extends Fragment {
             binding.username.setInputType(InputType.TYPE_CLASS_NUMBER);
             binding.username.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
         }
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = LoginBinding.inflate(inflater, container, false);
+
+        sessionManager = new SessionManager(getActivity().getApplicationContext());
+        UtilsUI.isLoading(binding.refresher, false, false);
+        UtilsUI.simpleAnimation(binding.login);
+        setupLogin();
         binding.username.requestFocus();
         return binding.getRoot();
     }

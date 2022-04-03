@@ -125,6 +125,13 @@ public class Petugas extends Fragment {
         });
     }
 
+    private void searchFocus(boolean hasFocus) {
+        if (!hasFocus) {
+            InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            in.hideSoftInputFromWindow(binding.searchBar.getWindowToken(), 0);
+        }
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -132,12 +139,7 @@ public class Petugas extends Fragment {
 
         binding.refresher.setOnRefreshListener(this::getPetugas);
         binding.searchBar.addTextChangedListener(searchAction);
-        binding.searchBar.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                in.hideSoftInputFromWindow(binding.searchBar.getWindowToken(), 0);
-            }
-        });
+        binding.searchBar.setOnFocusChangeListener((v, hasFocus) -> searchFocus(hasFocus));
         binding.btnTambah.setOnClickListener(v -> controller.navigate(R.id.action_petugas_petugas_to_tambahpetugas_petugas));
     }
 

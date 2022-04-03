@@ -36,12 +36,16 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
     private int orange;
     private String date;
     private final Histori histori;
+    private final Calendar c1, c2;
 
     public HistoriCardAdapter(List<PembayaranData> list, NavController navController, Histori histori) {
         this.listData = list;
         this.listAll = new ArrayList<>(list);
         this.controller = navController;
         this.histori = histori;
+        this.c1 = Calendar.getInstance();
+        this.c1.add(Calendar.DAY_OF_YEAR, -1);
+        this.c2 = Calendar.getInstance();
     }
 
     @NonNull
@@ -49,19 +53,13 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
     public HistoriCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_aktivitas, parent, false);
 
-        orange = view.getResources().getColor(R.color.orange);
-        context = view.getContext();
+        if (orange == 0) orange = view.getResources().getColor(R.color.orange);
+        if (context == null) context = view.getContext();
         return new HistoriCardViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull final HistoriCardViewHolder holder, int position) {
-        PembayaranData data = listData.get(position);
-
+    private void setSection(PembayaranData data, HistoriCardViewHolder holder) {
         String parsed = Utils.parseLongtoStringDate(Utils.parseServerStringtoLongDate(data.getUpdatedAt(), "yyyy-MM-dd"), "dd MMMM yyyy");
-        Calendar c1 = Calendar.getInstance();
-        Calendar c2 = Calendar.getInstance();
-        c1.add(Calendar.DAY_OF_YEAR, -1);
         c2.setTimeInMillis(Utils.parseServerStringtoLongDate(data.getUpdatedAt(), "yyyy-MM-dd"));
         if (!parsed.equals(date)) {
             this.date = parsed;
@@ -74,6 +72,9 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
             }
             holder.section.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void setHolder(PembayaranData data, HistoriCardViewHolder holder) {
         holder.name.setText(data.getSiswa().getNama());
         holder.kelas.setText(data.getSiswa().getKelas().getNamaKelas());
         if (data.getSpp() != null && Utils.statusPembayaran(data.getSpp().getNominal(), data.getJumlahBayar())) {
@@ -89,6 +90,14 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
             shared.updateData(data);
             controller.navigate(R.id.action_histori_petugas_to_rincianTransaksi_siswa);
         });
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final HistoriCardViewHolder holder, int position) {
+        PembayaranData data = listData.get(position);
+
+        setSection(data, holder);
+        setHolder(data, holder);
         UtilsUI.simpleAnimation(holder.itemView);
     }
 
@@ -115,7 +124,7 @@ public class HistoriCardAdapter extends RecyclerView.Adapter<HistoriCardAdapter.
 
                 for (PembayaranData data : listAll) {
                     long date = Utils.parseServerStringtoLongDate(data.getUpdatedAt(), "yyyy-MM");
-                    if (Utils.parseLongtoStringDate(date, "yyyy").equals(year) && Utils.parseLongtoStringDate(date, "MM").equals(month) ) {
+                    if (Utils.parseLongtoStringDate(date, "yyyy").equals(year) && Utils.parseLongtoStringDate(date, "MM").equals(month)) {
                         filteredlist.add(data);
                     }
                 }

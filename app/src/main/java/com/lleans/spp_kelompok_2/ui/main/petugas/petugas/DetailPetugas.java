@@ -74,14 +74,18 @@ public class DetailPetugas extends Fragment {
                 if (response.body() != null && response.isSuccessful()) {
                     setAdapter(response.body().getDetails());
                 } else {
-                    try {
-                        BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
-                        UtilsUI.toaster(getContext(), message.getMessage());
-                    } catch (Exception e) {
+                    if (response.code() == 404) {
+                        UtilsUI.toaster(getContext(), "Aktivitas petugas tidak ditemukan");
+                    } else {
                         try {
-                            UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
-                        } catch (IOException ioException) {
-                            ioException.printStackTrace();
+                            BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
+                            UtilsUI.toaster(getContext(), message.getMessage());
+                        } catch (Exception e) {
+                            try {
+                                UtilsUI.dialog(getContext(), "Something went wrong!", response.errorBody().string(), false).show();
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
                         }
                     }
                 }
@@ -94,6 +98,18 @@ public class DetailPetugas extends Fragment {
             }
         });
 
+    }
+
+    private void getSharedModel() {
+        PetugasSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(PetugasSharedModel.class);
+        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemPetugas -> {
+            this.idPetugas = detailsItemPetugas.getIdPetugas();
+            UtilsUI.nicknameBuilder(getActivity().getApplicationContext(), detailsItemPetugas.getNamaPetugas(), binding.nick, binding.nickFrame);
+            binding.nama.setText(detailsItemPetugas.getNamaPetugas());
+            binding.username.setText(detailsItemPetugas.getUsername());
+            binding.level.setText(detailsItemPetugas.getLevel().equals("petugas") ? "Petugas" : "Admin");
+            getAktivitas();
+        });
     }
 
     @Override
@@ -113,17 +129,9 @@ public class DetailPetugas extends Fragment {
                              Bundle savedInstanceState) {
         binding = Petugas3DetailPetugasBinding.inflate(inflater, container, false);
 
-        PetugasSharedModel sharedModel = new ViewModelProvider(requireActivity()).get(PetugasSharedModel.class);
         SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
         apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
-        sharedModel.getData().observe(getViewLifecycleOwner(), detailsItemPetugas -> {
-            this.idPetugas = detailsItemPetugas.getIdPetugas();
-            UtilsUI.nicknameBuilder(getActivity().getApplicationContext(), detailsItemPetugas.getNamaPetugas(), binding.nick, binding.nickFrame);
-            binding.nama.setText(detailsItemPetugas.getNamaPetugas());
-            binding.username.setText(detailsItemPetugas.getUsername());
-            binding.level.setText(detailsItemPetugas.getLevel().equals("petugas") ? "Petugas" : "Admin");
-            getAktivitas();
-        });
+        getSharedModel();
         return binding.getRoot();
     }
 

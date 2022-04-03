@@ -23,6 +23,7 @@
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/background_edit_unfocused.xml" value="0.2815" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/background_lines_dotted.xml" value="0.2815" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/background_oval_base.xml" value="0.277" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/background_tab_indicator.xml" value="0.284" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/background_tab_layout_base.xml" value="0.2815" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/button.xml" value="0.2013888888888889" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/button_plus.xml" value="0.2013888888888889" />
@@ -51,12 +52,14 @@
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/icon_arrow_down_focused.xml" value="0.2815" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/icon_arrow_left.xml" value="0.2815" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/icon_button_add.xml" value="0.2815" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/icon_calendar.xml" value="0.284" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/icon_cards_logo.xml" value="0.2815" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/icon_cetak.xml" value="0.2815" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/icon_checked.xml" value="0.2815" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/icon_datakelas.xml" value="0.2815" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/icon_datapetugas.xml" value="0.2815" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/icon_datasiswa.xml" value="0.2815" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/icon_download.xml" value="0.284" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/icon_edit.xml" value="0.2815" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/icon_histori.xml" value="0.2815" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/drawable/icon_login.xml" value="0.2815" />
@@ -129,7 +132,7 @@
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_2_petugas.xml" value="0.3052586575459598" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_2_siswa.xml" value="0.3620239958268127" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_2_spp.xml" value="0.25" />
-        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_3_detail_petugas.xml" value="0.25" />
+        <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_3_detail_petugas.xml" value="0.75" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_3_rincian_petugas.xml" value="0.46355876559422193" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_3_rincian_spp.xml" value="0.25" />
         <entry key="..\:/Project/AndroidStudio/Aplikasi-Pembayaran-SPP/app/src/main/res/layout/petugas_3_status_siswa.xml" value="0.22" />

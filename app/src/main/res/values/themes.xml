@@ -22,7 +22,9 @@
         <item name="android:textColorHint">@color/text_black40</item>
         <item name="android:textColorHighlight">@color/neutral_lightGrey</item>
         <item name="shapeAppearanceMediumComponent">@style/SPPKelompok2.CustomDialog</item>
-        <item name="shapeAppearanceLargeComponent">@style/SPPKelompok2.MonthPicker</item>
+
+        <item name="dialogActionButtonColor">?colorPrimary</item>
+        <item name="dialogCornerRadius">16dp</item>
         <item name="cornerFamily">rounded</item>
     </style>
 
@@ -35,21 +37,6 @@
 
     <style name="SPPKelompok2.CustomDialog" parent="Theme.MaterialComponents.Dialog">
         <item name="cornerSize">16dp</item>
-    </style>
-
-    <style name="SPPKelompok2.MonthPicker" parent="MonthPickerDialogStyle">
-        <item name="monthBgColor">?colorSurface</item>
-        <item name="monthBgSelectedColor">?colorPrimary</item>
-        <item name="monthFontColorSelected">?colorSurface</item>
-        <item name="monthFontColorNormal">?colorSurface</item>
-        <item name="monthFontColorDisabled">?background</item>
-
-        <item name="headerBgColor">?colorPrimary</item>
-        <item name="headerFontColorSelected">?colorSurface</item>
-        <item name="headerFontColorNormal">?colorOnSecondary</item>
-        <item name="headerTitleColor">?colorSurface</item>
-
-        <item name="dialogActionButtonColor">?colorPrimary</item>
         <item name="dialogCornerRadius">16dp</item>
     </style>
 

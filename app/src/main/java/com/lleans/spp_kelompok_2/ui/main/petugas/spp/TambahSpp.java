@@ -75,24 +75,31 @@ public class TambahSpp extends Fragment {
         });
     }
 
+    private void diagSimpan() {
+        Long nominal, angkatan, tahun;
+
+        angkatan = Long.parseLong(binding.angkatan.getText().toString());
+        tahun = Long.parseLong(binding.tahun.getText().toString());
+        nominal = Utils.unformatRupiah(binding.nominal.getText().toString());
+        if (angkatan == null || tahun == null || nominal == null) {
+            UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
+        } else {
+            UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
+                tambahSpp(angkatan, tahun, nominal);
+            }).show();
+        }
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
-        binding.simpan.setOnClickListener(view1 -> {
-            Long nominal, angkatan, tahun;
+        binding.simpan.setOnClickListener(view1 -> diagSimpan());
+    }
 
-            angkatan = Long.parseLong(binding.angkatan.getText().toString());
-            tahun = Long.parseLong(binding.tahun.getText().toString());
-            nominal = Utils.unformatRupiah(binding.nominal.getText().toString());
-            if (angkatan == null || tahun == null || nominal == null) {
-                UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
-            } else {
-                UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
-                    tambahSpp(angkatan, tahun, nominal);
-                }).show();
-            }
-        });
+    private void setupSpp() {
+        binding.nominal.addTextChangedListener(new MoneyTextWatcher(binding.nominal, Long.valueOf("99999999999")));
+        binding.nominal.setText("0");
     }
 
     @Override
@@ -100,11 +107,10 @@ public class TambahSpp extends Fragment {
                              Bundle savedInstanceState) {
         binding = Petugas5TambahSppBinding.inflate(inflater, container, false);
 
-        binding.nominal.addTextChangedListener(new MoneyTextWatcher(binding.nominal, Long.valueOf("99999999999")));
-        binding.nominal.setText("0");
         UtilsUI.isLoading(binding.refresher, false, false);
         SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
         apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
+        setupSpp();
         return binding.getRoot();
     }
 

@@ -142,6 +142,13 @@ public class Siswa extends Fragment {
         });
     }
 
+    private void searchFocus(boolean hasFocus) {
+        if (!hasFocus) {
+            InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            in.hideSoftInputFromWindow(binding.searchBar.getWindowToken(), 0);
+        }
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -149,27 +156,13 @@ public class Siswa extends Fragment {
 
         binding.refresher.setOnRefreshListener(this::getSiswa);
         binding.searchBar.addTextChangedListener(searchAction);
-        binding.searchBar.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                in.hideSoftInputFromWindow(binding.searchBar.getWindowToken(), 0);
-            }
-        });
+        binding.searchBar.setOnFocusChangeListener((v, hasFocus) -> searchFocus(hasFocus));
         binding.add.setOnClickListener(v -> controller.navigate(R.id.action_siswa_petugas_to_tambahSiswa));
         binding.edit.setOnClickListener(v -> controller.navigate(R.id.action_siswa_petugas_to_editKelas));
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = Petugas2SiswaBinding.inflate(inflater, container, false);
-
+    private void getSHaredModel() {
         KelasSharedModel shared = new ViewModelProvider(requireActivity()).get(KelasSharedModel.class);
-        SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
-        apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
-        if (sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")) {
-            UILimiter();
-        }
         shared.getData().observe(getViewLifecycleOwner(), detailsItemKelas -> {
             this.idKelas = detailsItemKelas.getIdKelas();
             binding.namaKelas.setText(detailsItemKelas.getNamaKelas());
@@ -178,6 +171,19 @@ public class Siswa extends Fragment {
             binding.angkatan.setText(String.valueOf(detailsItemKelas.getAngkatan()));
             getSiswa();
         });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = Petugas2SiswaBinding.inflate(inflater, container, false);
+
+        SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
+        apiInterface = ApiClient.getClient(sessionManager.getUserDetail().get(SessionManager.TOKEN)).create(ApiInterface.class);
+        if (sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")) {
+            UILimiter();
+        }
+        getSHaredModel();
         UtilsUI.simpleAnimation(binding.add);
         return binding.getRoot();
     }

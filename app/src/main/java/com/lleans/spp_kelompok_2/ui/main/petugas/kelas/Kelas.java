@@ -130,6 +130,13 @@ public class Kelas extends Fragment {
         });
     }
 
+    private void searchFocus(boolean hasFocus) {
+        if (!hasFocus) {
+            InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            in.hideSoftInputFromWindow(binding.searchBar.getWindowToken(), 0);
+        }
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -137,12 +144,7 @@ public class Kelas extends Fragment {
 
         binding.btnTambahKelas.setOnClickListener(v -> controller.navigate(R.id.action_kelas_petugas_to_tambahKelas_petugas));
         binding.searchBar.addTextChangedListener(searchAction);
-        binding.searchBar.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                in.hideSoftInputFromWindow(binding.searchBar.getWindowToken(), 0);
-            }
-        });
+        binding.searchBar.setOnFocusChangeListener((v, hasFocus) -> searchFocus(hasFocus));
         binding.refresher.setOnRefreshListener(this::getKelas);
     }
 

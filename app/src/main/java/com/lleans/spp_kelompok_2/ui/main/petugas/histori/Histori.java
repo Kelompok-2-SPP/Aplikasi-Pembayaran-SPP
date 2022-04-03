@@ -62,6 +62,24 @@ public class Histori extends Fragment {
         binding.recyclerView.setAdapter(cardAdapter);
     }
 
+    private void monthYearPicker() {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+
+        MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
+            if (cardAdapter != null) {
+                binding.tgl.setText(Utils.parseLongtoStringDate(Utils.parseServerStringtoLongDate(selectedYear + "-" + (selectedMonth + 1), "yyyy-MM"), "MMMM yyyy"));
+                cardAdapter.getFilter().filter(String.valueOf(Utils.parseServerStringtoLongDate(selectedYear + "-" + (selectedMonth + 1), "yyyy-MM")));
+                notFoundHandling(cardAdapter.getItemCount() == 0);
+            }
+        }, year, month);
+        builder.setActivatedMonth(month)
+                .setTitle("Pilih Bulan dan Tahun")
+                .setMaxYear(year)
+                .setActivatedYear(year)
+                .build().show();
+    }
+
     private void getHistori() {
         UtilsUI.isLoading(binding.refresher, true, true);
         Call<BaseResponse<List<PembayaranData>>> historiDataCall;
@@ -116,23 +134,7 @@ public class Histori extends Fragment {
         controller = Navigation.findNavController(view);
 
         binding.refresher.setOnRefreshListener(this::getHistori);
-        binding.calendar.setOnClickListener(v -> {
-            int year = Calendar.getInstance().get(Calendar.YEAR);
-            int month = Calendar.getInstance().get(Calendar.MONTH);
-
-            MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
-                if (cardAdapter != null) {
-                    binding.tgl.setText(Utils.parseLongtoStringDate(Utils.parseServerStringtoLongDate(selectedYear + "-" + (selectedMonth + 1), "yyyy-MM"), "MMMM yyyy"));
-                    cardAdapter.getFilter().filter(String.valueOf(Utils.parseServerStringtoLongDate(selectedYear + "-" + (selectedMonth + 1), "yyyy-MM")));
-                    notFoundHandling(cardAdapter.getItemCount() == 0);
-                }
-            }, year, month);
-            builder.setActivatedMonth(month)
-                    .setTitle("Pilih Bulan dan Tahun")
-                    .setMaxYear(year)
-                    .setActivatedYear(year)
-                    .build().show();
-        });
+        binding.calendar.setOnClickListener(v -> monthYearPicker());
     }
 
     @Override

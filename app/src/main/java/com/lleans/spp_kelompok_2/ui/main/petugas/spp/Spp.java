@@ -110,6 +110,21 @@ public class Spp extends Fragment {
         });
     }
 
+    private void monthYearPicker() {
+        MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
+            if (cardAdapter != null) {
+                this.year = selectedYear;
+                binding.tgl.setText(String.valueOf(selectedYear));
+                cardAdapter.getFilter().filter(String.valueOf(selectedYear));
+            }
+        }, this.year, this.month);
+        builder.setTitle("Pilih Tahun SPP")
+                .setActivatedYear(this.year)
+                .setMaxYear(this.year)
+                .showYearOnly()
+                .build().show();
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -117,20 +132,13 @@ public class Spp extends Fragment {
 
         binding.refresher.setOnRefreshListener(this::getSpp);
         binding.add.setOnClickListener(v -> controller.navigate(R.id.action_spp_petugas_to_tambahspp_petugas));
-        binding.calendar.setOnClickListener(v -> {
-            MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getContext(), (selectedMonth, selectedYear) -> {
-                if (cardAdapter != null) {
-                    this.year = selectedYear;
-                    binding.tgl.setText(String.valueOf(selectedYear));
-                    cardAdapter.getFilter().filter(String.valueOf(selectedYear));
-                }
-            }, this.year, this.month);
-            builder.setTitle("Pilih Tahun SPP")
-                    .setActivatedYear(this.year)
-                    .setMaxYear(this.year)
-                    .showYearOnly()
-                    .build().show();
-        });
+        binding.calendar.setOnClickListener(v -> monthYearPicker());
+    }
+
+    private void setupSpp() {
+        this.year = Calendar.getInstance().get(Calendar.YEAR);
+        this.month = Calendar.getInstance().get(Calendar.MONTH);
+        getSpp();
     }
 
     @Override
@@ -143,9 +151,7 @@ public class Spp extends Fragment {
         if (sessionManager.getUserDetail().get(SessionManager.TYPE).equals("petugas")) {
             UILimiter();
         }
-        this.year = Calendar.getInstance().get(Calendar.YEAR);
-        this.month = Calendar.getInstance().get(Calendar.MONTH);
-        getSpp();
+        setupSpp();
         UtilsUI.simpleAnimation(binding.add);
         UtilsUI.simpleAnimation(binding.calendar);
         return binding.getRoot();

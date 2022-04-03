@@ -75,25 +75,27 @@ public class TambahPetugas extends Fragment {
         });
     }
 
+    private void diagSimpan() {
+        String username, password, namaPetugas;
+
+        username = binding.username.getText().toString();
+        password = binding.password.getText().toString();
+        namaPetugas = binding.namaPetugas.getText().toString();
+        if (username.isEmpty() || password.isEmpty() || namaPetugas.isEmpty()) {
+            UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
+        } else {
+            UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
+                tambahPetugas(username, password, namaPetugas);
+            }).show();
+        }
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         controller = Navigation.findNavController(view);
 
-        binding.simpan.setOnClickListener(view1 -> {
-            String username, password, namaPetugas;
-
-            username = binding.username.getText().toString();
-            password = binding.password.getText().toString();
-            namaPetugas = binding.namaPetugas.getText().toString();
-            if (username.isEmpty() || password.isEmpty() || namaPetugas.isEmpty()) {
-                UtilsUI.toaster(getContext(), "Data tidak boleh kosong!");
-            } else {
-                UtilsUI.dialog(getContext(), "Simpan data?", "Apakah anda yakin untuk menyimpan data berikut, pastikan data sudah benar.", true).setPositiveButton("Ok", (dialog, which) -> {
-                    tambahPetugas(username, password, namaPetugas);
-                }).show();
-            }
-        });
+        binding.simpan.setOnClickListener(view1 -> diagSimpan());
     }
 
     @Override
