@@ -26,7 +26,7 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="@string/hai_admin"
-                android:textColor="@color/red"
+                android:textColor="@color/primary_color"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

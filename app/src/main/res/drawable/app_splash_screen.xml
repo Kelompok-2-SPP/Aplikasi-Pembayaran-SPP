@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/red" />
+    <item android:drawable="@color/primary_color" />
     <item
-        android:width="500dp"
-        android:height="500dp"
-        android:drawable="@drawable/app_icon_foreground"
+        android:width="300dp"
+        android:height="250dp"
+        android:drawable="@drawable/vector2"
         android:gravity="center" />
 </layer-list>
