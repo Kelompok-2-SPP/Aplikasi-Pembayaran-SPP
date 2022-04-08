@@ -10,333 +10,344 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="40dp">
+            android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/frameLayout"
+                android:id="@+id/layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_marginHorizontal="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:paddingBottom="40dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/frameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/materialCardView4"
+                        style="@style/SPPKelompok2.Card.Large"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="30dp"
+                            android:layout_marginVertical="24dp">
+
+                            <TextView
+                                android:id="@+id/statusText"
+                                style="@style/SPPKelompok2.Text.Semibold.Body1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Lunas"
+                                android:textColor="@color/green"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/jumlah"
+                                style="@style/SPPKelompok2.Text.Bold.Header2"
+                                android:layout_width="250dp"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:text="@string/rp500_000"
+                                app:layout_constraintEnd_toEndOf="@+id/statusText"
+                                app:layout_constraintStart_toStartOf="@+id/statusText"
+                                app:layout_constraintTop_toBottomOf="@+id/statusText" />
+
+                            <TextView
+                                android:id="@+id/spp"
+                                style="@style/SPPKelompok2.Text.Semibold.Body1"
+                                android:layout_width="180dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:text="2021 • September"
+                                app:layout_constraintEnd_toEndOf="@+id/jumlah"
+                                app:layout_constraintStart_toStartOf="@+id/jumlah"
+                                app:layout_constraintTop_toBottomOf="@+id/jumlah" />
+
+                            <TextView
+                                android:id="@+id/tglBayar"
+                                style="@style/SPPKelompok2.Text.Regular.Body3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="25 Oktober 2021"
+                                android:textColor="@color/dark_grey"
+                                app:layout_constraintEnd_toEndOf="@+id/spp"
+                                app:layout_constraintStart_toStartOf="@+id/spp"
+                                app:layout_constraintTop_toBottomOf="@+id/spp" />
+
+                            <ImageButton
+                                android:id="@+id/edit"
+                                android:layout_width="24dp"
+                                android:layout_height="27dp"
+                                android:background="?selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:contentDescription="@string/edit"
+                                android:focusable="true"
+                                android:src="@drawable/icon_edit"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="1.0"
+                                app:layout_constraintStart_toEndOf="@+id/tglBayar"
+                                tools:ignore="TouchTargetSizeCheck" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <FrameLayout
+                        android:id="@+id/frameStatus"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="-25dp"
+                        android:background="@drawable/background_oval_base"
+                        android:backgroundTint="@color/green"
+                        android:elevation="3dp"
+                        app:layout_constraintBottom_toTopOf="@+id/materialCardView4"
+                        app:layout_constraintEnd_toEndOf="@+id/materialCardView4"
+                        app:layout_constraintStart_toStartOf="@+id/materialCardView4">
+
+                        <ImageView
+                            android:id="@+id/status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/icon_checked" />
+
+                    </FrameLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/materialCardView4"
+                    android:id="@+id/cardView2"
                     style="@style/SPPKelompok2.Card.Large"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    android:layout_marginHorizontal="16dp"
+                    app:layout_constraintEnd_toEndOf="@+id/frameLayout"
+                    app:layout_constraintStart_toStartOf="@+id/frameLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="30dp"
-                        android:layout_marginVertical="24dp">
+                        android:layout_height="match_parent"
+                        android:layout_margin="30dp">
 
                         <TextView
-                            android:id="@+id/statusText"
-                            style="@style/SPPKelompok2.Text.Semibold.Body1"
+                            android:id="@+id/textView17"
+                            style="@style/SPPKelompok2.Text.Semibold.Body2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Lunas"
-                            android:textColor="@color/green"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            android:text="Detail SPP"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/jumlah"
-                            style="@style/SPPKelompok2.Text.Bold.Header2"
-                            android:layout_width="250dp"
+                            android:id="@+id/idSpp"
+                            style="@style/SPPKelompok2.Text.Regular.Body4"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="@string/rp500_000"
-                            app:layout_constraintEnd_toEndOf="@+id/statusText"
-                            app:layout_constraintStart_toStartOf="@+id/statusText"
-                            app:layout_constraintTop_toBottomOf="@+id/statusText" />
+                            android:textColor="@color/dark_grey"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView17"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView17" />
+
+                        <ImageView
+                            android:id="@+id/image"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/background_lines_dotted"
+                            app:layout_constraintEnd_toEndOf="@+id/idSpp"
+                            app:layout_constraintStart_toStartOf="@+id/textView17"
+                            app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
                         <TextView
-                            android:id="@+id/spp"
-                            style="@style/SPPKelompok2.Text.Semibold.Body1"
-                            android:layout_width="180dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="2021 • September"
-                            app:layout_constraintEnd_toEndOf="@+id/jumlah"
-                            app:layout_constraintStart_toStartOf="@+id/jumlah"
-                            app:layout_constraintTop_toBottomOf="@+id/jumlah" />
-
-                        <TextView
-                            android:id="@+id/tglBayar"
+                            android:id="@+id/textView19"
                             style="@style/SPPKelompok2.Text.Regular.Body3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="25 Oktober 2021"
-                            android:textColor="@color/dark_grey"
-                            app:layout_constraintEnd_toEndOf="@+id/spp"
-                            app:layout_constraintStart_toStartOf="@+id/spp"
-                            app:layout_constraintTop_toBottomOf="@+id/spp" />
+                            android:layout_marginTop="12dp"
+                            android:text="SPP Angkatan"
+                            app:layout_constraintStart_toStartOf="@+id/image"
+                            app:layout_constraintTop_toBottomOf="@+id/image" />
 
-                        <ImageButton
-                            android:id="@+id/edit"
-                            android:layout_width="24dp"
-                            android:layout_height="27dp"
-                            android:background="?selectableItemBackgroundBorderless"
-                            android:clickable="true"
-                            android:contentDescription="@string/edit"
-                            android:focusable="true"
-                            android:src="@drawable/icon_edit"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                        <TextView
+                            android:id="@+id/angkatan"
+                            style="@style/SPPKelompok2.Text.Regular.Body3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView19"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="1.0"
-                            app:layout_constraintStart_toEndOf="@+id/tglBayar"
-                            tools:ignore="TouchTargetSizeCheck" />
+                            app:layout_constraintTop_toTopOf="@+id/textView19" />
+
+                        <TextView
+                            android:id="@+id/textView20"
+                            style="@style/SPPKelompok2.Text.Regular.Body3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="SPP Tahun"
+                            app:layout_constraintStart_toStartOf="@+id/textView19"
+                            app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+                        <TextView
+                            android:id="@+id/tahun"
+                            style="@style/SPPKelompok2.Text.Regular.Body3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView20"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView20" />
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/background_lines"
+                            app:layout_constraintEnd_toEndOf="@+id/tahun"
+                            app:layout_constraintStart_toStartOf="@+id/textView20"
+                            app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+                        <TextView
+                            android:id="@+id/textView23"
+                            style="@style/SPPKelompok2.Text.Semibold.Body2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="Nominal SPP"
+                            app:layout_constraintStart_toStartOf="@+id/imageView3"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+                        <TextView
+                            android:id="@+id/nominal"
+                            style="@style/SPPKelompok2.Text.Semibold.Body2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView23"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView23" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <FrameLayout
-                    android:id="@+id/frameStatus"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="-25dp"
-                    android:background="@drawable/background_oval_base"
-                    android:backgroundTint="@color/green"
-                    android:elevation="3dp"
-                    app:layout_constraintBottom_toTopOf="@+id/materialCardView4"
-                    app:layout_constraintEnd_toEndOf="@+id/materialCardView4"
-                    app:layout_constraintStart_toStartOf="@+id/materialCardView4">
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardSiswa"
+                    style="@style/SPPKelompok2.Card.Large"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    app:layout_constraintEnd_toEndOf="@+id/cardView2"
+                    app:layout_constraintStart_toStartOf="@+id/cardView2"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView2">
 
-                    <ImageView
-                        android:id="@+id/status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/icon_checked" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="20dp">
 
-                </FrameLayout>
+                        <TextView
+                            android:id="@+id/textView24"
+                            style="@style/SPPKelompok2.Text.Semibold.Body2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Siswa"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/siswa"
+                            style="@style/SPPKelompok2.Text.Regular.Body3"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="end"
+                            android:maxLines="1"
+                            android:text="Agung GUntur Widjaja"
+                            android:textColor="@color/dark_grey"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView24"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView24" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardPetugas"
+                    style="@style/SPPKelompok2.Card.Large"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    app:layout_constraintEnd_toEndOf="@+id/cardSiswa"
+                    app:layout_constraintStart_toStartOf="@+id/cardSiswa"
+                    app:layout_constraintTop_toBottomOf="@+id/cardSiswa">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="20dp">
+
+                        <TextView
+                            android:id="@+id/textView25"
+                            style="@style/SPPKelompok2.Text.Semibold.Body2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Dilayani Oleh"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/petugas"
+                            style="@style/SPPKelompok2.Text.Regular.Body3"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="end"
+                            android:maxLines="1"
+                            android:text="Wahyuningsih"
+                            android:textColor="@color/dark_grey"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView25"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView25" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView2"
-                style="@style/SPPKelompok2.Card.Large"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                app:layout_constraintEnd_toEndOf="@+id/frameLayout"
-                app:layout_constraintStart_toStartOf="@+id/frameLayout"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+                android:layout_height="150dp"
+                android:layout_below="@+id/layout" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="30dp">
-
-                    <TextView
-                        android:id="@+id/textView17"
-                        style="@style/SPPKelompok2.Text.Semibold.Body2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Detail SPP"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/idSpp"
-                        style="@style/SPPKelompok2.Text.Regular.Body4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/dark_grey"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView17"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView17" />
-
-                    <ImageView
-                        android:id="@+id/image"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/background_lines_dotted"
-                        app:layout_constraintEnd_toEndOf="@+id/idSpp"
-                        app:layout_constraintStart_toStartOf="@+id/textView17"
-                        app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-                    <TextView
-                        android:id="@+id/textView19"
-                        style="@style/SPPKelompok2.Text.Regular.Body3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="SPP Angkatan"
-                        app:layout_constraintStart_toStartOf="@+id/image"
-                        app:layout_constraintTop_toBottomOf="@+id/image" />
-
-                    <TextView
-                        android:id="@+id/angkatan"
-                        style="@style/SPPKelompok2.Text.Regular.Body3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView19"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView19" />
-
-                    <TextView
-                        android:id="@+id/textView20"
-                        style="@style/SPPKelompok2.Text.Regular.Body3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="SPP Tahun"
-                        app:layout_constraintStart_toStartOf="@+id/textView19"
-                        app:layout_constraintTop_toBottomOf="@+id/textView19" />
-
-                    <TextView
-                        android:id="@+id/tahun"
-                        style="@style/SPPKelompok2.Text.Regular.Body3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView20"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView20" />
-
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/background_lines"
-                        app:layout_constraintEnd_toEndOf="@+id/tahun"
-                        app:layout_constraintStart_toStartOf="@+id/textView20"
-                        app:layout_constraintTop_toBottomOf="@+id/textView20" />
-
-                    <TextView
-                        android:id="@+id/textView23"
-                        style="@style/SPPKelompok2.Text.Semibold.Body2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="Nominal SPP"
-                        app:layout_constraintStart_toStartOf="@+id/imageView3"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-                    <TextView
-                        android:id="@+id/nominal"
-                        style="@style/SPPKelompok2.Text.Semibold.Body2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView23"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView23" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardSiswa"
-                style="@style/SPPKelompok2.Card.Large"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                app:layout_constraintEnd_toEndOf="@+id/cardView2"
-                app:layout_constraintStart_toStartOf="@+id/cardView2"
-                app:layout_constraintTop_toBottomOf="@+id/cardView2">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="20dp">
-
-                    <TextView
-                        android:id="@+id/textView24"
-                        style="@style/SPPKelompok2.Text.Semibold.Body2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nama Siswa"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/siswa"
-                        style="@style/SPPKelompok2.Text.Regular.Body3"
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:gravity="end"
-                        android:maxLines="1"
-                        android:text="Agung GUntur Widjaja"
-                        android:textColor="@color/dark_grey"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView24"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView24" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardPetugas"
-                style="@style/SPPKelompok2.Card.Large"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                app:layout_constraintEnd_toEndOf="@+id/cardSiswa"
-                app:layout_constraintStart_toStartOf="@+id/cardSiswa"
-                app:layout_constraintTop_toBottomOf="@+id/cardSiswa">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="20dp">
-
-                    <TextView
-                        android:id="@+id/textView25"
-                        style="@style/SPPKelompok2.Text.Semibold.Body2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Dilayani Oleh"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/petugas"
-                        style="@style/SPPKelompok2.Text.Regular.Body3"
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:gravity="end"
-                        android:maxLines="1"
-                        android:text="Wahyuningsih"
-                        android:textColor="@color/dark_grey"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView25"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView25" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
 
     </ScrollView>
 

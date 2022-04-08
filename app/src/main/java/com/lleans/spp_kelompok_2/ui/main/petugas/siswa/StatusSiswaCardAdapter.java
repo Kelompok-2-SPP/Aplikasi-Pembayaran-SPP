@@ -78,7 +78,6 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
     }
 
     private void updateStatus(int idPembayaran, long jumlahPembayaran, int position) {
-        localUpdate(position, jumlahPembayaran);
         Call<BaseResponse<PembayaranData>> updateStatus;
 
         updateStatus = apiInterface.putPembayaran(
@@ -94,9 +93,7 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
         updateStatus.enqueue(new Callback<BaseResponse<PembayaranData>>() {
             @Override
             public void onResponse(Call<BaseResponse<PembayaranData>> call, Response<BaseResponse<PembayaranData>> response) {
-                if (response.body() != null && response.isSuccessful()) {
-                    listData.set(position, response.body().getDetails());
-                } else {
+                if (!response.isSuccessful()) {
                     try {
                         BaseResponse message = new Gson().fromJson(response.errorBody().charStream(), BaseResponse.class);
                         UtilsUI.toaster(context, message.getMessage());
@@ -176,6 +173,7 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 1) {
+                    holder.sudBayar.setText(String.valueOf(data.getJumlahBayar()));
                     setStatus(false, holder);
                     holder.sudBayar.requestFocus();
                     inputMethodManager.showSoftInput(holder.sudBayar, InputMethodManager.SHOW_IMPLICIT);
@@ -183,8 +181,10 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
                     setStatus(true, holder);
                     inputMethodManager.hideSoftInputFromWindow(holder.sudBayar.getWindowToken(), 0);
                     if (data.getSpp() != null) {
+                        localUpdate(holder.getAdapterPosition(), data.getSpp().getNominal());
                         updateStatus(data.getIdPembayaran(), data.getSpp().getNominal(), holder.getAdapterPosition());
                     } else {
+                        localUpdate(holder.getAdapterPosition(), data.getJumlahBayar());
                         updateStatus(data.getIdPembayaran(), data.getJumlahBayar(), holder.getAdapterPosition());
                     }
                 }
@@ -202,12 +202,16 @@ public class StatusSiswaCardAdapter extends RecyclerView.Adapter<StatusSiswaCard
         });
         holder.sudBayar.setOnEditorActionListener((v, actionId, event) -> {
             v.clearFocus();
-            long unformatted = Utils.unformatRupiah(holder.sudBayar.getText().toString());
+            Long unformatted = Utils.unformatRupiah(holder.sudBayar.getText().toString());
             if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
-                if (unformatted == data.getJumlahBayar()) {
+                if (unformatted.equals(data.getJumlahBayar())) {
                     notifyItemChanged(holder.getAdapterPosition());
-                } else if (unformatted != data.getJumlahBayar()) {
+                } else if (data.getSpp() != null && !unformatted.equals(data.getJumlahBayar())) {
+                    localUpdate(holder.getAdapterPosition(), unformatted);
+                    setStatus(!Utils.statusPembayaran(data.getSpp().getNominal(), listData.get(holder.getAdapterPosition()).getJumlahBayar()), holder);
                     updateStatus(data.getIdPembayaran(), unformatted, holder.getAdapterPosition());
+                } else if (data.getSpp() == null) {
+                    setStatus(true, holder);
                 }
             }
             return false;
