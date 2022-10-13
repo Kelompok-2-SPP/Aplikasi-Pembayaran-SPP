@@ -80,8 +80,8 @@
 
                             <ImageButton
                                 android:id="@+id/edit"
-                                android:layout_width="24dp"
-                                android:layout_height="27dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:background="?selectableItemBackgroundBorderless"
                                 android:clickable="true"
                                 android:contentDescription="@string/edit"
