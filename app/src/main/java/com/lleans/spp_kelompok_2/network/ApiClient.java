@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    private static final String API_URL = "https://praktek-ukk-spp.herokuapp.com/api/";
+    private static final String API_URL = "https://praktek-ukk-spp-lleans.koyeb.app/api/";
 
     private static Retrofit retrofit;
     private static String savToken;
